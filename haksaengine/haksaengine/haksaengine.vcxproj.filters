@@ -13,26 +13,44 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\ECS">
+      <UniqueIdentifier>{bff9baae-85dc-4ab9-9502-a59b1c2ce0f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ECS">
+      <UniqueIdentifier>{9f1a77bd-2221-4e1e-a04f-066318135da4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="include\ecs\component.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs\entity.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs\system.h">
+      <Filter>Header Files\ECS</Filter>
+    </ClInclude>
+    <ClInclude Include="include\globals.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="targetver.h">
+    <ClInclude Include="include\stdafx.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="globals.h">
+    <ClInclude Include="include\targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="src\ecs\entity.cpp">
+      <Filter>Source Files\ECS</Filter>
+    </ClCompile>
+    <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="haksaengine.cpp">
+    <ClCompile Include="src\haksaengine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="dllmain.cpp">
+    <ClCompile Include="src\stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

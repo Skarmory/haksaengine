@@ -84,12 +84,14 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;HAKSAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>C:\Users\Alastair\Documents\GitHub\rtseng\haksaengine\haksaengine\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -147,19 +149,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="globals.h" />
-    <ClInclude Include="stdafx.h" />
-    <ClInclude Include="targetver.h" />
+    <ClInclude Include="include\ecs\component.h" />
+    <ClInclude Include="include\ecs\entity.h" />
+    <ClInclude Include="include\ecs\system.h" />
+    <ClInclude Include="include\globals.h" />
+    <ClInclude Include="include\stdafx.h" />
+    <ClInclude Include="include\targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="dllmain.cpp" />
-    <ClCompile Include="haksaengine.cpp" />
-    <ClCompile Include="stdafx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
-    </ClCompile>
+    <ClCompile Include="src\dllmain.cpp" />
+    <ClCompile Include="src\ecs\entity.cpp" />
+    <ClCompile Include="src\haksaengine.cpp" />
+    <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
