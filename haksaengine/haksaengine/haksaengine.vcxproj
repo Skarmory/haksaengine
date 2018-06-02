@@ -152,6 +152,8 @@
     <ClInclude Include="include\ecs\component.h" />
     <ClInclude Include="include\ecs\entity.h" />
     <ClInclude Include="include\ecs\system.h" />
+    <ClInclude Include="include\event.h" />
+    <ClInclude Include="include\event_manager.h" />
     <ClInclude Include="include\globals.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\targetver.h" />
@@ -159,6 +161,7 @@
   <ItemGroup>
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\ecs\entity.cpp" />
+    <ClCompile Include="src\event_manager.cpp" />
     <ClCompile Include="src\haksaengine.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
   </ItemGroup>
