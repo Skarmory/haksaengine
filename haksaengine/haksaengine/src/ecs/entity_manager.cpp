@@ -35,27 +35,26 @@ unsigned int EntityManager::create_entity(std::vector<Component*>* const compone
 
 void EntityManager::destroy_entity(unsigned int id)
 {
-	_entities.erase(id);
+	if (_entities.find(id) != _entities.end())
+	{
+		_entities.erase(id);
 
-	Variant v;
-	v.type = Variant::Type::UNSIGNEDINT;
-	v.as_uint = id;
+		Variant v;
+		v.type = Variant::Type::UNSIGNEDINT;
+		v.as_uint = id;
 
-	Event ev;
-	ev.event_type = "EntityDestroyedEvent";
-	ev.arguments.push_back(v);
+		Event ev;
+		ev.event_type = "EntityDestroyedEvent";
+		ev.arguments.push_back(v);
 
-	event_manager->dispatch(ev);
+		event_manager->dispatch(ev);
+	}
 }
 
 Entity* EntityManager::get_entity(unsigned int id)
 {
-	try
-	{
+	if(_entities.find(id) != _entities.end())
 		return &_entities.at(id);
-	}
-	catch (const std::exception&)
-	{
+	else
 		return nullptr;
-	}
 }

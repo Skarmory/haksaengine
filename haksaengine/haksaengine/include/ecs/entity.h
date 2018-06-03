@@ -34,14 +34,10 @@ public:
 	template<class C>
 	C* get_component(void)
 	{
-		try
-		{
+		if(_components.find(typeid(C)) != _components.end())
 			return static_cast<C*>(_components.at(typeid(C)));
-		}
-		catch (const std::exception&)
-		{
+		else
 			return nullptr;
-		}
 	}
 
 	// Check if the entity has a given component

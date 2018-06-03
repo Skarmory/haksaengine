@@ -90,10 +90,10 @@ namespace haksaengine_test
 	{
 	public:
 
-		class TestSystem : public System
+		class TestSystem_EntityCreated : public System
 		{
 		public:
-			TestSystem(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
+			TestSystem_EntityCreated(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
 
 			virtual void update(float d) override {}
 
@@ -101,6 +101,26 @@ namespace haksaengine_test
 			{
 				Assert::AreEqual("EntityCreatedEvent", ev.event_type.c_str());
 			}
+		};
+
+		class TestSystem_EntityDestroyed : public System
+		{
+		public:
+			TestSystem_EntityDestroyed(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
+
+			virtual void update(float d) override {}
+
+			virtual void on_event(Event ev) override
+			{
+				if(first)
+					Assert::AreEqual("EntityCreatedEvent", ev.event_type.c_str());
+				else
+					Assert::AreEqual("EntityDestroyedEvent", ev.event_type.c_str());
+
+				first = false;
+			}
+
+			bool first = true;
 		};
 
 		TEST_METHOD(EntityManager_create_entity_test)
@@ -134,13 +154,61 @@ namespace haksaengine_test
 			Assert::IsTrue(e->has_component<TestComponentB>());
 		}
 
+		TEST_METHOD(EntityManager_destroy_entity_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+
+			auto e1_id = entity_man.create_entity();
+
+			Assert::AreEqual((unsigned int)0, e1_id);
+
+			entity_man.destroy_entity(e1_id);
+
+			Assert::IsNull(entity_man.get_entity(e1_id));
+		}
+
+		TEST_METHOD(EntityManager_get_entity_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+
+			auto e1_id = entity_man.create_entity();
+
+			Entity* entity = entity_man.get_entity(e1_id);
+
+			Assert::IsNotNull(entity);
+			Assert::AreEqual(e1_id, entity->get_id());
+		}
+
+		TEST_METHOD(EntityManager_get_entity_null_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+
+			Entity* entity = entity_man.get_entity(7777);
+
+			Assert::IsNull(entity);
+		}
+
 		TEST_METHOD(EntityManager_create_entity_event_test)
 		{
 			EventManager event_man;
 			EntityManager entity_man(&event_man);
-			TestSystem system(&entity_man, &event_man);
+			TestSystem_EntityCreated system(&entity_man, &event_man);
 
 			auto e1_id = entity_man.create_entity();
+		}
+
+		TEST_METHOD(EntityManager_destroy_entity_event_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+			TestSystem_EntityDestroyed system(&entity_man, &event_man);
+
+			auto e1_id = entity_man.create_entity();
+
+			entity_man.destroy_entity(e1_id);
 		}
 	};
 }
