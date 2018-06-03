@@ -27,7 +27,7 @@ def parse_verts(file, outfile):
 			i+=1
 			
 	# Write out verts
-	print("Vertices %s {" % len(vertices), file=outfile)
+	print("Vertices %d {" % (len(vertices) / 3), file=outfile)
 	i = 0	
 	while i < len(vertices):
 		print("\t{ %s, %s, %s }," % (vertices[i], vertices[i+1], vertices[i+2]), file=outfile)
@@ -57,7 +57,7 @@ def parse_indices(file, outfile):
 			i+=1
 	
 	# Write out indices
-	print("Faces %s %s {" % (int(len(indices)/3), len(indices)), file=outfile)	
+	print("Indices %s {" % (len(indices)), file=outfile)	
 	print("\t%s, " % indices[0], file=outfile, end="")
 	i = 1
 	while i < len(indices):
