@@ -11,20 +11,20 @@
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace haksaengine_test
-{		
+{	
+	class TestComponentA : public Component
+	{
+	public:
+		float data;
+	};
+
+	class TestComponentB : public Component
+	{
+	};
+
 	TEST_CLASS(ECSTest)
 	{
 	public:
-
-		class TestComponentA : public Component
-		{
-		public:
-			float data;
-		};
-		
-		class TestComponentB : public Component
-		{
-		};
 
 		TEST_METHOD(Entity_add_component_test)
 		{
@@ -89,6 +89,7 @@ namespace haksaengine_test
 	TEST_CLASS(EntityManagerTest)
 	{
 	public:
+
 		TEST_METHOD(EntityManager_create_entity_test)
 		{
 			EventManager event_man;
@@ -99,6 +100,27 @@ namespace haksaengine_test
 
 			Assert::AreEqual((unsigned int)0, e1_id);
 			Assert::AreEqual((unsigned int)1, e2_id);
+		}
+
+		TEST_METHOD(EntityManager_create_entity_with_components_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+
+			std::vector<Component*> components;
+			components.push_back(new TestComponentA);
+			components.push_back(new TestComponentB);
+
+			auto e1_id = entity_man.create_entity(&components);
+			auto e2_id = entity_man.create_entity();
+
+			Assert::AreEqual((unsigned int)0, e1_id);
+			Assert::AreEqual((unsigned int)1, e2_id);
+
+			Entity* e = entity_man.get_entity(e1_id);
+
+			Assert::IsTrue(e->has_component<TestComponentA>());
+			Assert::IsTrue(e->has_component<TestComponentB>());
 		}
 	};
 }
