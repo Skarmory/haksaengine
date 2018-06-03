@@ -21,6 +21,12 @@ namespace haksaengine_test
 
 		class TestSystemA : public System
 		{
+		public:
+			TestSystemA(EntityManager* eman, EventManager* evman) : System(eman, evman) 
+			{
+				evman->subscribe("TestEvent", this);
+			}
+
 			virtual void update(float d) override { return; }
 
 			virtual void on_event(Event e) override
@@ -34,10 +40,9 @@ namespace haksaengine_test
 		TEST_METHOD(Event_received_event_is_correct)
 		{
 			EventManager event_manager;
+			EntityManager entity_man(&event_manager);
 
-			TestSystemA A;
-			
-			event_manager.subscribe("TestEvent", &A);
+			TestSystemA A(&entity_man, &event_manager);
 
 			Event test_event;
 			test_event.event_type = "TestEvent";

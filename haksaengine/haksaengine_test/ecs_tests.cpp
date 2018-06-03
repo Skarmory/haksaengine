@@ -90,6 +90,19 @@ namespace haksaengine_test
 	{
 	public:
 
+		class TestSystem : public System
+		{
+		public:
+			TestSystem(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
+
+			virtual void update(float d) override {}
+
+			virtual void on_event(Event ev) override
+			{
+				Assert::AreEqual("EntityCreatedEvent", ev.event_type.c_str());
+			}
+		};
+
 		TEST_METHOD(EntityManager_create_entity_test)
 		{
 			EventManager event_man;
@@ -112,15 +125,22 @@ namespace haksaengine_test
 			components.push_back(new TestComponentB);
 
 			auto e1_id = entity_man.create_entity(&components);
-			auto e2_id = entity_man.create_entity();
 
 			Assert::AreEqual((unsigned int)0, e1_id);
-			Assert::AreEqual((unsigned int)1, e2_id);
 
 			Entity* e = entity_man.get_entity(e1_id);
 
 			Assert::IsTrue(e->has_component<TestComponentA>());
 			Assert::IsTrue(e->has_component<TestComponentB>());
+		}
+
+		TEST_METHOD(EntityManager_create_entity_event_test)
+		{
+			EventManager event_man;
+			EntityManager entity_man(&event_man);
+			TestSystem system(&entity_man, &event_man);
+
+			auto e1_id = entity_man.create_entity();
 		}
 	};
 }
