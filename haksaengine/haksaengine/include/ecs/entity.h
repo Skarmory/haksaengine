@@ -12,15 +12,16 @@
 class HAKSAENGINE_API Entity
 {
 public:
-	Entity(uint32_t id);
+	Entity(void);
+	Entity(unsigned int id);
 	~Entity(void);
 
 	// Adds a component to the entity
-	template<class C>
+	//template<class C>
 	void add_component(Component* component)
 	{
-		if (!has_component<C>())
-			_components[typeid(C)] = component;
+		auto x = typeid(*component).name();
+		_components[typeid(*component)] = component;
 	}
 
 	// Removes a component from the entity
@@ -30,14 +31,30 @@ public:
 		_components.erase(typeid(C));
 	}
 
+	template<class C>
+	C* get_component(void)
+	{
+		try
+		{
+			return static_cast<C*>(_components.at(typeid(C)));
+		}
+		catch (const std::exception&)
+		{
+			return nullptr;
+		}
+	}
+
 	// Check if the entity has a given component
 	template<class C>
 	bool has_component(void)
 	{
+		auto x = typeid(C).name();
 		return _components.find(typeid(C)) != _components.end();
 	}
 
+	unsigned int get_id(void) const { return _id; }
+
 private:
-	uint32_t _id;
+	unsigned int _id;
 	std::unordered_map<std::type_index, Component*> _components;
 };

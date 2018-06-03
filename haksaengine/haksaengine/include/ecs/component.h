@@ -7,4 +7,6 @@
 
 class HAKSAENGINE_API Component
 {
+public:
+	virtual ~Component(void) = default;
 };
