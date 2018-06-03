@@ -161,6 +161,9 @@
     <ClInclude Include="include\engine.h" />
     <ClInclude Include="include\event.h" />
     <ClInclude Include="include\event_manager.h" />
+    <ClInclude Include="include\gfx\mesh.h" />
+    <ClInclude Include="include\gfx\mesh_loader.h" />
+    <ClInclude Include="include\gfx\vertex.h" />
     <ClInclude Include="include\globals.h" />
     <ClInclude Include="include\renderer.h" />
     <ClInclude Include="include\stdafx.h" />
@@ -173,6 +176,7 @@
     <ClCompile Include="src\ecs\entity_manager.cpp" />
     <ClCompile Include="src\engine.cpp" />
     <ClCompile Include="src\event_manager.cpp" />
+    <ClCompile Include="src\gfx\mesh_loader.cpp" />
     <ClCompile Include="src\haksaengine.cpp" />
     <ClCompile Include="src\renderer.cpp" />
     <ClCompile Include="src\stdafx.cpp" />

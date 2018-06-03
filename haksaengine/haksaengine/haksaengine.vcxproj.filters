@@ -13,22 +13,28 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Header Files\ECS">
+    <Filter Include="Header Files\gfx">
+      <UniqueIdentifier>{2b70e685-5830-42c4-9160-26d530cb6a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ecs">
       <UniqueIdentifier>{bff9baae-85dc-4ab9-9502-a59b1c2ce0f3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ECS">
+    <Filter Include="Source Files\ecs">
       <UniqueIdentifier>{9f1a77bd-2221-4e1e-a04f-066318135da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\gfx">
+      <UniqueIdentifier>{dde14576-b6f0-4d3c-9e2f-c02f6b4bd134}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ecs\component.h">
-      <Filter>Header Files\ECS</Filter>
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="include\ecs\entity.h">
-      <Filter>Header Files\ECS</Filter>
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="include\ecs\system.h">
-      <Filter>Header Files\ECS</Filter>
+      <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="include\globals.h">
       <Filter>Header Files</Filter>
@@ -55,12 +61,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\ecs\entity_manager.h">
-      <Filter>Header Files\ECS</Filter>
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\mesh.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\vertex.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\mesh_loader.h">
+      <Filter>Header Files\gfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\ecs\entity.cpp">
-      <Filter>Source Files\ECS</Filter>
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="src\dllmain.cpp">
       <Filter>Source Files</Filter>
@@ -84,10 +99,13 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\ecs\entity_manager.cpp">
-      <Filter>Source Files\ECS</Filter>
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="src\system.cpp">
-      <Filter>Source Files\ECS</Filter>
+      <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\mesh_loader.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

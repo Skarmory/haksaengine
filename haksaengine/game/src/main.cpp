@@ -1,6 +1,6 @@
 #include <globals.h>
 
-#include <engine.h>
+#include <gfx/mesh_loader.h>
 
 #include <string>
 #include <iostream>
@@ -8,10 +8,10 @@
 
 int main(int argc, char** argv)
 {
-	Engine engine;
-	engine.initialise();
+	MeshLoader m;
+
+	m.load_mesh("../../assets/outverts.txt");
 
 	char ch;
-
 	std::cin >> ch;
 }
