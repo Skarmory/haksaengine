@@ -12,6 +12,7 @@ struct Variant
 	enum Type
 	{
 		INTEGER,
+		UNSIGNEDINT,
 		FLOAT,
 		BOOL,
 		COUNT
@@ -21,9 +22,10 @@ struct Variant
 
 	union
 	{
-		int32_t as_int;
-		float   as_float;
-		bool    as_bool;
+		int          as_int;
+		unsigned int as_uint;
+		float        as_float;
+		bool         as_bool;
 	};
 };
 

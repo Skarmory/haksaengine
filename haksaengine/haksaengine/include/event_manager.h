@@ -8,6 +8,8 @@
 #include "event.h"
 #include "ecs/system.h"
 
+class System;
+
 class HAKSAENGINE_API EventManager
 {
 public:
