@@ -19,8 +19,8 @@ void Engine::initialise(void)
 {
 	glfwInit();
 
-	glewExperimental = GL_TRUE;
-	glewInit();
-
 	game_window = new GameWindow(800, 600, "Game Application");
+
+	glewExperimental = GL_TRUE;
+	auto x = glewInit();
 }
