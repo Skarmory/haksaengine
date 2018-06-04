@@ -12,6 +12,8 @@ public:
 	GameWindow(int width, int height, const std::string& window_title);
 	~GameWindow(void);
 
+	bool window_close(void);
+
 private:
 	GLFWwindow* window;
 };

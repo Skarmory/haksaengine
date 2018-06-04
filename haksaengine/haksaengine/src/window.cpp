@@ -17,3 +17,8 @@ GameWindow::~GameWindow(void)
 	glfwDestroyWindow(window);
 	window = nullptr;
 }
+
+bool GameWindow::window_close(void)
+{
+	return glfwWindowShouldClose(window);
+}
