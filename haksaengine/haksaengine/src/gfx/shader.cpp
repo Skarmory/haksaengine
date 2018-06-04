@@ -49,12 +49,12 @@ Shader::~Shader(void)
 	glDeleteShader(shader);
 }
 
-GLuint Shader::get_shader(void)
+GLuint Shader::get_shader(void) const
 {
 	return shader;
 }
 
-int Shader::get_type(void)
+int Shader::get_type(void) const
 {
 	return type;
 }

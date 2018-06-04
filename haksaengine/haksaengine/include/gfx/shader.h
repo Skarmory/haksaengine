@@ -14,8 +14,8 @@ public:
 	Shader(const std::string& filepath, int shader_type);
 	~Shader(void);
 
-	GLuint get_shader(void);
-	int get_type(void);
+	GLuint get_shader(void) const;
+	int get_type(void) const;
 
 private:
 	GLuint shader;
