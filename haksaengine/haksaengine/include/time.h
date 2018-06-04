@@ -18,6 +18,6 @@ public:
 private:
 	std::chrono::time_point<std::chrono::high_resolution_clock> current;
 	std::chrono::time_point<std::chrono::high_resolution_clock> previous;
-	std::chrono::duration<float, std::milli> elapsedtime;
-	std::chrono::duration<float, std::milli> deltatime;
+	std::chrono::duration<float> elapsedtime;
+	std::chrono::duration<float> deltatime;
 };
