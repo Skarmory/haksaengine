@@ -117,7 +117,7 @@
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -157,6 +157,8 @@
     <ClInclude Include="include\ecs\component.h" />
     <ClInclude Include="include\ecs\entity.h" />
     <ClInclude Include="include\ecs\entity_manager.h" />
+    <ClInclude Include="include\ecs\mesh_renderer.h" />
+    <ClInclude Include="include\ecs\rendering_system.h" />
     <ClInclude Include="include\ecs\system.h" />
     <ClInclude Include="include\engine.h" />
     <ClInclude Include="include\event.h" />
@@ -168,6 +170,7 @@
     <ClInclude Include="include\gfx\vertex.h" />
     <ClInclude Include="include\globals.h" />
     <ClInclude Include="include\renderer.h" />
+    <ClInclude Include="include\services.h" />
     <ClInclude Include="include\stdafx.h" />
     <ClInclude Include="include\targetver.h" />
     <ClInclude Include="include\time.h" />
@@ -178,6 +181,7 @@
     <ClCompile Include="src\dllmain.cpp" />
     <ClCompile Include="src\ecs\entity.cpp" />
     <ClCompile Include="src\ecs\entity_manager.cpp" />
+    <ClCompile Include="src\ecs\rendering_system.cpp" />
     <ClCompile Include="src\engine.cpp" />
     <ClCompile Include="src\event_manager.cpp" />
     <ClCompile Include="src\gfx\mesh.cpp" />
@@ -185,6 +189,7 @@
     <ClCompile Include="src\gfx\shader.cpp" />
     <ClCompile Include="src\haksaengine.cpp" />
     <ClCompile Include="src\renderer.cpp" />
+    <ClCompile Include="src\services.cpp" />
     <ClCompile Include="src\stdafx.cpp" />
     <ClCompile Include="src\system.cpp" />
     <ClCompile Include="src\time.cpp" />
