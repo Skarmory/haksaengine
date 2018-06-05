@@ -4,6 +4,8 @@
 #include <iostream>
 #include <string>
 
+#include "services.h"
+
 #include "ecs/entity.h"
 #include "ecs/component.h"
 #include "ecs/system.h"
@@ -22,9 +24,9 @@ namespace haksaengine_test
 		class TestSystemA : public System
 		{
 		public:
-			TestSystemA(EntityManager* eman, EventManager* evman) : System(eman, evman) 
+			TestSystemA(void)
 			{
-				evman->subscribe("TestEvent", this);
+				Services::get().get_event_manager()->subscribe("TestEvent", this);
 			}
 
 			virtual void update(float d) override { return; }
@@ -37,12 +39,26 @@ namespace haksaengine_test
 			}
 		};
 
+		Services* services;
+
+		TEST_METHOD_INITIALIZE(setup)
+		{
+			services = new Services;
+			EventManager* event_manager = new EventManager;
+			EntityManager* entity_manager = new EntityManager;
+
+			services->set_event_manager(event_manager);
+			services->set_entity_manager(entity_manager);
+		}
+
+		TEST_METHOD_CLEANUP(teardown)
+		{
+			delete services;
+		}
+
 		TEST_METHOD(Event_received_event_is_correct)
 		{
-			EventManager event_manager;
-			EntityManager entity_man(&event_manager);
-
-			TestSystemA A(&entity_man, &event_manager);
+			TestSystemA A;
 
 			Event test_event;
 			test_event.event_type = "TestEvent";
@@ -53,7 +69,7 @@ namespace haksaengine_test
 
 			test_event.arguments.push_back(v);
 		
-			event_manager.dispatch(test_event);
+			Services::get().get_event_manager()->dispatch(test_event);
 		}
 	};
 }

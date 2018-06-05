@@ -16,7 +16,7 @@ struct Event;
 class HAKSAENGINE_API System
 {
 public:
-	System(EntityManager* entity_manager, EventManager* event_manager);
+	System(void);
 
 	virtual ~System(void) = default;
 

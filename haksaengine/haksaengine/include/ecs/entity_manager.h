@@ -14,7 +14,7 @@ class EventManager;
 class HAKSAENGINE_API EntityManager
 {
 public:
-	EntityManager(EventManager* event_manager);
+	EntityManager(void);
 	~EntityManager(void);
 
 	EntityManager(const EntityManager&) = delete;
@@ -29,5 +29,4 @@ public:
 private:
 	unsigned int next_id;
 	std::unordered_map<unsigned int, Entity> _entities;
-	EventManager* event_manager;
 };

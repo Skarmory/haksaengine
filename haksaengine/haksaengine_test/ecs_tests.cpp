@@ -3,6 +3,7 @@
 
 #include <iostream>
 
+#include "services.h"
 #include "ecs/entity_manager.h"
 #include "ecs/entity.h"
 #include "ecs/component.h"
@@ -93,8 +94,6 @@ namespace haksaengine_test
 		class TestSystem_EntityCreated : public System
 		{
 		public:
-			TestSystem_EntityCreated(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
-
 			virtual void update(float d) override {}
 
 			virtual void on_event(Event ev) override
@@ -106,8 +105,6 @@ namespace haksaengine_test
 		class TestSystem_EntityDestroyed : public System
 		{
 		public:
-			TestSystem_EntityDestroyed(EntityManager* entity_manager, EventManager* event_manager) : System(entity_manager, event_manager) {}
-
 			virtual void update(float d) override {}
 
 			virtual void on_event(Event ev) override
@@ -123,13 +120,29 @@ namespace haksaengine_test
 			bool first = true;
 		};
 
+		Services* services;
+
+		TEST_METHOD_INITIALIZE(setup)
+		{
+			services = new Services;
+			EventManager* event_man = new EventManager;
+			EntityManager* entity_man = new EntityManager;
+
+			services->set_event_manager(event_man);
+			services->set_entity_manager(entity_man);
+		}
+
+		TEST_METHOD_CLEANUP(teardown)
+		{
+			delete services;
+		}
+
 		TEST_METHOD(EntityManager_create_entity_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
+			auto entity_man = Services::get().get_entity_manager();
 
-			auto e1_id = entity_man.create_entity();
-			auto e2_id = entity_man.create_entity();
+			auto e1_id = entity_man->create_entity();
+			auto e2_id = entity_man->create_entity();
 
 			Assert::AreEqual((unsigned int)0, e1_id);
 			Assert::AreEqual((unsigned int)1, e2_id);
@@ -137,18 +150,18 @@ namespace haksaengine_test
 
 		TEST_METHOD(EntityManager_create_entity_with_components_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
+			
+			auto entity_man = Services::get().get_entity_manager();
 
 			std::vector<Component*> components;
 			components.push_back(new TestComponentA);
 			components.push_back(new TestComponentB);
 
-			auto e1_id = entity_man.create_entity(&components);
+			auto e1_id = entity_man->create_entity(&components);
 
 			Assert::AreEqual((unsigned int)0, e1_id);
 
-			Entity* e = entity_man.get_entity(e1_id);
+			Entity* e = entity_man->get_entity(e1_id);
 
 			Assert::IsTrue(e->has_component<TestComponentA>());
 			Assert::IsTrue(e->has_component<TestComponentB>());
@@ -156,26 +169,24 @@ namespace haksaengine_test
 
 		TEST_METHOD(EntityManager_destroy_entity_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
+			auto entity_man = Services::get().get_entity_manager();
 
-			auto e1_id = entity_man.create_entity();
+			auto e1_id = entity_man->create_entity();
 
 			Assert::AreEqual((unsigned int)0, e1_id);
 
-			entity_man.destroy_entity(e1_id);
+			entity_man->destroy_entity(e1_id);
 
-			Assert::IsNull(entity_man.get_entity(e1_id));
+			Assert::IsNull(entity_man->get_entity(e1_id));
 		}
 
 		TEST_METHOD(EntityManager_get_entity_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
+			auto entity_man = Services::get().get_entity_manager();
 
-			auto e1_id = entity_man.create_entity();
+			auto e1_id = entity_man->create_entity();
 
-			Entity* entity = entity_man.get_entity(e1_id);
+			Entity* entity = entity_man->get_entity(e1_id);
 
 			Assert::IsNotNull(entity);
 			Assert::AreEqual(e1_id, entity->get_id());
@@ -183,32 +194,29 @@ namespace haksaengine_test
 
 		TEST_METHOD(EntityManager_get_entity_null_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
+			auto entity_man = Services::get().get_entity_manager();
 
-			Entity* entity = entity_man.get_entity(7777);
+			Entity* entity = entity_man->get_entity(7777);
 
 			Assert::IsNull(entity);
 		}
 
 		TEST_METHOD(EntityManager_create_entity_event_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
-			TestSystem_EntityCreated system(&entity_man, &event_man);
+			auto entity_man = Services::get().get_entity_manager();
+			TestSystem_EntityCreated system;
 
-			auto e1_id = entity_man.create_entity();
+			auto e1_id = entity_man->create_entity();
 		}
 
 		TEST_METHOD(EntityManager_destroy_entity_event_test)
 		{
-			EventManager event_man;
-			EntityManager entity_man(&event_man);
-			TestSystem_EntityDestroyed system(&entity_man, &event_man);
+			auto entity_man = Services::get().get_entity_manager();
+			TestSystem_EntityDestroyed system;
 
-			auto e1_id = entity_man.create_entity();
+			auto e1_id = entity_man->create_entity();
 
-			entity_man.destroy_entity(e1_id);
+			entity_man->destroy_entity(e1_id);
 		}
 	};
 }

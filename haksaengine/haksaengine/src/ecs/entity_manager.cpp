@@ -1,6 +1,9 @@
 #include "ecs/entity_manager.h"
 
-EntityManager::EntityManager(EventManager* event_manager) : next_id(0), event_manager(event_manager)
+#include "services.h"
+#include <iostream>
+
+EntityManager::EntityManager(void) : next_id(0)
 {
 }
 
@@ -28,7 +31,7 @@ unsigned int EntityManager::create_entity(std::vector<Component*>* const compone
 	ev.event_type = "EntityCreatedEvent";
 	ev.arguments.push_back(v);
 
-	event_manager->dispatch(ev);
+	Services::get().get_event_manager()->dispatch(ev);
 
 	return next_id++;
 }
@@ -47,7 +50,7 @@ void EntityManager::destroy_entity(unsigned int id)
 		ev.event_type = "EntityDestroyedEvent";
 		ev.arguments.push_back(v);
 
-		event_manager->dispatch(ev);
+		Services::get().get_event_manager()->dispatch(ev);
 	}
 }
 
