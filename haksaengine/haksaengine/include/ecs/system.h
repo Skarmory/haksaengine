@@ -24,7 +24,5 @@ public:
 	virtual void on_event(Event e) = 0;
 
 protected:
-	EntityManager* entity_manager;
-	EventManager* event_manager;
 	std::vector<unsigned int> _entities;
 };
