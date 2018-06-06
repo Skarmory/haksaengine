@@ -3,7 +3,7 @@
 #include <algorithm>
 
 #include "services.h"
-#include "ecs/mesh_renderer.h"
+#include "gfx/mesh_renderer.h"
 
 RenderingSystem::RenderingSystem(void)
 {

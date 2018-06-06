@@ -21,9 +21,6 @@
     <Filter Include="Source Files\gfx">
       <UniqueIdentifier>{dde14576-b6f0-4d3c-9e2f-c02f6b4bd134}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\maths">
-      <UniqueIdentifier>{774f71a5-8d55-4e60-9e2a-8ddc70990974}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\ecs\component.h">
@@ -77,9 +74,6 @@
     <ClInclude Include="include\gfx\shader_program.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\mesh_renderer.h">
-      <Filter>Header Files\ecs</Filter>
-    </ClInclude>
     <ClInclude Include="include\ecs\rendering_system.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
@@ -91,6 +85,15 @@
     </ClInclude>
     <ClInclude Include="include\transform.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs\location.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\ecs\renderer.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="include\gfx\mesh_renderer.h">
+      <Filter>Header Files\gfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -144,6 +147,9 @@
     </ClCompile>
     <ClCompile Include="src\services.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\gfx\mesh_renderer.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
