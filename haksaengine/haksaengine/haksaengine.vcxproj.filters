@@ -23,133 +23,136 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\ecs\component.h">
+    <ClInclude Include="ecs\component.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\entity.h">
+    <ClInclude Include="ecs\entity.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\system.h">
+    <ClInclude Include="ecs\entity_manager.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="include\globals.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\stdafx.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\targetver.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\event.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\event_manager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\engine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\renderer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\ecs\entity_manager.h">
+    <ClInclude Include="ecs\location.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\mesh.h">
+    <ClInclude Include="ecs\renderer.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\rendering_system.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\system.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\mesh.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\vertex.h">
+    <ClInclude Include="gfx\mesh_loader.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\mesh_loader.h">
+    <ClInclude Include="gfx\mesh_renderer.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\shader.h">
+    <ClInclude Include="gfx\shader.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\shader_program.h">
+    <ClInclude Include="gfx\shader_program.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\rendering_system.h">
-      <Filter>Header Files\ecs</Filter>
+    <ClInclude Include="gfx\vertex.h">
+      <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="include\time.h">
+    <ClInclude Include="engine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\services.h">
+    <ClInclude Include="event.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\transform.h">
+    <ClInclude Include="event_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\location.h">
-      <Filter>Header Files\ecs</Filter>
+    <ClInclude Include="globals.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\ecs\renderer.h">
-      <Filter>Header Files\ecs</Filter>
+    <ClInclude Include="renderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\gfx\mesh_renderer.h">
-      <Filter>Header Files\gfx</Filter>
+    <ClInclude Include="services.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="window.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ecs\entity.cpp">
+    <ClCompile Include="ecs\entity.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
-    <ClCompile Include="src\dllmain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\haksaengine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\event_manager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\window.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\engine.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\renderer.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ecs\entity_manager.cpp">
+    <ClCompile Include="ecs\entity_manager.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
-    <ClCompile Include="src\system.cpp">
+    <ClCompile Include="ecs\rendering_system.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\mesh_loader.cpp">
+    <ClCompile Include="gfx\mesh.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\mesh.cpp">
+    <ClCompile Include="gfx\mesh_loader.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\shader.cpp">
+    <ClCompile Include="gfx\mesh_renderer.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="include\gfx\shader_program.cpp">
+    <ClCompile Include="gfx\shader.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\ecs\rendering_system.cpp">
-      <Filter>Source Files\ecs</Filter>
+    <ClCompile Include="gfx\shader_program.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
-    <ClCompile Include="src\time.cpp">
+    <ClCompile Include="dllmain.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\services.cpp">
+    <ClCompile Include="engine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\gfx\mesh_renderer.cpp">
-      <Filter>Source Files\gfx</Filter>
+    <ClCompile Include="event_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="haksaengine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="services.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="system.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="time.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="window.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
