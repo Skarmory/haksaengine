@@ -8,6 +8,8 @@ class MeshRenderer
 public:
 	MeshRenderer(Mesh* mesh, ShaderProgram* program);
 
+	void render(void);
+
 private:
 	Mesh* _mesh;
 	ShaderProgram* _program;
