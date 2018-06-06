@@ -73,10 +73,10 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\resources\glew;$(SolutionDir)..\resources\glfw3;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\resources\glew;$(SolutionDir)..\resources\glfw3;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,7 +84,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\include;$(SolutionDir)..\resources\glew\include;$(SolutionDir)..\resources\glfw3\include;$(SolutionDir)..\resources\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\include;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>haksaengine.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -106,7 +106,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\include;$(SolutionDir)..\resources\glew\include;$(SolutionDir)..\resources\glfw3\include;$(SolutionDir)..\resources\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\include;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
