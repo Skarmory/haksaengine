@@ -101,6 +101,9 @@
     <ClInclude Include="event\event_manager.h">
       <Filter>Header Files\event</Filter>
     </ClInclude>
+    <ClInclude Include="event\event_handler.h">
+      <Filter>Header Files\event</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -145,9 +148,6 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="system.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -159,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="event\event_manager.cpp">
       <Filter>Source Files\event</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\system.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
