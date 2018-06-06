@@ -10,8 +10,8 @@
 #include "ecs/component.h"
 #include "ecs/system.h"
 
-#include "event_manager.h"
-#include "event.h"
+#include "event/event_manager.h"
+#include "event/event.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

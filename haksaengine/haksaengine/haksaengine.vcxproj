@@ -162,8 +162,8 @@
     <ClInclude Include="ecs\rendering_system.h" />
     <ClInclude Include="ecs\system.h" />
     <ClInclude Include="engine.h" />
-    <ClInclude Include="event.h" />
-    <ClInclude Include="event_manager.h" />
+    <ClInclude Include="event\event.h" />
+    <ClInclude Include="event\event_manager.h" />
     <ClInclude Include="gfx\mesh.h" />
     <ClInclude Include="gfx\mesh_loader.h" />
     <ClInclude Include="gfx\mesh_renderer.h" />
@@ -185,7 +185,7 @@
     <ClCompile Include="ecs\entity_manager.cpp" />
     <ClCompile Include="ecs\rendering_system.cpp" />
     <ClCompile Include="engine.cpp" />
-    <ClCompile Include="event_manager.cpp" />
+    <ClCompile Include="event\event_manager.cpp" />
     <ClCompile Include="gfx\mesh.cpp" />
     <ClCompile Include="gfx\mesh_loader.cpp" />
     <ClCompile Include="gfx\mesh_renderer.cpp" />

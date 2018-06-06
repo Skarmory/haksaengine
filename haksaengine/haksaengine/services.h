@@ -1,7 +1,7 @@
 #pragma once
 
 #include "globals.h"
-#include "event_manager.h"
+#include "event/event_manager.h"
 #include "ecs/entity_manager.h"
 
 /* Class that acts as an access point for all manager classes */

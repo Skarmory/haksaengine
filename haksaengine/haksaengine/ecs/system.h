@@ -4,8 +4,8 @@
 
 #include "globals.h"
 #include "entity_manager.h"
-#include "event_manager.h"
-#include "event.h"
+#include "event/event_manager.h"
+#include "event/event.h"
 
 class EntityManager;
 class EventManager;

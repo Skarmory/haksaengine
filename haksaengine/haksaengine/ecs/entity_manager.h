@@ -4,7 +4,7 @@
 #include <unordered_map>
 
 #include "globals.h"
-#include "event_manager.h"
+#include "event/event_manager.h"
 #include "ecs/entity.h"
 #include "ecs/component.h"
 

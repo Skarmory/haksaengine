@@ -2,7 +2,7 @@
 
 #include "globals.h"
 #include "ecs/system.h"
-#include "event.h"
+#include "event/event.h"
 
 class RenderingSystem : public System
 {
