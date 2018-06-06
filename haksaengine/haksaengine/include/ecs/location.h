@@ -1,10 +1,9 @@
 #pragma once
 
-#include <glm/glm.hpp>
-
 #include "ecs/component.h"
+#include "transform.h"
 
 struct LocationComponent : public Component
 {
-	glm::vec3 position;
+	Transform transform;
 };
