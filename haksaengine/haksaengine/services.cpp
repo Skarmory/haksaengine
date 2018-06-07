@@ -33,6 +33,11 @@ void Services::set_entity_manager(EntityManager* entity_manager)
 	this->entity_manager = entity_manager;
 }
 
+void Services::set_asset_manager(AssetManager* asset_manager)
+{
+	this->asset_manager = asset_manager;
+}
+
 EventManager* Services::get_event_manager(void)
 {
 	return event_manager;
@@ -41,4 +46,9 @@ EventManager* Services::get_event_manager(void)
 EntityManager* Services::get_entity_manager(void)
 {
 	return entity_manager;
+}
+
+AssetManager* Services::get_asset_manager(void)
+{
+	return asset_manager;
 }

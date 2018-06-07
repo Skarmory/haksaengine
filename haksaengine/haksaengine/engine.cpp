@@ -5,6 +5,10 @@
 
 #include <iostream>
 
+#include "asset_manager.h"
+#include "event/event_manager.h"
+#include "ecs/entity_manager.h"
+
 Engine::Engine(void) : accumulator(0.0f)
 {
 }
@@ -28,6 +32,7 @@ void Engine::initialise(void)
 
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
+	services.set_asset_manager(new AssetManager);
 
 	rendering_system = new RenderingSystem;
 }
