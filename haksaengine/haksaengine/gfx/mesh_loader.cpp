@@ -3,13 +3,13 @@
 #include <string>
 #include <fstream>
 
-Mesh* MeshLoader::load_mesh(const std::string& filename)
+Mesh* MeshLoader::load(const std::string& id)
 {
 	Mesh* mesh = new Mesh;
 	std::ifstream fs;
 	std::string line;
 
-	fs.open(filename);
+	fs.open(id);
 
 	while (std::getline(fs, line))
 	{

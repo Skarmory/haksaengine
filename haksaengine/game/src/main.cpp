@@ -16,15 +16,12 @@ const std::string asset_path = "../../assets/";
 
 int main(int argc, char** argv)
 {
-	MeshLoader m;
 	Transform t;
 
 	auto x = t.get_transform();
 
 	Engine e;
 	e.initialise();
-
-	Mesh* mesh = m.load_mesh(asset_path + "outverts.txt");
 
 	Shader vs(asset_path + "shaders/basic_vshader.vs", GL_VERTEX_SHADER);
 	Shader fs(asset_path + "shaders/basic_fshader.fs", GL_FRAGMENT_SHADER);

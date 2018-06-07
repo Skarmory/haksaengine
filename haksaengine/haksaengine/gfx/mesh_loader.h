@@ -6,10 +6,10 @@
 #include "mesh.h"
 
 /* Class that can parse and create a mesh object from a file */
-class HAKSAENGINE_API MeshLoader
+class MeshLoader
 {
 public:
-	Mesh* load_mesh(const std::string& filename);
+	Mesh* load(const std::string& id);
 
 private:
 	void parse_vertices(std::ifstream& stream, Mesh* mesh);
