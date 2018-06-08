@@ -44,7 +44,6 @@ public:
 	template<class C>
 	bool has_component(void)
 	{
-		auto x = typeid(C).name();
 		return _components.find(typeid(C)) != _components.end();
 	}
 
