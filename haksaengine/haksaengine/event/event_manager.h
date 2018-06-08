@@ -10,11 +10,11 @@
 
 class System;
 
-class HAKSAENGINE_API EventManager
+class EventManager
 {
 public:
-	void subscribe(const std::string& event_type, System* system);
-	void dispatch(Event e);
+	HAKSAENGINE_API void subscribe(const char* event_type, System* system);
+	HAKSAENGINE_API void dispatch(Event e);
 
 private:
 	std::unordered_map<std::string, std::list<System*>> _event_receivers;

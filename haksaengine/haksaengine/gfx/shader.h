@@ -7,7 +7,7 @@
 #include "globals.h"
 
 /* Wraps a an OpenGL shader */
-class HAKSAENGINE_API Shader
+class Shader
 {
 public:
 	// Read, create, and compile shader from file path

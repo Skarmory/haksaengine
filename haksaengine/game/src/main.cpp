@@ -6,7 +6,7 @@
 #include "gfx/mesh_loader.h"
 
 #include "transform.h"
-
+#include "ecs/renderer.h"
 
 #include <string>
 #include <iostream>
@@ -17,21 +17,12 @@ const std::string asset_path = "../../assets/";
 int main(int argc, char** argv)
 {
 	Transform t;
+	Renderer r;
 
 	auto x = t.get_transform();
 
 	Engine e;
 	e.initialise();
-
-	Shader vs(asset_path + "shaders/basic_vshader.vs", GL_VERTEX_SHADER);
-	Shader fs(asset_path + "shaders/basic_fshader.fs", GL_FRAGMENT_SHADER);
-
-	ShaderProgram program;
-	program.attach_shader(&vs);
-	program.attach_shader(&fs);
-	std::cout << program.link() << std::endl;
-
-	program.use();
 
 	e.run();
 }

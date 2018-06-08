@@ -1,7 +1,7 @@
 #include "event_manager.h"
 
 // Subscribe a system to receive an event type
-void EventManager::subscribe(const std::string& event_type, System* system)
+void EventManager::subscribe(const char* event_type, System* system)
 {
 	_event_receivers[event_type].push_back(system);
 }

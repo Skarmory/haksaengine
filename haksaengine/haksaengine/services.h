@@ -6,7 +6,7 @@
 #include "asset_manager.h"
 
 /* Class that acts as an access point for all manager classes */
-class HAKSAENGINE_API Services
+class Services
 {
 public:
 	Services(void);
@@ -21,9 +21,9 @@ public:
 	void set_entity_manager(EntityManager* entity_manager);
 	void set_asset_manager(AssetManager* asset_manager);
 
-	EventManager* get_event_manager(void);
-	EntityManager* get_entity_manager(void);
-	AssetManager* get_asset_manager(void);
+	HAKSAENGINE_API EventManager* get_event_manager(void);
+	HAKSAENGINE_API EntityManager* get_entity_manager(void);
+	HAKSAENGINE_API AssetManager* get_asset_manager(void);
 
 private:
 	static Services* services;

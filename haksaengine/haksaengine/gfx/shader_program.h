@@ -6,7 +6,7 @@
 #include "globals.h"
 #include "gfx/shader.h"
 
-class HAKSAENGINE_API ShaderProgram
+class ShaderProgram
 {
 public:
 	ShaderProgram(void);

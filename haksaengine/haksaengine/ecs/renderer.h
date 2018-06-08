@@ -4,7 +4,7 @@
 #include "ecs/component.h"
 #include "gfx/mesh_renderer.h"
 
-struct HAKSAENGINE_API Renderer : public Component
+struct Renderer : public Component
 {
 	MeshRenderer* mesh_renderer;
 };

@@ -8,17 +8,17 @@
 #include "ecs/rendering_system.h"
 
 /* Entrypoint into the engine itself. Binds everything together. */
-class HAKSAENGINE_API Engine
+class Engine
 {
 public:
-	Engine(void);
-	~Engine(void);
+	HAKSAENGINE_API Engine(void);
+	HAKSAENGINE_API ~Engine(void);
 
 	Engine(const Engine&) = delete;
 	void operator=(const Engine&) = delete;
 
-	void initialise(void);
-	void run(void);
+	HAKSAENGINE_API void initialise(void);
+	HAKSAENGINE_API void run(void);
 
 private:
 	// Time stuff
