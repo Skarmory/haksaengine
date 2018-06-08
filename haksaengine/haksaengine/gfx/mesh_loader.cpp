@@ -51,7 +51,7 @@ void MeshLoader::parse_vertices(std::ifstream& stream, Mesh* mesh)
 {
 	std::string line, substr;
 
-	int vidx = 0;
+	unsigned int vidx = 0;
 	while(vidx < mesh->vertices.size())
 	{
 		std::getline(stream, line);
@@ -82,7 +82,7 @@ void MeshLoader::parse_indices(std::ifstream& stream, Mesh* mesh)
 {
 	std::string line, substr;
 
-	int iidx = 0;
+	unsigned int iidx = 0;
 	while (iidx < mesh->indices.size())
 	{
 		int count = 0;
@@ -112,7 +112,7 @@ void MeshLoader::parse_normals(std::ifstream& stream, Mesh* mesh)
 {
 	std::string line, substr;
 
-	int vidx = 0;
+	unsigned int vidx = 0;
 	while (vidx < mesh->vertices.size())
 	{
 		std::getline(stream, line);

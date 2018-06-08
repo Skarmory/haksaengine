@@ -12,7 +12,7 @@ public:
 	
 private:
 
-	const std::string DEFAULT_ASSET_DIRECTORY = "..\..\assets";
+	const std::string DEFAULT_ASSET_DIRECTORY = "..\\..\\assets";
 
 	std::string asset_path;
 	MeshLoader _mesh_loader;
