@@ -9,12 +9,12 @@
 
 /* The entity class serves as the logical grouping for several components. */
 /* In essence, it represents any object or behaviour in a game, from a character to a spawn system. What is represents is determined by what components are attached to it. */
-class HAKSAENGINE_API Entity
+class Entity
 {
 public:
-	Entity(void);
-	Entity(unsigned int id);
-	~Entity(void);
+	HAKSAENGINE_API Entity(void);
+	HAKSAENGINE_API Entity(unsigned int id);
+	HAKSAENGINE_API ~Entity(void);
 
 	// Adds a component to the entity
 	//template<class C>
@@ -26,7 +26,7 @@ public:
 
 	// Removes a component from the entity
 	template<class C>
-	void  remove_component(void)
+	void remove_component(void)
 	{
 		_components.erase(typeid(C));
 	}
@@ -47,7 +47,10 @@ public:
 		return _components.find(typeid(C)) != _components.end();
 	}
 
-	unsigned int get_id(void) const { return _id; }
+	unsigned int get_id(void) const
+	{
+		return _id;
+	}
 
 private:
 	unsigned int _id;
