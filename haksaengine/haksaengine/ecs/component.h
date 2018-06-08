@@ -8,6 +8,6 @@
 class Component
 {
 public:
-	HAKSAENGINE_API Component(void) = default;
-	HAKSAENGINE_API virtual ~Component(void) = default;
+	Component(void) = default;
+	virtual ~Component(void) = default;
 };
