@@ -148,9 +148,6 @@
     <ClCompile Include="time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="transform.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

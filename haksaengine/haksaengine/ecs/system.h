@@ -11,14 +11,14 @@ struct Event;
 
 /* The system classes are responsible for processing logic on the entities and updating component data. */
 /* This is the base class that all systems need to inherit from. */
-class HAKSAENGINE_API System : public EventHandler
+class System : public EventHandler
 {
 public:
-	System(void);
+	HAKSAENGINE_API System(void);
 
-	virtual ~System(void) = default;
+	HAKSAENGINE_API virtual ~System(void) = default;
 
-	virtual void update(float delta) = 0;
+	HAKSAENGINE_API virtual void update(float delta) = 0;
 
 protected:
 	std::vector<unsigned int> _entities;

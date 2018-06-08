@@ -198,7 +198,6 @@
     <ClCompile Include="services.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="time.cpp" />
-    <ClCompile Include="transform.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

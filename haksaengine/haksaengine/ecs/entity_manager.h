@@ -11,7 +11,7 @@
 class EventManager;
 
 /* The EntityManager class is responsible for the lifecycle of the Entity objects. */
-class HAKSAENGINE_API EntityManager
+class EntityManager
 {
 public:
 	EntityManager(void);
@@ -20,11 +20,11 @@ public:
 	EntityManager(const EntityManager&) = delete;
 	void operator=(const EntityManager&) = delete;
 
-	unsigned int create_entity(std::vector<Component*>* const components = nullptr);
+	HAKSAENGINE_API unsigned int create_entity(std::vector<Component*>* const components = nullptr);
 
-	void destroy_entity(unsigned int id);
+	HAKSAENGINE_API void destroy_entity(unsigned int id);
 
-	Entity* get_entity(unsigned int id);
+	HAKSAENGINE_API Entity* get_entity(unsigned int id);
 
 private:
 	unsigned int next_id;
