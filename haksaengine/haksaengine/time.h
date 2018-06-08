@@ -6,7 +6,7 @@
 
 /* Class to track the elapsed time since the program started, and also
    to track delta time between frames */
-class HAKSAENGINE_API GameTime
+class GameTime
 {
 public:
 	GameTime(void);
