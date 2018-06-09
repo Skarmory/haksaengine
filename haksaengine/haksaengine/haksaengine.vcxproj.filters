@@ -116,6 +116,9 @@
     <ClInclude Include="io\loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="io\blueprint.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -173,6 +176,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="io\blueprint_loader.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="io\blueprint.cpp">
       <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>

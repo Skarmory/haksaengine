@@ -7,8 +7,10 @@
 #include "event/event_manager.h"
 #include "ecs/entity.h"
 #include "ecs/component.h"
+#include "io/blueprint.h"
 
 class EventManager;
+class Blueprint;
 
 /* The EntityManager class is responsible for the lifecycle of the Entity objects. */
 class EntityManager
@@ -21,6 +23,8 @@ public:
 	void operator=(const EntityManager&) = delete;
 
 	HAKSAENGINE_API unsigned int create_entity(std::vector<BaseComponent*>* const components = nullptr);
+
+	HAKSAENGINE_API void create_entity(Blueprint* blueprint);
 
 	HAKSAENGINE_API void destroy_entity(unsigned int id);
 

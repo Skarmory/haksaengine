@@ -36,6 +36,28 @@ unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const com
 	return next_id++;
 }
 
+void EntityManager::create_entity(Blueprint* blueprint)
+{
+	_entities[next_id] = Entity(next_id);
+
+	for (auto component : blueprint->_components)
+	{
+		_entities[next_id].add_component(component->clone());
+	}
+
+	Variant v;
+	v.type = Variant::Type::UNSIGNEDINT;
+	v.as_uint = next_id;
+
+	Event ev;
+	ev.event_type = "EntityCreatedEvent";
+	ev.arguments.push_back(v);
+
+	Services::get().get_event_manager()->dispatch(ev);
+
+	next_id++;
+}
+
 void EntityManager::destroy_entity(unsigned int id)
 {
 	if (_entities.find(id) != _entities.end())

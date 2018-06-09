@@ -9,6 +9,8 @@
 #include "ecs/component.h"
 #include "ecs/system.h"
 
+#include "io/blueprint.h"
+
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace haksaengine_test
@@ -120,6 +122,21 @@ namespace haksaengine_test
 			bool first = true;
 		};
 
+		class TestSystem_EntityCreatedFromBlueprint : public System
+		{
+		public:
+			virtual void update(float d) override {}
+
+			virtual void on_event(Event ev) override
+			{
+				Assert::AreEqual("EntityCreatedEvent", ev.event_type.c_str());
+
+				Entity* e = Services::get().get_entity_manager()->get_entity(ev.arguments[0].as_uint);
+
+				Assert::IsTrue(e->has_component<TestComponentA>());
+			}
+		};
+
 		Services* services;
 
 		TEST_METHOD_INITIALIZE(setup)
@@ -165,6 +182,24 @@ namespace haksaengine_test
 
 			Assert::IsTrue(e->has_component<TestComponentA>());
 			Assert::IsTrue(e->has_component<TestComponentB>());
+		}
+
+		TEST_METHOD(EntityManager_create_entity_from_blueprint)
+		{
+			Blueprint* bp = new Blueprint;
+			TestComponentA* comp = new TestComponentA;
+			comp->data = 7.77f;
+
+			bp->add_component(comp);
+
+			TestSystem_EntityCreatedFromBlueprint sys;
+
+			auto entity_man = Services::get().get_entity_manager();
+
+			entity_man->create_entity(bp);
+
+			delete comp;
+			delete bp;
 		}
 
 		TEST_METHOD(EntityManager_destroy_entity_test)

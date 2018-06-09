@@ -6,5 +6,8 @@ BlueprintLoader::BlueprintLoader(const std::string& blueprint_directory) : Loade
 
 Blueprint* BlueprintLoader::load(const char* name)
 {
-	return new Blueprint;
+	Blueprint* ret = new Blueprint;
+
+
+	return ret;
 }

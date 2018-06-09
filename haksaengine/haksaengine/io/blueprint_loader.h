@@ -7,11 +7,10 @@
 #include "globals.h"
 #include "io/loader.h"
 #include "ecs/component.h"
+#include "blueprint.h"
 
-class Blueprint
-{
-
-};
+class Blueprint;
+class BaseComponent;
 
 /* Class that handles loading Blueprints from disk */
 class BlueprintLoader : public Loader<Blueprint>
