@@ -1,0 +1,2 @@
+Mesh: test.mdl
+Shader: { vertex: basic.vs, fragment:basic.fs }
