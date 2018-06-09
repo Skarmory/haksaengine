@@ -18,7 +18,7 @@ public:
 
 	// Adds a component to the entity
 	//template<class C>
-	void add_component(Component* component)
+	void add_component(BaseComponent* component)
 	{
 		auto x = typeid(*component).name();
 		_components[typeid(*component)] = component;
@@ -54,5 +54,5 @@ public:
 
 private:
 	unsigned int _id;
-	std::unordered_map<std::type_index, Component*> _components;
+	std::unordered_map<std::type_index, BaseComponent*> _components;
 };

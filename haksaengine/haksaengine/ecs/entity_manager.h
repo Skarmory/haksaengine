@@ -20,7 +20,7 @@ public:
 	EntityManager(const EntityManager&) = delete;
 	void operator=(const EntityManager&) = delete;
 
-	HAKSAENGINE_API unsigned int create_entity(std::vector<Component*>* const components = nullptr);
+	HAKSAENGINE_API unsigned int create_entity(std::vector<BaseComponent*>* const components = nullptr);
 
 	HAKSAENGINE_API void destroy_entity(unsigned int id);
 

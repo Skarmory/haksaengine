@@ -4,7 +4,7 @@
 #include "ecs/component.h"
 #include "gfx/mesh_renderer.h"
 
-struct Renderer : public Component
+struct Renderer : public Component<Renderer>
 {
 	MeshRenderer* mesh_renderer;
 };

@@ -13,13 +13,13 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace haksaengine_test
 {	
-	class TestComponentA : public Component
+	class TestComponentA : public Component<TestComponentA>
 	{
 	public:
 		float data;
 	};
 
-	class TestComponentB : public Component
+	class TestComponentB : public Component<TestComponentB>
 	{
 	};
 
@@ -29,8 +29,8 @@ namespace haksaengine_test
 
 		TEST_METHOD(Entity_add_component_test)
 		{
-			Component* c = new TestComponentA;
-			Component* d = new TestComponentB;
+			BaseComponent* c = new TestComponentA;
+			BaseComponent* d = new TestComponentB;
 			Entity e(0);
 
 			e.add_component(c);
@@ -153,7 +153,7 @@ namespace haksaengine_test
 			
 			auto entity_man = Services::get().get_entity_manager();
 
-			std::vector<Component*> components;
+			std::vector<BaseComponent*> components;
 			components.push_back(new TestComponentA);
 			components.push_back(new TestComponentB);
 

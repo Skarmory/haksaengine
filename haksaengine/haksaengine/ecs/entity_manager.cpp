@@ -11,7 +11,7 @@ EntityManager::~EntityManager(void)
 {
 }
 
-unsigned int EntityManager::create_entity(std::vector<Component*>* const components)
+unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const components)
 {
 	_entities[next_id] = Entity(next_id);
 

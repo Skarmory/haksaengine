@@ -31,5 +31,5 @@ public:
 	}
 
 private:
-	std::unordered_map<std::string, std::function<Component*(void)>> _component_type_map;
+	std::unordered_map<std::string, std::function<BaseComponent*(void)>> _component_type_map;
 };
