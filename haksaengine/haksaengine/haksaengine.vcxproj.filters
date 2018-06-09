@@ -27,6 +27,12 @@
     <Filter Include="Source Files\event">
       <UniqueIdentifier>{219b2246-2e14-4ac2-bb03-cdf3b7fdf385}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\io">
+      <UniqueIdentifier>{131ea95e-02a8-4a5c-b543-e5f18f929b82}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\io">
+      <UniqueIdentifier>{7e7ef7ab-cca0-467a-a0e1-a668a3130e91}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ecs\component.h">
@@ -104,6 +110,12 @@
     <ClInclude Include="asset_manager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="io\blueprint_loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
+    <ClInclude Include="io\loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -159,6 +171,9 @@
     </ClCompile>
     <ClCompile Include="asset_manager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io\blueprint_loader.cpp">
+      <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -173,6 +173,8 @@
     <ClInclude Include="gfx\shader_program.h" />
     <ClInclude Include="gfx\vertex.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="io\blueprint_loader.h" />
+    <ClInclude Include="io\loader.h" />
     <ClInclude Include="services.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
@@ -195,6 +197,7 @@
     <ClCompile Include="gfx\shader.cpp" />
     <ClCompile Include="gfx\shader_program.cpp" />
     <ClCompile Include="haksaengine.cpp" />
+    <ClCompile Include="io\blueprint_loader.cpp" />
     <ClCompile Include="services.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="time.cpp" />
