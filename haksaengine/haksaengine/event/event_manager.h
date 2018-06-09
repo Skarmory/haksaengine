@@ -8,14 +8,14 @@
 #include "event.h"
 #include "ecs/system.h"
 
-class System;
+class EventHandler;
 
 class EventManager
 {
 public:
-	HAKSAENGINE_API void subscribe(const char* event_type, System* system);
+	HAKSAENGINE_API void subscribe(const char* event_type, EventHandler* system);
 	HAKSAENGINE_API void dispatch(Event e);
 
 private:
-	std::unordered_map<std::string, std::list<System*>> _event_receivers;
+	std::unordered_map<std::string, std::list<EventHandler*>> _event_receivers;
 };
