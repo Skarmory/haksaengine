@@ -15,14 +15,16 @@ using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
 namespace haksaengine_test
 {	
-	class TestComponentA : public Component<TestComponentA>
+	struct TestComponentA : public Component<TestComponentA>
 	{
-	public:
+		void load(NamedVariantPack* data) override {}
+
 		float data;
 	};
 
-	class TestComponentB : public Component<TestComponentB>
+	struct TestComponentB : public Component<TestComponentB>
 	{
+		void load(NamedVariantPack* data) override {}
 	};
 
 	TEST_CLASS(ECSTest)

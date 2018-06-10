@@ -101,7 +101,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>entity.obj;entity_manager.obj;services.obj;event_manager.obj;time.obj;system.obj;blueprint_loader.obj;blueprint.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>entity.obj;entity_manager.obj;services.obj;event_manager.obj;time.obj;system.obj;blueprint_loader.obj;blueprint.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -134,7 +134,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>entity.obj;entity_manager.obj;services.obj;event_manager.obj;time.obj;system.obj;blueprint_loader.obj;blueprint.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>entity.obj;entity_manager.obj;services.obj;event_manager.obj;time.obj;system.obj;blueprint_loader.obj;blueprint.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

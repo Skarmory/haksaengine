@@ -15,6 +15,11 @@ struct Transform : public Component<Transform>
 	Transform(void) : position(glm::vec3()), rotation(glm::vec3())
 	{}
 
+	void load(NamedVariantPack* data) override
+	{
+
+	}
+
 	void translate(glm::vec3 translation)
 	{
 		position = translation;

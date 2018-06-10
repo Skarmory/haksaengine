@@ -2,10 +2,13 @@
 
 #include "globals.h"
 
+#include "variant.h"
+
 class BaseComponent
 {
 public:
 	virtual BaseComponent* clone(void) const = 0;
+	virtual void load(NamedVariantPack* data) = 0;
 };
 
 /* The component class contains the data that is attached to an entity. */
@@ -21,4 +24,6 @@ public:
 	{
 		return new Derived(static_cast<const Derived&>(*this));
 	}
+
+	virtual void load(NamedVariantPack* data) override = 0;
 };

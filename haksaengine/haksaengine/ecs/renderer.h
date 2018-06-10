@@ -6,5 +6,10 @@
 
 struct Renderer : public Component<Renderer>
 {
+	void load(NamedVariantPack* data) override
+	{
+
+	}
+
 	MeshRenderer* mesh_renderer;
 };
