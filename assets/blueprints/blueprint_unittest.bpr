@@ -3,3 +3,8 @@ Components:
 		[
 			float data 7.77;
 		]
+	TestComponentB:
+		[
+			int data1 7;
+			float data2 5.55;
+		]
