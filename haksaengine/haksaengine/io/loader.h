@@ -14,12 +14,13 @@ template<class C>
 class Loader : public BaseLoader
 {
 public:
-	Loader(const char* directory) : _directory(directory)
+	Loader(const std::string& directory, const std::string& extension) : _directory(directory), _extension(extension)
 	{
 	}
 
-	virtual C* load(const char* name) = 0;
+	virtual C* load(const std::string& name) = 0;
 
-private:
-	const char* _directory;
+protected:
+	std::string _directory;
+	std::string _extension;
 };

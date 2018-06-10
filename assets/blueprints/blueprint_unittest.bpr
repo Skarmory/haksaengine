@@ -1,0 +1,5 @@
+Components:
+	TestComponentA:
+		[
+			float data 7.77;
+		]

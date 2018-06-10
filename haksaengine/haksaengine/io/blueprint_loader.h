@@ -2,12 +2,12 @@
 
 #include <unordered_map>
 #include <functional>
-#include <typeindex>
+#include <fstream>
 
 #include "globals.h"
 #include "io/loader.h"
 #include "ecs/component.h"
-#include "blueprint.h"
+#include "io/blueprint.h"
 
 class Blueprint;
 class BaseComponent;
@@ -19,7 +19,7 @@ public:
 	BlueprintLoader(const std::string& blueprint_directory_path);
 
 	// Construct a Blueprint
-	Blueprint* load(const char* name) override;
+	Blueprint* load(const std::string& name) override;
 
 	// Registers a component by name
 	template<class ComponentType>
@@ -31,4 +31,7 @@ public:
 
 private:
 	std::unordered_map<std::string, std::function<BaseComponent*(void)>> _component_type_map;
+
+	void parse_components(std::ifstream& fs, Blueprint* bp);
+	void parse_component_data(std::ifstream& fs, BaseComponent* component);
 };
