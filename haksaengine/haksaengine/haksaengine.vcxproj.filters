@@ -119,6 +119,9 @@
     <ClInclude Include="io\blueprint.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="variant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -180,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="io\blueprint.cpp">
       <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="variant.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
