@@ -1,28 +1,38 @@
 #include <GL/glew.h>
 
 #include "engine.h"
-#include "gfx/shader.h"
-#include "gfx/shader_program.h"
-#include "gfx/mesh_loader.h"
 
-#include "transform.h"
-#include "ecs/renderer.h"
+#include "io/loader.h"
+#include "io/blueprint_loader.h"
 
 #include <string>
 #include <iostream>
 #include <memory>
 
-const std::string asset_path = "../../assets/";
+class A
+{
+
+};
+
+class TestLoader : public Loader<A>
+{
+public:
+	TestLoader(const std::string& s) : Loader<A>(s, "") {}
+
+	A* load(const std::string& name) override
+	{
+		return new A;
+	}
+};
 
 int main(int argc, char** argv)
 {
-	Transform t;
-	Renderer r;
-
-	auto x = t.get_transform();
-
 	Engine e;
 	e.initialise();
 
+	TestLoader t("test");
+
 	e.run();
+
+	return 0;
 }

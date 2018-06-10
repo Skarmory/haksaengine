@@ -56,9 +56,6 @@
     <ClInclude Include="gfx\mesh.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\mesh_loader.h">
-      <Filter>Header Files\gfx</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\mesh_renderer.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
@@ -119,6 +116,9 @@
     <ClInclude Include="variant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="io\mesh_loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -131,9 +131,6 @@
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="gfx\mesh.cpp">
-      <Filter>Source Files\gfx</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\mesh_loader.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="gfx\mesh_renderer.cpp">
@@ -183,6 +180,9 @@
     </ClCompile>
     <ClCompile Include="variant.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="io\mesh_loader.cpp">
+      <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -1,10 +1,16 @@
-#include "gfx/mesh_loader.h"
+#include "io/mesh_loader.h"
 
 #include <string>
 #include <fstream>
 
+MeshLoader::MeshLoader(const std::string& directory) : Loader<Mesh>(directory, ".mdl")
+{
+}
+
 Mesh* MeshLoader::load(const std::string& id)
 {
+	std::string file_path = _directory + id + _extension;
+
 	Mesh* mesh = new Mesh;
 	std::ifstream fs;
 	std::string line;
@@ -40,7 +46,6 @@ Mesh* MeshLoader::load(const std::string& id)
 			parse_normals(fs, mesh);
 		}
 	}
-
 
 	fs.close();
 
