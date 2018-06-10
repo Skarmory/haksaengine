@@ -12,6 +12,7 @@
 
 #include "event/event_manager.h"
 #include "event/event.h"
+#include "variant.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 

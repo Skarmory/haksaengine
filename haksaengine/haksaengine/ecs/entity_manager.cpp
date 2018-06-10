@@ -1,7 +1,10 @@
 #include "ecs/entity_manager.h"
 
-#include "services.h"
 #include <iostream>
+
+#include "services.h"
+#include "variant.h"
+
 
 EntityManager::EntityManager(void) : next_id(0)
 {

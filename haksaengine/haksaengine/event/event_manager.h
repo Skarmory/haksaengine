@@ -5,8 +5,8 @@
 #include <list>
 
 #include "globals.h"
-#include "event.h"
-#include "ecs/system.h"
+#include "event/event.h"
+#include "event/event_handler.h"
 
 class EventHandler;
 
