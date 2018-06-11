@@ -4,8 +4,11 @@
 
 #include "GL/glew.h"
 #include "vertex.h"
+#include "asset_manager.h"
 
-struct Mesh
+class Asset;
+
+struct Mesh : public Asset
 {
 	std::string name;
 	std::vector<Vertex> vertices;
