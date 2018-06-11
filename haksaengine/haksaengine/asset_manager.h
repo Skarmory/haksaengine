@@ -4,6 +4,16 @@
 
 #include "io/mesh_loader.h"
 
+class AssetManager;
+
+class Asset
+{
+	unsigned int id;
+	const char* name;
+
+	friend class AssetManager;
+};
+
 class AssetManager
 {
 public:
