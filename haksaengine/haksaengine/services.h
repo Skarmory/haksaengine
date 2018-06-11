@@ -15,7 +15,7 @@ public:
 
 	~Services(void);
 
-	static Services& get(void);
+	HAKSAENGINE_API static Services& get(void);
 
 	void set_event_manager(EventManager* event_manager);
 	void set_entity_manager(EntityManager* entity_manager);
