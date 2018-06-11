@@ -7,7 +7,7 @@
 #include "gfx/mesh.h"
 
 /* Class that can parse and create a mesh object from a file */
-class MeshLoader : public Loader<Mesh>
+class MeshLoader : public Loader
 {
 public:
 	MeshLoader(const std::string& directory);

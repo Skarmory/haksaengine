@@ -4,23 +4,28 @@
 
 #include "globals.h"
 
-// Allows Loaders to be added to collections
-class BaseLoader
-{
-};
+#include "asset_manager.h"
 
-// Templated loader base
-template<class C>
-class Loader : public BaseLoader
+class Asset;
+
+class Loader
 {
 public:
 	Loader(const std::string& directory, const std::string& extension) : _directory(directory), _extension(extension)
 	{
 	}
 
-	virtual C* load(const std::string& name) = 0;
+	virtual Asset* load(const std::string& name) = 0;
 
 protected:
+	std::string _asset_path;
 	std::string _directory;
 	std::string _extension;
+
+	std::string get_path(const std::string& asset_name)
+	{
+		return _asset_path + _directory + asset_name + _extension;
+	}
+
+	friend class AssetManager;
 };

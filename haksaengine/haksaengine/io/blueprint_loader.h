@@ -13,7 +13,7 @@ class Blueprint;
 class BaseComponent;
 
 /* Class that handles loading Blueprints from disk */
-class BlueprintLoader : public Loader<Blueprint>
+class BlueprintLoader : public Loader
 {
 public:
 	BlueprintLoader(const std::string& blueprint_directory_path);

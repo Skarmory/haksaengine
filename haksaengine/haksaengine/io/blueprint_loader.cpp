@@ -3,7 +3,7 @@
 #include <fstream>
 #include <exception>
 
-BlueprintLoader::BlueprintLoader(const std::string& blueprint_directory) : Loader<Blueprint>(blueprint_directory, ".bpr")
+BlueprintLoader::BlueprintLoader(const std::string& blueprint_directory) : Loader(blueprint_directory, ".bpr")
 {
 }
 
@@ -11,7 +11,7 @@ Blueprint* BlueprintLoader::load(const std::string& name)
 {
 	Blueprint* blueprint = new Blueprint;
 
-	std::string path = _directory + std::string(name) + _extension;
+	std::string path = get_path(name);
 
 	std::ifstream fs(path);
 

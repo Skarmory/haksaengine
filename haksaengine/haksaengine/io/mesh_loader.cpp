@@ -3,19 +3,19 @@
 #include <string>
 #include <fstream>
 
-MeshLoader::MeshLoader(const std::string& directory) : Loader<Mesh>(directory, ".mdl")
+MeshLoader::MeshLoader(const std::string& directory) : Loader(directory, ".mdl")
 {
 }
 
 Mesh* MeshLoader::load(const std::string& id)
 {
-	std::string file_path = _directory + id + _extension;
+	std::string file_path = get_path(id);
 
 	Mesh* mesh = new Mesh;
 	std::ifstream fs;
 	std::string line;
 
-	fs.open(id);
+	fs.open(file_path);
 
 	while (std::getline(fs, line))
 	{
