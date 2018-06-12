@@ -4,57 +4,42 @@
 #include <sstream>
 #include <iostream>
 
-Shader::Shader(const std::string& filepath, int shader_type)
+Shader::Shader(void)
 {
-	std::string input;
-	std::ifstream file;
-
-	file.exceptions(std::ifstream::badbit);
-
-	try
-	{
-		std::stringstream stream;
-
-		file.open(filepath);
-		stream << file.rdbuf();
-		file.close();
-
-		input = stream.str();
-	}
-	catch (std::ifstream::failure e)
-	{
-		std::cout << "Failed to read shader file" << std::endl;
-	}
-
-	const GLchar* code = input.c_str();
-
-	shader = glCreateShader(shader_type);
-	glShaderSource(shader, 1, &code, nullptr);
-	glCompileShader(shader);
-
-	GLint success;
-	GLchar log[512];
-
-	glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-
-	if (!success)
-	{
-		glGetShaderInfoLog(shader, 512, nullptr, log);
-		std::cout << "Failed to compile shader\n" << log << std::endl;
-	}
+	_program = glCreateProgram();
 }
 
 Shader::~Shader(void)
 {
-	glDeleteShader(shader);
+	glDeleteProgram(_program);
 }
 
-GLuint Shader::get_shader(void) const
+void Shader::attach_shader(GLuint shader_id)
 {
-	return shader;
+	glAttachShader(_program, shader_id);
 }
 
-int Shader::get_type(void) const
+bool Shader::link(void)
 {
-	return type;
+	// Link shader program
+	glLinkProgram(_program);
+
+	GLint success;
+	GLchar log[512];
+
+	// Check link status
+	glGetProgramiv(_program, GL_LINK_STATUS, &success);
+	if (!success)
+	{
+		// Print error out
+		glGetProgramInfoLog(_program, 512, NULL, log);
+		std::cout << "Failed to link shader program\n" << log << std::endl;
+	}
+
+	return success;
+}
+
+void Shader::use(void)
+{
+	glUseProgram(_program);
 }

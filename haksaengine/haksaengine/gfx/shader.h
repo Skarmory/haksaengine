@@ -5,19 +5,24 @@
 #include <GL/glew.h>
 
 #include "globals.h"
+#include "asset_manager.h"
 
-/* Wraps a an OpenGL shader */
-class Shader
+/* Wraps a an OpenGL shader program */
+class Shader : public Asset
 {
 public:
-	// Read, create, and compile shader from file path
-	Shader(const std::string& filepath, int shader_type);
+	Shader(void);
 	~Shader(void);
 
-	GLuint get_shader(void) const;
-	int get_type(void) const;
+	// Add a shader to this shader program
+	void attach_shader(GLuint shader_id);
+
+	// Link this shader program
+	bool link(void);
+
+	// Make this the active shader program
+	void use(void);
 
 private:
-	GLuint shader;
-	int type;
+	GLuint _program;
 };
