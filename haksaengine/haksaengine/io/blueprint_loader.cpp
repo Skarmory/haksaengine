@@ -3,6 +3,10 @@
 #include <fstream>
 #include <exception>
 
+#include "services.h"
+#include "gfx/mesh.h"
+#include "gfx/shader.h"
+
 BlueprintLoader::BlueprintLoader(const std::string& blueprint_directory) : Loader(blueprint_directory, ".bpr")
 {
 }
@@ -47,9 +51,9 @@ void BlueprintLoader::parse_components(std::ifstream& fs, Blueprint* bp)
 
 		value = line.substr(idx1, idx2 - idx1);
 
-		if (_component_type_map.find(value) != _component_type_map.end())
+		if (Services::get().get_component_manager()->is_registered(value.c_str()))
 		{
-			BaseComponent* comp = _component_type_map.at(value)();
+			BaseComponent* comp = Services::get().get_component_manager()->create_component(value.c_str());
 			parse_component_data(fs, comp);
 			bp->add_component(comp);
 		}
@@ -114,6 +118,21 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 				data.as_bool = true;
 			else if (value == "false")
 				data.as_bool = false;
+		}
+		else if (type == "external")
+		{
+			data.type = Variant::Type::UNSIGNEDINT;
+
+			// These types specify another file that might need loading.
+			// Rather than give the type directly, they give an id to the resource to the blueprint
+			if (name == "mesh")
+			{
+				data.as_uint = Services::get().get_asset_manager()->load_asset<Mesh>(value.c_str());
+			}
+			else if (name == "shader")
+			{
+				data.as_uint = Services::get().get_asset_manager()->load_asset<Shader>(value.c_str());
+			}
 		}
 
 		datapack.set(name.c_str(), data);

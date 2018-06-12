@@ -8,6 +8,8 @@
 #include "asset_manager.h"
 #include "event/event_manager.h"
 #include "ecs/entity_manager.h"
+#include "ecs/transform.h"
+#include "ecs/renderer.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -33,8 +35,12 @@ void Engine::initialise(void)
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
 	services.set_asset_manager(new AssetManager);
+	services.set_component_manager(new ComponentManager);
 
 	rendering_system = new RenderingSystem;
+
+	services.get_component_manager()->register_component<Transform>("Transform");
+	services.get_component_manager()->register_component<Renderer>("Renderer");
 }
 
 void Engine::run(void)
