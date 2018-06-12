@@ -105,7 +105,7 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 		else if (type == "uint")
 		{
 			data.type = Variant::Type::UNSIGNEDINT;
-			data.as_uint = std::stoi(value);
+			data.as_uint = std::stoul(value);
 		}
 		else if (type == "bool")
 		{
