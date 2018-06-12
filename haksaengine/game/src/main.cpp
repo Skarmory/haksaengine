@@ -4,6 +4,7 @@
 
 #include "io/loader.h"
 #include "gfx/mesh.h"
+#include "gfx/shader.h"
 
 #include <string>
 #include <iostream>
@@ -17,6 +18,8 @@ int main(int argc, char** argv)
 
 	Services::get().get_asset_manager()->set_asset_directory_path("..\\..\\assets\\");
 	unsigned int mesh_id = Services::get().get_asset_manager()->load_asset<Mesh>("test");
+
+	Services::get().get_asset_manager()->load_asset<Shader>("basic");
 
 	e.run();
 

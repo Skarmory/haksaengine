@@ -2,6 +2,8 @@
 
 #include "io/mesh_loader.h"
 #include "gfx/mesh.h"
+#include "io/shader_loader.h"
+#include "gfx/shader.h"
 
 AssetManager::AssetManager(void) : AssetManager(DEFAULT_ASSET_DIRECTORY)
 {
@@ -10,6 +12,7 @@ AssetManager::AssetManager(void) : AssetManager(DEFAULT_ASSET_DIRECTORY)
 AssetManager::AssetManager(const std::string& asset_directory) : _asset_directory(asset_directory)
 {
 	add_loader<Mesh>(new MeshLoader("models\\"));
+	add_loader<Shader>(new ShaderLoader("shaders\\"));
 }
 
 AssetManager::~AssetManager(void)
