@@ -119,6 +119,9 @@
     <ClInclude Include="io\shader_loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\component_manager.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

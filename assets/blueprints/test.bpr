@@ -1,2 +1,15 @@
-Mesh: test.mdl
-Shader: { vertex: basic.vs, fragment:basic.fs }
+Components:
+	Transform:
+	[
+		float px 0.0f;
+		float py 0.0f;
+		float pz 0.0f;
+		float rx 0.0f;
+		float ry 0.0f;
+		float rz 0.0f;
+	]
+	Renderer:
+	[
+		external mesh test.mdl;
+		external shader basic.shader;
+	]

@@ -6,6 +6,8 @@
 #include "gfx/mesh.h"
 #include "io/shader_loader.h"
 #include "gfx/shader.h"
+#include "io/blueprint_loader.h"
+#include "io/blueprint.h"
 
 AssetManager::AssetManager(void) : AssetManager(DEFAULT_ASSET_DIRECTORY)
 {
@@ -18,6 +20,7 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 
 	add_loader<Mesh>(new MeshLoader("models\\"));
 	add_loader<Shader>(new ShaderLoader("shaders\\"));
+	add_loader<Blueprint>(new BlueprintLoader("blueprints\\"));
 
 	// Setup Events so they can be quickly retrieved and dispatched and not have to constantly rebuild them.
 	Variant v;
