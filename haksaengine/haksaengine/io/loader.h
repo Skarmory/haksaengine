@@ -24,7 +24,15 @@ protected:
 
 	std::string get_path(const std::string& asset_name)
 	{
-		return _asset_path + _directory + asset_name + _extension;
+		auto ext_idx = asset_name.find('.');
+		if (ext_idx == std::string::npos)
+		{
+			return _asset_path + _directory + asset_name + _extension;
+		}
+		else
+		{
+			return _asset_path + _directory + asset_name.substr(0, ext_idx) + _extension;
+		}
 	}
 
 	friend class AssetManager;
