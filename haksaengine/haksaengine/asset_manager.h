@@ -31,32 +31,7 @@ public:
 	template<class C>
 	unsigned int load_asset(const char* asset_name)
 	{
-		unsigned int  id = std::hash<std::string>{}(std::string(asset_name));
-
-		// Check if we've loaded this asset already
-		if (_assets.find(id) != _assets.end())
-			return id;
-
-		std::type_index tid = typeid(C);
-
-		// Not loaded, check if we have a loader for it
-		if (_loaders.find(tid) != _loaders.end())
-		{
-			// A loader exists so load this asset
-			Asset* loaded = _loaders[tid]->load(asset_name);
-			loaded->id = id;
-			loaded->name = asset_name;
-
-			_assets[id] = loaded;
-		}
-		else
-		{
-			// No loader, throw an exception because the game probably won't work
-			//throw std::runtime_error("Error trying to load file: " + std::string(asset_name) + ". Loader for type " + std::string(tid.name) + " not found. Make sure a loader for this has been added to the AssetManager.");
-			throw std::runtime_error("Failed to load asset");
-		}
-
-		return id;
+		return _load_asset(asset_name, typeid(C));
 	}
 
 	template<class C>
@@ -72,4 +47,6 @@ private:
 
 	std::unordered_map<std::type_index, Loader*> _loaders;
 	std::unordered_map<unsigned int, Asset*> _assets;
+
+	unsigned int HAKSAENGINE_API _load_asset(const std::string& asset_name, std::type_index type);
 };

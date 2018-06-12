@@ -33,3 +33,31 @@ void AssetManager::set_asset_directory_path(const char* path)
 	for (auto pair : _loaders)
 		pair.second->_asset_path = _asset_directory;
 }
+
+unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_index type)
+{
+	unsigned int  id = std::hash<std::string>{}(std::string(asset_name));
+
+	// Check if we've loaded this asset already
+	if (_assets.find(id) != _assets.end())
+		return id;
+
+	// Not loaded, check if we have a loader for it
+	if (_loaders.find(type) != _loaders.end())
+	{
+		// A loader exists so load this asset
+		Asset* loaded = _loaders[type]->load(asset_name);
+		loaded->id = id;
+		loaded->name = asset_name.c_str();
+
+		_assets[id] = loaded;
+	}
+	else
+	{
+		// No loader, throw an exception because the game probably won't work
+		//throw std::runtime_error("Error trying to load file: " + std::string(asset_name) + ". Loader for type " + std::string(tid.name) + " not found. Make sure a loader for this has been added to the AssetManager.");
+		throw std::runtime_error("Failed to load asset");
+	}
+
+	return id;
+}
