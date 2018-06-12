@@ -59,8 +59,6 @@ namespace haksaengine_test
 
 			Assert::IsNotNull(a);
 			Assert::AreEqual(7.77f, a->data);
-
-			delete c;
 		}
 
 		TEST_METHOD(Entity_remove_component_test)
