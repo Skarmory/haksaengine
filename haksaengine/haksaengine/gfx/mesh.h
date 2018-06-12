@@ -10,6 +10,12 @@ class Asset;
 
 struct Mesh : public Asset
 {
+	Mesh(void);
+	~Mesh(void);
+
+	Mesh(const Mesh&) = delete;
+	Mesh& operator=(const Mesh&) = delete;
+
 	std::string name;
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;

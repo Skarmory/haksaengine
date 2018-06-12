@@ -1,5 +1,15 @@
 #include "gfx/mesh.h"
 
+Mesh::Mesh(void)
+{
+}
+
+Mesh::~Mesh(void)
+{
+	glDeleteBuffers(2, &vertex_buffer);
+	glDeleteVertexArrays(1, &vertex_array);
+}
+
 // Generate vertex array object, vertex buffer, and index buffer
 void Mesh::initialise(void)
 {

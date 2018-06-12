@@ -17,8 +17,13 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 
 AssetManager::~AssetManager(void)
 {
-	for (auto pair : _loaders)
-		delete pair.second;
+	// Destruct all the loaded assets
+	for (auto id_asset_pair : _assets)
+		delete id_asset_pair.second;
+
+	// Destruct all the asset loaders
+	for (auto id_loader_pair : _loaders)
+		delete id_loader_pair.second;
 }
 
 void AssetManager::set_asset_directory_path(const char* path)

@@ -14,6 +14,9 @@ class EntityManager;
 class Blueprint : public Asset
 {
 public:
+	Blueprint(void) = default;
+	~Blueprint(void);
+
 	void add_component(BaseComponent* component);
 
 	void create_new_entity(void);

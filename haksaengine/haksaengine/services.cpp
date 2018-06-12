@@ -2,18 +2,30 @@
 
 Services* Services::services = nullptr;
 
-Services::Services(void) : event_manager(nullptr), entity_manager(nullptr)
+Services::Services(void) : event_manager(nullptr), entity_manager(nullptr), asset_manager(nullptr)
 {
 	services = this;
 }
 
 Services::~Services(void)
 {
-	delete event_manager;
-	event_manager = nullptr;
+	if (event_manager)
+	{
+		delete event_manager;
+		event_manager = nullptr;
+	}
 
-	delete entity_manager;
-	entity_manager = nullptr;
+	if (entity_manager)
+	{
+		delete entity_manager;
+		entity_manager = nullptr;
+	}
+
+	if (asset_manager)
+	{
+		delete asset_manager;
+		asset_manager = nullptr;
+	}
 
 	services = nullptr;    
 }

@@ -198,7 +198,6 @@ namespace haksaengine_test
 
 			entity_man->create_entity(bp);
 
-			delete comp;
 			delete bp;
 		}
 
