@@ -5,6 +5,7 @@
 #include <typeindex>
 #include <exception>
 
+#include "event/event.h"
 #include "io/loader.h"
 
 class AssetManager;
@@ -46,6 +47,7 @@ private:
 	std::string _asset_directory;
 
 	std::unordered_map<std::type_index, Loader*> _loaders;
+	std::unordered_map<std::type_index, Event> _load_event_map;
 	std::unordered_map<unsigned int, Asset*> _assets;
 
 	unsigned int HAKSAENGINE_API _load_asset(const std::string& asset_name, std::type_index type);

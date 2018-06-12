@@ -1,5 +1,7 @@
 #include "asset_manager.h"
 
+#include "services.h"
+
 #include "io/mesh_loader.h"
 #include "gfx/mesh.h"
 #include "io/shader_loader.h"
@@ -11,8 +13,26 @@ AssetManager::AssetManager(void) : AssetManager(DEFAULT_ASSET_DIRECTORY)
 
 AssetManager::AssetManager(const std::string& asset_directory) : _asset_directory(asset_directory)
 {
+	_loaders.reserve(5);
+	_load_event_map.reserve(5);
+
 	add_loader<Mesh>(new MeshLoader("models\\"));
 	add_loader<Shader>(new ShaderLoader("shaders\\"));
+
+	// Setup Events so they can be quickly retrieved and dispatched and not have to constantly rebuild them.
+	Variant v;
+	Event evt;
+	v.type = Variant::Type::UNSIGNEDINT;
+	evt.arguments.push_back(v);
+
+	evt.event_type = "AssetMeshLoaded";
+	_load_event_map[typeid(Mesh)] = evt;
+
+	evt.event_type = "AssetShaderLoaded";
+	_load_event_map[typeid(Shader)] = evt;
+
+	evt.event_type = "AssetBlueprintLoaded";
+	_load_event_map[typeid(Blueprint)] = evt;
 }
 
 AssetManager::~AssetManager(void)
@@ -58,6 +78,11 @@ unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_
 		//throw std::runtime_error("Error trying to load file: " + std::string(asset_name) + ". Loader for type " + std::string(tid.name) + " not found. Make sure a loader for this has been added to the AssetManager.");
 		throw std::runtime_error("Failed to load asset");
 	}
+
+	Event ev = _load_event_map[type];
+	ev.arguments[0].as_uint = id;
+
+	Services::get().get_event_manager()->dispatch(ev);
 
 	return id;
 }
