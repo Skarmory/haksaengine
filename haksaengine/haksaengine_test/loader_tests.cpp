@@ -7,6 +7,7 @@
 #include <exception>
 #include <functional>
 
+#include "engine.h"
 #include "io/blueprint_loader.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -54,6 +55,7 @@ namespace haksaengine_test
 	public:
 		std::string directory;
 		BlueprintLoader* bpl;
+		Engine* engine;
 
 		TEST_METHOD_INITIALIZE(setup)
 		{
@@ -61,18 +63,24 @@ namespace haksaengine_test
 			directory.erase(0, 1);
 			directory.erase(directory.size() - 2);
 
-			bpl = new  BlueprintLoader(directory + "..\\..\\assets\\blueprints\\");
+			engine = new Engine;
+			engine->initialise();
+
+			Services::get().get_asset_manager()->set_asset_directory_path((directory + "..\\..\\assets\\").c_str());
+
+			bpl = new BlueprintLoader(directory + "..\\..\\assets\\blueprints\\");
 		}
 
 		TEST_METHOD_CLEANUP(teardown)
 		{
 			delete bpl;
+			delete engine;
 		}
 
 		TEST_METHOD(BlueprintLoader_load)
 		{
-			bpl->register_component<TestComponentA>("TestComponentA");
-			bpl->register_component<TestComponentB>("TestComponentB");
+			Services::get().get_component_manager()->register_component<TestComponentA>("TestComponentA");
+			Services::get().get_component_manager()->register_component<TestComponentB>("TestComponentB");
 
 			Blueprint* bp = bpl->load("blueprint_unittest");
 
