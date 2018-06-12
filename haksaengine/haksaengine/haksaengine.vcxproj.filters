@@ -62,9 +62,6 @@
     <ClInclude Include="gfx\shader.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\shader_program.h">
-      <Filter>Header Files\gfx</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\vertex.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
@@ -137,9 +134,6 @@
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="gfx\shader.cpp">
-      <Filter>Source Files\gfx</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\shader_program.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="dllmain.cpp">
