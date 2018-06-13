@@ -5,7 +5,7 @@
 #include "window.h"
 #include "time.h"
 #include "services.h"
-#include "ecs/rendering_system.h"
+#include "ecs/renderer.h"
 
 /* Entrypoint into the engine itself. Binds everything together. */
 class Engine
@@ -28,5 +28,5 @@ private:
 
 	GameWindow* game_window;
 	Services services;
-	RenderingSystem* rendering_system;
+	Renderer* renderer;
 };

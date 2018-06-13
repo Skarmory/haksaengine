@@ -10,6 +10,7 @@
 #include "ecs/entity_manager.h"
 #include "ecs/transform.h"
 #include "ecs/renderer.h"
+#include "ecs/renderable.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -17,7 +18,7 @@ Engine::Engine(void) : accumulator(0.0f)
 
 Engine::~Engine(void)
 {
-	delete rendering_system;
+	delete renderer;
 	delete game_window;
 
 	glfwTerminate();
@@ -37,10 +38,10 @@ void Engine::initialise(void)
 	services.set_asset_manager(new AssetManager);
 	services.set_component_manager(new ComponentManager);
 
-	rendering_system = new RenderingSystem;
+	renderer = new Renderer;
 
 	services.get_component_manager()->register_component<Transform>("Transform");
-	services.get_component_manager()->register_component<Renderer>("Renderer");
+	services.get_component_manager()->register_component<Renderable>("Renderable");
 }
 
 void Engine::run(void)
@@ -59,6 +60,6 @@ void Engine::run(void)
 
 		std::cout << game_time.delta() << std::endl;
 
-		rendering_system->update(game_time.delta());
+		renderer->update(game_time.delta());
 	}
 }

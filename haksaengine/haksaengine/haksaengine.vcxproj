@@ -160,8 +160,8 @@
     <ClInclude Include="ecs\entity.h" />
     <ClInclude Include="ecs\entity_manager.h" />
     <ClInclude Include="ecs\transform.h" />
+    <ClInclude Include="ecs\renderable.h" />
     <ClInclude Include="ecs\renderer.h" />
-    <ClInclude Include="ecs\rendering_system.h" />
     <ClInclude Include="ecs\system.h" />
     <ClInclude Include="engine.h" />
     <ClInclude Include="event\event.h" />
@@ -189,7 +189,7 @@
     <ClCompile Include="dllmain.cpp" />
     <ClCompile Include="ecs\entity.cpp" />
     <ClCompile Include="ecs\entity_manager.cpp" />
-    <ClCompile Include="ecs\rendering_system.cpp" />
+    <ClCompile Include="ecs\renderer.cpp" />
     <ClCompile Include="ecs\system.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="event\event_manager.cpp" />

@@ -44,12 +44,6 @@
     <ClInclude Include="ecs\entity_manager.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
-    <ClInclude Include="ecs\renderer.h">
-      <Filter>Header Files\ecs</Filter>
-    </ClInclude>
-    <ClInclude Include="ecs\rendering_system.h">
-      <Filter>Header Files\ecs</Filter>
-    </ClInclude>
     <ClInclude Include="ecs\system.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
@@ -122,15 +116,18 @@
     <ClInclude Include="ecs\component_manager.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\renderable.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
+    <ClInclude Include="ecs\renderer.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="ecs\entity_manager.cpp">
-      <Filter>Source Files\ecs</Filter>
-    </ClCompile>
-    <ClCompile Include="ecs\rendering_system.cpp">
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="gfx\mesh.cpp">
@@ -186,6 +183,9 @@
     </ClCompile>
     <ClCompile Include="io\shader_loader.cpp">
       <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\renderer.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

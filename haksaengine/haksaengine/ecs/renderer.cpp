@@ -1,37 +1,33 @@
-#include "ecs/rendering_system.h"
+#include "ecs/renderer.h"
 
 #include <algorithm>
 
 #include "GL/glew.h"
 
 #include "services.h"
-#include "gfx/mesh_renderer.h"
-#include "ecs/renderer.h"
+#include "ecs/renderable.h"
 
-RenderingSystem::RenderingSystem(void)
+Renderer::Renderer(void)
 {
+	Services::get().get_event_manager()->subscribe("AssetMeshLoaded", this);
 }
 
-void RenderingSystem::update(float delta)
+void Renderer::update(float delta)
 {
 	for (auto entity_id : _entities)
 	{
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
-
-		auto renderer = entity->get_component<Renderer>()->mesh_renderer;
-
-		renderer->render();
 	}
 }
 
-void RenderingSystem::on_event(Event ev)
+void Renderer::on_event(Event ev)
 {
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		unsigned int entity_id = ev.arguments[0].as_uint;
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
 
-		if (entity->has_component<Renderer>())
+		if (entity->has_component<Renderable>())
 			_entities.push_back(entity_id);
 	}
 	else if (ev.event_type == "EntityDestroyedEvent")
@@ -40,5 +36,9 @@ void RenderingSystem::on_event(Event ev)
 		std::vector<unsigned int>::iterator it;
 		if ((it = std::find(_entities.begin(), _entities.end(), entity_id)) != _entities.end())
 			_entities.erase(it);
+	}
+	else if (ev.event_type == "AssetMeshLoaded")
+	{
+		char c = 'v';
 	}
 }

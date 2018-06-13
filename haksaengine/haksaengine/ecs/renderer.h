@@ -1,15 +1,13 @@
 #pragma once
 
 #include "globals.h"
-#include "ecs/component.h"
-#include "gfx/mesh_renderer.h"
+#include "event/event.h"
+#include "ecs/system.h"
 
-struct Renderer : public Component<Renderer>
+class Renderer : public System
 {
-	void load(NamedVariantPack* data) override
-	{
-
-	}
-
-	MeshRenderer* mesh_renderer;
+public:
+	Renderer(void);
+	virtual void update(float delta) override;
+	virtual void on_event(Event ev) override;
 };
