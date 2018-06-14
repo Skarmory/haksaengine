@@ -155,6 +155,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="asset_manager.h" />
+    <ClInclude Include="ecs\camera.h" />
     <ClInclude Include="ecs\component.h" />
     <ClInclude Include="ecs\component_manager.h" />
     <ClInclude Include="ecs\entity.h" />

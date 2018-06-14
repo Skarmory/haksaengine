@@ -119,6 +119,9 @@
     <ClInclude Include="ecs\renderer.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\camera.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
