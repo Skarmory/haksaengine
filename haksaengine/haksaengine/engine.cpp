@@ -24,6 +24,11 @@ Engine::~Engine(void)
 	glfwTerminate();
 }
 
+void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, GLsizei length, const GLchar* message, GLvoid* user_parameters)
+{
+	printf("OpenGL error: %s\n", message);
+}
+
 void Engine::initialise(void)
 {
 	glfwInit();
@@ -32,6 +37,8 @@ void Engine::initialise(void)
 
 	glewExperimental = GL_TRUE;
 	glewInit();
+
+	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
