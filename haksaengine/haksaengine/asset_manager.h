@@ -27,7 +27,7 @@ public:
 	~AssetManager(void);
 
 	HAKSAENGINE_API void set_asset_directory_path(const char* path);
-	/*HAKSAENGINE_API const char*  get_asset_directory_path(void) const;*/
+	HAKSAENGINE_API const Asset& get_asset(unsigned int asset_id) const;
 
 	template<class C>
 	unsigned int load_asset(const char* asset_name)
@@ -50,5 +50,5 @@ private:
 	std::unordered_map<std::type_index, Event> _load_event_map;
 	std::unordered_map<unsigned int, Asset*> _assets;
 
-	unsigned int HAKSAENGINE_API _load_asset(const std::string& asset_name, std::type_index type);
+	HAKSAENGINE_API unsigned int _load_asset(const std::string& asset_name, std::type_index type);
 };

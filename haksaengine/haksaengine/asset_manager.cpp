@@ -57,6 +57,11 @@ void AssetManager::set_asset_directory_path(const char* path)
 		pair.second->_asset_path = _asset_directory;
 }
 
+const Asset& AssetManager::get_asset(unsigned int asset_id) const
+{
+	return *_assets.at(asset_id);
+}
+
 unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_index type)
 {
 	unsigned int  id = std::hash<std::string>{}(std::string(asset_name));
