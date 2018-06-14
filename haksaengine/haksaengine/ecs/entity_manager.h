@@ -24,7 +24,7 @@ public:
 
 	HAKSAENGINE_API unsigned int create_entity(std::vector<BaseComponent*>* const components = nullptr);
 
-	HAKSAENGINE_API void create_entity(Blueprint* blueprint);
+	HAKSAENGINE_API void create_entity(const Blueprint* blueprint);
 
 	HAKSAENGINE_API void destroy_entity(unsigned int id);
 

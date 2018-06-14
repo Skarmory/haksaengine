@@ -39,7 +39,7 @@ unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const com
 	return next_id++;
 }
 
-void EntityManager::create_entity(Blueprint* blueprint)
+void EntityManager::create_entity(const Blueprint* blueprint)
 {
 	_entities[next_id] = Entity(next_id);
 
