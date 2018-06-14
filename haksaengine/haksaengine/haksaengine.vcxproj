@@ -168,7 +168,6 @@
     <ClInclude Include="event\event_handler.h" />
     <ClInclude Include="event\event_manager.h" />
     <ClInclude Include="gfx\mesh.h" />
-    <ClInclude Include="gfx\mesh_renderer.h" />
     <ClInclude Include="gfx\shader.h" />
     <ClInclude Include="gfx\vertex.h" />
     <ClInclude Include="globals.h" />
@@ -194,7 +193,6 @@
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="event\event_manager.cpp" />
     <ClCompile Include="gfx\mesh.cpp" />
-    <ClCompile Include="gfx\mesh_renderer.cpp" />
     <ClCompile Include="gfx\shader.cpp" />
     <ClCompile Include="haksaengine.cpp" />
     <ClCompile Include="io\blueprint.cpp" />

@@ -50,9 +50,6 @@
     <ClInclude Include="gfx\mesh.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\mesh_renderer.h">
-      <Filter>Header Files\gfx</Filter>
-    </ClInclude>
     <ClInclude Include="gfx\shader.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
@@ -131,9 +128,6 @@
       <Filter>Source Files\ecs</Filter>
     </ClCompile>
     <ClCompile Include="gfx\mesh.cpp">
-      <Filter>Source Files\gfx</Filter>
-    </ClCompile>
-    <ClCompile Include="gfx\mesh_renderer.cpp">
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="gfx\shader.cpp">
