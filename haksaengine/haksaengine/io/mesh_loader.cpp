@@ -49,6 +49,8 @@ Mesh* MeshLoader::load(const std::string& id)
 
 	fs.close();
 
+	mesh->initialise();
+
 	return mesh;
 }
 
