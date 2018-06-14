@@ -39,7 +39,12 @@ bool Shader::link(void)
 	return success;
 }
 
-void Shader::use(void)
+void Shader::use(void) const
 {
 	glUseProgram(_program);
+}
+
+GLuint Shader::get_program(void) const
+{
+	return _program;
 }

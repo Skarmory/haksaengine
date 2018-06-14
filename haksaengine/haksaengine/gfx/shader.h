@@ -21,7 +21,10 @@ public:
 	bool link(void);
 
 	// Make this the active shader program
-	void use(void);
+	void use(void) const;
+
+	// Get program id
+	GLuint get_program(void) const;
 
 private:
 	GLuint _program;
