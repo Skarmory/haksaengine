@@ -36,14 +36,16 @@ void Mesh::initialise(void)
 }
 
 // Wrapper to bind vertex array
-void Mesh::bind(void)
+void Mesh::bind(void) const
 {
 	glBindVertexArray(vertex_array);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
 }
 
 
 // Wrapper to unbind vertex array
-void Mesh::unbind(void)
+void Mesh::unbind(void) const
 {
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }

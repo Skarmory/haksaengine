@@ -21,8 +21,8 @@ struct Mesh : public Asset
 	std::vector<unsigned int> indices;
 
 	void initialise(void);
-	void bind(void);
-	void unbind(void);
+	void bind(void) const;
+	void unbind(void) const;
 
 private:
 	GLuint vertex_array, vertex_buffer, index_buffer;
