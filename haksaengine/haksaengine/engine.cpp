@@ -65,8 +65,10 @@ void Engine::run(void)
 			accumulator -= FIXED_TIME_STEP;
 		}
 
-		std::cout << game_time.delta() << std::endl;
+		//std::cout << game_time.delta() << std::endl;
 
 		renderer->update(game_time.delta());
+
+		game_window->swap_buffers();
 	}
 }
