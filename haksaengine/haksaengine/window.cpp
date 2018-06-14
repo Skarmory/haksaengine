@@ -22,3 +22,8 @@ bool GameWindow::window_close(void)
 {
 	return glfwWindowShouldClose(window);
 }
+
+void GameWindow::swap_buffers(void)
+{
+	glfwSwapBuffers(window);
+}

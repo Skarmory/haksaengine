@@ -13,6 +13,7 @@ public:
 	~GameWindow(void);
 
 	bool window_close(void);
+	void swap_buffers(void);
 
 private:
 	GLFWwindow* window;
