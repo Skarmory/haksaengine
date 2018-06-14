@@ -71,7 +71,7 @@ unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_
 		// A loader exists so load this asset
 		Asset* loaded = _loaders[type]->load(asset_name);
 		loaded->id = id;
-		loaded->name = asset_name.c_str();
+		loaded->name = asset_name;
 
 		_assets[id] = loaded;
 	}

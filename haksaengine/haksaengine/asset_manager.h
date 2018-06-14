@@ -14,7 +14,7 @@ class Loader;
 class Asset
 {
 	unsigned int id;
-	const char* name;
+	std::string name;
 
 	friend class AssetManager;
 };
