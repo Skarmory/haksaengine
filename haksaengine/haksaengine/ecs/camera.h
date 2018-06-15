@@ -2,7 +2,7 @@
 
 #include "ecs/component.h"
 
-class Camera : public Component<Camera>
+struct Camera : public Component<Camera>
 {
 	void load(NamedVariantPack* data) override
 	{
