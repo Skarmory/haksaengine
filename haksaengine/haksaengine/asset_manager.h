@@ -13,6 +13,11 @@ class Loader;
 
 class Asset
 {
+public:
+	virtual ~Asset(void)
+	{}
+
+private:
 	unsigned int id;
 	std::string name;
 
