@@ -1,13 +1,13 @@
 #include "gfx/mesh.h"
 
-Mesh::Mesh(void)
+Mesh::Mesh(void) : initialised(false), vertex_array(0), vertex_buffer(0), index_buffer(0)
 {
 }
 
 Mesh::~Mesh(void)
 {
-	glDeleteBuffers(2, &vertex_buffer);
-	glDeleteVertexArrays(1, &vertex_array);
+	if (initialised)
+		uninitialise();
 }
 
 // Generate vertex array object, vertex buffer, and index buffer
@@ -33,6 +33,20 @@ void Mesh::initialise(void)
 		//glEnableVertexAttribArray(2);
 
 	glBindVertexArray(0);
+
+	initialised = true;
+}
+
+void Mesh::uninitialise(void)
+{
+	glDeleteBuffers(2, &vertex_buffer);
+	glDeleteVertexArrays(1, &vertex_array);
+
+	vertex_array = 0;
+	vertex_buffer = 0;
+	index_buffer = 0;
+
+	initialised = false;
 }
 
 // Wrapper to bind vertex array
