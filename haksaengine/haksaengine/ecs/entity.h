@@ -32,7 +32,7 @@ public:
 	}
 
 	template<class C>
-	C* get_component(void)
+	C* get_component(void) const
 	{
 		if(_components.find(typeid(C)) != _components.end())
 			return static_cast<C*>(_components.at(typeid(C)));
