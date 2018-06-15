@@ -11,6 +11,7 @@
 #include "ecs/transform.h"
 #include "ecs/renderer.h"
 #include "ecs/renderable.h"
+#include "ecs/camera.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -24,6 +25,7 @@ Engine::~Engine(void)
 	glfwTerminate();
 }
 
+// Callback for opengl to print errors
 void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, GLsizei length, const GLchar* message, GLvoid* user_parameters)
 {
 	printf("OpenGL error: %s\n", message);
@@ -31,6 +33,7 @@ void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, 
 
 void Engine::initialise(void)
 {
+	// Initialise OpenGL stuff
 	glfwInit();
 
 	game_window = new GameWindow(800, 600, "Game Application");
@@ -40,15 +43,20 @@ void Engine::initialise(void)
 
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
+	// Add engine services to the locator
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
 	services.set_asset_manager(new AssetManager);
 	services.set_component_manager(new ComponentManager);
+	services.set_scene_manager(new SceneManager);
 
+	// Create engine defined systems
 	renderer = new Renderer;
 
+	// Register engine defined components
 	services.get_component_manager()->register_component<Transform>("Transform");
 	services.get_component_manager()->register_component<Renderable>("Renderable");
+	services.get_component_manager()->register_component<Camera>("Camera");
 }
 
 void Engine::run(void)

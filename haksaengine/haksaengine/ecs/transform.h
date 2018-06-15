@@ -17,7 +17,13 @@ struct Transform : public Component<Transform>
 
 	void load(NamedVariantPack* data) override
 	{
+		position.x = data->get("px").as_float;
+		position.y = data->get("py").as_float;
+		position.z = data->get("pz").as_float;
 
+		rotation.x = data->get("rx").as_float;
+		rotation.y = data->get("ry").as_float;
+		rotation.z = data->get("rz").as_float;
 	}
 
 	void translate(glm::vec3 translation)
