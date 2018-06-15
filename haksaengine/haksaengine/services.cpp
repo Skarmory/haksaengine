@@ -55,6 +55,11 @@ void Services::set_component_manager(ComponentManager* component_manager)
 	this->component_manager = component_manager;
 }
 
+void Services::set_scene_manager(SceneManager* scene_manager)
+{
+	this->scene_manager = scene_manager;
+}
+
 EventManager* Services::get_event_manager(void)
 {
 	return event_manager;
@@ -73,4 +78,9 @@ AssetManager* Services::get_asset_manager(void)
 ComponentManager* Services::get_component_manager(void)
 {
 	return component_manager;
+}
+
+SceneManager* Services::get_scene_manager(void)
+{
+	return scene_manager;
 }
