@@ -33,6 +33,12 @@
     <Filter Include="Source Files\io">
       <UniqueIdentifier>{7e7ef7ab-cca0-467a-a0e1-a668a3130e91}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\scene">
+      <UniqueIdentifier>{6e39ca5d-28cf-4c17-bf3e-046eaf1f7c60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\scene">
+      <UniqueIdentifier>{a457879d-fbb8-45d1-9af1-618d199ce0dc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ecs\component.h">
@@ -122,6 +128,9 @@
     <ClInclude Include="ecs\camera.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="scene\scene_manager.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -183,6 +192,9 @@
     </ClCompile>
     <ClCompile Include="ecs\renderer.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\scene_manager.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
