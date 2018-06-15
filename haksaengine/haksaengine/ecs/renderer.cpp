@@ -7,7 +7,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "services.h"
+
 #include "ecs/renderable.h"
+#include "ecs/camera.h"
+#include "ecs/transform.h"
+
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
 
@@ -26,6 +30,10 @@ void Renderer::update(float delta)
 
 	AssetManager* asset_man = Services::get().get_asset_manager();
 
+	const Entity& main_camera = Services::get().get_scene_manager()->get_main_camera();
+	Camera* camera = main_camera.get_component<Camera>();
+	Transform* camera_transform = main_camera.get_component<Transform>();
+
 	for (auto entity_id : _entities)
 	{
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
@@ -40,13 +48,13 @@ void Renderer::update(float delta)
 		shader.use();
 
 		// DEBUG CODE - Just hardcoded for testing
-		glm::vec3 camera_position = glm::vec3(0.0f, 0.0f, 5.0f);
+		glm::vec3 camera_position = camera_transform->get_position();
 		glm::mat4 model, view, projection;
 
 		model = glm::mat4(1.0f);
-		model = glm::rotate(model, -90.0f, glm::vec3(1.0f, 0.0f, 0.0f));
+		model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
 		view = glm::lookAt(camera_position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		projection = glm::perspective(45.0f, 800.0f / 600.0f, 0.1f, 100.0f);
+		projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
 
 		GLint model_loc = glGetUniformLocation(shader.get_program(), "model");
 		GLint view_loc = glGetUniformLocation(shader.get_program(), "view");
