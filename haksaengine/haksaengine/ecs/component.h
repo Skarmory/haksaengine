@@ -7,6 +7,7 @@
 class BaseComponent
 {
 public:
+	virtual ~BaseComponent(void) = default;
 	virtual BaseComponent* clone(void) const = 0;
 	virtual void load(NamedVariantPack* data) = 0;
 };
@@ -18,7 +19,6 @@ class Component : public BaseComponent
 {
 public:
 	Component(void) = default;
-	virtual ~Component(void) = default;
 
 	virtual BaseComponent* clone(void) const override
 	{

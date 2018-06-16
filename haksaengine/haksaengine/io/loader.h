@@ -15,6 +15,10 @@ public:
 	{
 	}
 
+	virtual ~Loader(void)
+	{
+	}
+
 	virtual Asset* load(const std::string& name) = 0;
 
 protected:
