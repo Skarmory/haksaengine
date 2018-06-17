@@ -1,13 +1,38 @@
+# Author: Alastair Paterson
+
+# This tool is designed to take in blocks of data ripped from .fbx files and convert it into my own custom .mdl file format
+# Data must first be extracted from a .fbx for each mesh and placed into a format looking something like this:
+#
+# vertices
+# 0.0,1.0,2.0,3.0,4.0,...
+#
+# indices
+# 0,1,2,3,4,5,6,...
+#
+# and so on.
+#
+# It currently works with the data copied directly from raw ascii .fbx file values from Blender's export, with a gap between each section.
+# (This means some things such as amount of values per line currently matter)
+# In future I will try to update this to just work directly on an .fbx file automagically
+
+from math import sqrt
+from copy import copy
 
 filename = "verts.txt"
 outfilename = "outverts.txt"
-linelength = 12
 
 vertices = []
 indices = []
-normals = []
+uv_vals = []
+uv_idx = []
 
-def parse_verts(file, outfile):
+class Vertex:
+	position = ()
+	normal   = ()
+	uv       = ()
+
+# Reads groups of 3 from the file as the vertex positions
+def parse_verts(file):
 	print("Parsing vertices")
 	
 	while 1:
@@ -23,18 +48,13 @@ def parse_verts(file, outfile):
 		
 		i = 0
 		while i < len(splitline):
-			vertices.append(splitline[i])
-			i+=1
-			
-	# Write out verts
-	print("Vertices %d {" % (len(vertices) / 3), file=outfile)
-	i = 0	
-	while i < len(vertices):
-		print("\t{ %s, %s, %s }," % (vertices[i], vertices[i+1], vertices[i+2]), file=outfile)
-		i+=3
-	print("}", file=outfile)
+			v = Vertex()
+			v.position = tuple(splitline[i:i+3])
+			vertices.append(v)
+			i+=3
 
-def parse_indices(file, outfile):
+# Reads in and reformats index data into the correct form
+def parse_indices(file):
 	print("Parsing indices")
 	
 	while 1:
@@ -55,25 +75,11 @@ def parse_indices(file, outfile):
 				value = ((value * -1) - 1)
 			indices.append(value)
 			i+=1
-	
-	# Write out indices
-	print("Indices %s {" % (len(indices)), file=outfile)	
-	print("\t%s, " % indices[0], file=outfile, end="")
-	i = 1
-	while i < len(indices):
-		if i % 32 == 0:
-			print("", file=outfile)
-			print("\t", file=outfile, end="")
-		print("%s, " % indices[i], file=outfile, end="")
-		i+=1
-	
-	print("", file=outfile)
-	print("}", file=outfile)
 
-# Convert normals
-def parse_normals(file, outfile):
+# Reads in and formats normal data into the correct form
+def parse_normals(file):
 	print("Parsing normals")
-	
+
 	norm = {}
 	norms = []
 	
@@ -113,16 +119,127 @@ def parse_normals(file, outfile):
 		i+=1
 	
 	# Go through and average the normals out now
-	normals = list(range(len(norm)))
 	for k,v in norm.items():
-		normals[k] = (v[1][0] / v[0], v[1][1] / v[0], v[1][2] / v[0])
+		normal = (v[1][0] / v[0], v[1][1] / v[0], v[1][2] / v[0])
 		
-	# Write out normals
-	print("Normals %s {" % len(normals), file=outfile)	
-	for normal in normals:
-		print("\t{ %.6f, %.6f, %.6f }," % (normal[0], normal[1], normal[2]), file=outfile)
+		# Make sure they're actually still normalised
+		magnitude = sqrt(normal[0]*normal[0] + normal[1]*normal[1] + normal[2]*normal[2])
+		normal = (normal[0] / magnitude, normal[1] / magnitude, normal[2] / magnitude)
+		
+		vertices[k].normal = normal
+
+# Adds UV values into a list of 2-tuples
+def parse_uvs(file):
+	print("Parsing UVs")
+	
+	while 1:
+		line = file.readline().strip()
+		if not line:
+			break
+		
+		splitline = line.strip()
+		if splitline[-1] == ",":
+			splitline = splitline[:-1]
+			
+		splitline = splitline.split(",")
+		
+		i = 0
+		while i < len(splitline):
+			uv_vals.append(tuple([float(x) for x in splitline[i:i+2]]))
+			i+=2
+
+# Reads UV indices into a list
+def parse_uvindex(file):
+	print("Parsing UV indices")
+	
+	while 1:
+		line = file.readline().strip()
+		if not line:
+			break
+		
+		splitline = line.strip()
+		if splitline[-1] == ",":
+			splitline = splitline[:-1]
+			
+		splitline = splitline.split(",")
+		
+		i = 0
+		while i < len(splitline):
+			uv_idx.append(int(splitline[i]))
+			i+=1
+
+# UVs are stored per face, but we need per vertex. Only way is to duplicate vertices.
+# This method goes through and duplicates the vertices it needs to and updates the vertex indices
+def reconcile_uvs():
+	global vertices
+	global indices
+	global uv_vals
+	global uv_idx
+
+	added = 0
+	cont = 0
+	mod = 0
+	
+	i = 0
+	while i < len(uv_idx):
+		vidx = indices[i]
+		uvidx = uv_idx[i]
+
+		vert = vertices[vidx]
+		uv = uv_vals[uvidx]
+		
+		if vert.uv == uv:
+			i += 1
+			cont += 1
+			continue
+		elif len(vert.uv) == 0:
+			mod += 1
+			vert.uv = uv
+		else:
+			added += 1
+			vertices.append(copy(vert))
+			vertices[-1].uv = uv
+			indices[i] = len(vertices)-1
+	
+		i += 1
+
+	print("Added %s vertices" % added)
+	print("Modified %s vertices" % mod)
+	print("Continued %s times" % cont)
+
+# Final step, rewrite data into our .mdl format
+def write_data(outfile):
+	# Vertices
+	print("Vertices %d {" % len(vertices), file=outfile)
+	for vertex in vertices:
+		print("\t{ %s, %s, %s }," % vertex.position, file=outfile)
 	print("}", file=outfile)
 	
+	# Indices
+	print("Indices %s {" % (len(indices)), file=outfile)	
+	print("\t%s, " % indices[0], file=outfile, end="")
+	i = 1
+	while i < len(indices):
+		if i % 32 == 0:
+			print("", file=outfile)
+			print("\t", file=outfile, end="")
+		print("%s, " % indices[i], file=outfile, end="")
+		i+=1
+	
+	print("", file=outfile)
+	print("}", file=outfile)
+	
+	# Normals
+	print("Normals %s {" % len(vertices), file=outfile)	
+	for vertex in vertices:
+		print("\t{ %.6f, %.6f, %.6f }," % vertex.normal, file=outfile)
+	print("}", file=outfile)
+	
+	# UVs
+	print("UVs %s {" % len(vertices), file=outfile)	
+	for vertex in vertices:
+		print("\t{ %.6f, %.6f }," % vertex.uv, file=outfile)
+	print("}", file=outfile)
 	
 def main():
 	file = open(filename)
@@ -136,17 +253,28 @@ def main():
 			break
 			
 		if line == "vertices":
-			parse_verts(file, outfile)
+			parse_verts(file)
+			print("%s vertices" % int(len(vertices)))
 			
 		if line == "indices":
-			parse_indices(file, outfile)
+			parse_indices(file)
+			print("%s indices" % len(indices))
 		
 		if line == "normals":
-			parse_normals(file, outfile)
-		
+			parse_normals(file)
+			
+		if line == "uvs":
+			parse_uvs(file)
+			print("%s uv values" % int(len(uv_vals)))
+			
+		if line == "uvindex":
+			parse_uvindex(file)
+			print("%s uv indices" % len(uv_idx))
 	
 	
+	reconcile_uvs()
 	
+	write_data(outfile)
 
 if __name__ == "__main__":
 	main()
