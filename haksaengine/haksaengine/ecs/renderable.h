@@ -9,8 +9,10 @@ struct Renderable : public Component<Renderable>
 	{
 		this->mesh = data->get("mesh").as_uint;
 		this->shader = data->get("shader").as_uint;
+		this->texture = data->get("texture").as_uint;
 	}
 
 	unsigned int mesh;
 	unsigned int shader;
+	unsigned int texture;
 };
