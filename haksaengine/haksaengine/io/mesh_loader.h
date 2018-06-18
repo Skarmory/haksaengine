@@ -17,4 +17,5 @@ private:
 	void parse_vertices(std::ifstream& stream, Mesh* mesh);
 	void parse_indices(std::ifstream& stream, Mesh* mesh);
 	void parse_normals(std::ifstream& stream, Mesh* mesh);
+	void parse_uvs(std::ifstream& stream, Mesh* mesh);
 };

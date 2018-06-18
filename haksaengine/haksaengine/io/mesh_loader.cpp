@@ -42,8 +42,12 @@ Mesh* MeshLoader::load(const std::string& id)
 			parse_indices(fs, mesh);
 		}
 		else if (value == "Normals")
-		{			
+		{
 			parse_normals(fs, mesh);
+		}
+		else if (value == "UVs")
+		{
+			parse_uvs(fs, mesh);
 		}
 	}
 
@@ -141,6 +145,31 @@ void MeshLoader::parse_normals(std::ifstream& stream, Mesh* mesh)
 		substr = line.substr(idx, idx1 - idx);
 
 		mesh->vertices[vidx].normal.z = std::stof(substr);
+
+		vidx++;
+	}
+}
+
+void MeshLoader::parse_uvs(std::ifstream& stream, Mesh* mesh)
+{
+	std::string line, substr;
+
+	unsigned int vidx = 0;
+	while (vidx < mesh->vertices.size())
+	{
+		std::getline(stream, line);
+
+		auto idx = line.find_first_of(' ', 0);
+		auto idx1 = line.find_first_of(',', idx);
+		substr = line.substr(idx, idx1 - idx);
+
+		mesh->vertices[vidx].uv.x = std::stof(substr);
+
+		idx = line.find_first_of(' ', idx1);
+		idx1 = line.find_first_of('}', idx);
+		substr = line.substr(idx, idx1 - idx);
+
+		mesh->vertices[vidx].uv.y = std::stof(substr);
 
 		vidx++;
 	}
