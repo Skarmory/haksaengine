@@ -2,7 +2,9 @@
 
 #include "GL/glew.h"
 
-class Texture
+#include "asset_manager.h"
+
+class Texture : public Asset
 {
 public:
 	Texture(void);
@@ -21,11 +23,20 @@ public:
 	// Bind this texture to the specified binding index
 	void bind(int binding) const;
 
-	// Unbind this texture
-	void unbind(void) const;
+	// Texture width
+	unsigned int get_width(void) const;
+
+	// Texture height
+	unsigned int get_height(void) const;
 
 private:
 	bool initialised;
 
+	unsigned int width, height;
+	std::vector<unsigned char> image;
+
+	int binding;
 	GLuint texture;
+
+	friend class TextureLoader;
 };
