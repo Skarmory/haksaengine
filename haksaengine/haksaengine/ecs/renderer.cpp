@@ -14,6 +14,7 @@
 
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
+#include "gfx/texture.h"
 
 Renderer::Renderer(void)
 {
@@ -42,9 +43,10 @@ void Renderer::update(float delta)
 
 		const Mesh& mesh = static_cast<const Mesh&>(asset_man->get_asset(renderable->mesh));
 		const Shader& shader = static_cast<const Shader&>(asset_man->get_asset(renderable->shader));
+		const Texture& texture = static_cast<const Texture&>(asset_man->get_asset(renderable->texture));
 
 		mesh.bind();
-
+		texture.bind(0);
 		shader.use();
 
 		// DEBUG CODE - Just hardcoded for testing
