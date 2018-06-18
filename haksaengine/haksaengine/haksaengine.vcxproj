@@ -179,6 +179,7 @@
     <ClInclude Include="io\lodepng.h" />
     <ClInclude Include="io\mesh_loader.h" />
     <ClInclude Include="io\shader_loader.h" />
+    <ClInclude Include="io\texture_loader.h" />
     <ClInclude Include="scene\scene_manager.h" />
     <ClInclude Include="services.h" />
     <ClInclude Include="stdafx.h" />
@@ -205,6 +206,7 @@
     <ClCompile Include="io\lodepng.cpp" />
     <ClCompile Include="io\mesh_loader.cpp" />
     <ClCompile Include="io\shader_loader.cpp" />
+    <ClCompile Include="io\texture_loader.cpp" />
     <ClCompile Include="scene\scene_manager.cpp" />
     <ClCompile Include="services.cpp" />
     <ClCompile Include="stdafx.cpp" />

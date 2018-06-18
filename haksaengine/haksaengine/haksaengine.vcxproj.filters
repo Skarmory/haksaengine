@@ -137,6 +137,9 @@
     <ClInclude Include="io\lodepng.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="io\texture_loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -206,6 +209,9 @@
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="io\lodepng.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="io\texture_loader.cpp">
       <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>
