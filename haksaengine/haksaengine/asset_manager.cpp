@@ -6,6 +6,8 @@
 #include "gfx/mesh.h"
 #include "io/shader_loader.h"
 #include "gfx/shader.h"
+#include "io/texture_loader.h"
+#include "gfx/texture.h"
 #include "io/blueprint_loader.h"
 #include "io/blueprint.h"
 
@@ -21,6 +23,7 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 	add_loader<Mesh>(new MeshLoader("models\\"));
 	add_loader<Shader>(new ShaderLoader("shaders\\"));
 	add_loader<Blueprint>(new BlueprintLoader("blueprints\\"));
+	add_loader<Texture>(new TextureLoader("textures\\"));
 
 	// Setup Events so they can be quickly retrieved and dispatched and not have to constantly rebuild them.
 	Variant v;
@@ -33,6 +36,9 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 
 	evt.event_type = "AssetShaderLoaded";
 	_load_event_map[typeid(Shader)] = evt;
+
+	evt.event_type = "AssetTextureLoaded";
+	_load_event_map[typeid(Texture)] = evt;
 
 	evt.event_type = "AssetBlueprintLoaded";
 	_load_event_map[typeid(Blueprint)] = evt;
