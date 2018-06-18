@@ -4,8 +4,10 @@
 #include <exception>
 
 #include "services.h"
+
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
+#include "gfx/texture.h"
 
 BlueprintLoader::BlueprintLoader(const std::string& blueprint_directory) : Loader(blueprint_directory, ".bpr")
 {
@@ -132,6 +134,10 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 			else if (name == "shader")
 			{
 				data.as_uint = Services::get().get_asset_manager()->load_asset<Shader>(value.c_str());
+			}
+			else if (name == "texture")
+			{
+				data.as_uint = Services::get().get_asset_manager()->load_asset<Texture>(value.c_str());
 			}
 		}
 
