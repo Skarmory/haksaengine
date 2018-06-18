@@ -1,9 +1,9 @@
 Components:
 	Transform:
 	[
-		float px 5.0f;
-		float py 5.0f;
-		float pz 5.0f;
+		float px 2.0f;
+		float py 2.0f;
+		float pz 2.0f;
 		float rx 0.0f;
 		float ry 0.0f;
 		float rz 0.0f;
