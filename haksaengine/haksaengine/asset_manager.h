@@ -32,7 +32,7 @@ public:
 	~AssetManager(void);
 
 	HAKSAENGINE_API void set_asset_directory_path(const char* path);
-	HAKSAENGINE_API const Asset& get_asset(unsigned int asset_id) const;
+	HAKSAENGINE_API Asset& get_asset(unsigned int asset_id) const;
 
 	template<class C>
 	unsigned int load_asset(const char* asset_name)

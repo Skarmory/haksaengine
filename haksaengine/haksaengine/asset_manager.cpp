@@ -63,7 +63,7 @@ void AssetManager::set_asset_directory_path(const char* path)
 		pair.second->_asset_path = _asset_directory;
 }
 
-const Asset& AssetManager::get_asset(unsigned int asset_id) const
+Asset& AssetManager::get_asset(unsigned int asset_id) const
 {
 	return *_assets.at(asset_id);
 }
