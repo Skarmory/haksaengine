@@ -177,6 +177,7 @@
     <ClInclude Include="io\blueprint_loader.h" />
     <ClInclude Include="io\loader.h" />
     <ClInclude Include="io\lodepng.h" />
+    <ClInclude Include="io\mdl.h" />
     <ClInclude Include="io\mesh_loader.h" />
     <ClInclude Include="io\shader_loader.h" />
     <ClInclude Include="io\texture_loader.h" />
@@ -204,6 +205,7 @@
     <ClCompile Include="io\blueprint.cpp" />
     <ClCompile Include="io\blueprint_loader.cpp" />
     <ClCompile Include="io\lodepng.cpp" />
+    <ClCompile Include="io\mdl.cpp" />
     <ClCompile Include="io\mesh_loader.cpp" />
     <ClCompile Include="io\shader_loader.cpp" />
     <ClCompile Include="io\texture_loader.cpp" />
