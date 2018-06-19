@@ -15,11 +15,9 @@
 # (This means some things such as amount of values per line currently matter)
 # In future I will try to update this to just work directly on an .fbx file automagically
 
+import sys
 from math import sqrt
 from copy import copy
-
-filename = "verts.txt"
-outfilename = "outverts.txt"
 
 vertices = []
 indices = []
@@ -242,10 +240,14 @@ def write_data(outfile):
 	print("}", file=outfile)
 	
 def main():
+	if len(sys.argv) < 2:
+		print("Not enough arguments")
+		return
+
+	filename = sys.argv[1]
 	file = open(filename)
-	outfile = open(outfilename, "w")
-	
-	
+	outfile = open(filename.replace(".txt", ".mdl"), "w")
+		
 	while 1:
 		line = file.readline().strip()
 		
