@@ -8,15 +8,27 @@
 #include <memory>
 
 
+#include "ecs/component.h"
+
+class TestComponent : public Component<TestComponent>
+{
+	void load(NamedVariantPack* data) override
+	{
+
+	}
+};
+
 int main(int argc, char** argv)
 {
 	Engine e;
 	e.initialise();
 
+	TestComponent c;
+
 	Services::get().get_asset_manager()->set_asset_directory_path("..\\..\\assets\\");
 
 	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
-	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("test.bpr");
+	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("test2.bpr");
 
 	const Blueprint& camera_blueprint = static_cast<const Blueprint&>( Services::get().get_asset_manager()->get_asset(camera_blueprint_id) );
 	const Blueprint& test_blueprint = static_cast<const Blueprint&>(Services::get().get_asset_manager()->get_asset(test_blueprint_id));

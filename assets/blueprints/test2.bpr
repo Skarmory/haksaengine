@@ -10,7 +10,6 @@ Components:
 	]
 	Renderable:
 	[
-		external mesh test2.mdl;
+		external model archer.mdl;
 		external shader basic.shader;
-		external texture archer.png;
 	]
