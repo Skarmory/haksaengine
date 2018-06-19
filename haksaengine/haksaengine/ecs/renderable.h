@@ -7,12 +7,10 @@ struct Renderable : public Component<Renderable>
 {
 	void load(NamedVariantPack* data) override
 	{
-		this->mesh = data->get("mesh").as_uint;
+		this->model = data->get("model").as_uint;
 		this->shader = data->get("shader").as_uint;
-		this->texture = data->get("texture").as_uint;
 	}
 
-	unsigned int mesh;
+	unsigned int model;
 	unsigned int shader;
-	unsigned int texture;
 };

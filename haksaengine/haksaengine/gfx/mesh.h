@@ -6,11 +6,10 @@
 #include "vertex.h"
 #include "asset_manager.h"
 
-class Asset;
-class MeshLoader;
+class MDLLoader;
 class Renderer;
 
-struct Mesh : public Asset
+struct Mesh
 {
 	Mesh(void);
 	~Mesh(void);
@@ -35,6 +34,6 @@ private:
 	std::vector<Vertex> vertices;
 	std::vector<unsigned int> indices;
 
-	friend class MeshLoader;
+	friend class MDLLoader;
 	friend class Renderer;
 };

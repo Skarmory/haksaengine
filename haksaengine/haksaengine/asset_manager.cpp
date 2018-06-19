@@ -3,7 +3,7 @@
 #include "services.h"
 
 #include "io/mesh_loader.h"
-#include "gfx/mesh.h"
+#include "io/mdl.h"
 #include "io/shader_loader.h"
 #include "gfx/shader.h"
 #include "io/texture_loader.h"
@@ -20,7 +20,7 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 	_loaders.reserve(5);
 	_load_event_map.reserve(5);
 
-	add_loader<Mesh>(new MeshLoader("models\\"));
+	add_loader<MDLFile>(new MDLLoader("models\\"));
 	add_loader<Shader>(new ShaderLoader("shaders\\"));
 	add_loader<Blueprint>(new BlueprintLoader("blueprints\\"));
 	add_loader<Texture>(new TextureLoader("textures\\"));
@@ -32,7 +32,7 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 	evt.arguments.push_back(v);
 
 	evt.event_type = "AssetMeshLoaded";
-	_load_event_map[typeid(Mesh)] = evt;
+	_load_event_map[typeid(MDLFile)] = evt;
 
 	evt.event_type = "AssetShaderLoaded";
 	_load_event_map[typeid(Shader)] = evt;

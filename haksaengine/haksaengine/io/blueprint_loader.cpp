@@ -5,7 +5,7 @@
 
 #include "services.h"
 
-#include "gfx/mesh.h"
+#include "io//mdl.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
 
@@ -127,17 +127,13 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 
 			// These types specify another file that might need loading.
 			// Rather than give the type directly, they give an id to the resource to the blueprint
-			if (name == "mesh")
+			if (name == "model")
 			{
-				data.as_uint = Services::get().get_asset_manager()->load_asset<Mesh>(value.c_str());
+				data.as_uint = Services::get().get_asset_manager()->load_asset<MDLFile>(value.c_str());
 			}
 			else if (name == "shader")
 			{
 				data.as_uint = Services::get().get_asset_manager()->load_asset<Shader>(value.c_str());
-			}
-			else if (name == "texture")
-			{
-				data.as_uint = Services::get().get_asset_manager()->load_asset<Texture>(value.c_str());
 			}
 		}
 

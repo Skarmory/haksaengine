@@ -12,6 +12,8 @@
 #include "ecs/camera.h"
 #include "ecs/transform.h"
 
+#include "io/mdl.h"
+
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
@@ -41,12 +43,12 @@ void Renderer::update(float delta)
 
 		Renderable* renderable = entity->get_component<Renderable>();
 
-		const Mesh& mesh = static_cast<const Mesh&>(asset_man->get_asset(renderable->mesh));
-		const Shader& shader = static_cast<const Shader&>(asset_man->get_asset(renderable->shader));
-		const Texture& texture = static_cast<const Texture&>(asset_man->get_asset(renderable->texture));
+		MDLFile& mdl = static_cast<MDLFile&>(asset_man->get_asset(renderable->model));
+		Shader& shader = static_cast<Shader&>(asset_man->get_asset(renderable->shader));
+		//Texture& texture = static_cast<Texture&>(asset_man->get_asset(renderable->texture));
 
-		mesh.bind();
-		texture.bind(0);
+		//mesh.bind();
+		//texture.bind(0);
 		shader.use();
 
 		// DEBUG CODE - Just hardcoded for testing
@@ -66,10 +68,19 @@ void Renderer::update(float delta)
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &projection[0][0]);
 
-		glDrawElements(GL_TRIANGLES, mesh.indices.size(), GL_UNSIGNED_INT, 0);
-		// DEBUG CODE
+		for (auto data : mdl._data)
+		{
+			Mesh* mesh = mdl._meshes[data.mesh_id];
+			Texture* texture = mdl._textures[data.texture_id];
 
-		mesh.unbind();
+			mesh->bind();
+			texture->bind(0);
+
+			glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
+
+			mesh->unbind();
+		}
+		// DEBUG CODE
 	}
 }
 
