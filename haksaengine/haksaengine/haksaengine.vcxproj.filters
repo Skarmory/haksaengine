@@ -110,9 +110,6 @@
     <ClInclude Include="variant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="io\mesh_loader.h">
-      <Filter>Header Files\io</Filter>
-    </ClInclude>
     <ClInclude Include="io\shader_loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
@@ -154,6 +151,8 @@
     </ClInclude>
     <ClInclude Include="anim\bone_pose.h">
       <Filter>Header Files\anim</Filter>
+    <ClInclude Include="io\mdl_loader.h">
+      <Filter>Header Files\io</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -208,9 +207,6 @@
     <ClCompile Include="variant.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="io\mesh_loader.cpp">
-      <Filter>Source Files\io</Filter>
-    </ClCompile>
     <ClCompile Include="io\shader_loader.cpp">
       <Filter>Source Files\io</Filter>
     </ClCompile>
@@ -230,6 +226,9 @@
       <Filter>Source Files\io</Filter>
     </ClCompile>
     <ClCompile Include="io\mdl.cpp">
+      <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="io\mdl_loader.cpp">
       <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>

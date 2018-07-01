@@ -182,7 +182,7 @@
     <ClInclude Include="io\loader.h" />
     <ClInclude Include="io\lodepng.h" />
     <ClInclude Include="io\mdl.h" />
-    <ClInclude Include="io\mesh_loader.h" />
+    <ClInclude Include="io\mdl_loader.h" />
     <ClInclude Include="io\shader_loader.h" />
     <ClInclude Include="io\texture_loader.h" />
     <ClInclude Include="scene\scene_manager.h" />
@@ -210,7 +210,7 @@
     <ClCompile Include="io\blueprint_loader.cpp" />
     <ClCompile Include="io\lodepng.cpp" />
     <ClCompile Include="io\mdl.cpp" />
-    <ClCompile Include="io\mesh_loader.cpp" />
+    <ClCompile Include="io\mdl_loader.cpp" />
     <ClCompile Include="io\shader_loader.cpp" />
     <ClCompile Include="io\texture_loader.cpp" />
     <ClCompile Include="scene\scene_manager.cpp" />
