@@ -143,6 +143,18 @@
     <ClInclude Include="io\mdl.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="anim\animation.h">
+      <Filter>Header Files\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="anim\animation_keys.h">
+      <Filter>Header Files\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="anim\bone.h">
+      <Filter>Header Files\anim</Filter>
+    </ClInclude>
+    <ClInclude Include="anim\bone_pose.h">
+      <Filter>Header Files\anim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

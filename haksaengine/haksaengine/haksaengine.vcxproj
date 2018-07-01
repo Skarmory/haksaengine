@@ -154,6 +154,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="anim\animation.h" />
+    <ClInclude Include="anim\animation_keys.h" />
+    <ClInclude Include="anim\bone.h" />
+    <ClInclude Include="anim\bone_pose.h" />
     <ClInclude Include="asset_manager.h" />
     <ClInclude Include="ecs\camera.h" />
     <ClInclude Include="ecs\component.h" />
