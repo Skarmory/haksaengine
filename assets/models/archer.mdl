@@ -15785,7 +15785,7 @@ Geosets 5 {
 
 }
 
-Bones {
+Bones 37 {
 	Bone hips {
 		InverseBindMatrix {
 			0.071635, -0.000000, -0.000000, 0.000000,

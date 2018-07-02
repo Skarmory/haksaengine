@@ -42,4 +42,7 @@ private:
 
 	// Parse all texture data and add it to the MDLFile. This loads the Texture via the AssetManager
 	void parse_textures(std::ifstream& stream, MDLFile* mdl);
+
+	// Parse all bones and add to the MDLFile
+	void parse_bones(std::ifstream& stream, MDLFile* mdl);
 };

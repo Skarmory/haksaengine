@@ -2,6 +2,7 @@
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtc/type_ptr.hpp>
 #include "services.h"
 
 MDLLoader::MDLLoader(const std::string& directory) : Loader(directory, ".mdl")
@@ -49,6 +50,16 @@ MDLFile* MDLLoader::load(const std::string& id)
 
 			parse_geosets(fs, mdl);
 		}
+		else if (value == "Bones")
+		{
+			idx = line.find_first_not_of(' ', idx);
+			auto idx1 = line.find_first_of(' ', idx);
+
+			value = line.substr(idx, idx1 - idx);
+			mdl->_bones.reserve(std::stoi(value));
+
+			parse_bones(fs, mdl);
+		}
 	}
 
 	fs.close();
@@ -66,7 +77,7 @@ void MDLLoader::parse_geosets(std::ifstream& stream, MDLFile* mdl)
 	while (std::getline(stream, line))
 	{
 		if (line.find_first_not_of(' ') == std::string::npos)
-			continue;
+			break;
 
 		auto idx1 = line.find_first_not_of('\t', 0);
 		auto idx2 = line.find_first_of(' ');
@@ -369,6 +380,64 @@ void MDLLoader::parse_textures(std::ifstream& stream, MDLFile* mdl)
 			Texture* texture = &static_cast<Texture&>(Services::get().get_asset_manager()->get_asset(texture_id));
 
 			mdl->_textures.push_back(texture);
+		}
+	}
+}
+
+void MDLLoader::parse_bones(std::ifstream& stream, MDLFile* mdl)
+{
+	std::string line, value;
+
+	int bidx = 0;
+	while (std::getline(stream, line))
+	{
+		if (line.find_first_not_of(' ') == std::string::npos)
+			break;
+
+		auto idx1 = line.find_first_not_of('\t', 0);
+		auto idx2 = line.find_first_of(' ');
+
+		value = line.substr(idx1, idx2 - idx1);
+
+		if (value == "Bone")
+		{
+			std::getline(stream, line);
+
+			if ((idx1 = line.find("InverseBindMatrix")) == std::string::npos)
+				continue;
+
+			// Extract matrix data into this intermediate array
+			float temp[16];
+
+			int midx = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				std::getline(stream, line);
+
+				idx1 = line.find_first_not_of('\t');
+				idx2 = line.find_first_of(',', idx1);
+
+				while (idx2 != std::string::npos)
+				{
+					value = line.substr(idx1, idx2 - idx1);
+					temp[midx] = std::stof(value);
+					midx++;
+
+					idx1 = line.find_first_of(' ', idx2);
+					idx2 = line.find_first_of(',', idx1);
+				}
+			}
+
+			// Handle final value
+			value = line.substr(idx1, line.size() - idx1);
+			temp[midx] = std::stof(value);
+
+			Bone new_bone;
+			new_bone.bone_id = bidx;
+			new_bone.inverse_bind = glm::make_mat4(temp);
+
+			mdl->_bones.push_back(new_bone);
+			bidx++;
 		}
 	}
 }
