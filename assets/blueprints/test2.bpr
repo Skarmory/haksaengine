@@ -10,6 +10,6 @@ Components:
 	]
 	Renderable:
 	[
-		external model archer1.mdl;
+		external model archer.mdl;
 		external shader basic.shader;
 	]
