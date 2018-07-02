@@ -36,7 +36,7 @@ MDLFile* MDLLoader::load(const std::string& id)
 			value = line.substr(idx, idx1 - idx);
 			mdl->_textures.reserve(std::stoi(value));
 
-			parse_texture(fs, mdl);
+			parse_textures(fs, mdl);
 		}
 		else if (value == "Geosets")
 		{
@@ -96,6 +96,7 @@ void MDLLoader::parse_geoset(std::ifstream& stream, MDLFile* mdl)
 
 		value = line.substr(idx1, idx2 - idx1);
 
+		// Check token to call correct subparse method
 		if (value == "Vertices")
 		{
 			idx1 = line.find_first_not_of(' ', idx2);
@@ -122,16 +123,20 @@ void MDLLoader::parse_geoset(std::ifstream& stream, MDLFile* mdl)
 		{
 			parse_uvs(stream, mesh);
 		}
+		else if (value == "BoneIndices")
+		{
+			parse_bone_indices(stream, mesh);
+		}
+		else if (value == "BoneWeights")
+		{
+			parse_bone_weights(stream, mesh);
+		}
 		else if (value == "Texture")
 		{
 			idx2 = line.find_first_of(' ', idx1);
 
 			value = line.substr(idx2, line.size() - idx2);
 			data.texture_id = std::stoul(value);
-		}
-		else if (value == "Transform")
-		{
-			parse_transform(stream, mesh);
 		}
 	}
 
@@ -258,7 +263,87 @@ void MDLLoader::parse_uvs(std::ifstream& stream, Mesh* mesh)
 	}
 }
 
-void MDLLoader::parse_texture(std::ifstream& stream, MDLFile* mdl)
+void MDLLoader::parse_bone_indices(std::ifstream & stream, Mesh* mesh)
+{
+	std::string line, value;
+
+	int vidx = 0;
+	while (vidx < mesh->vertices.size())
+	{
+		std::getline(stream, line);
+
+		int bone_idx = 0;
+		auto idx1 = line.find_first_of('{', 0);
+		auto idx2 = line.find_first_of(',', idx1);
+		idx1++;
+
+		// Parse values between commas until we can't find another comma
+		while (idx2 != std::string::npos)
+		{
+			value = line.substr(idx1, idx2 - idx1);
+			mesh->vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
+
+			idx1 = line.find_first_of(' ', idx2);
+			idx2 = line.find_first_of(',', idx1);
+
+			bone_idx++;
+		}
+
+		// No comma found, so this is the last value to parse
+		idx2 = line.find_first_of('}', idx1);
+		value = line.substr(idx1, idx2 - idx1);
+		mesh->vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
+		bone_idx++;
+
+		// Set default value for remaining unused bone idex slots
+		for (; bone_idx < 4; bone_idx++)
+			mesh->vertices[vidx].bone_ids[bone_idx] = 0;
+
+		vidx++;
+	}
+}
+
+void MDLLoader::parse_bone_weights(std::ifstream& stream, Mesh* mesh)
+{
+	std::string line, value;
+
+	int vidx = 0;
+	while (vidx < mesh->vertices.size())
+	{
+		std::getline(stream, line);
+
+		int bone_idx = 0;
+		auto idx1 = line.find_first_of('{', 0);
+		auto idx2 = line.find_first_of(',', idx1);
+		idx1++;
+
+		// Parse values between commas until we can't find another comma
+		while (idx2 != std::string::npos)
+		{
+			value = line.substr(idx1, idx2 - idx1);
+			mesh->vertices[vidx].bone_weights[bone_idx] = std::stof(value);
+
+			idx1 = line.find_first_of(' ', idx2);
+			idx2 = line.find_first_of(',', idx1);
+
+			bone_idx++;
+		}
+
+		// No comma found, so this is the last value to parse
+		idx2 = line.find_first_of('}', idx1);
+		value = line.substr(idx1, idx2 - idx1);
+		mesh->vertices[vidx].bone_weights[bone_idx] = std::stof(value);
+		bone_idx++;
+
+		// Set default value for remaining unused bone idex slots
+		for (; bone_idx < 4; bone_idx++)
+			mesh->vertices[vidx].bone_weights[bone_idx] = 0.0f;
+
+		vidx++;
+	}
+}
+
+void MDLLoader::parse_textures(std::ifstream& stream, MDLFile* mdl)
 {
 	std::string line, value;
 
@@ -285,56 +370,5 @@ void MDLLoader::parse_texture(std::ifstream& stream, MDLFile* mdl)
 
 			mdl->_textures.push_back(texture);
 		}
-	}
-}
-
-void MDLLoader::parse_transform(std::ifstream& stream, Mesh* mesh)
-{
-	glm::mat4 transform = glm::mat4(1.0f);
-	std::string line, value;
-	float value1, value2, value3;
-	
-	// Parse position
-	std::getline(stream, line);
-
-	auto idx1 = line.find_first_of('{', 0);
-	idx1++;
-	auto idx2 = line.find_first_of(',', idx1);
-	value1 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	idx1 = line.find_first_of(' ', idx2);
-	idx2 = line.find_first_of(',', idx1);
-	value2 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	idx1 = line.find_first_of(' ', idx2);
-	idx2 = line.find_first_of('}', idx1);
-	value3 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	transform = glm::translate(transform, glm::vec3(value1, value2, value3));
-
-	// Parse rotation
-	std::getline(stream, line);
-
-	idx1 = line.find_first_of('{', 0);
-	idx1++;
-	idx2 = line.find_first_of(',', idx1);
-	value1 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	idx1 = line.find_first_of(' ', idx2);
-	idx2 = line.find_first_of(',', idx1);
-	value2 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	idx1 = line.find_first_of(' ', idx2);
-	idx2 = line.find_first_of('}', idx1);
-	value3 = std::stof(line.substr(idx1, idx2 - idx1));
-
-	transform = glm::rotate(transform, glm::radians(value1), glm::vec3(1.0f, 0.0f, 0.0f));
-	transform = glm::rotate(transform, glm::radians(value2), glm::vec3(0.0f, 1.0f, 0.0f));
-	transform = glm::rotate(transform, glm::radians(value3), glm::vec3(0.0f, 0.0f, 1.0f));
-
-	for (int i = 0; i < mesh->vertices.size(); i++)
-	{
-		glm::vec4 new_pos = transform * glm::vec4(mesh->vertices[i].position, 1.0f);
-		mesh->vertices[i].position = new_pos;
 	}
 }
