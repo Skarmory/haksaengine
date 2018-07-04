@@ -7,6 +7,7 @@
 #include "io/loader.h"
 #include "gfx/mesh.h"
 #include "io/mdl.h"
+#include "anim/animation.h"
 
 /* Class that can parse and create a mesh object from a file */
 class MDLLoader : public Loader
@@ -45,4 +46,13 @@ private:
 
 	// Parse all bones and add to the MDLFile
 	void parse_bones(std::ifstream& stream, MDLFile* mdl);
+
+	// Parse all animations and add to the MDLFile
+	void parse_animations(std::ifstream& stream, MDLFile* mdl);
+
+	// Subparse an animation, create an Animation object and add to MDLFile
+	void parse_animation(std::ifstream& stream, Animation* anim);
+
+	// Subparse bone pose node and add to the animation being parsed
+	void parse_bone_pose(std::ifstream& stream, Animation* anim);
 };

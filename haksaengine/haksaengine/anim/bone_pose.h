@@ -13,6 +13,7 @@ struct BonePoseNode
 	int id;
 	int parent_id;
 	std::vector<int> child_ids;
+	glm::mat4 transform;
 
 	// Flag to set whether this node corresponds to an actual bone
 	bool is_bone;

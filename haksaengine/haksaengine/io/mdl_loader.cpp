@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 #include "services.h"
+#include "anim/animation_keys.h"
 
 MDLLoader::MDLLoader(const std::string& directory) : Loader(directory, ".mdl")
 {
@@ -59,6 +60,10 @@ MDLFile* MDLLoader::load(const std::string& id)
 			mdl->_bones.reserve(std::stoi(value));
 
 			parse_bones(fs, mdl);
+		}
+		else if (value == "Animations")
+		{
+			parse_animations(fs, mdl);
 		}
 	}
 
@@ -440,4 +445,301 @@ void MDLLoader::parse_bones(std::ifstream& stream, MDLFile* mdl)
 			bidx++;
 		}
 	}
+}
+
+
+void MDLLoader::parse_animations(std::ifstream& stream, MDLFile* mdl)
+{
+	std::string line, value;
+
+	while (std::getline(stream, line))
+	{
+		if (line.find_first_not_of(' ') == std::string::npos)
+			break;
+
+		auto idx1 = line.find_first_not_of('\t', 0);
+		auto idx2 = line.find_first_of(' ');
+
+		value = line.substr(idx1, idx2 - idx1);
+
+		if (value == "Animation")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			idx2 = line.find_first_of(' ', idx1);
+
+			value = line.substr(idx1, idx2 - idx1);
+
+			Animation animation;
+			animation.name = value;
+			mdl->_animations.push_back(animation);
+
+			parse_animation(stream, &mdl->_animations.back());
+		}
+	}
+}
+
+void MDLLoader::parse_animation(std::ifstream& stream, Animation* anim)
+{
+	std::string line, value;
+
+	while (std::getline(stream, line))
+	{
+		if (line.find_first_not_of(' ') == std::string::npos)
+			break;
+
+		auto idx1 = line.find_first_not_of('\t', 0);
+		auto idx2 = line.find_first_of(' ');
+
+		value = line.substr(idx1, idx2 - idx1);
+
+
+		if (value == "Duration")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+
+			value = line.substr(idx1, line.size() - idx1);
+
+			anim->duration = std::stof(value);
+		}
+		else if (value == "BonePose")
+		{
+			parse_bone_pose(stream, anim);
+		}
+	}
+}
+
+void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
+{
+	std::string line, value;
+
+	BonePoseNode pose;
+
+	while (std::getline(stream, line))
+	{
+		if (line[line.find_first_not_of('\t')] == '}')
+			break;
+
+		auto idx1 = line.find_first_not_of('\t', 0);
+		auto idx2 = line.find_first_of(' ', idx1);
+
+		value = line.substr(idx1, idx2 - idx1);
+
+		// Match token
+		if (value == "Id")
+		{
+			value = line.substr(idx2, line.size() - idx2);
+			pose.id = std::stoi(value);
+		}
+		else if (value == "Parent")
+		{
+			value = line.substr(idx2, line.size() - idx2);
+			pose.parent_id = std::stoi(value);
+		}
+		else if (value == "Children")
+		{
+			idx1 = line.find_first_of('{', idx2);
+			idx1 = line.find_first_of(' ', idx1);
+			idx2 = line.find_first_of(',', idx1);
+
+			while (idx2 != std::string::npos)
+			{
+				value = line.substr(idx1, idx2 - idx1);
+				pose.child_ids.push_back(std::stoi(value));
+
+				idx1 = line.find_first_of(' ', idx2);
+				idx2 = line.find_first_of(',', idx1);
+			}
+
+			idx2 = line.find_first_of('}', idx1);
+			value = line.substr(idx1, idx2 - idx1);
+			pose.child_ids.push_back(std::stoi(value));
+		}
+		else if (value == "Helper")
+		{
+			pose.is_bone = false;
+		}
+		else if (value == "Bone")
+		{
+			pose.is_bone = true;
+
+			value = line.substr(idx2, line.size() - idx2);
+
+			pose.bone_id = std::stoi(value);
+		}
+		else if (value == "Transform")
+		{
+			// Extract matrix data into this intermediate array
+			float temp[16];
+
+			int midx = 0;
+			for (int i = 0; i < 4; i++)
+			{
+				std::getline(stream, line);
+
+				idx1 = line.find_first_not_of('\t');
+				idx2 = line.find_first_of(',', idx1);
+
+				while (idx2 != std::string::npos)
+				{
+					value = line.substr(idx1, idx2 - idx1);
+					temp[midx] = std::stof(value);
+					midx++;
+
+					idx1 = line.find_first_of(' ', idx2);
+					idx2 = line.find_first_of(',', idx1);
+				}
+			}
+
+			// Handle final value
+			value = line.substr(idx1, line.size() - idx1);
+			temp[midx] = std::stof(value);
+
+			pose.transform = glm::make_mat4(temp);
+
+			std::getline(stream, line);
+		}
+		else if (value == "Positions")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			idx2 = line.find_first_of(' ', idx1);
+
+			value = line.substr(idx1, idx2 - idx1);
+
+			pose.positions.reserve(std::stoi(value));
+
+			// Loop through adding all positions to the pose
+			while (std::getline(stream, line))
+			{
+				idx1 = line.find_first_not_of('\t');
+				if (line[idx1] == '}')
+					break;
+
+				idx2 = line.find_first_of(':', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+
+				Vector3Key pkey;
+				pkey.time = std::stof(value);
+
+				// Get x
+				idx1 = line.find_first_of('{', idx2);
+				idx1 = line.find_first_not_of('{', idx1);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.x = std::stof(value);
+
+				// Get y
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.y = std::stof(value);
+
+				// Get z
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of('}', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.z = std::stof(value);
+
+				pose.positions.push_back(pkey);
+			}
+		}
+		else if (value == "Rotations")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			idx2 = line.find_first_of(' ', idx1);
+
+			value = line.substr(idx1, idx2 - idx1);
+
+			pose.rotations.reserve(std::stoi(value));
+
+			// Loop through adding all rotations to the pose
+			while (std::getline(stream, line))
+			{
+				idx1 = line.find_first_not_of('\t');
+				if (line[idx1] == '}')
+					break;
+
+				idx2 = line.find_first_of(':', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+
+				Vector4Key pkey;
+				pkey.time = std::stof(value);
+
+				// Get x
+				idx1 = line.find_first_of('{', idx2);
+				idx1 = line.find_first_not_of('{', idx1);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.x = std::stof(value);
+
+				// Get y
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.y = std::stof(value);
+
+				// Get y
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.z = std::stof(value);
+
+				// Get w
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of('}', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.w = std::stof(value);
+
+				pose.rotations.push_back(pkey);
+			}
+		}
+		else if (value == "Scales")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			idx2 = line.find_first_of(' ', idx1);
+
+			value = line.substr(idx1, idx2 - idx1);
+
+			pose.scales.reserve(std::stoi(value));
+
+			// Loop through adding all scales to the pose
+			while (std::getline(stream, line))
+			{
+				idx1 = line.find_first_not_of('\t');
+				if (line[idx1] == '}')
+					break;
+
+				idx2 = line.find_first_of(':', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+
+				Vector3Key pkey;
+				pkey.time = std::stof(value);
+
+				// Get x
+				idx1 = line.find_first_of('{', idx2);
+				idx1 = line.find_first_not_of('{', idx1);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.x = std::stof(value);
+
+				// Get y
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.y = std::stof(value);
+
+				// Get z
+				idx1 = line.find_first_not_of(',', idx2);
+				idx2 = line.find_first_of('}', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+				pkey.key.z = std::stof(value);
+
+				pose.scales.push_back(pkey);
+			}
+		}
+	}
+
+	anim->pose_nodes.push_back(pose);
+
+	if (pose.id == 0)
+		anim->root_pose_node = &anim->pose_nodes.back();
 }
