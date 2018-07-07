@@ -63,3 +63,13 @@ void Mesh::unbind(void) const
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
+
+int Mesh::vertex_count(void) const
+{
+	return vertices.size();
+}
+
+int Mesh::index_count(void) const
+{
+	return indices.size();
+}
