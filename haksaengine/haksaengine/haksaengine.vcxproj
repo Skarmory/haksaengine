@@ -159,6 +159,7 @@
     <ClInclude Include="anim\bone.h" />
     <ClInclude Include="anim\bone_pose.h" />
     <ClInclude Include="asset_manager.h" />
+    <ClInclude Include="ecs\animation_system.h" />
     <ClInclude Include="ecs\animator.h" />
     <ClInclude Include="ecs\camera.h" />
     <ClInclude Include="ecs\component.h" />
@@ -198,6 +199,7 @@
   <ItemGroup>
     <ClCompile Include="asset_manager.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="ecs\animation_system.cpp" />
     <ClCompile Include="ecs\entity.cpp" />
     <ClCompile Include="ecs\entity_manager.cpp" />
     <ClCompile Include="ecs\renderer.cpp" />

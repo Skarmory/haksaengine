@@ -164,6 +164,9 @@
     <ClInclude Include="ecs\animator.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\animation_system.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -240,6 +243,9 @@
     </ClCompile>
     <ClCompile Include="io\mdl_loader.cpp">
       <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\animation_system.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
