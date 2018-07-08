@@ -167,6 +167,7 @@
     <ClInclude Include="ecs\entity.h" />
     <ClInclude Include="ecs\entity_manager.h" />
     <ClInclude Include="ecs\skinned_renderable.h" />
+    <ClInclude Include="ecs\skinned_renderer.h" />
     <ClInclude Include="ecs\transform.h" />
     <ClInclude Include="ecs\renderable.h" />
     <ClInclude Include="ecs\renderer.h" />
@@ -203,6 +204,7 @@
     <ClCompile Include="ecs\entity.cpp" />
     <ClCompile Include="ecs\entity_manager.cpp" />
     <ClCompile Include="ecs\renderer.cpp" />
+    <ClCompile Include="ecs\skinned_renderer.cpp" />
     <ClCompile Include="ecs\system.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="event\event_manager.cpp" />
