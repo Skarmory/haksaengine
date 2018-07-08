@@ -11,7 +11,9 @@
 #include "ecs/transform.h"
 #include "ecs/renderer.h"
 #include "ecs/renderable.h"
+#include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
+#include "ecs/animator.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -57,7 +59,9 @@ void Engine::initialise(void)
 	// Register engine defined components
 	services.get_component_manager()->register_component<Transform>("Transform");
 	services.get_component_manager()->register_component<Renderable>("Renderable");
+	services.get_component_manager()->register_component<SkinnedRenderable>("SkinnedRenderable");
 	services.get_component_manager()->register_component<Camera>("Camera");
+	services.get_component_manager()->register_component<Animator>("Animator");
 }
 
 void Engine::run(void)

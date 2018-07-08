@@ -8,8 +8,12 @@ Components:
 		float ry 0.0f;
 		float rz 0.0f;
 	]
-	Renderable:
+	SkinnedRenderable:
 	[
 		external model archer.mdl;
-		external shader basic.shader;
+		external shader basic_skeletal.shader;
+	]
+	Animator
+	[
+		string default_animation Run;
 	]
