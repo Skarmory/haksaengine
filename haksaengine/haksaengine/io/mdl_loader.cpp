@@ -495,7 +495,7 @@ void MDLLoader::parse_animation(std::ifstream& stream, Animation* anim)
 
 	while (std::getline(stream, line))
 	{
-		if (line.find_first_not_of(' ') == std::string::npos)
+		if (line[line.find_first_not_of('\t')] == '}')
 			break;
 
 		auto idx1 = line.find_first_not_of('\t', 0);
