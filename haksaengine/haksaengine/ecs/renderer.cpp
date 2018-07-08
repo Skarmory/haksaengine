@@ -25,12 +25,6 @@ Renderer::Renderer(void)
 
 void Renderer::update(float delta)
 {
-	// DEBUG - This code needs to go elsewhere in future to accomodate multiple renderer variants
-	glEnable(GL_DEPTH_TEST);
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	// DEBUG
-
 	AssetManager* asset_man = Services::get().get_asset_manager();
 
 	const Entity& main_camera = Services::get().get_scene_manager()->get_main_camera();
@@ -68,15 +62,15 @@ void Renderer::update(float delta)
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &projection[0][0]);
 
-		for (auto data : mdl._data)
+		for (auto data : mdl.get_data())
 		{
-			Mesh* mesh = mdl._meshes[data.mesh_id];
-			Texture* texture = mdl._textures[data.texture_id];
+			const Mesh* mesh = mdl.get_mesh(data.mesh_id);
+			const Texture* texture = mdl.get_texture(data.texture_id);
 
 			mesh->bind();
 			texture->bind(0);
 
-			glDrawElements(GL_TRIANGLES, mesh->indices.size(), GL_UNSIGNED_INT, 0);
+			glDrawElements(GL_TRIANGLES, mesh->index_count(), GL_UNSIGNED_INT, 0);
 
 			mesh->unbind();
 		}

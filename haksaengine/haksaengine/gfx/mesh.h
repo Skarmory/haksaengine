@@ -39,5 +39,4 @@ private:
 	std::vector<unsigned int> indices;
 
 	friend class MDLLoader;
-	friend class Renderer;
 };

@@ -41,6 +41,7 @@ void Engine::initialise(void)
 	glewExperimental = GL_TRUE;
 	glewInit();
 
+	glEnable(GL_DEPTH_TEST);
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
 	// Add engine services to the locator
@@ -74,6 +75,11 @@ void Engine::run(void)
 		}
 
 		//std::cout << game_time.delta() << std::endl;
+
+
+
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		renderer->update(game_time.delta());
 
