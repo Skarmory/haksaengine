@@ -161,6 +161,9 @@
     <ClInclude Include="anim\bone_pose.h">
       <Filter>Header Files\anim</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\animator.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
