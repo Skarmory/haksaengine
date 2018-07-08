@@ -13,6 +13,7 @@ struct Variant
 		UNSIGNEDINT,
 		FLOAT,
 		BOOL,
+		POINTER,
 		COUNT
 	};
 
@@ -24,6 +25,7 @@ struct Variant
 		unsigned int as_uint;
 		float        as_float;
 		bool         as_bool;
+		void*	     as_ptr;
 	};
 };
 

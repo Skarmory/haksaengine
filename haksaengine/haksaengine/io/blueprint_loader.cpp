@@ -121,6 +121,12 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 			else if (value == "false")
 				data.as_bool = false;
 		}
+		else if (type == "string")
+		{
+			data.type = Variant::Type::POINTER;
+			std::string* ptr = new std::string(value);
+			data.as_ptr = ptr;
+		}
 		else if (type == "external")
 		{
 			data.type = Variant::Type::UNSIGNEDINT;
