@@ -143,6 +143,9 @@
     <ClInclude Include="io\mdl.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\skinned_renderable.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
     <ClInclude Include="io\mdl_loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
