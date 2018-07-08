@@ -55,6 +55,8 @@ void Engine::initialise(void)
 
 	// Create engine defined systems
 	renderer = new Renderer;
+	skinned_renderer = new SkinnedRenderer;
+	animation_system = new AnimationSystem;
 
 	// Register engine defined components
 	services.get_component_manager()->register_component<Transform>("Transform");
@@ -80,12 +82,14 @@ void Engine::run(void)
 
 		//std::cout << game_time.delta() << std::endl;
 
+		animation_system->update(game_time.delta());
 
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 		renderer->update(game_time.delta());
+		skinned_renderer->update(game_time.delta());
 
 		game_window->swap_buffers();
 	}
