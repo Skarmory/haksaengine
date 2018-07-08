@@ -471,9 +471,20 @@ void MDLLoader::parse_animations(std::ifstream& stream, MDLFile* mdl)
 
 			Animation animation;
 			animation.name = value;
+			
+			parse_animation(stream, &animation);
+
 			mdl->_animations.push_back(animation);
 
-			parse_animation(stream, &mdl->_animations.back());
+			Animation* anim = &mdl->_animations.back();
+			for (int i = 0; i < anim->pose_nodes.size(); i++)
+			{
+				if (anim->pose_nodes[i].id == 0)
+				{
+					anim->root_pose_node = &anim->pose_nodes[i];
+					break;
+				}
+			}
 		}
 	}
 }
@@ -739,7 +750,4 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 	}
 
 	anim->pose_nodes.push_back(pose);
-
-	if (pose.id == 0)
-		anim->root_pose_node = &anim->pose_nodes.back();
 }
