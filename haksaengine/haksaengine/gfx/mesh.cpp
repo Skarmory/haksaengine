@@ -27,10 +27,18 @@ void Mesh::initialise(void)
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 		glEnableVertexAttribArray(0);
+
 		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
 		glEnableVertexAttribArray(1);
+
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, uv));
 		glEnableVertexAttribArray(2);
+
+		glVertexAttribIPointer(3, 4, GL_UNSIGNED_INT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, bone_ids));
+		glEnableVertexAttribArray(3);
+
+		glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, bone_weights));
+		glEnableVertexAttribArray(4);
 
 	glBindVertexArray(0);
 
