@@ -1,6 +1,7 @@
 #pragma once
 
 #include <glm/glm.hpp>
+#include <glm/gtc/quaternion.hpp>
 
 // These structs contain the animation key frame time and key frame data
 
@@ -10,8 +11,8 @@ struct Vector3Key
 	glm::vec3 key;
 };
 
-struct Vector4Key
+struct QuaternionKey
 {
 	float time;
-	glm::vec4 key;
+	glm::quat key;
 };

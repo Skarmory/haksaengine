@@ -23,6 +23,6 @@ struct BonePoseNode
 
 	// Animation data
 	std::vector<Vector3Key> positions;
-	std::vector<Vector4Key> rotations;
+	std::vector<QuaternionKey> rotations;
 	std::vector<Vector3Key> scales;
 };

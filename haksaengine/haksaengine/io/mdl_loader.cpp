@@ -661,7 +661,7 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 				idx2 = line.find_first_of(':', idx1);
 				value = line.substr(idx1, idx2 - idx1);
 
-				Vector4Key pkey;
+				QuaternionKey pkey;
 				pkey.time = std::stof(value);
 
 				// Get x
