@@ -5,6 +5,7 @@
 #include <glm/gtc/type_ptr.hpp>
 #include "services.h"
 #include "anim/animation_keys.h"
+#include "anim/geoset_anim.h"
 
 MDLLoader::MDLLoader(const std::string& directory) : Loader(directory, ".mdl")
 {
@@ -516,6 +517,10 @@ void MDLLoader::parse_animation(std::ifstream& stream, Animation* anim)
 		{
 			parse_bone_pose(stream, anim);
 		}
+		else if (value == "GeosetAnim")
+		{
+			parse_geoset_anim(stream, anim);
+		}
 	}
 }
 
@@ -750,4 +755,83 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 	}
 
 	anim->pose_nodes.push_back(pose);
+}
+
+void MDLLoader::parse_geoset_anim(std::ifstream& stream, Animation* anim)
+{
+	std::string line, value;
+
+	GeosetAnim geoanim;
+
+	while (std::getline(stream, line))
+	{
+		if (line[line.find_first_not_of('\t')] == '}')
+			break;
+
+		auto idx1 = line.find_first_not_of('\t', 0);
+		auto idx2 = line.find_first_of(' ', idx1);
+
+		value = line.substr(idx1, idx2 - idx1);
+
+		if (value == "GeosetId")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			
+			value = line.substr(idx1, line.size() - idx1);
+
+			geoanim.geoset_id = std::stoul(value);
+		}
+		else if (value == "Alpha")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+			idx2 = line.find_first_of('}', idx1);
+			value = line.substr(idx1, idx2 - idx1);
+
+			geoanim.alphas.reserve(std::stoi(value));
+
+			// First piece of data has to be interpolation type
+			std::getline(stream, line);
+			idx1 = line.find_first_not_of('\t');
+			value = line.substr(idx1, line.size() - idx2);
+			
+			geoanim.interp_mode = convert_interpolation_mode(value);
+
+			// Parse through alpha keys and add them
+			while (std::getline(stream, line))
+			{
+				if (line[line.find_first_not_of('\t')] == '}')
+					break;
+
+				FloatKey key;
+
+				idx1 = line.find_first_not_of('\t');
+				idx2 = line.find_first_of(':', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+
+				key.time = std::stof(value);
+
+				idx1 = line.find_first_not_of(':', idx2);
+				idx2 = line.find_first_of(',', idx1);
+				value = line.substr(idx1, idx2 - idx1);
+
+				key.key = std::stof(value);
+
+				geoanim.alphas.push_back(key);
+			}
+		}
+	}
+
+	anim->geoset_anims.push_back(geoanim);
+}
+
+InterpolationMode MDLLoader::convert_interpolation_mode(const std::string& name)
+{
+	if (name == "DontInterp")
+		return InterpolationMode::DontInterp;
+	
+	if (name == "Linear")
+		return InterpolationMode::Linear;
+
+	// If this interpolation mode is unrecognised, just return DontInterp
+	return InterpolationMode::DontInterp;
 }

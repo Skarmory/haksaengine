@@ -55,4 +55,10 @@ private:
 
 	// Subparse bone pose node and add to the animation being parsed
 	void parse_bone_pose(std::ifstream& stream, Animation* anim);
+
+	// Subparse geoset animation and add to animation being parsed
+	void parse_geoset_anim(std::ifstream& stream, Animation* anim);
+
+	// Convert interpolation mode from string to enum
+	InterpolationMode convert_interpolation_mode(const std::string& name);
 };
