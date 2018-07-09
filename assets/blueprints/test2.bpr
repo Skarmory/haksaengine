@@ -7,9 +7,9 @@ Components:
 		float rx 0.0f;
 		float ry 0.0f;
 		float rz 0.0f;
-		float sx 0.5f;
-		float sy 0.5f;
-		float sz 0.5f;
+		float sx 0.25f;
+		float sy 0.25f;
+		float sz 0.25f;
 	]
 	SkinnedRenderable:
 	[
