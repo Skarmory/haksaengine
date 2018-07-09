@@ -158,6 +158,7 @@
     <ClInclude Include="anim\animation_keys.h" />
     <ClInclude Include="anim\bone.h" />
     <ClInclude Include="anim\bone_pose.h" />
+    <ClInclude Include="anim\geoset_anim.h" />
     <ClInclude Include="asset_manager.h" />
     <ClInclude Include="ecs\animation_system.h" />
     <ClInclude Include="ecs\animator.h" />

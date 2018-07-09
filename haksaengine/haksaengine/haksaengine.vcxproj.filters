@@ -170,6 +170,9 @@
     <ClInclude Include="ecs\skinned_renderer.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="anim\geoset_anim.h">
+      <Filter>Header Files\anim</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
