@@ -39,7 +39,7 @@ unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const com
 	return next_id++;
 }
 
-void EntityManager::create_entity(const Blueprint* blueprint)
+unsigned int EntityManager::create_entity(const Blueprint* blueprint)
 {
 	_entities[next_id] = Entity(next_id);
 
@@ -58,7 +58,7 @@ void EntityManager::create_entity(const Blueprint* blueprint)
 
 	Services::get().get_event_manager()->dispatch(ev);
 
-	next_id++;
+	return next_id++;
 }
 
 void EntityManager::destroy_entity(unsigned int id)

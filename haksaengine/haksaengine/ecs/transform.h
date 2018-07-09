@@ -12,64 +12,93 @@
 
 struct Transform : public Component<Transform>
 {
-	Transform(void) : position(glm::vec3()), rotation(glm::vec3())
+	Transform(void) : _position(glm::vec3()), _rotation(glm::vec3())
 	{}
 
+	// Load in transform data from NamedVariantPack
 	void load(NamedVariantPack* data) override
 	{
-		position.x = data->get("px").as_float;
-		position.y = data->get("py").as_float;
-		position.z = data->get("pz").as_float;
+		_position.x = data->get("px").as_float;
+		_position.y = data->get("py").as_float;
+		_position.z = data->get("pz").as_float;
 
-		rotation.x = data->get("rx").as_float;
-		rotation.y = data->get("ry").as_float;
-		rotation.z = data->get("rz").as_float;
+		_rotation.x = data->get("rx").as_float;
+		_rotation.y = data->get("ry").as_float;
+		_rotation.z = data->get("rz").as_float;
+
+		_scale.x = data->get("sx").as_float;
+		_scale.y = data->get("sy").as_float;
+		_scale.z = data->get("sz").as_float;
 	}
 
+	// Sets absolute translation
 	void translate(glm::vec3 translation)
 	{
-		position = translation;
+		_position = translation;
 	}
 
+	// OFfsets current translation by given value
 	void translate_by(glm::vec3 translation)
 	{
-		position += translation;
+		_position += translation;
 	}
 
+	// Return current translation
 	glm::vec3 get_position(void) const
 	{
-		return position;
+		return _position;
 	}
 
+	// Sets absolute rotation
 	void rotate(glm::vec3 rotation)
 	{
-		this->rotation = rotation;
+		_rotation = rotation;
 	}
 
+	// Offsets current rotation by given value
 	void rotate_by(glm::vec3 rotation)
 	{
-		this->rotation += rotation;
+		_rotation += rotation;
 	}
 
+	// Return current rotation as euler angles
 	glm::vec3 get_rotation(void) const
 	{
-		return rotation;
+		return _rotation;
 	}
 
-	glm::mat4x4 get_transform(void) const
+	// Sets absolute scale
+	void scale(glm::vec3 scale)
+	{
+		_scale = scale;
+	}
+
+	// Offset current scale by given value
+	void scale_by(glm::vec3 scale)
+	{
+		_scale += scale;
+	}
+
+	// Returns current scale
+	glm::vec3 get_scale(void) const
+	{
+		return _scale;
+	}
+
+	// Composes transform, rotation, and scale into a 4x4 transform matrix
+	glm::mat4 get_transform(void) const
 	{
 		glm::mat4 transform(1.0f);
 
-		glm::quat q_rot(glm::vec3(glm::radians(rotation.x), glm::radians(rotation.y), glm::radians(rotation.z)));
+		glm::quat q_rot(glm::vec3(glm::radians(_rotation.x), glm::radians(_rotation.y), glm::radians(_rotation.z)));
 
-		transform = glm::translate(transform, position);
-		transform = glm::toMat4(q_rot) * transform;
-
+		transform = glm::translate(glm::mat4(1.0f), _position) * glm::toMat4(q_rot) * glm::scale(glm::mat4(1.0f), _scale);
 
 		return transform;
 	}
 
 private:
-	glm::vec3 position;
-	glm::vec3 rotation;
+	glm::vec3 _position;
+	glm::vec3 _rotation;
+	glm::vec3 _scale;
 };

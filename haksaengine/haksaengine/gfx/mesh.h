@@ -26,6 +26,10 @@ struct Mesh
 	void bind(void) const;
 	void unbind(void) const;
 
+	// Vertices and indices data accessors
+	int vertex_count(void) const;
+	int index_count(void) const;
+
 private:
 	bool initialised;
 
@@ -35,5 +39,4 @@ private:
 	std::vector<unsigned int> indices;
 
 	friend class MDLLoader;
-	friend class Renderer;
 };

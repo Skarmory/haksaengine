@@ -6,6 +6,8 @@
 #include "time.h"
 #include "services.h"
 #include "ecs/renderer.h"
+#include "ecs/skinned_renderer.h"
+#include "ecs/animation_system.h"
 
 /* Entrypoint into the engine itself. Binds everything together. */
 class Engine
@@ -29,4 +31,6 @@ private:
 	GameWindow* game_window;
 	Services services;
 	Renderer* renderer;
+	SkinnedRenderer* skinned_renderer;
+	AnimationSystem* animation_system;
 };

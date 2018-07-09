@@ -2,7 +2,7 @@
 
 #include "services.h"
 
-#include "io/mesh_loader.h"
+#include "io/mdl_loader.h"
 #include "io/mdl.h"
 #include "io/shader_loader.h"
 #include "gfx/shader.h"

@@ -11,7 +11,9 @@
 #include "ecs/transform.h"
 #include "ecs/renderer.h"
 #include "ecs/renderable.h"
+#include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
+#include "ecs/animator.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -41,6 +43,9 @@ void Engine::initialise(void)
 	glewExperimental = GL_TRUE;
 	glewInit();
 
+	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
 	// Add engine services to the locator
@@ -52,11 +57,15 @@ void Engine::initialise(void)
 
 	// Create engine defined systems
 	renderer = new Renderer;
+	skinned_renderer = new SkinnedRenderer;
+	animation_system = new AnimationSystem;
 
 	// Register engine defined components
 	services.get_component_manager()->register_component<Transform>("Transform");
 	services.get_component_manager()->register_component<Renderable>("Renderable");
+	services.get_component_manager()->register_component<SkinnedRenderable>("SkinnedRenderable");
 	services.get_component_manager()->register_component<Camera>("Camera");
+	services.get_component_manager()->register_component<Animator>("Animator");
 }
 
 void Engine::run(void)
@@ -75,7 +84,14 @@ void Engine::run(void)
 
 		//std::cout << game_time.delta() << std::endl;
 
+		animation_system->update(game_time.delta());
+
+
+		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 		renderer->update(game_time.delta());
+		skinned_renderer->update(game_time.delta());
 
 		game_window->swap_buffers();
 	}

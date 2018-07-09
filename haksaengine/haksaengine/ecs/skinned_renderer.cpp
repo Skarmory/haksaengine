@@ -1,29 +1,17 @@
-#include "ecs/renderer.h"
-
-#include <algorithm>
+#include "ecs/skinned_renderer.h"
 
 #include <GL/glew.h>
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 
 #include "services.h"
-
-#include "ecs/renderable.h"
 #include "ecs/camera.h"
 #include "ecs/transform.h"
+#include "ecs/skinned_renderable.h"
 
 #include "io/mdl.h"
-
-#include "gfx/mesh.h"
 #include "gfx/shader.h"
-#include "gfx/texture.h"
 
-Renderer::Renderer(void)
-{
-	Services::get().get_event_manager()->subscribe("AssetMeshLoaded", this);
-}
-
-void Renderer::update(float delta)
+void SkinnedRenderer::update(float delta)
 {
 	AssetManager* asset_man = Services::get().get_asset_manager();
 
@@ -35,37 +23,39 @@ void Renderer::update(float delta)
 	{
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
 
-		Renderable* renderable = entity->get_component<Renderable>();
+		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
+		Transform* transform = entity->get_component<Transform>();
 
-		MDLFile& mdl = static_cast<MDLFile&>(asset_man->get_asset(renderable->model));
-		Shader& shader = static_cast<Shader&>(asset_man->get_asset(renderable->shader));
-		//Texture& texture = static_cast<Texture&>(asset_man->get_asset(renderable->texture));
+		MDLFile& mdl = asset_man->get_asset<MDLFile>(renderable->model);
+		Shader& shader = asset_man->get_asset<Shader>(renderable->shader);
 
-		//mesh.bind();
-		//texture.bind(0);
 		shader.use();
 
 		// DEBUG CODE - Just hardcoded for testing
 		glm::vec3 camera_position = camera_transform->get_position();
 		glm::mat4 model, view, projection;
 
-		model = glm::mat4(1.0f);
-		//model = glm::rotate(model, glm::radians(-90.0f), glm::vec3(1.0f, 0.0f, 0.0f));
+		model = transform->get_transform();
 		view = glm::lookAt(camera_position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
 
 		GLint model_loc = glGetUniformLocation(shader.get_program(), "model");
 		GLint view_loc = glGetUniformLocation(shader.get_program(), "view");
 		GLint proj_loc = glGetUniformLocation(shader.get_program(), "projection");
+		GLint bone_loc = glGetUniformLocation(shader.get_program(), "bones");
+		GLint alpha_loc = glGetUniformLocation(shader.get_program(), "alpha");
 
 		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &projection[0][0]);
+		glUniformMatrix4fv(bone_loc, renderable->final_bone_transforms.size(), GL_FALSE, (const GLfloat*) renderable->final_bone_transforms.data());
 
 		for (auto data : mdl.get_data())
 		{
 			const Mesh* mesh = mdl.get_mesh(data.mesh_id);
 			const Texture* texture = mdl.get_texture(data.texture_id);
+
+			glUniform1f(alpha_loc, renderable->geoset_alphas[data.mesh_id]);
 
 			mesh->bind();
 			texture->bind(0);
@@ -78,14 +68,14 @@ void Renderer::update(float delta)
 	}
 }
 
-void Renderer::on_event(Event ev)
+void SkinnedRenderer::on_event(Event ev)
 {
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		unsigned int entity_id = ev.arguments[0].as_uint;
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
 
-		if (entity->has_component<Renderable>())
+		if (entity->has_component<SkinnedRenderable>())
 			_entities.push_back(entity_id);
 	}
 	else if (ev.event_type == "EntityDestroyedEvent")
@@ -94,9 +84,5 @@ void Renderer::on_event(Event ev)
 		std::vector<unsigned int>::iterator it;
 		if ((it = std::find(_entities.begin(), _entities.end(), entity_id)) != _entities.end())
 			_entities.erase(it);
-	}
-	else if (ev.event_type == "AssetMeshLoaded")
-	{
-		// Should store?
 	}
 }
