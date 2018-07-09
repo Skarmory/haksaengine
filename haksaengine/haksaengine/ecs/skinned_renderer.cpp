@@ -24,9 +24,10 @@ void SkinnedRenderer::update(float delta)
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
 
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
+		Transform* transform = entity->get_component<Transform>();
 
-		MDLFile& mdl = static_cast<MDLFile&>(asset_man->get_asset(renderable->model));
-		Shader& shader = static_cast<Shader&>(asset_man->get_asset(renderable->shader));
+		MDLFile& mdl = asset_man->get_asset<MDLFile>(renderable->model);
+		Shader& shader = asset_man->get_asset<Shader>(renderable->shader);
 
 		shader.use();
 
@@ -34,7 +35,7 @@ void SkinnedRenderer::update(float delta)
 		glm::vec3 camera_position = camera_transform->get_position();
 		glm::mat4 model, view, projection;
 
-		model = glm::mat4(1.0f);
+		model = transform->get_transform();
 		view = glm::lookAt(camera_position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
 		projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
 
@@ -42,11 +43,6 @@ void SkinnedRenderer::update(float delta)
 		GLint view_loc = glGetUniformLocation(shader.get_program(), "view");
 		GLint proj_loc = glGetUniformLocation(shader.get_program(), "projection");
 		GLint bone_loc = glGetUniformLocation(shader.get_program(), "bones");
-
-		/*for (int i = 1; i < renderable->frame_final_bone_transforms.size(); i++)
-		{
-			renderable->frame_final_bone_transforms[i] = glm::mat4(0.0f);
-		}*/
 
 		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
