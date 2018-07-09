@@ -76,7 +76,7 @@
     <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)Release;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
