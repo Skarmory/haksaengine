@@ -27,14 +27,12 @@ void AnimationSystem::update(float delta)
 		MDLFile& data = static_cast<MDLFile&>(Services::get().get_asset_manager()->get_asset(renderable->model));
 		const Animation* animation = data.get_animation(animator->current_animation);
 
-		while (animator->current_time > animation->duration)
+		if (animator->current_time > animation->duration)
 		{
-			animator->current_time -= animation->duration;
+			animator->current_time = std::fmod(animator->current_time, animation->duration);
 		}
 
 		_process_bone_hierarchy(animation->root_pose_node,animator->current_time, animation->pose_nodes, data.get_bones(), renderable->frame_final_bone_transforms, glm::mat4(1.0f));
-
-		char c = 'c';
 	}
 }
 
@@ -66,20 +64,23 @@ void AnimationSystem::on_event(Event ev)
 
 void AnimationSystem::_process_bone_hierarchy(const BonePoseNode* node, float time, const std::vector<BonePoseNode>& nodes, const std::vector<Bone>& bones, std::vector<glm::mat4>& final_transforms, glm::mat4 parent_transform)
 {
-	glm::mat4 transform = glm::mat4(1.0f);// node->transform;
-
+	// Get the correct animation values via interpolation
 	glm::vec3 scale = _interpolate_scale(time, node);
 	glm::quat rotation = _interpolate_rotation(time, node);
 	glm::vec3 position = _interpolate_position(time, node);
 
+	// Compose the values into matrices
 	glm::mat4 scalem = glm::scale(glm::mat4(1.0f), scale);
 	glm::mat4 rotm = glm::mat4_cast(rotation);
 	glm::mat4 transm = glm::translate(glm::mat4(1.0f), position);
 
-	transform = transm * rotm * scalem;
+	// Local transform matrix for this pose node at this time
+	glm::mat4 transform = transm * rotm * scalem;
 
+	// Multiply by parent to get global transform of this pose node at this time
 	transform = parent_transform * transform;
 
+	// If this pose node corresponds to an actual bone, set the matrix in the list of final bone transforms
 	if (node->is_bone)
 	{
 		const Bone& bone = bones[node->bone_id];
@@ -102,6 +103,7 @@ glm::vec3 AnimationSystem::_interpolate_scale(float time, const BonePoseNode* po
 
 	Vector3Key left, right;
 
+	// Go through list of scale values over time and find the entries that this time fits between
 	for (int i = 0; i < pose->scales.size(); i++)
 	{
 		if (pose->scales[i].time > time)
@@ -113,8 +115,10 @@ glm::vec3 AnimationSystem::_interpolate_scale(float time, const BonePoseNode* po
 		left = pose->scales[i];
 	}
 
+	// Normalise the time value between the two timesteps found above for interpolation
 	float normalised_time = (time - left.time) / (right.time - left.time);
 
+	// Return LERP'd value
 	return glm::mix(left.key, right.key, normalised_time);
 }
 
@@ -128,9 +132,10 @@ glm::quat AnimationSystem::_interpolate_rotation(float time, const BonePoseNode*
 
 	QuaternionKey left, right;
 
+	// Go through list of rotation values over time and find the entries that this time fits between
 	for (int i = 0; i < pose->rotations.size(); i++)
 	{
-		if (pose->rotations[i].time > time)
+		if (pose->rotations[i].time >= time)
 		{
 			right = pose->rotations[i];
 			break;
@@ -139,8 +144,10 @@ glm::quat AnimationSystem::_interpolate_rotation(float time, const BonePoseNode*
 		left = pose->rotations[i];
 	}
 
+	// Normalise the time value between the two timesteps found above for interpolation
 	float normalised_time = (time - left.time) / (right.time - left.time);	
 
+	// Return SLERP'd value
 	return glm::slerp(left.key, right.key, normalised_time);
 }
 
@@ -152,6 +159,7 @@ glm::vec3 AnimationSystem::_interpolate_position(float time, const BonePoseNode*
 
 	Vector3Key left, right;
 
+	// Go through list of translation values over time and find the entries that this time fits between
 	for (int i = 0; i < pose->positions.size(); i++)
 	{
 		if (pose->positions[i].time > time)
@@ -163,7 +171,9 @@ glm::vec3 AnimationSystem::_interpolate_position(float time, const BonePoseNode*
 		left = pose->positions[i];
 	}
 
+	// Normalise the time value between the two timesteps found above for interpolation
 	float normalised_time = (time - left.time) / (right.time - left.time);
 
+	// Return LERP'd value
 	return glm::mix(left.key, right.key, normalised_time);
 }
