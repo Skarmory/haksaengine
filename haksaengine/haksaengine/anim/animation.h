@@ -5,6 +5,14 @@
 
 #include "anim/bone_pose.h"
 
+struct BonePoseNode;
+
+enum InterpolationMode
+{
+	DontInterp = 0,
+	Linear = 1
+};
+
 // This struct contains all the information relevant to animation. 
 // Every animation update, this data must be traversed and the final transforms of each bone worked out for every object with a given animation.
 struct Animation
