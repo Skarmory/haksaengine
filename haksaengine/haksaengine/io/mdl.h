@@ -52,6 +52,12 @@ public:
 		return _data;
 	}
 
+	// Return mesh vector as const reference
+	const std::vector<Mesh*>& get_meshes(void) const
+	{
+		return _meshes;
+	}
+
 	// Return pointer to const Mesh if mesh exists at given index. Else return nullptr
 	const Mesh* get_mesh(int index) const
 	{
