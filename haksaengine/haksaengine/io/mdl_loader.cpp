@@ -582,38 +582,6 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 
 			pose.bone_id = std::stoi(value);
 		}
-		else if (value == "Transform")
-		{
-			// Extract matrix data into this intermediate array
-			float temp[16];
-
-			int midx = 0;
-			for (int i = 0; i < 4; i++)
-			{
-				std::getline(stream, line);
-
-				idx1 = line.find_first_not_of('\t');
-				idx2 = line.find_first_of(',', idx1);
-
-				while (idx2 != std::string::npos)
-				{
-					value = line.substr(idx1, idx2 - idx1);
-					temp[midx] = std::stof(value);
-					midx++;
-
-					idx1 = line.find_first_of(' ', idx2);
-					idx2 = line.find_first_of(',', idx1);
-				}
-			}
-
-			// Handle final value
-			value = line.substr(idx1, line.size() - idx1);
-			temp[midx] = std::stof(value);
-
-			pose.transform = glm::make_mat4(temp);
-
-			std::getline(stream, line);
-		}
 		else if (value == "Positions")
 		{
 			idx1 = line.find_first_not_of(' ', idx2);
