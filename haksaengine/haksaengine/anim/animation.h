@@ -4,7 +4,9 @@
 #include <string>
 
 #include "anim/bone_pose.h"
+#include "anim/geoset_anim.h"
 
+struct GeosetAnim;
 struct BonePoseNode;
 
 enum InterpolationMode
@@ -26,4 +28,7 @@ struct Animation
 	// These contain the actual translation, rotation, and scaling information for each node in the animation hierarchy over time
 	BonePoseNode* root_pose_node;
 	std::vector<BonePoseNode> pose_nodes;
+
+	// Geoset anims
+	std::vector<GeosetAnim> geoset_anims;
 };
