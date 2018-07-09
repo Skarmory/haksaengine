@@ -10,6 +10,7 @@
 
 #include "ecs/component.h"
 
+// Component that contains spatial data about an entity
 struct Transform : public Component<Transform>
 {
 	Transform(void) : _position(glm::vec3()), _rotation(glm::vec3())

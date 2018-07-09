@@ -6,6 +6,8 @@
 
 #include <ecs/component.h>
 
+// Contains a map of all component types by name in use in a game
+// Used to create components when loading in a blueprint
 class ComponentManager
 {
 public:

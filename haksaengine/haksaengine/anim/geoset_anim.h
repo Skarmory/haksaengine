@@ -7,6 +7,8 @@
 
 enum InterpolationMode;
 
+// Holds data to do with mesh data over time
+// Currently, only supports alpha changing over time
 struct GeosetAnim
 {
 	unsigned int geoset_id;

@@ -17,10 +17,8 @@ public:
 	HAKSAENGINE_API ~Entity(void);
 
 	// Adds a component to the entity
-	//template<class C>
 	void add_component(BaseComponent* component)
 	{
-		auto x = typeid(*component).name();
 		_components[typeid(*component)] = component;
 	}
 
@@ -31,13 +29,14 @@ public:
 		_components.erase(typeid(C));
 	}
 
+	// Get a component from the entity if it exists, else return nullptr
 	template<class C>
 	C* get_component(void) const
 	{
 		if(_components.find(typeid(C)) != _components.end())
 			return static_cast<C*>(_components.at(typeid(C)));
-		else
-			return nullptr;
+		
+		return nullptr;
 	}
 
 	// Check if the entity has a given component
@@ -47,6 +46,7 @@ public:
 		return _components.find(typeid(C)) != _components.end();
 	}
 
+	// Get this entity's id
 	unsigned int get_id(void) const
 	{
 		return _id;

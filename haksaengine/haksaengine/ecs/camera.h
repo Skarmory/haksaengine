@@ -2,6 +2,7 @@
 
 #include "ecs/component.h"
 
+// The Camera component defines the camera frustum and FoV
 struct Camera : public Component<Camera>
 {
 	void load(NamedVariantPack* data) override

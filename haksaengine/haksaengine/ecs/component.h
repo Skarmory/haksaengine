@@ -4,6 +4,7 @@
 
 #include "variant.h"
 
+// Base component for polymorphic usage
 class BaseComponent
 {
 public:

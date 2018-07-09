@@ -5,6 +5,7 @@
 
 #include "ecs/component.h"
 
+// Component that contains render information for skinned animation entities
 struct SkinnedRenderable : public Component<SkinnedRenderable>
 {
 	void load(NamedVariantPack* datapack) override

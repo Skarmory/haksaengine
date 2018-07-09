@@ -19,15 +19,20 @@ public:
 	EntityManager(void);
 	~EntityManager(void);
 
+	// No copying
 	EntityManager(const EntityManager&) = delete;
 	void operator=(const EntityManager&) = delete;
 
+	// Creates an entity and attaches the given components to it, returns new entity's id. Sends an EntityCreatedEvent
 	HAKSAENGINE_API unsigned int create_entity(std::vector<BaseComponent*>* const components = nullptr);
 
+	// Create an entity from a blueprint, returns new entity's id. Sends an EntityCreatedEvent
 	HAKSAENGINE_API unsigned int create_entity(const Blueprint* blueprint);
 
+	// Destroy an entity by id. Sends an EntityDestroyedEvent
 	HAKSAENGINE_API void destroy_entity(unsigned int id);
 
+	// Get entity by id
 	HAKSAENGINE_API Entity* get_entity(unsigned int id);
 
 private:

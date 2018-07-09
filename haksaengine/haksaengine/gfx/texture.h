@@ -4,6 +4,7 @@
 
 #include "asset_manager.h"
 
+// Wraps a texture image and OpenGL objects
 class Texture : public Asset
 {
 public:

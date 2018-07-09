@@ -5,6 +5,7 @@
 #include "ecs/component.h"
 #include "anim/animation.h"
 
+// The Animator component holds transient data for animation per-entity
 struct Animator : public Component<Animator>
 {
 	void load(NamedVariantPack* datapack) override

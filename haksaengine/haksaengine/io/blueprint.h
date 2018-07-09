@@ -11,15 +11,15 @@
 class BaseComponent;
 class EntityManager;
 
+// This class contains information about pre-built entities. Complex entities with many components can easily be constructed using a blueprint.
 class Blueprint : public Asset
 {
 public:
 	Blueprint(void) = default;
 	~Blueprint(void);
 
+	// Add component to the blueprint. This component will be copied when constructing an entity from this blueprint.
 	void add_component(BaseComponent* component);
-
-	void create_new_entity(void);
 
 private:
 	std::vector<BaseComponent*> _components;

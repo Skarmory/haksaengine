@@ -8,9 +8,11 @@
 
 class Asset;
 
+// Base class that all loaders need to inherit from
 class Loader
 {
 public:
+	// Construct new loader that loads from a given directory subfolder of the asset path, and handling a particular file extension
 	Loader(const std::string& directory, const std::string& extension) : _directory(directory), _extension(extension)
 	{
 	}
@@ -26,6 +28,7 @@ protected:
 	std::string _directory;
 	std::string _extension;
 
+	// Constructs full filepath for a given file
 	std::string get_path(const std::string& asset_name)
 	{
 		auto ext_idx = asset_name.find('.');

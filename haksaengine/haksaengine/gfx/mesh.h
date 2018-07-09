@@ -9,6 +9,7 @@
 class MDLLoader;
 class Renderer;
 
+// Contains geometry information and wraps OpenGL objects
 struct Mesh
 {
 	Mesh(void);

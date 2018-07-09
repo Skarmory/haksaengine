@@ -16,10 +16,13 @@ class BlueprintLoader : public Loader
 public:
 	BlueprintLoader(const std::string& blueprint_directory_path);
 
-	// Construct a Blueprint
+	// Load a blueprint in from given file
 	Blueprint* load(const std::string& name) override;
 
 private:
+	// Subparse a component type
 	void parse_components(std::ifstream& fs, Blueprint* bp);
+
+	// Load component data for component type currently being parsed
 	void parse_component_data(std::ifstream& fs, BaseComponent* component);
 };

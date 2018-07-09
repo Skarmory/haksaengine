@@ -3,6 +3,7 @@
 #include "globals.h"
 #include "ecs/component.h"
 
+// Most basic rendering component. Contains the ids of a model file and a shader
 struct Renderable : public Component<Renderable>
 {
 	void load(NamedVariantPack* data) override
