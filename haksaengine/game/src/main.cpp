@@ -1,14 +1,17 @@
 #include <GL/glew.h>
 
 #include "engine.h"
+#include "services.h"
 #include "io/blueprint.h"
 
 #include <string>
 #include <iostream>
 #include <memory>
 
-
+#include "ecs/entity_manager.h"
+#include "ecs/entity.h"
 #include "ecs/component.h"
+#include "ecs/transform.h"
 
 class TestComponent : public Component<TestComponent>
 {
@@ -30,11 +33,18 @@ int main(int argc, char** argv)
 	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
 	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("test2.bpr");
 
-	const Blueprint& camera_blueprint = static_cast<const Blueprint&>( Services::get().get_asset_manager()->get_asset(camera_blueprint_id) );
-	const Blueprint& test_blueprint = static_cast<const Blueprint&>(Services::get().get_asset_manager()->get_asset(test_blueprint_id));
+	const Blueprint& camera_blueprint = Services::get().get_asset_manager()->get_asset<Blueprint>(camera_blueprint_id);
+
+	const Blueprint& test_blueprint = Services::get().get_asset_manager()->get_asset<Blueprint>(test_blueprint_id);
 
 	Services::get().get_entity_manager()->create_entity(&camera_blueprint);
-	Services::get().get_entity_manager()->create_entity(&test_blueprint);
+	unsigned int entity_id = Services::get().get_entity_manager()->create_entity(&test_blueprint);
+
+	entity_id = Services::get().get_entity_manager()->create_entity(&test_blueprint);
+
+	Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+	Transform* transform = entity->get_component<Transform>();
+	transform->translate(glm::vec3(50.0f, 0.0f, 0.0f));
 
 	e.run();
 
