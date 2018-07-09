@@ -16,3 +16,9 @@ struct QuaternionKey
 	float time;
 	glm::quat key;
 };
+
+struct FloatKey
+{
+	float time;
+	float key;
+};
