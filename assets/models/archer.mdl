@@ -16087,6 +16087,13 @@ Bones 37 {
 Animations 2 {
 	Animation Run {
 		Duration 0.800000
+		GeosetAnim {
+			GeosetId 3
+			Alpha 1 {
+				DontInterp
+				0.000000: 0.000000,
+			}
+		}
 		BonePose RootNode {
 			Id 0
 			Parent -1
@@ -19465,6 +19472,15 @@ Animations 2 {
 	}
 	Animation Attack {
 		Duration 1.050000
+		GeosetAnim {
+			GeosetId 3
+			Alpha 3 {
+				DontInterp
+				0.000000: 1.000000,
+				0.900000: 0.000000,
+				1.050000: 0.000000,
+			}
+		}
 		BonePose RootNode {
 			Id 0
 			Parent -1

@@ -16,5 +16,6 @@ struct SkinnedRenderable : public Component<SkinnedRenderable>
 	unsigned int model;
 	unsigned int shader;
 
-	std::vector<glm::mat4> frame_final_bone_transforms;
+	std::vector<glm::mat4> final_bone_transforms;
+	std::vector<float> geoset_alphas;
 };

@@ -24,7 +24,7 @@ void AnimationSystem::update(float delta)
 
 		animator->current_time += delta;
 
-		MDLFile& data = static_cast<MDLFile&>(Services::get().get_asset_manager()->get_asset(renderable->model));
+		MDLFile& data = Services::get().get_asset_manager()->get_asset<MDLFile>(renderable->model);
 		const Animation* animation = data.get_animation(animator->current_animation);
 
 		if (animator->current_time > animation->duration)
@@ -32,7 +32,8 @@ void AnimationSystem::update(float delta)
 			animator->current_time = std::fmod(animator->current_time, animation->duration);
 		}
 
-		_process_bone_hierarchy(animation->root_pose_node,animator->current_time, animation->pose_nodes, data.get_bones(), renderable->frame_final_bone_transforms, glm::mat4(1.0f));
+		_process_bone_hierarchy(animation->root_pose_node, animator->current_time, animation->pose_nodes, data.get_bones(), renderable->final_bone_transforms, glm::mat4(1.0f));
+		_process_geoset_anims(animator->current_time, animation->geoset_anims, renderable->geoset_alphas);
 	}
 }
 
@@ -47,9 +48,11 @@ void AnimationSystem::on_event(Event ev)
 		{
 			// Resize the final bone transforms vector to the correct size for direct indexing in animation logic
 			SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
-			MDLFile& mdl = static_cast<MDLFile&>( Services::get().get_asset_manager()->get_asset(renderable->model) );
+			MDLFile& mdl = Services::get().get_asset_manager()->get_asset<MDLFile>(renderable->model);
 
-			renderable->frame_final_bone_transforms.resize(mdl.get_bones().size());
+			renderable->final_bone_transforms.resize(mdl.get_bones().size());
+			renderable->geoset_alphas.resize(mdl.get_meshes().size());
+
 			_entities.push_back(entity_id);
 		}
 	}
@@ -176,4 +179,48 @@ glm::vec3 AnimationSystem::_interpolate_position(float time, const BonePoseNode*
 
 	// Return LERP'd value
 	return glm::mix(left.key, right.key, normalised_time);
+}
+
+float AnimationSystem::_interpolate_geoset_alpha(float time, const GeosetAnim* anim)
+{
+	// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
+	if (anim->alphas.size() == 1)
+		return anim->alphas[0].key;
+
+	FloatKey left, right;
+
+	// Go through list of translation values over time and find the entries that this time fits between
+	for (int i = 0; i < anim->alphas.size(); i++)
+	{
+		if (anim->alphas[i].time > time)
+		{
+			right = anim->alphas[i];
+			break;
+		}
+
+		left = anim->alphas[i];
+	}
+
+	// Normalise the time value between the two timesteps found above for interpolation
+	float normalised_time = (time - left.time) / (right.time - left.time);
+
+	// Return LERP'd value
+	if(anim->interp_mode == InterpolationMode::Linear)
+		return glm::mix(left.key, right.key, normalised_time);
+	
+	// Don't interpolate, return the left key because we haven't reached the right time yet
+	return left.key;
+}
+
+void AnimationSystem::_process_geoset_anims(float time, const std::vector<GeosetAnim>& geoset_anims, std::vector<float>& alpha_values)
+{
+	// Set default alphas to 1.0 (opaque), as not all animations might affect a geoset alpha value
+	std::fill(alpha_values.begin(), alpha_values.end(), 1.0f);
+
+	for (auto& anim : geoset_anims)
+	{
+		float alpha = _interpolate_geoset_alpha(time, &anim);
+
+		alpha_values[anim.geoset_id] = alpha;
+	}
 }

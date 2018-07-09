@@ -44,6 +44,8 @@ void Engine::initialise(void)
 	glewInit();
 
 	glEnable(GL_DEPTH_TEST);
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
 	// Add engine services to the locator

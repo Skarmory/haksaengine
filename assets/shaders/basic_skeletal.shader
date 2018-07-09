@@ -1,7 +1,7 @@
 
 #ifdef VERTEX
 
-#define BONES_MAX 56
+#define BONES_MAX 40
 
 uniform mat4 model;
 uniform mat4 view;
@@ -29,8 +29,8 @@ void main()
 
 	out_normal = in_normal;
 	out_uv = in_uv;
+	
 	gl_Position = projection * view * model * vec4(pos.xyz, 1.0);
-	//gl_Position = projection * view * model * vec4(in_position, 1.0);
 }
 
 #endif
@@ -38,6 +38,8 @@ void main()
 #ifdef FRAGMENT
 
 layout (binding = 0) uniform sampler2D albedo;
+
+uniform float alpha;
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -47,7 +49,9 @@ layout (location = 0) out vec4 colour;
 
 void main()
 {
-	colour = texture(albedo, uv);
+	vec4 t = texture(albedo, uv);
+	float a = t.a * alpha;
+	colour =  vec4(t.rgb, a);
 }
 
 #endif

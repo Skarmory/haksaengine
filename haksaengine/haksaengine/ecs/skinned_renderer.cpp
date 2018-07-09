@@ -43,16 +43,19 @@ void SkinnedRenderer::update(float delta)
 		GLint view_loc = glGetUniformLocation(shader.get_program(), "view");
 		GLint proj_loc = glGetUniformLocation(shader.get_program(), "projection");
 		GLint bone_loc = glGetUniformLocation(shader.get_program(), "bones");
+		GLint alpha_loc = glGetUniformLocation(shader.get_program(), "alpha");
 
 		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
 		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &projection[0][0]);
-		glUniformMatrix4fv(bone_loc, renderable->frame_final_bone_transforms.size(), GL_FALSE, (const GLfloat*) renderable->frame_final_bone_transforms.data());
+		glUniformMatrix4fv(bone_loc, renderable->final_bone_transforms.size(), GL_FALSE, (const GLfloat*) renderable->final_bone_transforms.data());
 
 		for (auto data : mdl.get_data())
 		{
 			const Mesh* mesh = mdl.get_mesh(data.mesh_id);
 			const Texture* texture = mdl.get_texture(data.texture_id);
+
+			glUniform1f(alpha_loc, renderable->geoset_alphas[data.mesh_id]);
 
 			mesh->bind();
 			texture->bind(0);
