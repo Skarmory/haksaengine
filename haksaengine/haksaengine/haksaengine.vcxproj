@@ -167,6 +167,7 @@
     <ClInclude Include="ecs\component_manager.h" />
     <ClInclude Include="ecs\entity.h" />
     <ClInclude Include="ecs\entity_manager.h" />
+    <ClInclude Include="ecs\player.h" />
     <ClInclude Include="ecs\skinned_renderable.h" />
     <ClInclude Include="ecs\skinned_renderer.h" />
     <ClInclude Include="ecs\transform.h" />

@@ -173,6 +173,9 @@
     <ClInclude Include="anim\geoset_anim.h">
       <Filter>Header Files\anim</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\player.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
