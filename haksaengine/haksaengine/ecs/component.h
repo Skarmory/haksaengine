@@ -26,5 +26,8 @@ public:
 		return new Derived(static_cast<const Derived&>(*this));
 	}
 
-	virtual void load(NamedVariantPack* data) override = 0;
+	virtual void load(NamedVariantPack* data) override
+	{
+		// Do nothing
+	}
 };
