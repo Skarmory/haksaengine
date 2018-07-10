@@ -7,6 +7,7 @@
 #include "ecs/camera.h"
 #include "ecs/transform.h"
 #include "ecs/skinned_renderable.h"
+#include "ecs/player.h"
 
 #include "io/mdl.h"
 #include "gfx/shader.h"
@@ -23,15 +24,17 @@ void SkinnedRenderer::update(float delta)
 	{
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
 
+		// Get components we need from entity
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
 		Transform* transform = entity->get_component<Transform>();
+		Player* player = entity->get_component<Player>();
 
+		// Get assets
 		MDLFile& mdl = asset_man->get_asset<MDLFile>(renderable->model);
 		Shader& shader = asset_man->get_asset<Shader>(renderable->shader);
 
 		shader.use();
 
-		// DEBUG CODE - Just hardcoded for testing
 		glm::vec3 camera_position = camera_transform->get_position();
 		glm::mat4 model, view, projection;
 
@@ -44,6 +47,7 @@ void SkinnedRenderer::update(float delta)
 		GLint proj_loc = glGetUniformLocation(shader.get_program(), "projection");
 		GLint bone_loc = glGetUniformLocation(shader.get_program(), "bones");
 		GLint alpha_loc = glGetUniformLocation(shader.get_program(), "alpha");
+		GLint pc_loc = glGetUniformLocation(shader.get_program(), "team_colour");
 
 		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
 		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
@@ -57,6 +61,10 @@ void SkinnedRenderer::update(float delta)
 
 			glUniform1f(alpha_loc, renderable->geoset_alphas[data.mesh_id]);
 
+			unsigned int player_colour = player ? player->colour : PlayerColour::DEFAULT;
+
+			glUniform1ui(pc_loc, player_colour);
+
 			mesh->bind();
 			texture->bind(0);
 
@@ -64,7 +72,6 @@ void SkinnedRenderer::update(float delta)
 
 			mesh->unbind();
 		}
-		// DEBUG CODE
 	}
 }
 

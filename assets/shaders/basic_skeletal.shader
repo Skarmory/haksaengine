@@ -40,6 +40,7 @@ void main()
 layout (binding = 0) uniform sampler2D albedo;
 
 uniform float alpha;
+uniform uint  team_colour;
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -47,11 +48,22 @@ layout (location = 2) in vec2 uv;
 
 layout (location = 0) out vec4 colour;
 
+const vec3 PLAYER_COLOURS[3] = vec3[3](
+	vec3(1.0, 0.1, 0.1),
+	vec3(0.0, 1.0, 0.0),
+	vec3(0.0, 0.0, 1.0)
+);
+
 void main()
 {
-	vec4 t = texture(albedo, uv);
-	float a = t.a * alpha;
-	colour =  vec4(t.rgb, a);
+	vec4 src = texture(albedo, uv);
+	
+	vec4 dst = vec4(PLAYER_COLOURS[team_colour].xyz, 1.0);
+	
+	vec3 final = (src.a * src.rgb) + ((1.0 - src.a) * dst.rgb);
+	
+	//float a = t.a * alpha;
+	colour = vec4(final.rgb, alpha);
 }
 
 #endif
