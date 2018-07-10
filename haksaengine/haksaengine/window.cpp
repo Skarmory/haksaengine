@@ -11,6 +11,7 @@ GameWindow::GameWindow(int width, int height, const std::string& window_title)
 	window = glfwCreateWindow(width, height, window_title.c_str(), nullptr, nullptr);
 
 	glfwMakeContextCurrent(window);
+	glfwSwapInterval(0);
 }
 
 GameWindow::~GameWindow(void)

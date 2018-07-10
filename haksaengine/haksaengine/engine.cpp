@@ -83,7 +83,7 @@ void Engine::run(void)
 			accumulator -= FIXED_TIME_STEP;
 		}
 
-		//std::cout << game_time.delta() << std::endl;
+		std::cout << game_time.delta() << std::endl;
 
 		animation_system->update(game_time.delta());
 
