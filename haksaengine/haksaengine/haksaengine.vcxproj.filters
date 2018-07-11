@@ -176,6 +176,9 @@
     <ClInclude Include="ecs\player.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\uniform_buffer_object.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
