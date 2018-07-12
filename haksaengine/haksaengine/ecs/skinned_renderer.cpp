@@ -12,14 +12,29 @@
 #include "io/mdl.h"
 #include "gfx/shader.h"
 
+SkinnedRenderer::SkinnedRenderer(void) : _camera(CAMERA_UNIFORM_BIND_POINT), _per_draw(PER_DRAW_UNIFORM_BIND_POINT)
+{
+	_camera.initialise();
+	_per_draw.initialise();
+}
+
 void SkinnedRenderer::update(float delta)
 {
 	AssetManager* asset_man = Services::get().get_asset_manager();
 
+	// Get camera info
 	const Entity& main_camera = Services::get().get_scene_manager()->get_main_camera();
 	Camera* camera = main_camera.get_component<Camera>();
 	Transform* camera_transform = main_camera.get_component<Transform>();
 
+	// Update camera UBO
+	CameraUniform camera_data;
+	camera_data.view = glm::lookAt(camera_transform->get_position(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
+	camera_data.projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
+	_camera.update(camera_data);
+	_camera.bind();
+
+	// Draw each renderable entity
 	for (auto entity_id : _entities)
 	{
 		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
@@ -32,41 +47,26 @@ void SkinnedRenderer::update(float delta)
 		// Get assets
 		MDLFile& mdl = asset_man->get_asset<MDLFile>(renderable->model);
 		Shader& shader = asset_man->get_asset<Shader>(renderable->shader);
-
 		shader.use();
 
-		glm::vec3 camera_position = camera_transform->get_position();
-		glm::mat4 model, view, projection;
-
-		model = transform->get_transform();
-		view = glm::lookAt(camera_position, glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-		projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
-
-		GLint model_loc = glGetUniformLocation(shader.get_program(), "model");
-		GLint view_loc = glGetUniformLocation(shader.get_program(), "view");
-		GLint proj_loc = glGetUniformLocation(shader.get_program(), "projection");
-		GLint bone_loc = glGetUniformLocation(shader.get_program(), "bones");
-		GLint alpha_loc = glGetUniformLocation(shader.get_program(), "alpha");
-		GLint pc_loc = glGetUniformLocation(shader.get_program(), "team_colour");
-
-		glUniformMatrix4fv(model_loc, 1, GL_FALSE, &model[0][0]);
-		glUniformMatrix4fv(view_loc, 1, GL_FALSE, &view[0][0]);
-		glUniformMatrix4fv(proj_loc, 1, GL_FALSE, &projection[0][0]);
-		glUniformMatrix4fv(bone_loc, renderable->final_bone_transforms.size(), GL_FALSE, (const GLfloat*) renderable->final_bone_transforms.data());
+		// Setup per draw uniform buffer
+		PerDrawUniform per_draw_data;
+		per_draw_data.model = transform->get_transform();
+		std::copy(renderable->final_bone_transforms.begin(), renderable->final_bone_transforms.end(), per_draw_data.bones);
 
 		for (auto data : mdl.get_data())
 		{
 			const Mesh* mesh = mdl.get_mesh(data.mesh_id);
 			const Texture* texture = mdl.get_texture(data.texture_id);
 
-			glUniform1f(alpha_loc, renderable->geoset_alphas[data.mesh_id]);
+			per_draw_data.alpha = renderable->geoset_alphas[data.mesh_id];
+			per_draw_data.player_colour = player ? player->colour : PlayerColour::DEFAULT;
 
-			unsigned int player_colour = player ? player->colour : PlayerColour::DEFAULT;
-
-			glUniform1ui(pc_loc, player_colour);
+			_per_draw.update(per_draw_data);
+			_per_draw.bind();
 
 			mesh->bind();
-			texture->bind(0);
+			texture->bind(2);
 
 			glDrawElements(GL_TRIANGLES, mesh->index_count(), GL_UNSIGNED_INT, 0);
 

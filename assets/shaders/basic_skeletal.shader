@@ -1,12 +1,22 @@
 
-#ifdef VERTEX
 
 #define BONES_MAX 40
 
-uniform mat4 model;
-uniform mat4 view;
-uniform mat4 projection;
-uniform mat4 bones[BONES_MAX];
+layout (binding = 0) uniform CameraBlock
+{
+	mat4 view;
+	mat4 projection;
+} camera;
+
+layout (binding = 1) uniform PerDrawBlock
+{
+	mat4 model;
+	mat4 bones[BONES_MAX];
+	float alpha;
+	uint player_colour;
+} per_draw;
+
+#ifdef VERTEX
 
 layout (location = 0) in vec3 in_position;
 layout (location = 1) in vec3 in_normal;
@@ -20,27 +30,24 @@ layout (location = 2) out vec2 out_uv;
 
 void main()
 {
-	mat4 bone_transform = (bones[boneids[0]] * boneweights[0]);
-	bone_transform += (bones[boneids[1]] * boneweights[1]);
-	bone_transform += (bones[boneids[2]] * boneweights[2]);
-	bone_transform += (bones[boneids[3]] * boneweights[3]);
+	mat4 bone_transform = (per_draw.bones[boneids[0]] * boneweights[0]);
+	bone_transform     += (per_draw.bones[boneids[1]] * boneweights[1]);
+	bone_transform     += (per_draw.bones[boneids[2]] * boneweights[2]);
+	bone_transform     += (per_draw.bones[boneids[3]] * boneweights[3]);
 
 	vec4 pos = bone_transform * vec4(in_position, 1.0);
 
 	out_normal = in_normal;
 	out_uv = in_uv;
 	
-	gl_Position = projection * view * model * vec4(pos.xyz, 1.0);
+	gl_Position = camera.projection * camera.view * per_draw.model * vec4(pos.xyz, 1.0);
 }
 
 #endif
 
 #ifdef FRAGMENT
 
-layout (binding = 0) uniform sampler2D albedo;
-
-uniform float alpha;
-uniform uint  team_colour;
+layout (binding = 2) uniform sampler2D albedo;
 
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
@@ -58,12 +65,11 @@ void main()
 {
 	vec4 src = texture(albedo, uv);
 	
-	vec4 dst = vec4(PLAYER_COLOURS[team_colour].xyz, 1.0);
+	vec4 dst = vec4(PLAYER_COLOURS[per_draw.player_colour].xyz, 1.0);
 	
 	vec3 final = (src.a * src.rgb) + ((1.0 - src.a) * dst.rgb);
 	
-	//float a = t.a * alpha;
-	colour = vec4(final.rgb, alpha);
+	colour = vec4(final.rgb, per_draw.alpha);
 }
 
 #endif

@@ -48,12 +48,18 @@ public:
 	// Update the data in this UBO
 	void update(const BufferDataType& data)
 	{
+		if (!_initialised)
+			throw std::runtime_error("Attempt to update uninitialised UniformBufferObject");
+
 		glNamedBufferData(_buffer, sizeof(BufferDataType), &data, GL_DYNAMIC_DRAW);
 	}
 
 	// Bind this buffer for use
 	void bind(void) const
 	{
+		if (!_initialised)
+			throw std::runtime_error("Attempt to bind uninitialised UniformBufferObject");
+
 		glBindBufferBase(GL_UNIFORM_BUFFER, _bind_point, _buffer);
 	}
 
