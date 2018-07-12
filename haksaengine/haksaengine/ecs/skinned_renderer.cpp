@@ -58,15 +58,18 @@ void SkinnedRenderer::update(float delta)
 		{
 			const Mesh* mesh = mdl.get_mesh(data.mesh_id);
 			const Texture* texture = mdl.get_texture(data.texture_id);
+			BindlessTextureHandle texture_handle = texture->get_handle();
+
+			glMakeTextureHandleResidentARB(texture_handle);
 
 			per_draw_data.alpha = renderable->geoset_alphas[data.mesh_id];
 			per_draw_data.player_colour = player ? player->colour : PlayerColour::DEFAULT;
+			per_draw_data.diffuse = texture_handle;
 
 			_per_draw.update(per_draw_data);
 			_per_draw.bind();
 
 			mesh->bind();
-			texture->bind(2);
 
 			glDrawElements(GL_TRIANGLES, mesh->index_count(), GL_UNSIGNED_INT, 0);
 

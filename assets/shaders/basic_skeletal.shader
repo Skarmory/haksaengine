@@ -1,5 +1,7 @@
 
 
+#extension GL_ARB_bindless_texture : require
+
 #define BONES_MAX 40
 
 layout (binding = 0) uniform CameraBlock
@@ -14,6 +16,7 @@ layout (binding = 1) uniform PerDrawBlock
 	mat4 bones[BONES_MAX];
 	float alpha;
 	uint player_colour;
+	sampler2D diffuse;
 } per_draw;
 
 #ifdef VERTEX
@@ -47,8 +50,6 @@ void main()
 
 #ifdef FRAGMENT
 
-layout (binding = 2) uniform sampler2D albedo;
-
 layout (location = 0) in vec3 position;
 layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 uv;
@@ -63,7 +64,7 @@ const vec3 PLAYER_COLOURS[3] = vec3[3](
 
 void main()
 {
-	vec4 src = texture(albedo, uv);
+	vec4 src = texture(per_draw.diffuse, uv);
 	
 	vec4 dst = vec4(PLAYER_COLOURS[per_draw.player_colour].xyz, 1.0);
 	

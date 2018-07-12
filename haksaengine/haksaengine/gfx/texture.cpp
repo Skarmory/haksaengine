@@ -49,6 +49,11 @@ void Texture::bind(int binding) const
 	glBindTextureUnit(binding, texture);
 }
 
+BindlessTextureHandle Texture::get_handle(void) const
+{
+	return glGetTextureHandleARB(texture);
+}
+
 unsigned int Texture::get_width(void) const
 {
 	return width;

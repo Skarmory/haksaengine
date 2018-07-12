@@ -4,6 +4,8 @@
 
 #include "asset_manager.h"
 
+typedef GLuint64 BindlessTextureHandle;
+
 // Wraps a texture image and OpenGL objects
 class Texture : public Asset
 {
@@ -23,6 +25,9 @@ public:
 
 	// Bind this texture to the specified binding index
 	void bind(int binding) const;
+
+	// Get texture handle (for bindless textures)
+	BindlessTextureHandle get_handle(void) const;
 
 	// Texture width
 	unsigned int get_width(void) const;

@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include "gfx/texture.h"
+
 // Maximum amount of bones a model can have, corresponding to shader uniform
 #define BONES_MAX 40
 
@@ -21,4 +23,6 @@ struct PerDrawUniform
 	glm::mat4    bones[BONES_MAX];
 	float        alpha;
 	unsigned int player_colour;
+
+	BindlessTextureHandle diffuse;
 };
