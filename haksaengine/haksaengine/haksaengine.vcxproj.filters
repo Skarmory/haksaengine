@@ -179,6 +179,9 @@
     <ClInclude Include="gfx\uniform_buffer_object.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\uniforms.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
