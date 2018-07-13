@@ -27,6 +27,18 @@ Services::~Services(void)
 		asset_manager = nullptr;
 	}
 
+	if (component_manager)
+	{
+		delete component_manager;
+		component_manager = nullptr;
+	}
+
+	if (scene_manager)
+	{
+		delete scene_manager;
+		scene_manager = nullptr;
+	}
+
 	services = nullptr;    
 }
 
