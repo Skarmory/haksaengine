@@ -21,7 +21,9 @@ Engine::Engine(void) : accumulator(0.0f)
 
 Engine::~Engine(void)
 {
+	delete animation_system;
 	delete renderer;
+	delete skinned_renderer;
 	delete game_window;
 
 	glfwTerminate();
