@@ -1,14 +1,14 @@
 #pragma once
 
 #include "globals.h"
-
+#include "service.h"
 #include "event/event.h"
 #include "event/event_handler.h"
 
 #include "ecs/entity.h"
 
 /* This class will deal with the managing scenes and certain aspects of them, such as spatial partitioning and camera management */
-class SceneManager : public EventHandler
+class SceneManager : public Service, public EventHandler
 {
 public:
 	SceneManager(void);

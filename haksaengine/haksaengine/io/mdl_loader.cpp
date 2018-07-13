@@ -382,10 +382,10 @@ void MDLLoader::parse_textures(std::ifstream& stream, MDLFile* mdl)
 			idx1 = line.find_first_of(' ', idx1);
 			value = line.substr(idx1 + 1, line.size() - idx1);
 
-			unsigned int texture_id = Services::get().get_asset_manager()->load_asset<Texture>(value.c_str());
-			Texture* texture = &static_cast<Texture&>(Services::get().get_asset_manager()->get_asset(texture_id));
+			unsigned int texture_id = Services::get<AssetManager>()->load_asset<Texture>(value.c_str());
+			Texture& texture = Services::get<AssetManager>()->get_asset<Texture>(texture_id);
 
-			mdl->_textures.push_back(texture);
+			mdl->_textures.push_back(&texture);
 		}
 	}
 }

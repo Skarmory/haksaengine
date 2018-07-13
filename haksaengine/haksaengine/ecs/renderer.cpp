@@ -20,20 +20,20 @@
 
 Renderer::Renderer(void)
 {
-	Services::get().get_event_manager()->subscribe("AssetMeshLoaded", this);
+	Services::get<EventManager>()->subscribe("AssetMeshLoaded", this);
 }
 
 void Renderer::update(float delta)
 {
-	AssetManager* asset_man = Services::get().get_asset_manager();
+	AssetManager* asset_man = Services::get<AssetManager>();
 
-	const Entity& main_camera = Services::get().get_scene_manager()->get_main_camera();
+	const Entity& main_camera = Services::get<SceneManager>()->get_main_camera();
 	Camera* camera = main_camera.get_component<Camera>();
 	Transform* camera_transform = main_camera.get_component<Transform>();
 
 	for (auto entity_id : _entities)
 	{
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		Renderable* renderable = entity->get_component<Renderable>();
 
@@ -83,7 +83,7 @@ void Renderer::on_event(Event ev)
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		unsigned int entity_id = ev.arguments[0].as_uint;
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		if (entity->has_component<Renderable>())
 			_entities.push_back(entity_id);

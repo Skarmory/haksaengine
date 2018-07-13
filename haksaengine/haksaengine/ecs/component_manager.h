@@ -4,11 +4,12 @@
 #include <typeindex>
 #include <functional>
 
+#include "service.h"
 #include <ecs/component.h>
 
 // Contains a map of all component types by name in use in a game
 // Used to create components when loading in a blueprint
-class ComponentManager
+class ComponentManager : public Service
 {
 public:
 

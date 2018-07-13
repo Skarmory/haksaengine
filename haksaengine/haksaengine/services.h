@@ -1,5 +1,7 @@
 #pragma once
 
+#include <typeindex>
+
 #include "globals.h"
 #include "event/event_manager.h"
 #include "ecs/entity_manager.h"
@@ -17,7 +19,36 @@ public:
 
 	~Services(void);
 
+	// Get the Services instance
 	HAKSAENGINE_API static Services& get(void);
+
+	// Gets service by templated service type.
+	// If ServiceType is not a Service derived class or the service is not initialised, return nullptr
+	template<class ServiceType>
+	static ServiceType* get(void)
+	{
+		std::type_index type = typeid(ServiceType);
+		Service* service;
+
+		if (type == typeid(EventManager))
+			service = get().get_event_manager();
+
+		else if (type == typeid(EntityManager))
+			service = get().get_entity_manager();
+
+		else if (type == typeid(AssetManager))
+			service = get().get_asset_manager();
+
+		else if (type == typeid(ComponentManager))
+			service = get().get_component_manager();
+
+		else if (type == typeid(SceneManager))
+			service = get().get_scene_manager();
+		else
+			return nullptr;
+
+		return static_cast<ServiceType*>(service);
+	}
 
 	// Add service methods
 	void set_event_manager(EventManager* event_manager);

@@ -5,13 +5,14 @@
 #include <list>
 
 #include "globals.h"
+#include "service.h"
 #include "event/event.h"
 #include "event/event_handler.h"
 
 class EventHandler;
 
 // Class that deals with all event data. EventHandlers can register with the EventManager for specific event types.
-class EventManager
+class EventManager : public Service
 {
 public:
 

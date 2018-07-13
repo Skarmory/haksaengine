@@ -4,6 +4,7 @@
 #include <unordered_map>
 
 #include "globals.h"
+#include "service.h"
 #include "event/event_manager.h"
 #include "ecs/entity.h"
 #include "ecs/component.h"
@@ -13,7 +14,7 @@ class EventManager;
 class Blueprint;
 
 /* The EntityManager class is responsible for the lifecycle of the Entity objects. */
-class EntityManager
+class EntityManager : public Service
 {
 public:
 	EntityManager(void);

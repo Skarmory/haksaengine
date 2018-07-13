@@ -182,6 +182,9 @@
     <ClInclude Include="gfx\uniforms.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="service.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

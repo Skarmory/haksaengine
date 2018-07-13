@@ -5,7 +5,7 @@
 
 SceneManager::SceneManager(void)
 {
-	Services::get().get_event_manager()->subscribe("EntityCreatedEvent", this);
+	Services::get<EventManager>()->subscribe("EntityCreatedEvent", this);
 }
 
 SceneManager::~SceneManager(void)
@@ -18,7 +18,7 @@ void SceneManager::on_event(Event ev)
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		// Grab this if it's a camera entity
-		auto entity = Services::get().get_entity_manager()->get_entity(ev.arguments[0].as_uint);
+		auto entity = Services::get<EntityManager>()->get_entity(ev.arguments[0].as_uint);
 		if (entity->has_component<Camera>())
 		{
 			main_camera = entity;

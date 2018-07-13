@@ -5,6 +5,7 @@
 #include <typeindex>
 #include <exception>
 
+#include "service.h"
 #include "event/event.h"
 #include "io/loader.h"
 
@@ -26,7 +27,7 @@ private:
 };
 
 // Class that holds all the assets loaded into the game
-class AssetManager
+class AssetManager : public Service
 {
 public:
 	AssetManager(void);

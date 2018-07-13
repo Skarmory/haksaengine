@@ -96,7 +96,7 @@ unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_
 	Event ev = _load_event_map[type];
 	ev.arguments[0].as_uint = id;
 
-	Services::get().get_event_manager()->dispatch(ev);
+	Services::get<EventManager>()->dispatch(ev);
 
 	return id;
 }

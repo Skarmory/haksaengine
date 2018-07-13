@@ -20,10 +20,10 @@ SkinnedRenderer::SkinnedRenderer(void) : _camera(CAMERA_UNIFORM_BIND_POINT), _pe
 
 void SkinnedRenderer::update(float delta)
 {
-	AssetManager* asset_man = Services::get().get_asset_manager();
+	AssetManager* asset_man = Services::get<AssetManager>();
 
 	// Get camera info
-	const Entity& main_camera = Services::get().get_scene_manager()->get_main_camera();
+	const Entity& main_camera = Services::get<SceneManager>()->get_main_camera();
 	Camera* camera = main_camera.get_component<Camera>();
 	Transform* camera_transform = main_camera.get_component<Transform>();
 
@@ -37,7 +37,7 @@ void SkinnedRenderer::update(float delta)
 	// Draw each renderable entity
 	for (auto entity_id : _entities)
 	{
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		// Get components we need from entity
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
@@ -83,7 +83,7 @@ void SkinnedRenderer::on_event(Event ev)
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		unsigned int entity_id = ev.arguments[0].as_uint;
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		if (entity->has_component<SkinnedRenderable>())
 			_entities.push_back(entity_id);

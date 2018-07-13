@@ -53,9 +53,9 @@ void BlueprintLoader::parse_components(std::ifstream& fs, Blueprint* bp)
 
 		value = line.substr(idx1, idx2 - idx1);
 
-		if (Services::get().get_component_manager()->is_registered(value.c_str()))
+		if (Services::get<ComponentManager>()->is_registered(value.c_str()))
 		{
-			BaseComponent* comp = Services::get().get_component_manager()->create_component(value.c_str());
+			BaseComponent* comp = Services::get<ComponentManager>()->create_component(value.c_str());
 			parse_component_data(fs, comp);
 			bp->add_component(comp);
 		}
@@ -135,11 +135,11 @@ void BlueprintLoader::parse_component_data(std::ifstream& fs, BaseComponent* com
 			// Rather than give the type directly, they give an id to the resource to the blueprint
 			if (name == "model")
 			{
-				data.as_uint = Services::get().get_asset_manager()->load_asset<MDLFile>(value.c_str());
+				data.as_uint = Services::get<AssetManager>()->load_asset<MDLFile>(value.c_str());
 			}
 			else if (name == "shader")
 			{
-				data.as_uint = Services::get().get_asset_manager()->load_asset<Shader>(value.c_str());
+				data.as_uint = Services::get<AssetManager>()->load_asset<Shader>(value.c_str());
 			}
 		}
 

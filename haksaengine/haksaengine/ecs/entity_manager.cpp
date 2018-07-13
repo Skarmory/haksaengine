@@ -34,7 +34,7 @@ unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const com
 	ev.event_type = "EntityCreatedEvent";
 	ev.arguments.push_back(v);
 
-	Services::get().get_event_manager()->dispatch(ev);
+	Services::get<EventManager>()->dispatch(ev);
 
 	return next_id++;
 }
@@ -56,7 +56,7 @@ unsigned int EntityManager::create_entity(const Blueprint* blueprint)
 	ev.event_type = "EntityCreatedEvent";
 	ev.arguments.push_back(v);
 
-	Services::get().get_event_manager()->dispatch(ev);
+	Services::get<EventManager>()->dispatch(ev);
 
 	return next_id++;
 }
@@ -75,7 +75,7 @@ void EntityManager::destroy_entity(unsigned int id)
 		ev.event_type = "EntityDestroyedEvent";
 		ev.arguments.push_back(v);
 
-		Services::get().get_event_manager()->dispatch(ev);
+		Services::get<EventManager>()->dispatch(ev);
 	}
 }
 

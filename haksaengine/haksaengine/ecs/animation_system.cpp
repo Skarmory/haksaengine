@@ -17,14 +17,14 @@ void AnimationSystem::update(float delta)
 {
 	for (auto entity_id : _entities)
 	{
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		Animator* animator = entity->get_component<Animator>();
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
 
 		animator->current_time += delta;
 
-		MDLFile& data = Services::get().get_asset_manager()->get_asset<MDLFile>(renderable->model);
+		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
 		const Animation* animation = data.get_animation(animator->current_animation);
 
 		if (animator->current_time > animation->duration)
@@ -42,13 +42,13 @@ void AnimationSystem::on_event(Event ev)
 	if (ev.event_type == "EntityCreatedEvent")
 	{
 		unsigned int entity_id = ev.arguments[0].as_uint;
-		Entity* entity = Services::get().get_entity_manager()->get_entity(entity_id);
+		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		if (entity->has_component<Animator>() && entity->has_component<SkinnedRenderable>())
 		{
 			// Resize the final bone transforms vector to the correct size for direct indexing in animation logic
 			SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
-			MDLFile& mdl = Services::get().get_asset_manager()->get_asset<MDLFile>(renderable->model);
+			MDLFile& mdl = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
 
 			renderable->final_bone_transforms.resize(mdl.get_bones().size());
 			renderable->geoset_alphas.resize(mdl.get_meshes().size());

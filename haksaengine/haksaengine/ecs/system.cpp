@@ -4,6 +4,6 @@
 
 System::System(void)
 {
-	Services::get().get_event_manager()->subscribe("EntityCreatedEvent", this);
-	Services::get().get_event_manager()->subscribe("EntityDestroyedEvent", this);
+	Services::get<EventManager>()->subscribe("EntityCreatedEvent", this);
+	Services::get<EventManager>()->subscribe("EntityDestroyedEvent", this);
 };
