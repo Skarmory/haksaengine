@@ -1,4 +1,4 @@
-#include "time.h"
+#include "game_time.h"
 
 GameTime::GameTime(void) : current(std::chrono::high_resolution_clock::now()), previous(std::chrono::high_resolution_clock::now())
 {

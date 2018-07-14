@@ -3,7 +3,7 @@
 #include "globals.h"
 
 #include "window.h"
-#include "time.h"
+#include "game_time.h"
 #include "services.h"
 #include "ecs/renderer.h"
 #include "ecs/skinned_renderer.h"

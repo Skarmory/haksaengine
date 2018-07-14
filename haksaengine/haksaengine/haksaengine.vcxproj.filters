@@ -80,9 +80,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="time.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -185,6 +182,9 @@
     <ClInclude Include="service.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="game_time.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -212,9 +212,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="time.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="window.cpp">
@@ -267,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="ecs\skinned_renderer.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="game_time.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
