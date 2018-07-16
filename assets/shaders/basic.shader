@@ -31,7 +31,7 @@ void main()
 	out_position = in_position;
 	out_normal = in_normal;
 	out_uv = in_uv;
-	gl_Position = projection * view * model * vec4(in_position, 1.0);
+	gl_Position = camera.projection * camera.view * per_draw.model * vec4(in_position, 1.0);
 }
 
 #endif
@@ -43,6 +43,12 @@ layout (location = 1) in vec3 normal;
 layout (location = 2) in vec2 uv;
 
 layout (location = 0) out vec4 colour;
+
+const vec3 PLAYER_COLOURS[3] = vec3[3](
+	vec3(1.0, 0.1, 0.1),
+	vec3(0.0, 1.0, 0.0),
+	vec3(0.0, 0.0, 1.0)
+);
 
 void main()
 {
