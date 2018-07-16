@@ -17,6 +17,7 @@
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
+#include "gfx/uniform_data.h"
 
 BasicRenderSystem::BasicRenderSystem(void)
 {

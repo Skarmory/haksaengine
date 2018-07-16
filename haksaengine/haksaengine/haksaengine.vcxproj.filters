@@ -194,6 +194,9 @@
     <ClInclude Include="ecs\basic_render_system.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\uniform_data.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

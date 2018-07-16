@@ -10,6 +10,7 @@
 
 #include "io/mdl.h"
 #include "gfx/shader.h"
+#include "gfx/uniform_data.h"
 
 SkinnedRenderer::SkinnedRenderer(void)
 {

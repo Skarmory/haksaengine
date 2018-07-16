@@ -2,6 +2,7 @@
 
 #include <queue>
 
+#include "service.h"
 #include "gfx/uniform_buffer_object.h"
 
 #define MAX_COMMANDS (1024*1024)
