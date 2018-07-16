@@ -71,6 +71,8 @@ void BasicRenderSystem::update(float delta)
 			draw_indexed(PrimitiveType::Triangles, mesh->index_count(), 0);
 		}
 	}
+
+	submit_commands();
 }
 
 void BasicRenderSystem::on_event(Event ev)
