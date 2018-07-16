@@ -1,16 +1,18 @@
 #pragma once
 
 #include <GL/glew.h>
+#include "gfx/uniforms.h"
+
+class Renderer;
+class BaseUniform;
 
 // Class that wraps the logic for creating and updating a uniform buffer on GPU
-template<class BufferDataType>
 class UniformBufferObject
 {
 public:
 
-	// Create a UBO for a particular bind point
-	// The binding point is based on how it is laid out in the shader (e.g. layout(binding = 0)..)
-	explicit UniformBufferObject(unsigned int bind_point) : _initialised(false), _bind_point(bind_point)
+	// Create a UBO
+	explicit UniformBufferObject(void) : _initialised(false)
 	{
 	}
 
@@ -45,13 +47,13 @@ public:
 		glDeleteBuffers(1, &_buffer);
 	}
 
-	// Update the data in this UBO
-	void update(const BufferDataType& data)
+	// Update the data in this UBO on GPU
+	void update(const BaseUniform* data)
 	{
 		if (!_initialised)
 			throw std::runtime_error("Attempt to update uninitialised UniformBufferObject");
 
-		glNamedBufferData(_buffer, sizeof(BufferDataType), &data, GL_DYNAMIC_DRAW);
+		glNamedBufferData(_buffer, data->get_size(), data->get_data(), GL_DYNAMIC_DRAW);
 	}
 
 	// Bind this buffer for use
@@ -60,11 +62,13 @@ public:
 		if (!_initialised)
 			throw std::runtime_error("Attempt to bind uninitialised UniformBufferObject");
 
-		glBindBufferBase(GL_UNIFORM_BUFFER, _bind_point, _buffer);
+		glBindBufferBase(GL_UNIFORM_BUFFER, _location, _buffer);
 	}
 
 private:
 	bool _initialised;
 	GLuint _buffer;
-	GLuint _bind_point;
+	GLuint _location;
+
+	friend class Renderer;
 };

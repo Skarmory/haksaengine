@@ -8,6 +8,7 @@
 #include "ecs/component_manager.h"
 #include "asset_manager.h"
 #include "scene/scene_manager.h"
+#include "gfx/renderer.h"
 
 /* Class that acts as an access point for all manager classes */
 class Services
@@ -44,6 +45,8 @@ public:
 
 		else if (type == typeid(SceneManager))
 			service = get().get_scene_manager();
+		else if (type == typeid(Renderer))
+			service = get().get_renderer();
 		else
 			return nullptr;
 
@@ -56,6 +59,7 @@ public:
 	void set_asset_manager(AssetManager* asset_manager);
 	void set_component_manager(ComponentManager* component_manager);
 	void set_scene_manager(SceneManager* scene_manager);
+	void set_renderer(Renderer* renderer);
 
 	// Get service methods
 	HAKSAENGINE_API EventManager* get_event_manager(void);
@@ -63,6 +67,7 @@ public:
 	HAKSAENGINE_API AssetManager* get_asset_manager(void);
 	HAKSAENGINE_API ComponentManager* get_component_manager(void);
 	HAKSAENGINE_API SceneManager* get_scene_manager(void);
+	Renderer* get_renderer(void);
 
 private:
 	static Services* services;
@@ -72,4 +77,5 @@ private:
 	AssetManager* asset_manager;
 	ComponentManager* component_manager;
 	SceneManager* scene_manager;
+	Renderer* renderer;
 };

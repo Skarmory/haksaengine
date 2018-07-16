@@ -5,7 +5,8 @@
 #include "window.h"
 #include "game_time.h"
 #include "services.h"
-#include "ecs/renderer.h"
+#include "gfx/renderer.h"
+#include "ecs/basic_render_system.h"
 #include "ecs/skinned_renderer.h"
 #include "ecs/animation_system.h"
 
@@ -31,6 +32,7 @@ private:
 	GameWindow* game_window;
 	Services services;
 	Renderer* renderer;
-	SkinnedRenderer* skinned_renderer;
+	BasicRenderSystem* basic_render_logic;
+	SkinnedRenderer* skinned_render_logic;
 	AnimationSystem* animation_system;
 };

@@ -9,7 +9,7 @@
 #include "event/event_manager.h"
 #include "ecs/entity_manager.h"
 #include "ecs/transform.h"
-#include "ecs/renderer.h"
+//#include "ecs/renderer.h"
 #include "ecs/renderable.h"
 #include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
@@ -22,9 +22,9 @@ Engine::Engine(void) : accumulator(0.0f)
 Engine::~Engine(void)
 {
 	delete animation_system;
-	delete renderer;
-	delete skinned_renderer;
+	delete skinned_render_logic;
 	delete game_window;
+	//delete renderer;
 
 	glfwTerminate();
 }
@@ -51,16 +51,19 @@ void Engine::initialise(void)
 	glEnable(GL_MULTISAMPLE);
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
+	renderer = new Renderer;
+
 	// Add engine services to the locator
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
 	services.set_asset_manager(new AssetManager);
 	services.set_component_manager(new ComponentManager);
 	services.set_scene_manager(new SceneManager);
+	services.set_renderer(renderer);
 
 	// Create engine defined systems
-	renderer = new Renderer;
-	skinned_renderer = new SkinnedRenderer;
+	basic_render_logic = new BasicRenderSystem;
+	skinned_render_logic = new SkinnedRenderer;
 	animation_system = new AnimationSystem;
 
 	// Register engine defined components
@@ -93,8 +96,10 @@ void Engine::run(void)
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		renderer->update(game_time.delta());
-		skinned_renderer->update(game_time.delta());
+		basic_render_logic->update(game_time.delta());
+		skinned_render_logic->update(game_time.delta());
+
+		renderer->render();
 
 		game_window->swap_buffers();
 	}

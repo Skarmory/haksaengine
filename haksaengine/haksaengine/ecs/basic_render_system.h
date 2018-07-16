@@ -2,13 +2,13 @@
 
 #include "globals.h"
 #include "event/event.h"
-#include "ecs/system.h"
+#include "ecs/render_logic_system.h"
 
 // Basic renderer. Renders entities that have Renderable components
-class Renderer : public System
+class BasicRenderSystem : public RenderLogicSystem
 {
 public:
-	Renderer(void);
+	BasicRenderSystem(void);
 	virtual void update(float delta) override;
 	virtual void on_event(Event ev) override;
 };

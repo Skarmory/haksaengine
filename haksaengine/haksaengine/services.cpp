@@ -39,6 +39,12 @@ Services::~Services(void)
 		scene_manager = nullptr;
 	}
 
+	if (renderer)
+	{
+		delete renderer;
+		renderer = nullptr;
+	}
+
 	services = nullptr;    
 }
 
@@ -72,6 +78,11 @@ void Services::set_scene_manager(SceneManager* scene_manager)
 	this->scene_manager = scene_manager;
 }
 
+void Services::set_renderer(Renderer* renderer)
+{
+	this->renderer = renderer;
+}
+
 EventManager* Services::get_event_manager(void)
 {
 	return event_manager;
@@ -95,4 +106,9 @@ ComponentManager* Services::get_component_manager(void)
 SceneManager* Services::get_scene_manager(void)
 {
 	return scene_manager;
+}
+
+Renderer* Services::get_renderer(void)
+{
+	return renderer;
 }
