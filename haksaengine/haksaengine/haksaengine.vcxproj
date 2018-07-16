@@ -181,7 +181,7 @@
     <ClInclude Include="event\event_manager.h" />
     <ClInclude Include="gfx\renderer.h" />
     <ClInclude Include="gfx\render_command.h" />
-    <ClInclude Include="gfx\uniforms.h" />
+    <ClInclude Include="gfx\uniform.h" />
     <ClInclude Include="gfx\mesh.h" />
     <ClInclude Include="gfx\shader.h" />
     <ClInclude Include="gfx\texture.h" />

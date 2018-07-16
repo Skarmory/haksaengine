@@ -1,7 +1,7 @@
 #pragma once
 
 #include <GL/glew.h>
-#include "gfx/uniforms.h"
+#include "gfx/uniform.h"
 
 class Renderer;
 class BaseUniform;

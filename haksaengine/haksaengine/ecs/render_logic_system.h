@@ -5,7 +5,7 @@
 #include "ecs/system.h"
 #include "event/event.h"
 #include "gfx/render_command.h"
-#include "gfx/uniforms.h"
+#include "gfx/uniform.h"
 
 // Base class for any system that processes render logic
 class RenderLogicSystem : public System

@@ -173,9 +173,6 @@
     <ClInclude Include="gfx\uniform_buffer_object.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
-    <ClInclude Include="gfx\uniforms.h">
-      <Filter>Header Files\gfx</Filter>
-    </ClInclude>
     <ClInclude Include="service.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
@@ -195,6 +192,9 @@
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
     <ClInclude Include="gfx\uniform_data.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\uniform.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
   </ItemGroup>

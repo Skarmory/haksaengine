@@ -2,7 +2,7 @@
 
 #include <vector>
 
-#include "gfx/uniforms.h"
+#include "gfx/uniform.h"
 #include "gfx/mesh.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
