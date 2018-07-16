@@ -9,6 +9,8 @@ typedef GLuint64 BindlessTextureHandle;
 // Wraps a texture image and OpenGL objects
 class Texture : public Asset
 {
+	friend class TextureLoader;
+
 public:
 	Texture(void);
 	~Texture(void);
@@ -16,15 +18,6 @@ public:
 	// No copying
 	Texture(const Texture&) = delete;
 	Texture& operator=(const Texture&) = delete;
-
-	// Initialise the texture on the GPU
-	void initialise(void);
-
-	// Uninitialise the texture on the GPU
-	void uninitialise(void);
-
-	// Bind this texture to the specified binding index
-	void bind(int binding) const;
 
 	// Get texture handle (for bindless textures)
 	BindlessTextureHandle get_handle(void) const;
@@ -36,13 +29,21 @@ public:
 	unsigned int get_height(void) const;
 
 private:
-	bool initialised;
+	bool _initialised;
 
-	unsigned int width, height;
-	std::vector<unsigned char> image;
+	unsigned int _width;
+	unsigned int _height;
 
-	int binding;
-	GLuint texture;
+	std::vector<unsigned char> _image;
 
-	friend class TextureLoader;
+	GLuint _texture;
+
+	// Initialise the texture on the GPU
+	void initialise(void);
+
+	// Uninitialise the texture on the GPU
+	void uninitialise(void);
+
+	// Bind this texture to the specified binding index
+	void bind(int binding) const;	
 };

@@ -11,7 +11,7 @@ Texture* TextureLoader::load(const std::string& name)
 	std::string path = get_path(name);
 
 	// Just use lodepng to load the actual data in
-	lodepng::decode(texture->image, texture->width, texture->height, path);
+	lodepng::decode(texture->_image, texture->_width, texture->_height, path);
 
 	texture->initialise();
 
