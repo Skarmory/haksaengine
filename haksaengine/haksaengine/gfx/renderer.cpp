@@ -68,7 +68,7 @@ void Renderer::render(void)
 			case RenderCommandType::UseShader:
 			{
 				const UseShaderCommand* us_cmd = static_cast<const UseShaderCommand*>(command);
-				us_cmd->_shader.use();
+				us_cmd->_shader._use();
 				break;
 			}
 

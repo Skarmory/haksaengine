@@ -14,12 +14,12 @@ Shader::~Shader(void)
 	glDeleteProgram(_program);
 }
 
-void Shader::attach_shader(GLuint shader_id)
+void Shader::_attach_shader(GLuint shader_id)
 {
 	glAttachShader(_program, shader_id);
 }
 
-bool Shader::link(void)
+bool Shader::_link(void)
 {
 	// Link shader program
 	glLinkProgram(_program);
@@ -39,12 +39,12 @@ bool Shader::link(void)
 	return success;
 }
 
-void Shader::use(void) const
+void Shader::_use(void) const
 {
 	glUseProgram(_program);
 }
 
-GLuint Shader::get_program(void) const
+GLuint Shader::_get_program(void) const
 {
 	return _program;
 }

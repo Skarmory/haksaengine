@@ -43,10 +43,10 @@ void ShaderLoader::process_shader_source(const std::string& source, Shader* shad
 		shaders.push_back(create_shader(version_string + "#define FRAGMENT\n" + source, GL_FRAGMENT_SHADER));
 
 	for (GLuint s : shaders)
-		shader->attach_shader(s);
+		shader->_attach_shader(s);
 
 	// Link shader program
-	shader->link();
+	shader->_link();
 
 	// Program linked, now we can just delete the shaders
 	for (GLuint s : shaders)
