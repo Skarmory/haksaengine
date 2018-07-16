@@ -25,10 +25,13 @@ int main(int argc, char** argv)
 
 	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
 	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("archer.bpr");
+	unsigned int crate_bpr_id = Services::get<AssetManager>()->load_asset<Blueprint>("crate.bpr");
 
 	const Blueprint& camera_blueprint = Services::get().get_asset_manager()->get_asset<Blueprint>(camera_blueprint_id);
 
 	const Blueprint& test_blueprint = Services::get().get_asset_manager()->get_asset<Blueprint>(test_blueprint_id);
+
+	const Blueprint& crate_bpr = Services::get<AssetManager>()->get_asset<Blueprint>(crate_bpr_id);
 
 	Services::get().get_entity_manager()->create_entity(&camera_blueprint);
 
@@ -94,6 +97,12 @@ int main(int argc, char** argv)
 	player = new Player;
 	player->colour = PlayerColour::RED;
 	entity->add_component(player);
+
+	// Create crate
+	entity_id = Services::get<EntityManager>()->create_entity(&crate_bpr);
+	entity = Services::get<EntityManager>()->get_entity(entity_id);
+	transform = entity->get_component<Transform>();
+	transform->translate(glm::vec3(0.0f, 0.0f, 50.f));
 
 	e.run();
 
