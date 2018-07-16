@@ -1,29 +1,32 @@
 #include "gfx/mesh.h"
 
-Mesh::Mesh(void) : initialised(false), vertex_array(0), vertex_buffer(0), index_buffer(0)
+Mesh::Mesh(void) : _initialised(false), _vertex_array(0), _vertex_buffer(0), _index_buffer(0)
 {
 }
 
 Mesh::~Mesh(void)
 {
-	if (initialised)
-		uninitialise();
+	if (_initialised)
+		_uninitialise();
 }
 
 // Generate vertex array object, vertex buffer, and index buffer
-void Mesh::initialise(void)
+void Mesh::_initialise(void)
 {
-	glGenVertexArrays(1, &vertex_array);
-	glGenBuffers(1, &vertex_buffer);
-	glGenBuffers(1, &index_buffer);
+	if (_initialised)
+		return;
 
-	glBindVertexArray(vertex_array);
+	glGenVertexArrays(1, &_vertex_array);
+	glGenBuffers(1, &_vertex_buffer);
+	glGenBuffers(1, &_index_buffer);
+
+	glBindVertexArray(_vertex_array);
 		
-		glBindBuffer(GL_ARRAY_BUFFER, vertex_buffer);
-		glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(Vertex), vertices.data(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
+		glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(Vertex), _vertices.data(), GL_STATIC_DRAW);
 
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(unsigned int), indices.data(), GL_STATIC_DRAW);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(Vertex), (GLvoid*)offsetof(Vertex, position));
 		glEnableVertexAttribArray(0);
@@ -42,42 +45,51 @@ void Mesh::initialise(void)
 
 	glBindVertexArray(0);
 
-	initialised = true;
+	_initialised = true;
 }
 
-void Mesh::uninitialise(void)
+void Mesh::_uninitialise(void)
 {
-	glDeleteBuffers(2, &vertex_buffer);
-	glDeleteVertexArrays(1, &vertex_array);
+	if (!_initialised)
+		return;
 
-	vertex_array = 0;
-	vertex_buffer = 0;
-	index_buffer = 0;
+	glDeleteBuffers(2, &_vertex_buffer);
+	glDeleteVertexArrays(1, &_vertex_array);
 
-	initialised = false;
+	_vertex_array = 0;
+	_vertex_buffer = 0;
+	_index_buffer = 0;
+
+	_initialised = false;
 }
 
 // Wrapper to bind vertex array
-void Mesh::bind(void) const
+void Mesh::_bind(void) const
 {
-	glBindVertexArray(vertex_array);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, index_buffer);
+	if (!_initialised)
+		return;
+
+	glBindVertexArray(_vertex_array);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
 }
 
 
 // Wrapper to unbind vertex array
-void Mesh::unbind(void) const
+void Mesh::_unbind(void) const
 {
+	if (!_initialised)
+		return;
+
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
 int Mesh::vertex_count(void) const
 {
-	return vertices.size();
+	return _vertices.size();
 }
 
 int Mesh::index_count(void) const
 {
-	return indices.size();
+	return _indices.size();
 }

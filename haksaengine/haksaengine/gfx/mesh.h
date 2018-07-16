@@ -19,25 +19,28 @@ struct Mesh
 	Mesh(const Mesh&) = delete;
 	Mesh& operator=(const Mesh&) = delete;
 
-	// Methods to load and unload the mesh from GPU memory
-	void initialise(void);
-	void uninitialise(void);
-
-	// Methods to bind and unbind this mesh
-	void bind(void) const;
-	void unbind(void) const;
-
 	// Vertices and indices data accessors
 	int vertex_count(void) const;
 	int index_count(void) const;
 
 private:
-	bool initialised;
+	bool _initialised;
 
-	GLuint vertex_array, vertex_buffer, index_buffer;
+	GLuint _vertex_array;
+	GLuint _vertex_buffer;
+	GLuint _index_buffer;
 
-	std::vector<Vertex> vertices;
-	std::vector<unsigned int> indices;
+	std::vector<Vertex> _vertices;
+	std::vector<unsigned int> _indices;
+
+	// Methods to load and unload the mesh from GPU memory
+	void _initialise(void);
+	void _uninitialise(void);
+
+	// Methods to bind and unbind this mesh
+	void _bind(void) const;
+	void _unbind(void) const;
 
 	friend class MDLLoader;
+	friend class Renderer;
 };

@@ -46,7 +46,7 @@ void Renderer::render(void)
 			case RenderCommandType::BindMesh:
 			{
 				const BindMeshCommand* bm_cmd = static_cast<const BindMeshCommand*>(command);
-				bm_cmd->_mesh.bind();
+				bm_cmd->_mesh._bind();
 				break;
 			}
 

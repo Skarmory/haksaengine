@@ -71,7 +71,7 @@ MDLFile* MDLLoader::load(const std::string& id)
 	fs.close();
 
 	for(auto mesh : mdl->_meshes)
-		mesh->initialise();
+		mesh->_initialise();
 
 	return mdl;
 }
@@ -120,7 +120,7 @@ void MDLLoader::parse_geoset(std::ifstream& stream, MDLFile* mdl)
 			idx2 = line.find_first_of(' ', idx1);
 
 			value = line.substr(idx1, idx2 - idx1);
-			mesh->vertices.resize(std::stoi(value));
+			mesh->_vertices.resize(std::stoi(value));
 			parse_vertices(stream, mesh);
 		}
 		else if (value == "Indices")
@@ -129,7 +129,7 @@ void MDLLoader::parse_geoset(std::ifstream& stream, MDLFile* mdl)
 			idx2 = line.find_first_of(' ', idx1);
 
 			value = line.substr(idx1, idx2 - idx1);
-			mesh->indices.resize(std::stoi(value));
+			mesh->_indices.resize(std::stoi(value));
 			parse_indices(stream, mesh);
 		}
 		else if (value == "Normals")
@@ -168,7 +168,7 @@ void MDLLoader::parse_vertices(std::ifstream& stream, Mesh* mesh)
 	std::string line, substr;
 
 	unsigned int vidx = 0;
-	while(vidx < mesh->vertices.size())
+	while(vidx < mesh->_vertices.size())
 	{
 		std::getline(stream, line);
 
@@ -176,19 +176,19 @@ void MDLLoader::parse_vertices(std::ifstream& stream, Mesh* mesh)
 		auto idx1 = line.find_first_of(',', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].position.x = std::stof(substr);
+		mesh->_vertices[vidx].position.x = std::stof(substr);
 
 		idx = line.find_first_of(' ', idx1);
 		idx1 = line.find_first_of(',', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].position.y = std::stof(substr);
+		mesh->_vertices[vidx].position.y = std::stof(substr);
 
 		idx = line.find_first_of(' ', idx1);
 		idx1 = line.find_first_of('}', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].position.z = std::stof(substr);
+		mesh->_vertices[vidx].position.z = std::stof(substr);
 
 		vidx++;
 	}
@@ -199,7 +199,7 @@ void MDLLoader::parse_indices(std::ifstream& stream, Mesh* mesh)
 	std::string line, substr;
 
 	unsigned int iidx = 0;
-	while (iidx < mesh->indices.size())
+	while (iidx < mesh->_indices.size())
 	{
 		int count = 0;
 
@@ -211,7 +211,7 @@ void MDLLoader::parse_indices(std::ifstream& stream, Mesh* mesh)
 		do
 		{
 			substr = line.substr(idx, idx1 - idx);
-			mesh->indices[iidx] = std::stoi(substr);
+			mesh->_indices[iidx] = std::stoi(substr);
 			iidx++;
 
 			idx = line.find_first_of(' ', idx1);
@@ -229,7 +229,7 @@ void MDLLoader::parse_normals(std::ifstream& stream, Mesh* mesh)
 	std::string line, substr;
 
 	unsigned int vidx = 0;
-	while (vidx < mesh->vertices.size())
+	while (vidx < mesh->_vertices.size())
 	{
 		std::getline(stream, line);
 
@@ -237,19 +237,19 @@ void MDLLoader::parse_normals(std::ifstream& stream, Mesh* mesh)
 		auto idx1 = line.find_first_of(',', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].normal.x = std::stof(substr);
+		mesh->_vertices[vidx].normal.x = std::stof(substr);
 
 		idx = line.find_first_of(' ', idx1);
 		idx1 = line.find_first_of(',', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].normal.y = std::stof(substr);
+		mesh->_vertices[vidx].normal.y = std::stof(substr);
 
 		idx = line.find_first_of(' ', idx1);
 		idx1 = line.find_first_of('}', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].normal.z = std::stof(substr);
+		mesh->_vertices[vidx].normal.z = std::stof(substr);
 
 		vidx++;
 	}
@@ -260,7 +260,7 @@ void MDLLoader::parse_uvs(std::ifstream& stream, Mesh* mesh)
 	std::string line, substr;
 
 	unsigned int vidx = 0;
-	while (vidx < mesh->vertices.size())
+	while (vidx < mesh->_vertices.size())
 	{
 		std::getline(stream, line);
 
@@ -268,13 +268,13 @@ void MDLLoader::parse_uvs(std::ifstream& stream, Mesh* mesh)
 		auto idx1 = line.find_first_of(',', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].uv.x = std::stof(substr);
+		mesh->_vertices[vidx].uv.x = std::stof(substr);
 
 		idx = line.find_first_of(' ', idx1);
 		idx1 = line.find_first_of('}', idx);
 		substr = line.substr(idx, idx1 - idx);
 
-		mesh->vertices[vidx].uv.y = std::stof(substr);
+		mesh->_vertices[vidx].uv.y = std::stof(substr);
 
 		vidx++;
 	}
@@ -285,7 +285,7 @@ void MDLLoader::parse_bone_indices(std::ifstream & stream, Mesh* mesh)
 	std::string line, value;
 
 	int vidx = 0;
-	while (vidx < mesh->vertices.size())
+	while (vidx < mesh->_vertices.size())
 	{
 		std::getline(stream, line);
 
@@ -298,7 +298,7 @@ void MDLLoader::parse_bone_indices(std::ifstream & stream, Mesh* mesh)
 		while (idx2 != std::string::npos)
 		{
 			value = line.substr(idx1, idx2 - idx1);
-			mesh->vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
+			mesh->_vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
 
 			idx1 = line.find_first_of(' ', idx2);
 			idx2 = line.find_first_of(',', idx1);
@@ -309,12 +309,12 @@ void MDLLoader::parse_bone_indices(std::ifstream & stream, Mesh* mesh)
 		// No comma found, so this is the last value to parse
 		idx2 = line.find_first_of('}', idx1);
 		value = line.substr(idx1, idx2 - idx1);
-		mesh->vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
+		mesh->_vertices[vidx].bone_ids[bone_idx] = std::stoi(value);
 		bone_idx++;
 
 		// Set default value for remaining unused bone idex slots
 		for (; bone_idx < 4; bone_idx++)
-			mesh->vertices[vidx].bone_ids[bone_idx] = 0;
+			mesh->_vertices[vidx].bone_ids[bone_idx] = 0;
 
 		vidx++;
 	}
@@ -325,7 +325,7 @@ void MDLLoader::parse_bone_weights(std::ifstream& stream, Mesh* mesh)
 	std::string line, value;
 
 	int vidx = 0;
-	while (vidx < mesh->vertices.size())
+	while (vidx < mesh->_vertices.size())
 	{
 		std::getline(stream, line);
 
@@ -338,7 +338,7 @@ void MDLLoader::parse_bone_weights(std::ifstream& stream, Mesh* mesh)
 		while (idx2 != std::string::npos)
 		{
 			value = line.substr(idx1, idx2 - idx1);
-			mesh->vertices[vidx].bone_weights[bone_idx] = std::stof(value);
+			mesh->_vertices[vidx].bone_weights[bone_idx] = std::stof(value);
 
 			idx1 = line.find_first_of(' ', idx2);
 			idx2 = line.find_first_of(',', idx1);
@@ -349,12 +349,12 @@ void MDLLoader::parse_bone_weights(std::ifstream& stream, Mesh* mesh)
 		// No comma found, so this is the last value to parse
 		idx2 = line.find_first_of('}', idx1);
 		value = line.substr(idx1, idx2 - idx1);
-		mesh->vertices[vidx].bone_weights[bone_idx] = std::stof(value);
+		mesh->_vertices[vidx].bone_weights[bone_idx] = std::stof(value);
 		bone_idx++;
 
 		// Set default value for remaining unused bone idex slots
 		for (; bone_idx < 4; bone_idx++)
-			mesh->vertices[vidx].bone_weights[bone_idx] = 0.0f;
+			mesh->_vertices[vidx].bone_weights[bone_idx] = 0.0f;
 
 		vidx++;
 	}
