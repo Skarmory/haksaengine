@@ -67,7 +67,7 @@ public:
 	HAKSAENGINE_API AssetManager* get_asset_manager(void);
 	HAKSAENGINE_API ComponentManager* get_component_manager(void);
 	HAKSAENGINE_API SceneManager* get_scene_manager(void);
-	Renderer* get_renderer(void);
+	HAKSAENGINE_API Renderer* get_renderer(void);
 
 private:
 	static Services* services;
