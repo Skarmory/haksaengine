@@ -2,7 +2,7 @@
 
 #include "services.h"
 
-RenderLogicSystem::RenderLogicSystem(void)
+RenderLogicSystem::RenderLogicSystem(SystemOrdering order) : System(order)
 {
 }
 

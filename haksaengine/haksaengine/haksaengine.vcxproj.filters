@@ -197,6 +197,9 @@
     <ClInclude Include="gfx\uniform.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\system_ordering.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

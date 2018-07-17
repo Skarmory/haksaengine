@@ -3,18 +3,16 @@
 #include <vector>
 
 #include "globals.h"
-#include "entity_manager.h"
 #include "event/event_handler.h"
-#include "event/event.h"
+#include "ecs/system_ordering.h"
 
-struct Event;
 
 /* The system classes are responsible for processing logic on the entities and updating component data. */
 /* This is the base class that all systems need to inherit from. */
 class System : public EventHandler
 {
 public:
-	HAKSAENGINE_API System(void);
+	HAKSAENGINE_API System(SystemOrdering order);
 
 	HAKSAENGINE_API virtual ~System(void) = default;
 
@@ -22,4 +20,7 @@ public:
 
 protected:
 	std::vector<unsigned int> _entities;
+
+private:
+	SystemOrdering _order;
 };

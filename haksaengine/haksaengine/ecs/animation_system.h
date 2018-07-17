@@ -14,7 +14,7 @@ class AnimationSystem : public System
 {
 public:
 
-	AnimationSystem(void);
+	AnimationSystem(SystemOrdering order);
 	virtual void update(float delta) override;
 	virtual void on_event(Event ev) override;
 

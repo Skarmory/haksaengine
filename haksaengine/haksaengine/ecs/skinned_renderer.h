@@ -8,7 +8,7 @@ class SkinnedRenderer : public RenderLogicSystem
 {
 public:
 
-	SkinnedRenderer(void);
+	SkinnedRenderer(SystemOrdering order);
 	virtual void update(float delta) override;
 	virtual void on_event(Event ev) override;
 };

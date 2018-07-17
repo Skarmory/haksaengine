@@ -12,7 +12,7 @@
 #include "gfx/shader.h"
 #include "gfx/uniform_data.h"
 
-SkinnedRenderer::SkinnedRenderer(void)
+SkinnedRenderer::SkinnedRenderer(SystemOrdering order) : RenderLogicSystem(order)
 {
 }
 

@@ -8,7 +8,7 @@
 class BasicRenderSystem : public RenderLogicSystem
 {
 public:
-	BasicRenderSystem(void);
+	BasicRenderSystem(SystemOrdering order);
 	virtual void update(float delta) override;
 	virtual void on_event(Event ev) override;
 };

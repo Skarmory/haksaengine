@@ -14,6 +14,7 @@
 #include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
 #include "ecs/animator.h"
+#include "ecs/system_ordering.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -63,9 +64,9 @@ void Engine::initialise(void)
 	services.set_renderer(renderer);
 
 	// Create engine defined systems
-	basic_render_logic = new BasicRenderSystem;
-	skinned_render_logic = new SkinnedRenderer;
-	animation_system = new AnimationSystem;
+	basic_render_logic = new BasicRenderSystem({ UpdatePriority::RENDER, 0 });
+	skinned_render_logic = new SkinnedRenderer({ UpdatePriority::RENDER, 0 });
+	animation_system = new AnimationSystem({ UpdatePriority::PRERENDER, 100 });
 
 	// Register engine defined components
 	services.get_component_manager()->register_component<Transform>("Transform");

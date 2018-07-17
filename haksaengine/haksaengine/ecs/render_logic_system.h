@@ -11,7 +11,7 @@
 class RenderLogicSystem : public System
 {
 public:
-	RenderLogicSystem(void);
+	RenderLogicSystem(SystemOrdering order);
 	virtual ~RenderLogicSystem(void);
 
 	virtual void update(float delta) override = 0;

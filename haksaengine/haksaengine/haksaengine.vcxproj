@@ -172,6 +172,7 @@
     <ClInclude Include="ecs\render_logic_system.h" />
     <ClInclude Include="ecs\skinned_renderable.h" />
     <ClInclude Include="ecs\skinned_renderer.h" />
+    <ClInclude Include="ecs\system_ordering.h" />
     <ClInclude Include="ecs\transform.h" />
     <ClInclude Include="ecs\renderable.h" />
     <ClInclude Include="ecs\system.h" />

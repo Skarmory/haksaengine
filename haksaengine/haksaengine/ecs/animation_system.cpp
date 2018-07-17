@@ -8,9 +8,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/quaternion.hpp>
 
-AnimationSystem::AnimationSystem(void)
+AnimationSystem::AnimationSystem(SystemOrdering order) : System(order)
 {
-
 }
 
 void AnimationSystem::update(float delta)

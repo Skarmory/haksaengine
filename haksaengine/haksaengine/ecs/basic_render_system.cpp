@@ -19,7 +19,7 @@
 #include "gfx/texture.h"
 #include "gfx/uniform_data.h"
 
-BasicRenderSystem::BasicRenderSystem(void)
+BasicRenderSystem::BasicRenderSystem(SystemOrdering order) : RenderLogicSystem(order)
 {
 }
 
