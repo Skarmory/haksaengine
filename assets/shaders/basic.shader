@@ -6,6 +6,7 @@ layout (binding = 0) uniform CameraBlock
 {
 	mat4 view;
 	mat4 projection;
+	vec3 position;
 } camera;
 
 layout (binding = 1) uniform PerDrawBlock
@@ -15,6 +16,12 @@ layout (binding = 1) uniform PerDrawBlock
 	uint player_colour;
 	sampler2D diffuse;
 } per_draw;
+
+layout (binding = 2) uniform SceneBlock
+{
+	vec4 sun_direction;
+	vec3 sun_colour;
+} scene;
 
 #ifdef VERTEX
 
@@ -50,15 +57,22 @@ const vec3 PLAYER_COLOURS[3] = vec3[3](
 	vec3(0.0, 0.0, 1.0)
 );
 
-void main()
+vec3 add_player_colour(vec4 src, uint player_id)
 {
-	vec4 src = texture(per_draw.diffuse, uv);
+	vec4 dst = vec4(PLAYER_COLOURS[player_id].xyz, 1.0);
 	
-	vec4 dst = vec4(PLAYER_COLOURS[per_draw.player_colour].xyz, 1.0);
+	return (src.a * src.rgb) + ((1.0 - src.a) * dst.rgb);
+}
+
+void main()
+{	
+	vec3 diffuse_albedo = add_player_colour(texture(per_draw.diffuse, uv), per_draw.player_colour);
 	
-	vec3 final = (src.a * src.rgb) + ((1.0 - src.a) * dst.rgb);
+	vec3 to_cam = normalize(camera.position - position);
 	
-	colour = vec4(final.rgb, per_draw.alpha);
+	vec3 diffuse = max(dot(normal, -scene.sun_direction.xyz), 0.0) * diffuse_albedo;
+	
+	colour = vec4(diffuse, per_draw.alpha);
 }
 
 #endif

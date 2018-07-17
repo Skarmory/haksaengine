@@ -3,6 +3,7 @@
 #include <GL/glew.h>
 
 #include "gfx/render_command.h"
+#include "gfx/uniform_data.h"
 
 Renderer::Renderer(void) : _command_count(0)
 {
@@ -36,6 +37,16 @@ void Renderer::submit_render_commands(std::vector<const RenderCommand*>& command
 
 void Renderer::render(void)
 {
+	glm::vec3 sun_dir = glm::normalize(glm::vec3(-1.0f, -1.0f, -1.0f));
+
+	SceneData scene_data;
+	scene_data.sun_colour = glm::vec3(1.0, 1.0, 1.0);
+	scene_data.sun_direction = glm::vec4(sun_dir, 1.0f);
+
+	UpdateUniformsCommand scene_uniform_cmd;
+	scene_uniform_cmd.add_uniform(new Uniform<SceneData>(SCENE_UNIFORM_BIND_POINT, scene_data));
+	_update_uniform_buffers(&scene_uniform_cmd);
+
 	const RenderCommand* command;
 	for (int i = 0; i < _command_count; i++)
 	{
