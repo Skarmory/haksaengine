@@ -1,10 +1,13 @@
 #pragma once
 
 #include <unordered_map>
+#include <vector>
+#include <algorithm>
 
+#include "service.h"
 #include "ecs/system.h"
 
-class SystemManager
+class SystemManager : public Service
 {
 public:
 	SystemManager(void);
@@ -21,12 +24,20 @@ public:
 
 		system->_id = _next_id++;
 
-		_systems.push_back(system);
+		UpdatePriority up = system->_order.priority;
+
+		_systems[up].push_back(system);
+
+		std::sort(_systems[up].begin(), _systems[up].end(), _sort_systems);
 
 		return static_cast<SystemType*>(system);
 	}
 
+	void update_systems(float delta, UpdatePriority priority);
+
 private:
 	unsigned int _next_id;
-	std::vector<System*> _systems;
+	std::unordered_map<UpdatePriority, std::vector<System*>> _systems;
+
+	static bool _sort_systems(const System* left, const System* right);
 };
