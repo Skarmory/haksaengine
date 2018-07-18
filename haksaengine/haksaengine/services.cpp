@@ -39,6 +39,18 @@ Services::~Services(void)
 		scene_manager = nullptr;
 	}
 
+	if (system_manager)
+	{
+		delete system_manager;
+		system_manager = nullptr;
+	}
+
+	if (game_time)
+	{
+		delete game_time;
+		game_time = nullptr;
+	}
+
 	if (renderer)
 	{
 		delete renderer;
@@ -78,6 +90,16 @@ void Services::set_scene_manager(SceneManager* scene_manager)
 	this->scene_manager = scene_manager;
 }
 
+void Services::set_system_manager(SystemManager* system_manager)
+{
+	this->system_manager = system_manager;
+}
+
+void Services::set_game_time(GameTime* game_time)
+{
+	this->game_time = game_time;
+}
+
 void Services::set_renderer(Renderer* renderer)
 {
 	this->renderer = renderer;
@@ -106,6 +128,16 @@ ComponentManager* Services::get_component_manager(void)
 SceneManager* Services::get_scene_manager(void)
 {
 	return scene_manager;
+}
+
+SystemManager* Services::get_system_manager(void)
+{
+	return system_manager;
+}
+
+GameTime* Services::get_game_time(void)
+{
+	return game_time;
 }
 
 Renderer* Services::get_renderer(void)

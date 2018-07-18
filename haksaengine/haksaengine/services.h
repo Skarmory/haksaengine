@@ -6,9 +6,11 @@
 #include "event/event_manager.h"
 #include "ecs/entity_manager.h"
 #include "ecs/component_manager.h"
+#include "ecs/system_manager.h"
 #include "asset_manager.h"
 #include "scene/scene_manager.h"
 #include "gfx/renderer.h"
+#include "game_time.h"
 
 /* Class that acts as an access point for all manager classes */
 class Services
@@ -45,8 +47,16 @@ public:
 
 		else if (type == typeid(SceneManager))
 			service = get().get_scene_manager();
+
+		else if (type == typeid(SystemManager))
+			service = get().get_system_manager();
+
+		else if (type == typeid(GameTime))
+			service = get().get_game_time();
+
 		else if (type == typeid(Renderer))
 			service = get().get_renderer();
+
 		else
 			return nullptr;
 
@@ -59,6 +69,8 @@ public:
 	void set_asset_manager(AssetManager* asset_manager);
 	void set_component_manager(ComponentManager* component_manager);
 	void set_scene_manager(SceneManager* scene_manager);
+	void set_system_manager(SystemManager* system_manager);
+	void set_game_time(GameTime* renderer);
 	void set_renderer(Renderer* renderer);
 
 	// Get service methods
@@ -67,6 +79,8 @@ public:
 	HAKSAENGINE_API AssetManager* get_asset_manager(void);
 	HAKSAENGINE_API ComponentManager* get_component_manager(void);
 	HAKSAENGINE_API SceneManager* get_scene_manager(void);
+	HAKSAENGINE_API SystemManager* get_system_manager(void);
+	HAKSAENGINE_API GameTime* get_game_time(void);
 	HAKSAENGINE_API Renderer* get_renderer(void);
 
 private:
@@ -77,5 +91,7 @@ private:
 	AssetManager* asset_manager;
 	ComponentManager* component_manager;
 	SceneManager* scene_manager;
+	SystemManager* system_manager;
+	GameTime* game_time;
 	Renderer* renderer;
 };
