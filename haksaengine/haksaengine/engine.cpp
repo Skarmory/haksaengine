@@ -15,6 +15,7 @@
 #include "ecs/camera.h"
 #include "ecs/animator.h"
 #include "ecs/system_ordering.h"
+#include "ecs/system_manager.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -22,8 +23,6 @@ Engine::Engine(void) : accumulator(0.0f)
 
 Engine::~Engine(void)
 {
-	delete animation_system;
-	delete skinned_render_logic;
 	delete game_window;
 	//delete renderer;
 
@@ -53,35 +52,47 @@ void Engine::initialise(void)
 	glEnable(GL_CULL_FACE);
 	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
-	renderer = new Renderer;
+	Renderer* renderer = new Renderer;
+	GameTime* game_time = new GameTime;
+	ComponentManager* compman = new ComponentManager;
+	SystemManager* sysman = new SystemManager;
 
 	// Add engine services to the locator
 	services.set_event_manager(new EventManager);
 	services.set_entity_manager(new EntityManager);
 	services.set_asset_manager(new AssetManager);
-	services.set_component_manager(new ComponentManager);
+	services.set_component_manager(compman);
 	services.set_scene_manager(new SceneManager);
 	services.set_renderer(renderer);
+	services.set_system_manager(sysman);
+	services.set_game_time(game_time);
 
 	// Create engine defined systems
-	basic_render_logic = new BasicRenderSystem({ UpdatePriority::RENDER, 0 });
-	skinned_render_logic = new SkinnedRenderer({ UpdatePriority::RENDER, 0 });
-	animation_system = new AnimationSystem({ UpdatePriority::PRERENDER, 100 });
+	sysman->create<SkinnedRenderer>(SystemOrdering(UpdatePriority::RENDER, 1));
+	sysman->create<BasicRenderSystem>(SystemOrdering(UpdatePriority::RENDER, 0));
+	sysman->create<AnimationSystem>(SystemOrdering(UpdatePriority::PRERENDER, 100));
 
 	// Register engine defined components
-	services.get_component_manager()->register_component<Transform>("Transform");
-	services.get_component_manager()->register_component<Renderable>("Renderable");
-	services.get_component_manager()->register_component<SkinnedRenderable>("SkinnedRenderable");
-	services.get_component_manager()->register_component<Camera>("Camera");
-	services.get_component_manager()->register_component<Animator>("Animator");
+	compman->register_component<Transform>("Transform");
+	compman->register_component<Renderable>("Renderable");
+	compman->register_component<SkinnedRenderable>("SkinnedRenderable");
+	compman->register_component<Camera>("Camera");
+	compman->register_component<Animator>("Animator");
 }
 
 void Engine::run(void)
 {
+	SystemManager* sysman = services.get_system_manager();
+	Renderer* renderer = services.get_renderer();
+	GameTime* time = services.get_game_time();
+
+	float delta;
+
 	while (!game_window->window_close())
 	{
-		game_time.tick();
-		accumulator += game_time.delta();
+		time->tick();
+		delta = time->delta();
+		accumulator += delta;
 
 		while(accumulator >= FIXED_TIME_STEP)
 		{
@@ -90,18 +101,18 @@ void Engine::run(void)
 			accumulator -= FIXED_TIME_STEP;
 		}
 
-		std::cout << game_time.delta() << std::endl;
+		//std::cout << game_time.delta() << std::endl;
 
-		animation_system->update(game_time.delta());
-
+		sysman->update_systems(delta, UpdatePriority::PRERENDER);
 
 		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-		basic_render_logic->update(game_time.delta());
-		skinned_render_logic->update(game_time.delta());
+		sysman->update_systems(delta, UpdatePriority::RENDER);
 
 		renderer->render();
+
+		sysman->update_systems(delta, UpdatePriority::POSTRENDER);
 
 		game_window->swap_buffers();
 	}

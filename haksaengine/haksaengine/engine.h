@@ -25,14 +25,9 @@ public:
 
 private:
 	// Time stuff
-	GameTime game_time;
 	float accumulator;
 	const float FIXED_TIME_STEP = 1.0f / 60.0f;
 
 	GameWindow* game_window;
 	Services services;
-	Renderer* renderer;
-	BasicRenderSystem* basic_render_logic;
-	SkinnedRenderer* skinned_render_logic;
-	AnimationSystem* animation_system;
 };

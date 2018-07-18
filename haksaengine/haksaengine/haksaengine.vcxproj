@@ -172,6 +172,7 @@
     <ClInclude Include="ecs\render_logic_system.h" />
     <ClInclude Include="ecs\skinned_renderable.h" />
     <ClInclude Include="ecs\skinned_renderer.h" />
+    <ClInclude Include="ecs\system_manager.h" />
     <ClInclude Include="ecs\system_ordering.h" />
     <ClInclude Include="ecs\transform.h" />
     <ClInclude Include="ecs\renderable.h" />
@@ -217,6 +218,7 @@
     <ClCompile Include="ecs\render_logic_system.cpp" />
     <ClCompile Include="ecs\skinned_renderer.cpp" />
     <ClCompile Include="ecs\system.cpp" />
+    <ClCompile Include="ecs\system_manager.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="event\event_manager.cpp" />
     <ClCompile Include="gfx\mesh.cpp" />
