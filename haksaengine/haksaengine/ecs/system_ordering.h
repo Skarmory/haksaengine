@@ -12,6 +12,10 @@ enum UpdatePriority
 // Systems with a lower index will be updated before systems with a higher index
 struct SystemOrdering
 {
+	SystemOrdering(UpdatePriority priority, unsigned int index) : priority(priority), index(index)
+	{
+	}
+
 	UpdatePriority priority;
 	unsigned int index;
 };
