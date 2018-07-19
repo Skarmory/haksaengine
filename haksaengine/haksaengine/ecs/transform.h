@@ -10,6 +10,9 @@
 
 #include "ecs/component.h"
 
+const glm::vec3 WORLD_UP = glm::vec3(0.0f, 1.0f, 0.0f);
+const glm::vec3 WROLD_FOWARD = glm::vec3(0.0f, 0.0f, 1.0f);
+
 // Component that contains spatial data about an entity
 struct Transform : public Component<Transform>
 {
@@ -96,6 +99,19 @@ struct Transform : public Component<Transform>
 		transform = glm::translate(glm::mat4(1.0f), _position) * glm::toMat4(q_rot) * glm::scale(glm::mat4(1.0f), _scale);
 
 		return transform;
+	}
+
+	// Get local forward
+	glm::vec3 get_forward(void) const
+	{
+		glm::vec3 forward;
+
+		// Extract from euler angles rotation
+		forward.x = sinf(_rotation.y);
+		forward.y = -tanf(_rotation.x);
+		forward.z = cos(_rotation.z);
+
+		return forward;
 	}
 
 private:
