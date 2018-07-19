@@ -106,10 +106,12 @@ struct Transform : public Component<Transform>
 	{
 		glm::vec3 forward;
 
-		// Extract from euler angles rotation
-		forward.x = sinf(_rotation.y);
-		forward.y = -tanf(_rotation.x);
-		forward.z = cos(_rotation.z);
+		// Construct rotation matrix and extract the 3rd column of it to get the forward vector
+		glm::quat q_rot(glm::vec3(glm::radians(_rotation.x), glm::radians(_rotation.y), glm::radians(_rotation.z)));
+
+		glm::mat4 rotation_matrix = glm::toMat4(q_rot);
+
+		forward = rotation_matrix[2];
 
 		return forward;
 	}
