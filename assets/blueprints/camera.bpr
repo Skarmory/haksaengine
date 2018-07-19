@@ -13,4 +13,7 @@ Components:
 		float near_plane 0.1f;
 		float far_plane 1000.0f;
 		float fov 45.0f;
+		uint width 800;
+		uint height 600;
+		uint projection_mode 0;
 	]

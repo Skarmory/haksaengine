@@ -28,7 +28,7 @@ void SkinnedRenderer::update(float delta)
 	// Update camera UBO
 	CameraData camera_data;
 	camera_data.view = glm::lookAt(camera_transform->get_position(), glm::vec3(0.0f, 0.0f, 0.0f), glm::vec3(0.0f, 1.0f, 0.0f));
-	camera_data.projection = glm::perspective(camera->fov, 800.0f / 600.0f, camera->near_plane, camera->far_plane);
+	camera_data.projection = camera->projection_matrix;
 	camera_data.position = camera_transform->get_position();
 
 	update_uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, camera_data);
