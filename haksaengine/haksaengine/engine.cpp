@@ -9,13 +9,13 @@
 #include "event/event_manager.h"
 #include "ecs/entity_manager.h"
 #include "ecs/transform.h"
-//#include "ecs/renderer.h"
 #include "ecs/renderable.h"
 #include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
 #include "ecs/animator.h"
 #include "ecs/system_ordering.h"
 #include "ecs/system_manager.h"
+#include "ecs/camera_controller.h"
 
 Engine::Engine(void) : accumulator(0.0f)
 {
@@ -71,6 +71,7 @@ void Engine::initialise(void)
 	sysman->create<SkinnedRenderer>(SystemOrdering(UpdatePriority::RENDER, 1));
 	sysman->create<BasicRenderSystem>(SystemOrdering(UpdatePriority::RENDER, 0));
 	sysman->create<AnimationSystem>(SystemOrdering(UpdatePriority::PRERENDER, 100));
+	sysman->create<CameraController>(SystemOrdering(UpdatePriority::PRERENDER, 0));
 
 	// Register engine defined components
 	compman->register_component<Transform>("Transform");

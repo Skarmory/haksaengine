@@ -1,17 +1,17 @@
 Components:
 	Transform:
 	[
-		float px 125.0f;
-		float py 125.0f;
-		float pz 125.0f;
-		float rx 0.0f;
-		float ry 0.0f;
+		float px 500.0f;
+		float py 500.0f;
+		float pz 500.0f;
+		float rx 45.0f;
+		float ry -135.0f;
 		float rz 0.0f;
 	]
 	Camera:
 	[
 		float near_plane 0.1f;
-		float far_plane 1000.0f;
+		float far_plane 10000.0f;
 		float fov 45.0f;
 		uint width 800;
 		uint height 600;
