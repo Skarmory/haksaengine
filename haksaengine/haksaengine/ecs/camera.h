@@ -33,7 +33,7 @@ struct Camera : public Component<Camera>
 		if (mode == ProjectionMode::Perspective)
 			projection_matrix = glm::perspective(fov, aspect_ratio, near_plane, far_plane);
 		else
-			projection_matrix = glm::ortho(0.0f, (float)width, 0.0f, (float)height, near_plane, far_plane);
+			projection_matrix = glm::ortho(-(float)(width/2), (float)(width/2), -(float)(height/2), (float)(height/2), near_plane, far_plane);
 	}
 
 	float near_plane, far_plane;
