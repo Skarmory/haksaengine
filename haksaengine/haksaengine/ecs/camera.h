@@ -44,4 +44,5 @@ struct Camera : public Component<Camera>
 	ProjectionMode projection_mode;
 
 	glm::mat4 projection_matrix;
+	glm::mat4 view_matrix;
 };
