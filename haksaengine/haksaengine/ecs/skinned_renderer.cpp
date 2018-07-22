@@ -33,8 +33,10 @@ void SkinnedRenderer::update(float delta)
 
 	update_uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, camera_data);
 
+	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
+
 	// Draw each renderable entity
-	for (auto entity_id : _entities)
+	for (auto entity_id : culled_entities)
 	{
 		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
