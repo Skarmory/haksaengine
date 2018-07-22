@@ -206,6 +206,9 @@
     <ClInclude Include="ecs\camera_controller.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="scene\frustum.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -303,6 +306,9 @@
     </ClCompile>
     <ClCompile Include="ecs\camera_controller.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\frustum.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
