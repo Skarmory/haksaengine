@@ -24,7 +24,10 @@ public:
 	// Return the main (active) camera entity by const reference
 	HAKSAENGINE_API const Entity& get_main_camera(void) const;
 
-	// Do frustum cull of given entities by the main active camera
+	// Do frustum cull of all transformable entities in the scene and store them
+	void cull_entities(void);
+
+	// Do frustum cull of given entities by comparison to culled entities vector
 	std::vector<unsigned int> cull_by_main_camera(const std::vector<unsigned int>& entities);
 
 	// Do frustum cull of given entities by given camera
@@ -32,4 +35,7 @@ public:
 
 private:
 	Entity* main_camera;
+
+	std::vector<unsigned int> _transformable_entities;
+	std::vector<unsigned int> _culled_entities;
 };

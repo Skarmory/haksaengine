@@ -71,7 +71,7 @@ void Engine::initialise(void)
 	sysman->create<SkinnedRenderer>(SystemOrdering(UpdatePriority::RENDER, 1));
 	sysman->create<BasicRenderSystem>(SystemOrdering(UpdatePriority::RENDER, 0));
 	sysman->create<AnimationSystem>(SystemOrdering(UpdatePriority::PRERENDER, 100));
-	sysman->create<CameraController>(SystemOrdering(UpdatePriority::PRERENDER, 0));
+	sysman->create<CameraController>(SystemOrdering(UpdatePriority::POSTINPUT, 0));
 
 	// Register engine defined components
 	compman->register_component<Transform>("Transform");
@@ -84,6 +84,7 @@ void Engine::initialise(void)
 void Engine::run(void)
 {
 	SystemManager* sysman = services.get_system_manager();
+	SceneManager* sceneman = services.get_scene_manager();
 	Renderer* renderer = services.get_renderer();
 	GameTime* time = services.get_game_time();
 
@@ -103,6 +104,10 @@ void Engine::run(void)
 		}
 
 		//std::cout << game_time.delta() << std::endl;
+
+		sysman->update_systems(delta, UpdatePriority::POSTINPUT);
+
+		sceneman->cull_entities();
 
 		sysman->update_systems(delta, UpdatePriority::PRERENDER);
 

@@ -24,6 +24,17 @@ void SceneManager::on_event(Event ev)
 		{
 			main_camera = entity;
 		}
+		else if(entity->has_component<Transform>())
+		{
+			_transformable_entities.push_back(ev.arguments[0].as_uint);
+		}
+	}
+	else if (ev.event_type == "EntityDestroyedEvent")
+	{
+		auto it = std::lower_bound(_transformable_entities.begin(), _transformable_entities.end(), ev.arguments[0].as_uint);
+		
+		if (it != _transformable_entities.end())
+			_transformable_entities.erase(it);
 	}
 }
 
@@ -32,9 +43,24 @@ const Entity& SceneManager::get_main_camera(void) const
 	return *main_camera;
 }
 
+void SceneManager::cull_entities(void)
+{
+	_culled_entities = cull_by_camera(_transformable_entities, main_camera);
+	std::sort(_culled_entities.begin(), _culled_entities.end());
+}
+
 std::vector<unsigned int> SceneManager::cull_by_main_camera(const std::vector<unsigned int>& entities)
 {
-	return cull_by_camera(entities, main_camera);
+	std::vector<unsigned int> culled;
+	culled.reserve(entities.size());
+
+	for (auto eid : entities)
+	{
+		if (std::binary_search(_culled_entities.begin(), _culled_entities.end(), eid))
+			culled.push_back(eid);
+	}
+
+	return culled;
 }
 
 std::vector<unsigned int> SceneManager::cull_by_camera(const std::vector<unsigned int>& entities, Entity* camera)

@@ -3,9 +3,11 @@
 // Where abouts in the update pipeline this system should be updated
 enum UpdatePriority
 {
-	PRERENDER  = 0,
-	RENDER     = 1,
-	POSTRENDER = 2
+	POSTINPUT  = 0,
+	GAMEPLAY   = 1,
+	PRERENDER  = 2,
+	RENDER     = 3,
+	POSTRENDER = 4
 };
 
 // Represents the ordering of system deriving classes' updating.
