@@ -21,6 +21,8 @@ void CameraController::update(float delta)
 		Transform* transform = entity->get_component<Transform>();
 
 		camera->view_matrix = glm::lookAt(transform->get_position(), transform->get_position() + transform->get_forward(), WORLD_UP);
+
+		camera->frustum.extract_planes(camera->projection_matrix * camera->view_matrix);
 	}
 }
 
