@@ -3,7 +3,9 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include "ecs/component.h"
+#include "scene/frustum.h"
 
+// Represents which projection mode a camera is using
 enum ProjectionMode
 {
 	Perspective  = 0,
@@ -13,6 +15,10 @@ enum ProjectionMode
 // The Camera component defines the camera frustum and FoV
 struct Camera : public Component<Camera>
 {
+
+public:
+
+	// Load camera data
 	void load(NamedVariantPack* data) override
 	{
 		near_plane = data->get("near_plane").as_float;
@@ -26,6 +32,8 @@ struct Camera : public Component<Camera>
 		set_projection_mode(static_cast<ProjectionMode>(data->get("projection_mode").as_uint));
 	}
 
+	// Sets projection mode and updates the projection matrix for this camera.
+	// This method is needed because the projection matrix is constructed differently depending on whether it is perspective or orthographic
 	void set_projection_mode(ProjectionMode mode)
 	{
 		projection_mode = mode;
@@ -36,13 +44,25 @@ struct Camera : public Component<Camera>
 			projection_matrix = glm::ortho(-(float)(width/2), (float)(width/2), -(float)(height/2), (float)(height/2), near_plane, far_plane);
 	}
 
-	float near_plane, far_plane;
+	// Gets projection mode
+	ProjectionMode get_projection_mode(void) const
+	{
+		return projection_mode;
+	}
+
+	float near_plane;
+	float far_plane;
+	float aspect_ratio;
 	float fov;
 	unsigned int width;
 	unsigned int height;
-	float aspect_ratio;
-	ProjectionMode projection_mode;
 
 	glm::mat4 projection_matrix;
 	glm::mat4 view_matrix;
+
+	Frustum frustum;
+
+private:
+
+	ProjectionMode projection_mode;
 };

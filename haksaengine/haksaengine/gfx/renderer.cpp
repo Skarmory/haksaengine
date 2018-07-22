@@ -37,16 +37,20 @@ void Renderer::submit_render_commands(std::vector<const RenderCommand*>& command
 
 void Renderer::render(void)
 {
+	// DEBUG: This needs to be gotten from the actual Scene
 	glm::vec3 sun_dir = glm::normalize(glm::vec3(-1.0f, -1.0f, -1.0f));
 
 	SceneData scene_data;
 	scene_data.sun_colour = glm::vec3(1.0, 1.0, 1.0);
 	scene_data.sun_direction = glm::vec4(sun_dir, 1.0f);
 
+	// Scene uniform should only need to be updated once
 	UpdateUniformsCommand scene_uniform_cmd;
 	scene_uniform_cmd.add_uniform(new Uniform<SceneData>(SCENE_UNIFORM_BIND_POINT, scene_data));
 	_update_uniform_buffers(&scene_uniform_cmd);
+	// DEBUG
 
+	// Go through all the commands submitted this frame and process them
 	const RenderCommand* command;
 	for (int i = 0; i < _command_count; i++)
 	{

@@ -30,7 +30,7 @@ public:
 	Renderer(const Renderer&& other) = delete;
 	Renderer& operator=(const Renderer&& other) = delete;
 
-	// Adds a RenderLogicSystem derived class to 
+	// Submit a list of RenderCommands for the renderer to process when it comes time to rendering
 	void submit_render_commands(std::vector<const RenderCommand*>& commands);
 
 	// Executes render commands submitted and any other enabled options
@@ -42,5 +42,6 @@ private:
 	const RenderCommand* _commands[MAX_COMMANDS];
 	UniformBufferObject _ubos[MAX_UBOS];
 
+	// Updates all specified uniform buffers and binds them
 	void _update_uniform_buffers(const UpdateUniformsCommand* command);
 };
