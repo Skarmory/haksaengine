@@ -25,7 +25,7 @@ namespace haksaengine_test
 		class TestSystemA : public System
 		{
 		public:
-			TestSystemA(void)
+			TestSystemA(SystemOrdering order) : System(order)
 			{
 				Services::get().get_event_manager()->subscribe("TestEvent", this);
 			}
@@ -41,6 +41,7 @@ namespace haksaengine_test
 		};
 
 		Services* services;
+		SystemOrdering order = SystemOrdering(UpdatePriority::GAMEPLAY, 0);
 
 		TEST_METHOD_INITIALIZE(setup)
 		{
@@ -59,7 +60,7 @@ namespace haksaengine_test
 
 		TEST_METHOD(Event_received_event_is_correct)
 		{
-			TestSystemA A;
+			TestSystemA A(order);
 
 			Event test_event;
 			test_event.event_type = "TestEvent";

@@ -96,6 +96,8 @@ namespace haksaengine_test
 		class TestSystem_EntityCreated : public System
 		{
 		public:
+			TestSystem_EntityCreated(SystemOrdering ordering) : System(ordering) {}
+
 			virtual void update(float d) override {}
 
 			virtual void on_event(Event ev) override
@@ -107,6 +109,8 @@ namespace haksaengine_test
 		class TestSystem_EntityDestroyed : public System
 		{
 		public:
+			TestSystem_EntityDestroyed(SystemOrdering ordering) : System(ordering) {}
+
 			virtual void update(float d) override {}
 
 			virtual void on_event(Event ev) override
@@ -125,6 +129,8 @@ namespace haksaengine_test
 		class TestSystem_EntityCreatedFromBlueprint : public System
 		{
 		public:
+			TestSystem_EntityCreatedFromBlueprint(SystemOrdering ordering) : System(ordering) {}
+
 			virtual void update(float d) override {}
 
 			virtual void on_event(Event ev) override
@@ -138,6 +144,7 @@ namespace haksaengine_test
 		};
 
 		Services* services;
+		SystemOrdering order = SystemOrdering(UpdatePriority::GAMEPLAY, 0);
 
 		TEST_METHOD_INITIALIZE(setup)
 		{
@@ -192,7 +199,9 @@ namespace haksaengine_test
 
 			bp->add_component(comp);
 
-			TestSystem_EntityCreatedFromBlueprint sys;
+			
+
+			TestSystem_EntityCreatedFromBlueprint sys(order);
 
 			auto entity_man = Services::get().get_entity_manager();
 
@@ -238,7 +247,7 @@ namespace haksaengine_test
 		TEST_METHOD(EntityManager_create_entity_event_test)
 		{
 			auto entity_man = Services::get().get_entity_manager();
-			TestSystem_EntityCreated system;
+			TestSystem_EntityCreated system(order);
 
 			auto e1_id = entity_man->create_entity();
 		}
@@ -246,7 +255,7 @@ namespace haksaengine_test
 		TEST_METHOD(EntityManager_destroy_entity_event_test)
 		{
 			auto entity_man = Services::get().get_entity_manager();
-			TestSystem_EntityDestroyed system;
+			TestSystem_EntityDestroyed system(order);
 
 			auto e1_id = entity_man->create_entity();
 

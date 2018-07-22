@@ -4,7 +4,7 @@
 #include <iostream>
 #include <string>
 
-#include "time.h"
+#include "game_time.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
