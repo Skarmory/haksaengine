@@ -27,7 +27,7 @@ namespace haksaengine_test
 		void load(NamedVariantPack* data) override {}
 	};
 
-	TEST_CLASS(ECSTest)
+	TEST_CLASS(EntityTest)
 	{
 	public:
 
