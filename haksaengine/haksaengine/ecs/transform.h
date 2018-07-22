@@ -16,7 +16,7 @@ const glm::vec3 WROLD_FOWARD = glm::vec3(0.0f, 0.0f, 1.0f);
 // Component that contains spatial data about an entity
 struct Transform : public Component<Transform>
 {
-	Transform(void) : _position(glm::vec3()), _rotation(glm::vec3())
+	Transform(void) : _position(glm::vec3()), _rotation(glm::vec3()), _scale(glm::vec3(1.0))
 	{}
 
 	// Load in transform data from NamedVariantPack

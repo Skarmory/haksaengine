@@ -2,7 +2,9 @@
 
 Services* Services::services = nullptr;
 
-Services::Services(void) : event_manager(nullptr), entity_manager(nullptr), asset_manager(nullptr)
+Services::Services(void)
+	: event_manager(nullptr), entity_manager(nullptr), asset_manager(nullptr), component_manager(nullptr),
+	  scene_manager(nullptr), system_manager(nullptr), game_time(nullptr), renderer(nullptr)
 {
 	services = this;
 }
