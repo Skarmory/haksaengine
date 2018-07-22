@@ -14,7 +14,9 @@ AnimationSystem::AnimationSystem(SystemOrdering order) : System(order)
 
 void AnimationSystem::update(float delta)
 {
-	for (auto entity_id : _entities)
+	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
+
+	for (auto entity_id : culled_entities)
 	{
 		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
