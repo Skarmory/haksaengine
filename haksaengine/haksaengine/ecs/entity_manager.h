@@ -30,6 +30,9 @@ public:
 	// Create an entity from a blueprint, returns new entity's id. Sends an EntityCreatedEvent
 	HAKSAENGINE_API unsigned int create_entity(const Blueprint* blueprint);
 
+	// Create an entity from a blueprint and return reference to new entity. Sends an EntityCreatedEvent
+	HAKSAENGINE_API Entity& create_and_get_entity(const Blueprint* blueprint);
+
 	// Destroy an entity by id. Sends an EntityDestroyedEvent
 	HAKSAENGINE_API void destroy_entity(unsigned int id);
 

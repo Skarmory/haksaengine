@@ -61,6 +61,11 @@ unsigned int EntityManager::create_entity(const Blueprint* blueprint)
 	return next_id++;
 }
 
+Entity& EntityManager::create_and_get_entity(const Blueprint* blueprint)
+{
+	return *get_entity(create_entity(blueprint));
+}
+
 void EntityManager::destroy_entity(unsigned int id)
 {
 	if (_entities.find(id) != _entities.end())
