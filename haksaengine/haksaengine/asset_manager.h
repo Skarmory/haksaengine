@@ -54,6 +54,12 @@ public:
 		return _load_asset(asset_name, typeid(C));
 	}
 
+	template<class AssetType>
+	AssetType& load_and_get_asset(const char* asset_name)
+	{
+		return get_asset<AssetType>(_load_asset(asset_name, typeid(AssetType)));
+	}
+
 	// Add a loader for a particular type of asset so the asset manager can load it
 	template<class C>
 	void add_loader(Loader* loader)
