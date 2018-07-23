@@ -22,8 +22,9 @@ enum class EngineMode
 // Represents what the engine is currently doing
 enum class EngineState
 {
-	Ready           = 0,
-	ProcessingFrame = 1
+	Uninitialised   = 0,
+	Ready           = 1,
+	ProcessingFrame = 2
 };
 
 /* Entrypoint into the engine itself. Binds everything together. */

@@ -17,7 +17,7 @@
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
 
-Engine::Engine(EngineMode mode) : accumulator(0.0f), _mode(mode), _state(EngineState::Ready)
+Engine::Engine(EngineMode mode) : accumulator(0.0f), _mode(mode), _state(EngineState::Uninitialised)
 {
 }
 
@@ -84,6 +84,8 @@ void Engine::initialise(void)
 	compman->register_component<SkinnedRenderable>("SkinnedRenderable");
 	compman->register_component<Camera>("Camera");
 	compman->register_component<Animator>("Animator");
+
+	_state = EngineState::Ready;
 }
 
 void Engine::one_frame(void)
