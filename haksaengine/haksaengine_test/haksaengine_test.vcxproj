@@ -77,24 +77,34 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)haksaengine\Debug;$(LibraryPath);$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)haksaengine\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)haksaengine\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)Release;$(SolutionDir)haksaengine\Release;$(LibraryPath);$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)haksaengine\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)haksaengine\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNITTESTPRJ="$(ProjectDir).";_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -109,13 +119,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -125,7 +136,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNITTESTPRJ="$(ProjectDir).";NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -144,7 +155,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -153,6 +164,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

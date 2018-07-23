@@ -63,7 +63,7 @@ namespace haksaengine_test
 			directory.erase(0, 1);
 			directory.erase(directory.size() - 2);
 
-			engine = new Engine;
+			engine = new Engine(EngineMode::Game);
 			engine->initialise();
 
 			Services::get().get_asset_manager()->set_asset_directory_path((directory + "..\\..\\assets\\").c_str());

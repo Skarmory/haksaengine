@@ -17,16 +17,18 @@
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
 
-Engine::Engine(void) : accumulator(0.0f)
+Engine::Engine(EngineMode mode) : accumulator(0.0f), _mode(mode), _state(EngineState::Ready)
 {
 }
 
 Engine::~Engine(void)
 {
-	delete game_window;
-	//delete renderer;
+	if (_mode == EngineMode::Game)
+	{
+		delete game_window;
 
-	glfwTerminate();
+		glfwTerminate();
+	}
 }
 
 // Callback for opengl to print errors
@@ -37,10 +39,13 @@ void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, 
 
 void Engine::initialise(void)
 {
-	// Initialise OpenGL stuff
-	glfwInit();
+	if (_mode == EngineMode::Game)
+	{
+		// Initialise OpenGL stuff
+		glfwInit();
 
-	game_window = new GameWindow(800, 600, "Game Application");
+		game_window = new GameWindow(800, 600, "Game Application");
+	}
 
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -81,8 +86,14 @@ void Engine::initialise(void)
 	compman->register_component<Animator>("Animator");
 }
 
-void Engine::run(void)
+void Engine::one_frame(void)
 {
+	// Engine is already processing a frame, so just return without doing anything
+	if (_state != EngineState::Ready)
+		return;
+
+	_state = EngineState::ProcessingFrame;
+
 	SystemManager* sysman = services.get_system_manager();
 	SceneManager* sceneman = services.get_scene_manager();
 	Renderer* renderer = services.get_renderer();
@@ -90,36 +101,48 @@ void Engine::run(void)
 
 	float delta;
 
+	time->tick();
+	delta = time->delta();
+	accumulator += delta;
+
+	while (accumulator >= FIXED_TIME_STEP)
+	{
+		glfwPollEvents();
+
+		accumulator -= FIXED_TIME_STEP;
+	}
+
+	//std::cout << game_time.delta() << std::endl;
+
+	sysman->update_systems(delta, UpdatePriority::POSTINPUT);
+
+	sceneman->cull_entities();
+
+	sysman->update_systems(delta, UpdatePriority::PRERENDER);
+
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	sysman->update_systems(delta, UpdatePriority::RENDER);
+
+	renderer->render();
+
+	sysman->update_systems(delta, UpdatePriority::POSTRENDER);
+
+	game_window->swap_buffers();
+
+	_state = EngineState::Ready;
+}
+
+void Engine::run(void)
+{
 	while (!game_window->window_close())
 	{
-		time->tick();
-		delta = time->delta();
-		accumulator += delta;
-
-		while(accumulator >= FIXED_TIME_STEP)
-		{
-			glfwPollEvents();
-
-			accumulator -= FIXED_TIME_STEP;
-		}
-
-		//std::cout << game_time.delta() << std::endl;
-
-		sysman->update_systems(delta, UpdatePriority::POSTINPUT);
-
-		sceneman->cull_entities();
-
-		sysman->update_systems(delta, UpdatePriority::PRERENDER);
-
-		glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-		sysman->update_systems(delta, UpdatePriority::RENDER);
-
-		renderer->render();
-
-		sysman->update_systems(delta, UpdatePriority::POSTRENDER);
-
-		game_window->swap_buffers();
+		one_frame();
 	}
+}
+
+EngineState Engine::get_state(void) const
+{
+	return _state;
 }

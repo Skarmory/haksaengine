@@ -73,10 +73,24 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <LibraryPath>$(SolutionDir)Debug;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\build\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <LibraryPath>$(SolutionDir)Release;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\build\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LibraryPath>$(SolutionDir)..\build\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LibraryPath>$(SolutionDir)..\build\$(Platform)\$(Configuration);$(LibraryPath)</LibraryPath>
+    <OutDir>..\..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>.\$(Platform)\$(Configuration)</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -84,10 +98,10 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>haksaengine.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -96,7 +110,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -106,12 +124,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine\;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>haksaengine.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -122,10 +140,12 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

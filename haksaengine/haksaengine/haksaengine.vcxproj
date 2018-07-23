@@ -72,17 +72,25 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\$(Platform)\$(Configuration)</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\Win32;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\$(Platform)\$(Configuration)</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <LibraryPath>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015;$(SolutionDir)..\lib\glew-2.1.0\lib\Release\$(Platform);$(LibraryPath)</LibraryPath>
+    <OutDir>$(SolutionDir)..\build\$(Platform)\$(Configuration)</OutDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -100,20 +108,30 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)..\lib\glew-2.1.0\bin\Release\$(Platform)\glew32.dll" "$(OutDir)" /y /r
+xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dll" "$(OutDir)" /y /r</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;HAKSAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)..\lib\glew-2.1.0\bin\Release\$(Platform)\glew32.dll" "$(OutDir)" /y /r
+xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dll" "$(OutDir)" /y /r</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -134,10 +152,14 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)..\lib\glew-2.1.0\bin\Release\$(Platform)\glew32.dll" "$(OutDir)" /y /r
+xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dll" "$(OutDir)" /y /r</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -145,13 +167,19 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;HAKSAENGINE_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(ProjectDir);%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>opengl32.lib;glew32.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
+    <PreBuildEvent>
+      <Command>xcopy "$(SolutionDir)..\lib\glew-2.1.0\bin\Release\$(Platform)\glew32.dll" "$(OutDir)" /y /r
+xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dll" "$(OutDir)" /y /r</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="anim\animation.h" />
