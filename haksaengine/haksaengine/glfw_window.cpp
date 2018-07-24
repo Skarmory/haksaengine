@@ -1,6 +1,6 @@
-#include "window.h"
+#include "glfw_window.h"
 
-GameWindow::GameWindow(int width, int height, const std::string& window_title)
+GlfwWindow::GlfwWindow(int width, int height, const std::string& window_title)
 {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 5);
@@ -14,18 +14,18 @@ GameWindow::GameWindow(int width, int height, const std::string& window_title)
 	glfwSwapInterval(0);
 }
 
-GameWindow::~GameWindow(void)
+GlfwWindow::~GlfwWindow(void)
 {
 	glfwDestroyWindow(window);
 	window = nullptr;
 }
 
-bool GameWindow::window_close(void)
+bool GlfwWindow::window_close(void)
 {
 	return glfwWindowShouldClose(window);
 }
 
-void GameWindow::swap_buffers(void)
+void GlfwWindow::swap_buffers(void)
 {
 	glfwSwapBuffers(window);
 }

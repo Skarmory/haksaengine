@@ -2,7 +2,7 @@
 
 #include "globals.h"
 
-#include "window.h"
+#include "glfw_window.h"
 #include "game_time.h"
 #include "services.h"
 #include "gfx/renderer.h"
@@ -52,7 +52,7 @@ private:
 	float accumulator;
 	const float FIXED_TIME_STEP = 1.0f / 60.0f;
 
-	GameWindow* game_window;
+	GlfwWindow* game_window;
 	Services services;
 
 	EngineMode _mode;

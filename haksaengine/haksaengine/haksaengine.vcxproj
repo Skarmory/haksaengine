@@ -239,7 +239,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="targetver.h" />
     <ClInclude Include="game_time.h" />
     <ClInclude Include="variant.h" />
-    <ClInclude Include="window.h" />
+    <ClInclude Include="glfw_window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="asset_manager.cpp" />
@@ -277,7 +277,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="game_time.cpp" />
     <ClCompile Include="variant.cpp" />
-    <ClCompile Include="window.cpp" />
+    <ClCompile Include="glfw_window.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

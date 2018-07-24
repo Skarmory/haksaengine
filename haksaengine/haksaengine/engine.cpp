@@ -44,7 +44,7 @@ void Engine::initialise(void)
 		// Initialise OpenGL stuff
 		glfwInit();
 
-		game_window = new GameWindow(800, 600, "Game Application");
+		game_window = new GlfwWindow(800, 600, "Game Application");
 
 		//glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 

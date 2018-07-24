@@ -6,15 +6,19 @@
 
 #include "globals.h"
 
-class GameWindow
+class GlfwWindow
 {
+	friend class GlfwInputManager;
+
 public:
-	GameWindow(int width, int height, const std::string& window_title);
-	~GameWindow(void);
+
+	GlfwWindow(int width, int height, const std::string& window_title);
+	~GlfwWindow(void);
 
 	bool window_close(void);
 	void swap_buffers(void);
 
 private:
+
 	GLFWwindow* window;
 };

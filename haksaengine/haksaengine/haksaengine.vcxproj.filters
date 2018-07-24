@@ -86,9 +86,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="window.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="event\event.h">
       <Filter>Header Files\event</Filter>
     </ClInclude>
@@ -224,6 +221,9 @@
     <ClInclude Include="input\mouse.h">
       <Filter>Header Files\input</Filter>
     </ClInclude>
+    <ClInclude Include="glfw_window.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -251,9 +251,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="window.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="event\event_manager.cpp">
@@ -333,6 +330,9 @@
     </ClCompile>
     <ClCompile Include="input\mouse.cpp">
       <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="glfw_window.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
