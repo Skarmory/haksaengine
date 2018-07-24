@@ -42,6 +42,12 @@
     <Filter Include="Header Files\anim">
       <UniqueIdentifier>{16a41881-5150-44ad-be4f-01eb6324fc33}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\input">
+      <UniqueIdentifier>{ffde7683-4e5b-4a76-9a8f-6c15e97276fe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\input">
+      <UniqueIdentifier>{21e6c9d3-b391-4dd7-a25c-571675b06f12}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ecs\component.h">
@@ -209,6 +215,12 @@
     <ClInclude Include="scene\frustum.h">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="input\input_manager.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
+    <ClInclude Include="input\key.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -309,6 +321,12 @@
     </ClCompile>
     <ClCompile Include="scene\frustum.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="input\key.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="input\input_manager.cpp">
+      <Filter>Source Files\input</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
