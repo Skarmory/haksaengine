@@ -16,6 +16,7 @@
 #include "ecs/system_ordering.h"
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
+#include "input/glfw_input_manager.h"
 
 Engine::Engine(EngineMode mode) : accumulator(0.0f), _mode(mode), _state(EngineState::Uninitialised)
 {
@@ -48,7 +49,7 @@ void Engine::initialise(void)
 
 		//glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
-		services.set_input_manager(new InputManager);
+		services.set_input_manager(new GlfwInputManager(*game_window));
 	}
 
 	glewExperimental = GL_TRUE;
@@ -101,6 +102,7 @@ void Engine::one_frame(void)
 
 	SystemManager* sysman = services.get_system_manager();
 	SceneManager* sceneman = services.get_scene_manager();
+	InputManager* inputman = services.get_input_manager();
 	Renderer* renderer = services.get_renderer();
 	GameTime* time = services.get_game_time();
 
@@ -112,7 +114,11 @@ void Engine::one_frame(void)
 
 	while (accumulator >= FIXED_TIME_STEP)
 	{
-		glfwPollEvents();
+		if (inputman)
+		{
+			inputman->reset_states();
+			inputman->update();
+		}
 
 		accumulator -= FIXED_TIME_STEP;
 	}
