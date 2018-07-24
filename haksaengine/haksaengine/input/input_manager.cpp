@@ -52,9 +52,13 @@ InputManager::InputManager(void)
 	_key_map["Alt"] = Key("Alt");
 }
 
-void InputManager::update(void)
+void InputManager::reset_states(void)
 {
+	for (auto kpv : _key_map)
+		kpv.second._released = false;
 
+	_mouse._button_1.released = false;
+	_mouse._button_2.released = false;
 }
 
 const Key& InputManager::get_key(const char* name) const
@@ -68,4 +72,46 @@ const Key& InputManager::get_key(const char* name) const
 const Mouse& InputManager::get_mouse(void) const
 {
 	return _mouse;
+}
+
+void InputManager::set_mouse_position(float x, float y)
+{
+	_mouse._cursor_x_offset = x - _mouse._cursor_x;
+	_mouse._cursor_y_offset = y - _mouse._cursor_y;
+
+	_mouse._cursor_x = x;
+	_mouse._cursor_y = y;
+}
+
+void InputManager::set_mouse_button_state(MouseButtonType type, MouseButtonState state)
+{
+	MouseButton* button = _mouse._get_button(type);
+
+	if (state == MouseButtonState::Pressed)
+	{
+		button->pressed = true;
+		button->released = false;
+	}
+	else if (state == MouseButtonState::Released)
+	{
+		button->pressed = false;
+		button->released = true;
+	}
+}
+
+void InputManager::set_key_state(const char* key, KeyState state)
+{
+	if (_key_map.find(key) == _key_map.end())
+		return;
+
+	if (state == KeyState::Pressed)
+	{
+		_key_map[key]._pressed = true;
+		_key_map[key]._released = false;
+	}
+	else if(state == KeyState::Released)
+	{
+		_key_map[key]._pressed = false;
+		_key_map[key]._released = true;
+	}
 }
