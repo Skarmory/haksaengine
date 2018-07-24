@@ -1,5 +1,24 @@
 #pragma once
 
+enum MouseButtonType
+{
+	Button_1 = 0,
+	Button_2 = 1,
+	None     = 2
+};
+
+enum class MouseButtonState
+{
+	Pressed  = 0,
+	Released = 1
+};
+
+struct MouseButton
+{
+	bool pressed;
+	bool released;
+};
+
 class Mouse
 {
 	friend class InputManager;
@@ -8,17 +27,11 @@ public:
 
 	Mouse(void);
 
-	// Returns true if mouse button one is pressed
-	bool button_1_pressed(void) const;
+	// Returns true if the given mouse button is pressed
+	bool pressed(MouseButtonType button) const;
 
-	// Returns true if mouse button two is pressed
-	bool button_2_pressed(void) const;
-
-	// Returns true if mouse button one was just released
-	bool button_1_released(void) const;
-
-	// Returns true is mouse button two was just released
-	bool button_2_released(void) const;
+	// Returns true if the given mouse button was just released
+	bool released(MouseButtonType button) const;
 
 	// Returns the screen x position of the mouse cursor
 	float x(void) const;
@@ -34,11 +47,13 @@ public:
 
 private:
 
-	bool _button_1_pressed;
-	bool _button_2_pressed;
+	// Return mouse button
+	MouseButton* _get_button(MouseButtonType type);
 
-	bool _button_1_released;
-	bool _button_2_released;
+private:
+
+	MouseButton _button_1;
+	MouseButton _button_2;
 
 	float _cursor_x;
 	float _cursor_y;

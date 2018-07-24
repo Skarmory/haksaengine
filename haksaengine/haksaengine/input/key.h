@@ -2,6 +2,12 @@
 
 #include <string>
 
+enum class KeyState
+{
+	Pressed = 0,
+	Released = 1,
+};
+
 class Key
 {
 	friend class InputManager;

@@ -1,29 +1,30 @@
 #include "input/mouse.h"
 
 Mouse::Mouse(void) 
-	: _button_1_pressed(false), _button_2_pressed(false), _button_1_released(false), _button_2_released(false),
-	  _cursor_x(0.0f), _cursor_y(0.0f), _cursor_x_offset(0.0f), _cursor_y_offset(0.0f)
+	: _button_1({ false, false }), _button_2({ false,false }),
+	  _cursor_x(0.0f), _cursor_y(0.0f),
+	  _cursor_x_offset(0.0f), _cursor_y_offset(0.0f)
 {
 }
 
-bool Mouse::button_1_pressed(void) const
+bool Mouse::pressed(MouseButtonType button) const
 {
-	return _button_1_pressed;
+	if (button == MouseButtonType::Button_1)
+		return _button_1.pressed;
+	else if (button == MouseButtonType::Button_2)
+		return _button_2.pressed;
+
+	return false;
 }
 
-bool Mouse::button_2_pressed(void) const
+bool Mouse::released(MouseButtonType button) const
 {
-	return _button_2_pressed;
-}
+	if (button == MouseButtonType::Button_1)
+		return _button_1.released;
+	else if (button == MouseButtonType::Button_2)
+		return _button_2.released;
 
-bool Mouse::button_1_released(void) const
-{
-	return _button_1_released;
-}
-
-bool Mouse::button_2_released(void) const
-{
-	return _button_2_released;
+	return false;
 }
 
 float Mouse::x(void) const
@@ -44,4 +45,14 @@ float Mouse::x_offset(void) const
 float Mouse::y_offset(void) const
 {
 	return _cursor_y_offset;
+}
+
+MouseButton* Mouse::_get_button(MouseButtonType type)
+{
+	switch (type)
+	{
+		case MouseButtonType::Button_1: return &_button_1;
+		case MouseButtonType::Button_2: return &_button_2;
+		default: return nullptr;
+	}
 }
