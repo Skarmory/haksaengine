@@ -4,7 +4,8 @@ Services* Services::services = nullptr;
 
 Services::Services(void)
 	: event_manager(nullptr), entity_manager(nullptr), asset_manager(nullptr), component_manager(nullptr),
-	  scene_manager(nullptr), system_manager(nullptr), game_time(nullptr), renderer(nullptr)
+	  scene_manager(nullptr), system_manager(nullptr), game_time(nullptr), renderer(nullptr),
+	  input_manager(nullptr)
 {
 	services = this;
 }
@@ -59,6 +60,12 @@ Services::~Services(void)
 		renderer = nullptr;
 	}
 
+	if (input_manager)
+	{
+		delete input_manager;
+		input_manager = nullptr;
+	}
+
 	services = nullptr;    
 }
 
@@ -107,6 +114,11 @@ void Services::set_renderer(Renderer* renderer)
 	this->renderer = renderer;
 }
 
+void Services::set_input_manager(InputManager* input_manager)
+{
+	this->input_manager = input_manager;
+}
+
 EventManager* Services::get_event_manager(void)
 {
 	return event_manager;
@@ -145,4 +157,9 @@ GameTime* Services::get_game_time(void)
 Renderer* Services::get_renderer(void)
 {
 	return renderer;
+}
+
+InputManager* Services::get_input_manager(void)
+{
+	return input_manager;
 }

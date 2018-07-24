@@ -64,3 +64,8 @@ const Key& InputManager::get_key(const char* name) const
 
 	return _key_map.at(name);
 }
+
+const Mouse& InputManager::get_mouse(void) const
+{
+	return _mouse;
+}

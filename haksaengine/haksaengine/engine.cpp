@@ -46,7 +46,9 @@ void Engine::initialise(void)
 
 		game_window = new GameWindow(800, 600, "Game Application");
 
-		//glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);	
+		//glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
+
+		services.set_input_manager(new InputManager);
 	}
 
 	glewExperimental = GL_TRUE;

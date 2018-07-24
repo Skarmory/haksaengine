@@ -11,6 +11,7 @@
 #include "scene/scene_manager.h"
 #include "gfx/renderer.h"
 #include "game_time.h"
+#include "input/input_manager.h"
 
 /* Class that acts as an access point for all manager classes */
 class Services
@@ -57,6 +58,9 @@ public:
 		else if (type == typeid(Renderer))
 			service = get().get_renderer();
 
+		else if (type == typeid(InputManager))
+			service = get().get_input_manager();
+
 		else
 			return nullptr;
 
@@ -72,6 +76,7 @@ public:
 	void set_system_manager(SystemManager* system_manager);
 	void set_game_time(GameTime* renderer);
 	void set_renderer(Renderer* renderer);
+	void set_input_manager(InputManager* input_manager);
 
 	// Get service methods
 	HAKSAENGINE_API EventManager* get_event_manager(void);
@@ -82,6 +87,7 @@ public:
 	HAKSAENGINE_API SystemManager* get_system_manager(void);
 	HAKSAENGINE_API GameTime* get_game_time(void);
 	HAKSAENGINE_API Renderer* get_renderer(void);
+	HAKSAENGINE_API InputManager* get_input_manager(void);
 
 private:
 	static Services* services;
@@ -94,4 +100,5 @@ private:
 	SystemManager* system_manager;
 	GameTime* game_time;
 	Renderer* renderer;
+	InputManager* input_manager;
 };
