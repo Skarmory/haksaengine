@@ -220,6 +220,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="gfx\uniform_data.h" />
     <ClInclude Include="gfx\vertex.h" />
     <ClInclude Include="globals.h" />
+    <ClInclude Include="input\glfw_input_manager.h" />
     <ClInclude Include="input\input_manager.h" />
     <ClInclude Include="input\key.h" />
     <ClInclude Include="input\mouse.h" />
@@ -261,6 +262,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="gfx\shader.cpp" />
     <ClCompile Include="gfx\texture.cpp" />
     <ClCompile Include="haksaengine.cpp" />
+    <ClCompile Include="input\glfw_input_manager.cpp" />
     <ClCompile Include="input\input_manager.cpp" />
     <ClCompile Include="input\key.cpp" />
     <ClCompile Include="input\mouse.cpp" />
