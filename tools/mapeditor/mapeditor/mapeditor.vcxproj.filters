@@ -36,9 +36,15 @@
     <ClCompile Include="mapeditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="customopenglwidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mapeditor.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="customopenglwidget.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
