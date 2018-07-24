@@ -222,6 +222,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="globals.h" />
     <ClInclude Include="input\input_manager.h" />
     <ClInclude Include="input\key.h" />
+    <ClInclude Include="input\mouse.h" />
     <ClInclude Include="io\blueprint.h" />
     <ClInclude Include="io\blueprint_loader.h" />
     <ClInclude Include="io\loader.h" />
@@ -262,6 +263,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="haksaengine.cpp" />
     <ClCompile Include="input\input_manager.cpp" />
     <ClCompile Include="input\key.cpp" />
+    <ClCompile Include="input\mouse.cpp" />
     <ClCompile Include="io\blueprint.cpp" />
     <ClCompile Include="io\blueprint_loader.cpp" />
     <ClCompile Include="io\lodepng.cpp" />

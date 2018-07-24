@@ -1,10 +1,10 @@
 #include "input/key.h"
 
-Key::Key(void) : _name("NoKey")
+Key::Key(void) : Key("NoKey")
 {
 }
 
-Key::Key(const std::string& name) : _name(name)
+Key::Key(const std::string& name) : _name(name), _pressed(false), _released(false)
 {
 }
 

@@ -4,7 +4,10 @@
 
 class Key
 {
+	friend class InputManager;
+
 public:
+
 	Key(void);
 	explicit Key(const std::string& name);
 
@@ -14,10 +17,9 @@ public:
 	bool released(void) const;
 
 private:
+
 	std::string _name;
 
 	bool _pressed;
 	bool _released;
-
-	friend class InputManager;
 };

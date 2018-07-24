@@ -221,6 +221,9 @@
     <ClInclude Include="input\key.h">
       <Filter>Header Files\input</Filter>
     </ClInclude>
+    <ClInclude Include="input\mouse.h">
+      <Filter>Header Files\input</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -326,6 +329,9 @@
       <Filter>Source Files\input</Filter>
     </ClCompile>
     <ClCompile Include="input\input_manager.cpp">
+      <Filter>Source Files\input</Filter>
+    </ClCompile>
+    <ClCompile Include="input\mouse.cpp">
       <Filter>Source Files\input</Filter>
     </ClCompile>
   </ItemGroup>
