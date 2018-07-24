@@ -16,10 +16,10 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QMainWindow>
 #include <QtWidgets/QMenuBar>
-#include <QtWidgets/QOpenGLWidget>
 #include <QtWidgets/QStatusBar>
 #include <QtWidgets/QToolBar>
 #include <QtWidgets/QWidget>
+#include "customopenglwidget.h"
 
 QT_BEGIN_NAMESPACE
 
@@ -27,7 +27,7 @@ class Ui_mapeditorClass
 {
 public:
     QWidget *centralWidget;
-    QOpenGLWidget *openGLWidget;
+    CustomOpenGLWidget *openGLWidget;
     QMenuBar *menuBar;
     QToolBar *mainToolBar;
     QStatusBar *statusBar;
@@ -39,7 +39,7 @@ public:
         mapeditorClass->resize(967, 657);
         centralWidget = new QWidget(mapeditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
-        openGLWidget = new QOpenGLWidget(centralWidget);
+        openGLWidget = new CustomOpenGLWidget(centralWidget);
         openGLWidget->setObjectName(QStringLiteral("openGLWidget"));
         openGLWidget->setGeometry(QRect(10, 10, 800, 600));
         mapeditorClass->setCentralWidget(centralWidget);

@@ -6,8 +6,6 @@
 #include <QtCore/QTimer>
 #include "ui_mapeditor.h"
 
-
-
 class mapeditor : public QMainWindow
 {
 	Q_OBJECT
@@ -24,4 +22,6 @@ private:
 
 	QTimer* _main_loop_timer;
 	Engine* _engine;
+
+	void _setup_default_scene(void);
 };

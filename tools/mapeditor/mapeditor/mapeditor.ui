@@ -14,7 +14,7 @@
    <string>mapeditor</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <widget class="QOpenGLWidget" name="openGLWidget">
+   <widget class="CustomOpenGLWidget" name="openGLWidget">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -46,6 +46,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>CustomOpenGLWidget</class>
+   <extends>QOpenGLWidget</extends>
+   <header>customopenglwidget.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="mapeditor.qrc"/>
  </resources>
