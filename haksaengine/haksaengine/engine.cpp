@@ -31,11 +31,11 @@ Engine::~Engine(void)
 	}
 }
 
-// Callback for opengl to print errors
-void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, GLsizei length, const GLchar* message, GLvoid* user_parameters)
-{
-	printf("OpenGL error: %s\n", message);
-}
+//// Callback for opengl to print errors
+//void gl_error_callback(GLenum source, GLenum type, GLuint id, GLenum serverity, GLsizei length, const GLchar* message, GLvoid* user_parameters)
+//{
+//	printf("OpenGL error: %s\n", message);
+//}
 
 void Engine::initialise(void)
 {
@@ -45,6 +45,8 @@ void Engine::initialise(void)
 		glfwInit();
 
 		game_window = new GameWindow(800, 600, "Game Application");
+
+		//glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);	
 	}
 
 	glewExperimental = GL_TRUE;
@@ -55,7 +57,6 @@ void Engine::initialise(void)
 	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glEnable(GL_MULTISAMPLE);
 	glEnable(GL_CULL_FACE);
-	glDebugMessageCallback((GLDEBUGPROC)gl_error_callback, nullptr);
 
 	Renderer* renderer = new Renderer;
 	GameTime* game_time = new GameTime;
@@ -131,7 +132,10 @@ void Engine::one_frame(void)
 
 	sysman->update_systems(delta, UpdatePriority::POSTRENDER);
 
-	game_window->swap_buffers();
+	if (_mode == EngineMode::Game)
+	{
+		game_window->swap_buffers();
+	}
 
 	_state = EngineState::Ready;
 }
