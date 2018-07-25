@@ -13,9 +13,13 @@ mapeditor::mapeditor(QWidget *parent)
 
 	_engine = new Engine(EngineMode::Editor);
 
-	ui.openGLWidget->set_engine(_engine);
-
 	_main_loop_timer->start(0);
+}
+
+mapeditor::~mapeditor(void)
+{
+	delete _main_loop_timer;
+	delete _engine;
 }
 
 void mapeditor::main_loop(void)
@@ -23,6 +27,8 @@ void mapeditor::main_loop(void)
 	if (_engine->get_state() == EngineState::Uninitialised)
 	{
 		_engine->initialise();
+
+		ui.openGLWidget->set_engine(_engine);
 
 		Services::get<AssetManager>()->set_asset_directory_path("../../../assets/");
 

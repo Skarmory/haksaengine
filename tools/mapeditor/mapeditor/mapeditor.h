@@ -12,6 +12,7 @@ class mapeditor : public QMainWindow
 
 public:
 	mapeditor(QWidget *parent = Q_NULLPTR);
+	~mapeditor(void);
 
 private slots:
 
