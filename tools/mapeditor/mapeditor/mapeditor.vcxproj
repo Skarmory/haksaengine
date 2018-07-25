@@ -118,6 +118,7 @@
     <ClCompile Include="customopenglwidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapeditor.cpp" />
+    <ClCompile Include="qt_input_handler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mapeditor.h" />
@@ -135,6 +136,9 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtOpenGLExtensions;$(QTDIR)\include\QtWidgets;$(SolutionDir)..\..\haksaengine\haksaengine;$(SolutionDir)..\..\lib\glew-2.1.0\include;$(SolutionDir)..\..\lib\glm;$(SolutionDir)..\..\lib\glfw-3.2.1.bin.WIN32\include</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_OPENGLEXTENSIONS_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="qt_input_handler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
