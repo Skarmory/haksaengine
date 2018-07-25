@@ -9,6 +9,7 @@ GlfwInputManager::GlfwInputManager(const GlfwWindow& window)
 	glfwSetKeyCallback(window.window, (GLFWkeyfun)key_callback);
 	glfwSetCursorPosCallback(window.window, (GLFWcursorposfun)mouse_move_callback);
 	glfwSetMouseButtonCallback(window.window, (GLFWmousebuttonfun)mouse_button_callback);
+	glfwSetScrollCallback(window.window, (GLFWscrollfun)mouse_scroll_callback);
 }
 
 void GlfwInputManager::update(void)
@@ -115,4 +116,11 @@ void GlfwInputManager::mouse_button_callback(GLFWwindow* window, int button, int
 
 	else if (action == GLFW_RELEASE)
 		input->set_mouse_button_state(type, MouseButtonState::Released);
+}
+
+void GlfwInputManager::mouse_scroll_callback(GLFWwindow* window, double x, double y)
+{
+	GlfwInputManager* input = static_cast<GlfwInputManager*>(Services::get().get_input_manager());
+
+	input->set_mouse_scroll(y);
 }

@@ -33,4 +33,7 @@ private:
 
 	// Callback function for GLFW mouse button press events
 	static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
+
+	// Callback function for GLFW mouse scroll events
+	static void mouse_scroll_callback(GLFWwindow* window, double x, double y);
 };

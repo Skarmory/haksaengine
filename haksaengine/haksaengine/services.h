@@ -68,15 +68,15 @@ public:
 	}
 
 	// Add service methods
-	void set_event_manager(EventManager* event_manager);
-	void set_entity_manager(EntityManager* entity_manager);
-	void set_asset_manager(AssetManager* asset_manager);
-	void set_component_manager(ComponentManager* component_manager);
-	void set_scene_manager(SceneManager* scene_manager);
-	void set_system_manager(SystemManager* system_manager);
-	void set_game_time(GameTime* renderer);
-	void set_renderer(Renderer* renderer);
-	void set_input_manager(InputManager* input_manager);
+	HAKSAENGINE_API void set_event_manager(EventManager* event_manager);
+	HAKSAENGINE_API void set_entity_manager(EntityManager* entity_manager);
+	HAKSAENGINE_API void set_asset_manager(AssetManager* asset_manager);
+	HAKSAENGINE_API void set_component_manager(ComponentManager* component_manager);
+	HAKSAENGINE_API void set_scene_manager(SceneManager* scene_manager);
+	HAKSAENGINE_API void set_system_manager(SystemManager* system_manager);
+	HAKSAENGINE_API void set_game_time(GameTime* renderer);
+	HAKSAENGINE_API void set_renderer(Renderer* renderer);
+	HAKSAENGINE_API void set_input_manager(InputManager* input_manager);
 
 	// Get service methods
 	HAKSAENGINE_API EventManager* get_event_manager(void);

@@ -3,7 +3,8 @@
 Mouse::Mouse(void) 
 	: _button_1({ false, false }), _button_2({ false,false }),
 	  _cursor_x(0.0f), _cursor_y(0.0f),
-	  _cursor_x_offset(0.0f), _cursor_y_offset(0.0f)
+	  _cursor_x_offset(0.0f), _cursor_y_offset(0.0f),
+	  _scroll(0.0f)
 {
 }
 
@@ -45,6 +46,11 @@ float Mouse::x_offset(void) const
 float Mouse::y_offset(void) const
 {
 	return _cursor_y_offset;
+}
+
+float Mouse::scroll(void) const
+{
+	return _scroll;
 }
 
 MouseButton* Mouse::_get_button(MouseButtonType type)

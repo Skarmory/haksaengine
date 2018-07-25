@@ -99,6 +99,11 @@ void InputManager::set_mouse_button_state(MouseButtonType type, MouseButtonState
 	}
 }
 
+void InputManager::set_mouse_scroll(float scroll)
+{
+	_mouse._scroll = scroll;
+}
+
 void InputManager::set_key_state(const char* key, KeyState state)
 {
 	if (_key_map.find(key) == _key_map.end())

@@ -45,6 +45,9 @@ public:
 	// Returns the offset of the mouse y position from the previous y position
 	float y_offset(void) const;
 
+	// Returns the amount scrolled since last update
+	float scroll(void) const;
+
 private:
 
 	// Return mouse button
@@ -60,4 +63,6 @@ private:
 
 	float _cursor_x_offset;
 	float _cursor_y_offset;
+
+	float _scroll;
 };
