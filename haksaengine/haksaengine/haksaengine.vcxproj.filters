@@ -227,6 +227,9 @@
     <ClInclude Include="glfw_window.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\animation_lod_system.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -339,6 +342,9 @@
     </ClCompile>
     <ClCompile Include="glfw_window.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\animation_lod_system.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

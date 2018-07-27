@@ -188,6 +188,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="anim\bone_pose.h" />
     <ClInclude Include="anim\geoset_anim.h" />
     <ClInclude Include="asset_manager.h" />
+    <ClInclude Include="ecs\animation_lod_system.h" />
     <ClInclude Include="ecs\animation_system.h" />
     <ClInclude Include="ecs\animator.h" />
     <ClInclude Include="ecs\basic_render_system.h" />
@@ -245,6 +246,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
   <ItemGroup>
     <ClCompile Include="asset_manager.cpp" />
     <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="ecs\animation_lod_system.cpp" />
     <ClCompile Include="ecs\animation_system.cpp" />
     <ClCompile Include="ecs\basic_render_system.cpp" />
     <ClCompile Include="ecs\camera_controller.cpp" />
