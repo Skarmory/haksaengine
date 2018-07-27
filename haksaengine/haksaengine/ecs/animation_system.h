@@ -30,15 +30,6 @@ private:
 	// Set the alpha value of each mesh at current time
 	void _process_geoset_anims(float time, const std::vector<GeosetAnim>& geoset_anims, std::vector<float>& alpha_values);
 
-	// Interpolate the scale values for an animation pose node at a given time
-	glm::vec3 _interpolate_scale(float time, const BonePoseNode* pose);
-
-	// Interpolate the rotation quaternion for an animation pose node at a given time
-	glm::quat _interpolate_rotation(float time, const BonePoseNode* pose);
-
-	// Interpolates to translation values for an animation pose node at a given time
-	glm::vec3 _interpolate_position(float time, const BonePoseNode* pose);
-
 	// Interpolate the geoset alpha at a given time
 	float _interpolate_geoset_alpha(float time, const GeosetAnim* anim);
 };

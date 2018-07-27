@@ -139,9 +139,9 @@ void AnimationSystem::_do_animation_update(int start, int count, const std::vect
 void AnimationSystem::_process_bone_hierarchy(const BonePoseNode* node, float time, const std::vector<BonePoseNode>& nodes, const std::vector<Bone>& bones, std::vector<glm::mat4>& final_transforms, glm::mat4 parent_transform)
 {
 	// Get the correct animation values via interpolation
-	glm::vec3 scale = _interpolate_scale(time, node);
-	glm::quat rotation = _interpolate_rotation(time, node);
-	glm::vec3 position = _interpolate_position(time, node);
+	glm::vec3 scale = node->interpolate_scale(time);
+	glm::quat rotation = node->interpolate_rotation(time);
+	glm::vec3 position = node->interpolate_position(time);
 
 	// Compose the values into matrices
 	glm::mat4 scalem = glm::scale(glm::mat4(1.0f), scale);
@@ -167,89 +167,6 @@ void AnimationSystem::_process_bone_hierarchy(const BonePoseNode* node, float ti
 	{
 		_process_bone_hierarchy(&nodes[child], time, nodes, bones, final_transforms, transform);
 	}
-}
-
-glm::vec3 AnimationSystem::_interpolate_scale(float time, const BonePoseNode* pose)
-{
-	// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-	if (pose->scales.size() == 1)
-		return pose->scales[0].key;
-
-	Vector3Key left, right;
-
-	// Go through list of scale values over time and find the entries that this time fits between
-	for (int i = 0; i < pose->scales.size(); i++)
-	{
-		if (pose->scales[i].time > time)
-		{
-			right = pose->scales[i];
-			break;
-		}
-
-		left = pose->scales[i];
-	}
-
-	// Normalise the time value between the two timesteps found above for interpolation
-	float normalised_time = (time - left.time) / (right.time - left.time);
-
-	// Return LERP'd value
-	return glm::mix(left.key, right.key, normalised_time);
-}
-
-glm::quat AnimationSystem::_interpolate_rotation(float time, const BonePoseNode* pose)
-{
-	// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-	if (pose->rotations.size() == 1)
-	{
-		return pose->rotations[0].key;
-	}
-
-	QuaternionKey left, right;
-
-	// Go through list of rotation values over time and find the entries that this time fits between
-	for (int i = 0; i < pose->rotations.size(); i++)
-	{
-		if (pose->rotations[i].time >= time)
-		{
-			right = pose->rotations[i];
-			break;
-		}
-
-		left = pose->rotations[i];
-	}
-
-	// Normalise the time value between the two timesteps found above for interpolation
-	float normalised_time = (time - left.time) / (right.time - left.time);	
-
-	// Return SLERP'd value
-	return glm::slerp(left.key, right.key, normalised_time);
-}
-
-glm::vec3 AnimationSystem::_interpolate_position(float time, const BonePoseNode* pose)
-{
-	// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-	if (pose->positions.size() == 1)
-		return pose->positions[0].key;
-
-	Vector3Key left, right;
-
-	// Go through list of translation values over time and find the entries that this time fits between
-	for (int i = 0; i < pose->positions.size(); i++)
-	{
-		if (pose->positions[i].time > time)
-		{
-			right = pose->positions[i];
-			break;
-		}
-
-		left = pose->positions[i];
-	}
-
-	// Normalise the time value between the two timesteps found above for interpolation
-	float normalised_time = (time - left.time) / (right.time - left.time);
-
-	// Return LERP'd value
-	return glm::mix(left.key, right.key, normalised_time);
 }
 
 float AnimationSystem::_interpolate_geoset_alpha(float time, const GeosetAnim* anim)
