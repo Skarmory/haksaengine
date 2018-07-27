@@ -19,6 +19,11 @@ public:
 	virtual ~Asset(void)
 	{}
 
+	unsigned int get_id(void) const
+	{
+		return id;
+	}
+
 private:
 	unsigned int id;
 	std::string name;

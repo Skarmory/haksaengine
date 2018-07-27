@@ -12,6 +12,8 @@
 #include "gfx/shader.h"
 #include "gfx/uniform_data.h"
 
+#include "asset_manager.h"
+
 SkinnedRenderer::SkinnedRenderer(SystemOrdering order) : RenderLogicSystem(order)
 {
 }
@@ -35,6 +37,9 @@ void SkinnedRenderer::update(float delta)
 
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
+	unsigned int current_shader = 0;
+	unsigned int current_mesh = 0;
+
 	// Draw each renderable entity
 	for (auto entity_id : culled_entities)
 	{
@@ -49,7 +54,12 @@ void SkinnedRenderer::update(float delta)
 		MDLFile& mdl = asset_man->get_asset<MDLFile>(renderable->model);
 		Shader& shader = asset_man->get_asset<Shader>(renderable->shader);
 
-		use_shader(shader);
+		// Cache current shader so we don't rebind it constantly
+		if (shader.get_id() != current_shader)
+		{
+			current_shader = shader.get_id();
+			use_shader(shader);
+		}
 
 		// Setup per draw uniform buffer
 		PerDrawDataSkinned per_draw_data;

@@ -97,6 +97,14 @@ void Renderer::render(void)
 
 				break;
 			}
+			case RenderCommandType::DrawIndexedInstanced:
+			{
+				const DrawIndexedInstancedCommand* dii_cmd = static_cast<const DrawIndexedInstancedCommand*>(command);
+
+				int primitive_type = dii_cmd->_primitive_type == PrimitiveType::Triangles ? GL_TRIANGLES : dii_cmd->_primitive_type == PrimitiveType::Lines ? GL_LINES : GL_POINTS;
+
+				glDrawElementsInstanced(primitive_type, dii_cmd->_index_count, GL_UNSIGNED_INT, (const void*)(dii_cmd->_offset * sizeof(GLuint)), dii_cmd->_instance_count);
+			}
 		}
 
 		delete command;

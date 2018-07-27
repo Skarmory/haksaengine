@@ -15,7 +15,8 @@ enum RenderCommandType
 	MakeTextureHandlesResident = 1,
 	UseShader = 2,
 	UpdateUniforms = 3,
-	DrawIndexed = 4
+	DrawIndexed = 4,
+	DrawIndexedInstanced = 5
 };
 
 enum PrimitiveType
@@ -107,4 +108,18 @@ private:
 	unsigned int _offset;
 
 	friend class Renderer;
+};
+
+class DrawIndexedInstancedCommand : public RenderCommand
+{
+	friend class Renderer;
+
+public:
+	explicit DrawIndexedInstancedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count);
+
+private:
+	PrimitiveType _primitive_type;
+	unsigned int _index_count;
+	unsigned int _offset;
+	unsigned int _instance_count;
 };

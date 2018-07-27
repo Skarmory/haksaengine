@@ -1,5 +1,7 @@
 #include "ecs/animation_lod_system.h"
 
+#include <iostream>
+
 #include "services.h"
 #include "ecs/entity.h"
 
@@ -12,6 +14,7 @@ AnimationLodSystem::AnimationLodSystem(SystemOrdering order) : System(order)
 
 void AnimationLodSystem::update(float delta)
 {
+	std::cout << "Updating lod" << std::endl;
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
 	const Entity& camera = Services::get<SceneManager>()->get_main_camera();

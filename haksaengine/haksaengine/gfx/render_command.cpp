@@ -45,3 +45,9 @@ DrawIndexedCommand::DrawIndexedCommand(PrimitiveType primitive_type, unsigned in
 	RenderCommand(RenderCommandType::DrawIndexed)
 {
 }
+
+DrawIndexedInstancedCommand::DrawIndexedInstancedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count) 
+	: _primitive_type(primitive_type), _index_count(index_count), _offset(offset), _instance_count(instance_count),
+	RenderCommand(RenderCommandType::DrawIndexedInstanced)
+{
+}

@@ -26,6 +26,19 @@ void SystemManager::update_systems(float delta, UpdatePriority priority)
 
 	for (auto system : systems)
 	{
+		if (system->_order.timing.update_interval > 0)
+		{
+			system->_order.timing.accumulated_frames++;
+			
+			if (system->_order.timing.accumulated_frames > system->_order.timing.update_interval)
+			{
+				system->update(delta);
+				system->_order.timing.accumulated_frames = 0;
+			}
+
+			continue;
+		}
+
 		system->update(delta);
 	}
 }

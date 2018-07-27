@@ -47,10 +47,11 @@ public:
 
 	HAKSAENGINE_API EngineState get_state(void) const;
 
+	const float FIXED_TIME_STEP = 1.0f / 60.0f;
+
 private:
 	// Time stuff
 	float accumulator;
-	const float FIXED_TIME_STEP = 1.0f / 60.0f;
 
 	GlfwWindow* game_window;
 	Services services;

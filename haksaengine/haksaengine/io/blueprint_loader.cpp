@@ -23,6 +23,9 @@ Blueprint* BlueprintLoader::load(const std::string& name)
 
 	std::string line, value;
 
+	if (fs.fail())
+		throw std::runtime_error("Failed to open '" + path + "'\n");
+
 	while (std::getline(fs, line))
 	{
 		auto idx1 = line.find_first_not_of('\t', 0);

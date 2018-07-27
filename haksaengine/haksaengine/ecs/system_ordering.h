@@ -10,14 +10,25 @@ enum UpdatePriority
 	POSTRENDER = 4
 };
 
+struct UpdateTiming
+{
+	UpdateTiming(unsigned int interval) : accumulated_frames(0), update_interval(interval)
+	{
+	}
+
+	unsigned int accumulated_frames;
+	unsigned int update_interval;
+};
+
 // Represents the ordering of system deriving classes' updating.
 // Systems with a lower index will be updated before systems with a higher index
 struct SystemOrdering
 {
-	SystemOrdering(UpdatePriority priority, unsigned int index) : priority(priority), index(index)
+	SystemOrdering(UpdateTiming timing, UpdatePriority priority, unsigned int index) : timing(timing), priority(priority), index(index)
 	{
 	}
 
+	UpdateTiming timing;
 	UpdatePriority priority;
 	unsigned int index;
 };

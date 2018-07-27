@@ -1,6 +1,10 @@
 #include "ecs/animation_system.h"
 
+#include <iostream>
+#include <thread>
+
 #include "services.h"
+#include "ecs/transform.h"
 #include "ecs/animator.h"
 #include "ecs/skinned_renderable.h"
 #include "io/mdl.h"
@@ -16,26 +20,45 @@ void AnimationSystem::update(float delta)
 {
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
-	for (auto entity_id : culled_entities)
+	//std::cout << culled_entities.size() << std::endl;
+
+	if (culled_entities.size() > 100)
 	{
-		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
+		//std::cout << culled_entities.size() << std::endl;
+		int interval = _entities.size() / 4;
 
-		Animator* animator = entity->get_component<Animator>();
-		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
+		std::vector<std::thread> threads;
+		threads.reserve(4);
 
-		animator->current_time += delta;
-
-		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
-		const Animation* animation = data.get_animation(animator->current_animation);
-
-		if (animator->current_time > animation->duration)
+		for (int thread_count = 0; thread_count < 4; thread_count++)
 		{
-			animator->current_time = std::fmod(animator->current_time, animation->duration);
+			std::thread t(&AnimationSystem::_do_animator_update, this, thread_count * interval, interval, delta);
+			threads.push_back(std::move(t));
 		}
 
-		_process_bone_hierarchy(animation->root_pose_node, animator->current_time, animation->pose_nodes, data.get_bones(), renderable->final_bone_transforms, glm::mat4(1.0f));
-		_process_geoset_anims(animator->current_time, animation->geoset_anims, renderable->geoset_alphas);
+		for (auto& thread : threads)
+			thread.join();
+
+		//
+		interval = culled_entities.size() / 4;
+
+		threads.clear();
+		for (int thread_count = 0; thread_count < 4; thread_count++)
+		{
+			std::thread t(&AnimationSystem::_do_animation_update, this, thread_count * interval, interval, culled_entities, delta);
+			threads.push_back(std::move(t));
+		}
+
+		for (auto& thread : threads)
+			thread.join();
 	}
+	else
+	{
+		_do_animator_update(0, _entities.size(), delta);
+		_do_animation_update(0, culled_entities.size(), culled_entities, delta);
+	}
+
+	
 }
 
 void AnimationSystem::on_event(Event ev)
@@ -63,6 +86,53 @@ void AnimationSystem::on_event(Event ev)
 		std::vector<unsigned int>::iterator it;
 		if ((it = std::find(_entities.begin(), _entities.end(), entity_id)) != _entities.end())
 			_entities.erase(it);
+	}
+}
+
+void AnimationSystem::_do_animator_update(int start, int count, float delta)
+{
+	//for (auto entity_id : _entities)
+	for(int i = start; i < (start + count); i++)
+	{
+		Entity* entity = Services::get<EntityManager>()->get_entity(_entities[i]);
+
+		Animator* animator = entity->get_component<Animator>();
+		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
+
+		animator->current_time += delta;
+
+		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
+		const Animation* animation = data.get_animation(animator->current_animation);
+
+		if (animator->current_time > animation->duration)
+		{
+			animator->current_time = std::fmod(animator->current_time, animation->duration);
+		}
+	}
+}
+
+void AnimationSystem::_do_animation_update(int start, int count, const std::vector<unsigned int>& culled_entities, float delta)
+{
+	//for (auto entity_id : culled_entities)
+	for(int i = start; i < (start + count); i++)
+	{
+		Entity* entity = Services::get<EntityManager>()->get_entity(culled_entities[i]);
+
+		Animator* animator = entity->get_component<Animator>();
+		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
+
+		animator->accumulated_frames++;
+
+		if (animator->accumulated_frames >= animator->lod_intervals[animator->lod])
+			animator->accumulated_frames = 0;
+		else
+			continue;
+
+		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
+		const Animation* animation = data.get_animation(animator->current_animation);
+
+		_process_bone_hierarchy(animation->root_pose_node, animator->current_time, animation->pose_nodes, data.get_bones(), renderable->final_bone_transforms, glm::mat4(1.0f));
+		_process_geoset_anims(animator->current_time, animation->geoset_anims, renderable->geoset_alphas);
 	}
 }
 

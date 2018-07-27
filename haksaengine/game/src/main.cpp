@@ -21,7 +21,7 @@ int main(int argc, char** argv)
 	Engine e(EngineMode::Game);
 	e.initialise();
 
-	Services::get().get_asset_manager()->set_asset_directory_path("..\\..\\..\\assets\\");
+	Services::get().get_asset_manager()->set_asset_directory_path("../../../assets/");
 
 	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
 	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("archer.bpr");
@@ -52,7 +52,7 @@ int main(int argc, char** argv)
 		transform->translate(glm::vec3(i * 50.0f, 0.0f, j * 50.0f));
 
 		anim = entity->get_component<Animator>();
-		anim->current_animation = "Run";
+		anim->current_animation = "Attack";
 
 		player = new Player;
 		player->colour = (PlayerColour)std::abs(j % 3);

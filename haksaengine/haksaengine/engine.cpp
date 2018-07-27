@@ -18,6 +18,8 @@
 #include "ecs/camera_controller.h"
 #include "input/glfw_input_manager.h"
 
+#include "ecs/animation_lod_system.h"
+
 Engine::Engine(EngineMode mode) : accumulator(0.0f), _mode(mode), _state(EngineState::Uninitialised)
 {
 }
@@ -77,10 +79,11 @@ void Engine::initialise(void)
 	services.set_game_time(game_time);
 
 	// Create engine defined systems
-	sysman->create<SkinnedRenderer>(SystemOrdering(UpdatePriority::RENDER, 1));
-	sysman->create<BasicRenderSystem>(SystemOrdering(UpdatePriority::RENDER, 0));
-	sysman->create<AnimationSystem>(SystemOrdering(UpdatePriority::PRERENDER, 100));
-	sysman->create<CameraController>(SystemOrdering(UpdatePriority::POSTINPUT, 0));
+	sysman->create<AnimationLodSystem>(SystemOrdering(60, UpdatePriority::PRERENDER, 99));
+	sysman->create<SkinnedRenderer>(SystemOrdering(0, UpdatePriority::RENDER, 1));
+	sysman->create<BasicRenderSystem>(SystemOrdering(0, UpdatePriority::RENDER, 0));
+	sysman->create<AnimationSystem>(SystemOrdering(0, UpdatePriority::PRERENDER, 100));
+	sysman->create<CameraController>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 
 	// Register engine defined components
 	compman->register_component<Transform>("Transform");
@@ -123,7 +126,7 @@ void Engine::one_frame(void)
 		accumulator -= FIXED_TIME_STEP;
 	}
 
-	//std::cout << game_time.delta() << std::endl;
+	std::cout << time->delta() << std::endl;
 
 	sysman->update_systems(delta, UpdatePriority::POSTINPUT);
 
