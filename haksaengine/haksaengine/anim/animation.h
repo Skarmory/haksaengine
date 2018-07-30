@@ -9,7 +9,7 @@
 struct GeosetAnim;
 struct BonePoseNode;
 
-enum InterpolationMode
+enum class InterpolationMode
 {
 	DontInterp = 0,
 	Linear = 1
@@ -24,6 +24,9 @@ struct Animation
 
 	// Duration of animation in seconds
 	float duration;
+
+	// Number of frames in this animation
+	unsigned int frame_count;
 
 	// These contain the actual translation, rotation, and scaling information for each node in the animation hierarchy over time
 	BonePoseNode* root_pose_node;
