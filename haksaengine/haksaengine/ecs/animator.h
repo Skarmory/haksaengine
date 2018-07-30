@@ -31,5 +31,7 @@ struct Animator : public Component<Animator>
 
 	std::string default_animation;
 	std::string current_animation;
-	bool should_update;
+
+	int animation_offset;
+	int frame_offset;
 };

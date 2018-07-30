@@ -99,7 +99,41 @@ void AnimationSystem::_do_animation_update(int start, int count, const std::vect
 		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
 		const Animation* animation = data.get_animation(animator->current_animation);
 
-		_process_bone_hierarchy(animation->root_pose_node, animator->current_time, animation->pose_nodes, data.get_bones(), renderable->final_bone_transforms, glm::mat4(1.0f));
+		const Texture* tex = data.get_animation_texture();
+
+		// If this animation uses a GPU animation data texture
+		if (tex)
+		{
+			// Figure out the offset of the animation in the animation texture
+			// Also figure out the offset of the frame in the current animation
+			int current_animation_id = data.get_animation_id(animation->name);
+			int current_frame_id     = std::floorf(animator->current_time / (1.0f / 60.0f));
+
+			const std::vector<Animation>& animations = data.get_animations();
+
+			int accumulated_anim_offset = 0;
+
+			for (int anim_id = 0; anim_id < current_animation_id; anim_id++)
+			{
+				accumulated_anim_offset += (animations[anim_id].frame_count);
+			}
+
+			// Each texel in the texture is a column of a bone transform matrix (4x4 matrix)
+			// Each frame consists of n bone transform matrices
+			// Each animation consists of x frames
+			// These calculations get the first frame of an animation (the start of the animation) and the first bone matrix of the current frame as an offset from the start of the animation
+			animator->animation_offset = 4 * data.get_bones().size() * accumulated_anim_offset;
+			animator->frame_offset     = 4 * data.get_bones().size() * current_frame_id;
+		}
+		else
+		{
+			// Do CPU side animation interpolation and matrix hierarchy multiplication
+			// This is less efficient computationally, but more efficient spatially
+			// Shouldn't be used on mass scale
+			_process_bone_hierarchy(animation->root_pose_node, animator->current_time, animation->pose_nodes, data.get_bones(), renderable->final_bone_transforms, glm::mat4(1.0f));
+		}
+
+		// Animate geometry data (alpha value)
 		_process_geoset_anims(animator->current_time, animation->geoset_anims, renderable->geoset_alphas);
 	}
 }

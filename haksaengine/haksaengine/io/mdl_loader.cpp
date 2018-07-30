@@ -73,6 +73,9 @@ MDLFile* MDLLoader::load(const std::string& id)
 	for(auto mesh : mdl->_meshes)
 		mesh->_initialise();
 
+	if(mdl->get_animations().size() > 0)
+		mdl->create_animation_texture();
+
 	return mdl;
 }
 
