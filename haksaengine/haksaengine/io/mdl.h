@@ -18,6 +18,8 @@ struct MDLData
 // Contains all the data from a .MDL file
 class MDLFile : public Asset
 {
+	friend class MDLLoader;
+
 public:
 	MDLFile(void);
 	~MDLFile(void);
@@ -38,6 +40,19 @@ public:
 		}
 
 		return nullptr;
+	}
+
+	// Gets ID of an animation in relation to this MDL
+	// Returns -1 if animation not found
+	int get_animation_id(const std::string& animation_name)
+	{
+		for (int i = 0; i < _animations.size(); i++)
+		{
+			if (_animations[i].name == animation_name)
+				return i;
+		}
+
+		return -1;
 	}
 
 	// Return const reference to vector of all bones
@@ -67,7 +82,7 @@ public:
 		return _meshes[index];
 	}
 
-	// Return point to const Texture if texture exists at given index. Else return nullptr
+	// Return pointer to const Texture if texture exists at given index. Else return nullptr
 	const Texture* get_texture(int index) const
 	{
 		if (index > _textures.size())
@@ -76,12 +91,26 @@ public:
 		return _textures[index];
 	}
 
+	// Return pointer to const Texture that contains animation data if it has been created
+	const Texture* get_animation_texture(void) const
+	{
+		return _animation_texture;
+	}
+
+	// Expand animation data into a GPU texture
+	void create_animation_texture(void);
+
 private:
+
+	// Helper function for expanding animation data
+	void _process_bone_hierarchy(const BonePoseNode* node, float time, const std::vector<BonePoseNode>& nodes, const std::vector<Bone>& bones, std::vector<glm::mat4>& final_transforms, glm::mat4 parent_transform);
+
+private:
+
 	std::vector<Mesh*> _meshes;
 	std::vector<Texture*> _textures;
 	std::vector<MDLData> _data;
 	std::vector<Bone> _bones;
 	std::vector<Animation> _animations;
-
-	friend class MDLLoader;
+	Texture* _animation_texture;
 };
