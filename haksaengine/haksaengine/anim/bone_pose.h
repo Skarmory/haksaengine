@@ -28,10 +28,12 @@ struct BonePoseNode
 	glm::vec3 interpolate_position(float time) const
 	{
 		// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-		if (positions.size() == 1)
+		if (positions.size() == 1 || time == 0.0f)
 			return positions[0].key;
 
 		Vector3Key left, right;
+
+		left = positions[0];
 
 		// Go through list of translation values over time and find the entries that this time fits between
 		for (int i = 0; i < positions.size(); i++)
@@ -55,12 +57,14 @@ struct BonePoseNode
 	glm::quat interpolate_rotation(float time) const
 	{
 		// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-		if (rotations.size() == 1)
+		if (rotations.size() == 1 || time == 0.0f)
 		{
 			return rotations[0].key;
 		}
 
 		QuaternionKey left, right;
+
+		left = rotations[0];
 
 		// Go through list of rotation values over time and find the entries that this time fits between
 		for (int i = 0; i < rotations.size(); i++)
@@ -84,10 +88,12 @@ struct BonePoseNode
 	glm::vec3 interpolate_scale(float time) const
 	{
 		// If there is only 1 entry, this is a constant scale from time = 0 (it would not make sense for the time to be > 0)
-		if (scales.size() == 1)
+		if (scales.size() == 1 || time == 0.0f)
 			return scales[0].key;
 
 		Vector3Key left, right;
+
+		left = scales[0];
 
 		// Go through list of scale values over time and find the entries that this time fits between
 		for (int i = 0; i < scales.size(); i++)
