@@ -5,7 +5,7 @@
 #include "anim/animation.h"
 #include "anim/animation_keys.h"
 
-enum InterpolationMode;
+enum class InterpolationMode;
 
 // Holds data to do with mesh data over time
 // Currently, only supports alpha changing over time
