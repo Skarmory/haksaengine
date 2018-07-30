@@ -8,9 +8,10 @@
 #define BONES_MAX 40
 
 // Each predefined uniform block binding location
-#define CAMERA_UNIFORM_BIND_POINT   0
-#define PER_DRAW_UNIFORM_BIND_POINT 1
-#define SCENE_UNIFORM_BIND_POINT    2
+#define CAMERA_UNIFORM_BIND_POINT       0
+#define PER_DRAW_UNIFORM_BIND_POINT     1
+#define SCENE_UNIFORM_BIND_POINT        2
+#define PER_INSTANCE_UNIFORM_BIND_POINT 3
 
 struct CameraData
 {
@@ -36,6 +37,21 @@ struct PerDrawDataSkinned
 	unsigned int player_colour;
 
 	BindlessTextureHandle diffuse;
+};
+
+struct PerDrawDataInstancing
+{
+	BindlessTextureHandle diffuse;
+	BindlessTextureHandle animation_data;
+};
+
+struct PerInstanceData
+{
+	glm::mat4 model;
+	unsigned int animation_offset;
+	unsigned int frame_offset;
+	unsigned int player_colour;
+	float alpha;
 };
 
 struct SceneData
