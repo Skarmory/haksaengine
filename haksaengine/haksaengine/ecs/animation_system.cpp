@@ -20,45 +20,8 @@ void AnimationSystem::update(float delta)
 {
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
-	//std::cout << culled_entities.size() << std::endl;
-
-	if (culled_entities.size() > 100)
-	{
-		//std::cout << culled_entities.size() << std::endl;
-		int interval = _entities.size() / 4;
-
-		std::vector<std::thread> threads;
-		threads.reserve(4);
-
-		for (int thread_count = 0; thread_count < 4; thread_count++)
-		{
-			std::thread t(&AnimationSystem::_do_animator_update, this, thread_count * interval, interval, delta);
-			threads.push_back(std::move(t));
-		}
-
-		for (auto& thread : threads)
-			thread.join();
-
-		//
-		interval = culled_entities.size() / 4;
-
-		threads.clear();
-		for (int thread_count = 0; thread_count < 4; thread_count++)
-		{
-			std::thread t(&AnimationSystem::_do_animation_update, this, thread_count * interval, interval, culled_entities, delta);
-			threads.push_back(std::move(t));
-		}
-
-		for (auto& thread : threads)
-			thread.join();
-	}
-	else
-	{
-		_do_animator_update(0, _entities.size(), delta);
-		_do_animation_update(0, culled_entities.size(), culled_entities, delta);
-	}
-
-	
+	_do_animator_update(0, _entities.size(), delta);
+	_do_animation_update(0, culled_entities.size(), culled_entities, delta);
 }
 
 void AnimationSystem::on_event(Event ev)
@@ -91,7 +54,6 @@ void AnimationSystem::on_event(Event ev)
 
 void AnimationSystem::_do_animator_update(int start, int count, float delta)
 {
-	//for (auto entity_id : _entities)
 	for(int i = start; i < (start + count); i++)
 	{
 		Entity* entity = Services::get<EntityManager>()->get_entity(_entities[i]);
@@ -99,11 +61,13 @@ void AnimationSystem::_do_animator_update(int start, int count, float delta)
 		Animator* animator = entity->get_component<Animator>();
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
 
+		// Update current animation time
 		animator->current_time += delta;
 
 		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
 		const Animation* animation = data.get_animation(animator->current_animation);
 
+		// Do animation looping by modulo of current time with animation duration
 		if (animator->current_time > animation->duration)
 		{
 			animator->current_time = std::fmod(animator->current_time, animation->duration);
@@ -113,7 +77,6 @@ void AnimationSystem::_do_animator_update(int start, int count, float delta)
 
 void AnimationSystem::_do_animation_update(int start, int count, const std::vector<unsigned int>& culled_entities, float delta)
 {
-	//for (auto entity_id : culled_entities)
 	for(int i = start; i < (start + count); i++)
 	{
 		Entity* entity = Services::get<EntityManager>()->get_entity(culled_entities[i]);
@@ -123,10 +86,15 @@ void AnimationSystem::_do_animation_update(int start, int count, const std::vect
 
 		animator->accumulated_frames++;
 
-		if (animator->accumulated_frames >= animator->lod_intervals[animator->lod])
+		// Check whether to update the animation based on its current LOD setting
+		if (animator->accumulated_frames >= animator->lod_interval)
+		{
 			animator->accumulated_frames = 0;
+		}
 		else
+		{
 			continue;
+		}
 
 		MDLFile& data = Services::get<AssetManager>()->get_asset<MDLFile>(renderable->model);
 		const Animation* animation = data.get_animation(animator->current_animation);

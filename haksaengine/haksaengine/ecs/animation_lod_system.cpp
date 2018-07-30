@@ -10,11 +10,19 @@
 
 AnimationLodSystem::AnimationLodSystem(SystemOrdering order) : System(order)
 {
+	_lod_intervals.resize(5);
+	_lod_distances.resize(5);
+
+	for (int i = 0; i < 5; i++)
+	{
+		_lod_intervals[i] = (i * 2);
+
+		_lod_distances[i] = (i + 1) * (500.0f);
+	}
 }
 
 void AnimationLodSystem::update(float delta)
 {
-	std::cout << "Updating lod" << std::endl;
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
 	const Entity& camera = Services::get<SceneManager>()->get_main_camera();
@@ -26,13 +34,14 @@ void AnimationLodSystem::update(float delta)
 		Transform* transform = entity->get_component<Transform>();
 		Animator* animator = entity->get_component<Animator>();
 
-		// Calculate LoD level for animation based on distance
+		// Calculate LOD level for animation based on distance
 		float distance = glm::distance(transform->get_position(), camera_transform->get_position());
-		for (int lod = 0; lod < animator->lod_distances.size(); lod++)
+		for (int lod = 0; lod < _lod_distances.size(); lod++)
 		{
 			animator->lod = lod;
+			animator->lod_interval = _lod_intervals[lod];
 
-			if (distance < animator->lod_distances[lod])
+			if (distance < _lod_distances[lod])
 				break;
 		}
 	}

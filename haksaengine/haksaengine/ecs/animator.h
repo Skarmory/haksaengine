@@ -15,19 +15,8 @@ struct Animator : public Component<Animator>
 		current_animation = default_animation;
 		current_time = 0.0f;
 
-		lod_intervals.resize(5);
-		lod_distances.resize(5);
-
-		for (int i = 0; i < 5; i++)
-		{
-			lod_intervals[i] = (i * 2);
-
-			lod_distances[i] = (i + 1) * (500.0f);
-		}
-
-		lod = lod_intervals[0];
-
-		should_update = true;
+		lod = 0;
+		lod_interval = 0;
 
 		accumulated_frames = 0;
 
@@ -38,8 +27,7 @@ struct Animator : public Component<Animator>
 	unsigned int accumulated_frames;
 	
 	unsigned int lod;
-	std::vector<float> lod_intervals;
-	std::vector<float> lod_distances;
+	unsigned int lod_interval;
 
 	std::string default_animation;
 	std::string current_animation;
