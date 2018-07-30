@@ -12,7 +12,7 @@ class UniformBufferObject
 public:
 
 	// Create a UBO
-	explicit UniformBufferObject(void) : _initialised(false)
+	explicit UniformBufferObject(void) : _initialised(false), _size(0)
 	{
 	}
 
@@ -53,7 +53,19 @@ public:
 		if (!_initialised)
 			throw std::runtime_error("Attempt to update uninitialised UniformBufferObject");
 
-		glNamedBufferData(_buffer, data->get_size(), data->get_data(), GL_DYNAMIC_DRAW);
+		unsigned int data_size = data->get_size();
+
+		// glNamedBufferData completely reallocates memory, so only do that if we actually need more
+		// glNamedBufferSubData just writes new values into already allocated memory
+		if (data_size > _size)
+		{
+			_size = data_size;
+			glNamedBufferData(_buffer, data_size, data->get_data(), GL_DYNAMIC_DRAW);
+		}
+		else
+		{
+			glNamedBufferSubData(_buffer, 0, data_size, data->get_data());
+		}
 	}
 
 	// Bind this buffer for use
@@ -69,6 +81,7 @@ private:
 	bool _initialised;
 	GLuint _buffer;
 	GLuint _location;
+	unsigned int _size;
 
 	friend class Renderer;
 };
