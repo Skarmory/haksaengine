@@ -46,6 +46,18 @@ void RenderLogicSystem::draw_indexed(PrimitiveType primitive_type, unsigned int 
 	_current_uniform_command = nullptr;
 }
 
+void RenderLogicSystem::draw_indexed_instanced(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count)
+{
+	DrawIndexedInstancedCommand* command = new DrawIndexedInstancedCommand(primitive_type, index_count, offset, instance_count);
+
+	_command_queue.push_back(_current_texture_command);
+	_command_queue.push_back(_current_uniform_command);
+	_command_queue.push_back(command);
+
+	_current_texture_command = nullptr;
+	_current_uniform_command = nullptr;
+}
+
 void RenderLogicSystem::submit_commands(void)
 {
 	Services::get<Renderer>()->submit_render_commands(_command_queue);

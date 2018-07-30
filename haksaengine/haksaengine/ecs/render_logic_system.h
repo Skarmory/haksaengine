@@ -23,14 +23,15 @@ protected:
 	void bind_texture(const Texture& texture);
 	void use_shader(const Shader& shader);
 	void draw_indexed(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset);
+	void draw_indexed_instanced(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count);
 
 	template<class UniformData>
-	void update_uniform(unsigned int location, UniformData data)
+	void update_uniform(unsigned int location, UniformData* data, unsigned int count = 1)
 	{
 		if (!_current_uniform_command)
 			_current_uniform_command = new UpdateUniformsCommand;
 
-		_current_uniform_command->add_uniform(new Uniform<UniformData>(location, data));
+		_current_uniform_command->add_uniform(new Uniform<UniformData>(location, data, count));
 	}
 
 	void submit_commands(void);

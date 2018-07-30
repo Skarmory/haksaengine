@@ -46,7 +46,7 @@ void Renderer::render(void)
 
 	// Scene uniform should only need to be updated once
 	UpdateUniformsCommand scene_uniform_cmd;
-	scene_uniform_cmd.add_uniform(new Uniform<SceneData>(SCENE_UNIFORM_BIND_POINT, scene_data));
+	scene_uniform_cmd.add_uniform(new Uniform<SceneData>(SCENE_UNIFORM_BIND_POINT, &scene_data));
 	_update_uniform_buffers(&scene_uniform_cmd);
 	// DEBUG
 
