@@ -1,13 +1,27 @@
 #include "gfx/texture.h"
 
-Texture::Texture(void) : _initialised(false), _texture(0), _width(0), _height(0)
+Texture::Texture(void* data, unsigned int data_size, unsigned int width, unsigned int height, FilterMode filter_mode, TextureFormat format, bool gen_mip_maps) 
+	: _initialised(false), _gen_mip_maps(gen_mip_maps), _width(width), _height(height), _filter_mode(filter_mode), _format(format), _texture(0)
 {
+	unsigned int size;
+
+	if (format == TextureFormat::UnsignedByte)
+		size = sizeof(unsigned char);
+	else
+		size = sizeof(float);
+
+	_data = malloc(width * height * size * 4);
+	
+	memcpy(_data, data, data_size);
 }
 
 Texture::~Texture(void)
 {
 	if (_initialised)
 		uninitialise();
+
+	if(_data)
+		delete _data;
 }
 
 void Texture::initialise(void)
@@ -23,12 +37,20 @@ void Texture::initialise(void)
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, _width, _height, 0, GL_RGBA, GL_UNSIGNED_BYTE, _image.data());
+		int filter_mode = _filter_mode == FilterMode::Nearest ? GL_NEAREST : GL_LINEAR;
 
-		glGenerateMipmap(GL_TEXTURE_2D);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter_mode);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter_mode);
+
+		int type = _format == TextureFormat::UnsignedByte ? GL_UNSIGNED_BYTE : GL_FLOAT;
+		int internal = _format == TextureFormat::UnsignedByte ? GL_RGBA : GL_RGBA32F_ARB;
+		int format = GL_RGBA;
+
+		glTexImage2D(GL_TEXTURE_2D, 0, internal, _width, _height, 0, format, type, _data);
+
+		if(_gen_mip_maps)
+			glGenerateMipmap(GL_TEXTURE_2D);
 
 		glBindTexture(GL_TEXTURE_2D, 0);
 
