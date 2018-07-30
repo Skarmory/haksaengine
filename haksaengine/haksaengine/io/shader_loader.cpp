@@ -3,6 +3,9 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
+#include <regex>
+
+#include "gfx/uniform_data.h"
 
 ShaderLoader::ShaderLoader(const std::string& directory) : Loader(directory, ".shader")
 {
@@ -29,10 +32,19 @@ Shader* ShaderLoader::load(const std::string& name)
 	return shader;
 }
 
-void ShaderLoader::process_shader_source(const std::string& source, Shader* shader)
+void ShaderLoader::process_shader_source(std::string& source, Shader* shader)
 {
 	std::vector<GLuint> shaders;
 	shaders.reserve(5);
+
+	if (source.find("#pre_process_define MAX_INSTANCES") != std::string::npos)
+	{
+		int max_per_instance;
+		glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &max_per_instance);
+		max_per_instance /= sizeof(PerInstanceData);
+
+		source = std::regex_replace(source, std::regex("#pre_process_define MAX_INSTANCES"), "#define MAX_INSTANCES " + std::to_string(max_per_instance) + "\n");
+	}
 
 	// Check for vertex shader
 	if (source.find("#ifdef VERTEX") != std::string::npos)

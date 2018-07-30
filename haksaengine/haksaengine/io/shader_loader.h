@@ -14,7 +14,7 @@ public:
 
 private:
 	// Parses shader file source and creates a shader program
-	void process_shader_source(const std::string& source, Shader* shader);
+	void process_shader_source(std::string& source, Shader* shader);
 
 	// Compile and return a shader
 	GLuint create_shader(const std::string& source, int shader_type);
