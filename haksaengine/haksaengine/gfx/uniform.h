@@ -2,6 +2,8 @@
 
 #include <glm/glm.hpp>
 
+#include <string>
+
 // Abstract class for polymorphism of derived templated class
 class BaseUniform
 {
@@ -25,26 +27,39 @@ public:
 	}
 
 	// Create uniform with given data at given binding location
-	Uniform(unsigned int bind_point, const UniformType& data) : _location(bind_point), _uniform(data)
+	Uniform(unsigned int bind_point, const UniformType* data, unsigned int count = 1) : _location(bind_point)
 	{
+		set_data(data, count);
+	}
+
+	~Uniform(void)
+	{
+		if (_uniform)
+			delete _uniform;
 	}
 
 	// Set uniform data
-	void set_data(const UniformType& uniform)
+	void set_data(const UniformType* uniform, unsigned int count = 1)
 	{
-		_uniform = uniform;
+		if (_uniform)
+			delete _uniform;
+
+		_count = count;
+		_uniform = static_cast<UniformType*>(malloc(sizeof(UniformType) * _count));
+
+		std::memcpy(_uniform, uniform, sizeof(UniformType) * _count);
 	}
 
 	// Get uniform data pointer
 	const void* get_data(void) const override
 	{
-		return static_cast<const void*>(&_uniform);
+		return static_cast<const void*>(_uniform);
 	}
 
 	// Get size of the data in bytes
 	std::size_t get_size(void) const override
 	{
-		return sizeof(UniformType);
+		return sizeof(UniformType) * _count;
 	}
 
 	// Get binding location
@@ -55,5 +70,6 @@ public:
 
 private:
 	unsigned int _location;
-	UniformType _uniform;
+	unsigned int _count;
+	UniformType* _uniform;
 };
