@@ -14,7 +14,7 @@ Components:
 	SkinnedRenderable:
 	[
 		external model archer.mdl;
-		external shader basic_skeletal.shader;
+		external shader basic_skeletal_instanced.shader;
 	]
 	Animator
 	[

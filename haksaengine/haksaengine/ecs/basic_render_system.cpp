@@ -36,7 +36,7 @@ void BasicRenderSystem::update(float delta)
 	camera_data.projection = camera->projection_matrix;
 	camera_data.position = camera_transform->get_position();
 
-	update_uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, camera_data);
+	update_uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, &camera_data);
 
 	for (auto entity_id : _entities)
 	{
@@ -65,7 +65,7 @@ void BasicRenderSystem::update(float delta)
 
 			per_draw_data.diffuse = texture->get_handle();
 
-			update_uniform<PerDrawData>(PER_DRAW_UNIFORM_BIND_POINT, per_draw_data);
+			update_uniform<PerDrawData>(PER_DRAW_UNIFORM_BIND_POINT, &per_draw_data);
 
 			bind_mesh(*mesh);
 			

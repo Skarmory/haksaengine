@@ -7,6 +7,7 @@
 #include <string>
 #include <iostream>
 #include <memory>
+#include <random>
 
 #include "ecs/entity_manager.h"
 #include "ecs/entity.h"
@@ -18,6 +19,9 @@
 
 int main(int argc, char** argv)
 {
+	std::mt19937 generator;
+	std::uniform_real_distribution<float> dis(0.0f, 1.0f);
+
 	Engine e(EngineMode::Game);
 	e.initialise();
 
@@ -41,8 +45,8 @@ int main(int argc, char** argv)
 	Animator* anim;
 	Player* player;
 
-	for (int i = -100; i < 100; i++)
-	for( int j = -100; j < 100; j++)
+	for (int i = -50; i < 50; i++)
+	for( int j = -50; j < 50; j++)
 	{
 		entity_id = Services::get().get_entity_manager()->create_entity(&test_blueprint);
 
@@ -53,6 +57,7 @@ int main(int argc, char** argv)
 
 		anim = entity->get_component<Animator>();
 		anim->current_animation = "Attack";
+		anim->current_time = dis(generator);
 
 		player = new Player;
 		player->colour = (PlayerColour)std::abs(j % 3);
