@@ -233,6 +233,12 @@
     <ClInclude Include="gfx\terrain_mesh.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="scene\terrain_gen.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
+    <ClInclude Include="scene\terrain.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -351,6 +357,12 @@
     </ClCompile>
     <ClCompile Include="gfx\terrain_mesh.cpp">
       <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\terrain_gen.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\terrain.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
