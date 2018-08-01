@@ -230,6 +230,9 @@
     <ClInclude Include="ecs\animation_lod_system.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\terrain_mesh.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -345,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="ecs\animation_lod_system.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\terrain_mesh.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -213,6 +213,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="event\event_manager.h" />
     <ClInclude Include="gfx\renderer.h" />
     <ClInclude Include="gfx\render_command.h" />
+    <ClInclude Include="gfx\terrain_mesh.h" />
     <ClInclude Include="gfx\uniform.h" />
     <ClInclude Include="gfx\mesh.h" />
     <ClInclude Include="gfx\shader.h" />
@@ -262,6 +263,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="gfx\renderer.cpp" />
     <ClCompile Include="gfx\render_command.cpp" />
     <ClCompile Include="gfx\shader.cpp" />
+    <ClCompile Include="gfx\terrain_mesh.cpp" />
     <ClCompile Include="gfx\texture.cpp" />
     <ClCompile Include="haksaengine.cpp" />
     <ClCompile Include="input\glfw_input_manager.cpp" />
