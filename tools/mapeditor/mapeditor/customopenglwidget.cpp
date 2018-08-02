@@ -3,6 +3,7 @@
 CustomOpenGLWidget::CustomOpenGLWidget(QWidget *parent)
 	: QOpenGLWidget(parent), _engine(nullptr)
 {
+	setMouseTracking(true);
 
 	QSurfaceFormat format;
 	format.setVersion(4, 5);
