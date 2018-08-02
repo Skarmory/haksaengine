@@ -25,4 +25,5 @@ private:
 	Engine* _engine;
 
 	void _setup_default_scene(void);
+	void _initialise(void);
 };

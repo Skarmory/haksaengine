@@ -3,6 +3,8 @@
 #include "ecs/transform.h"
 #include "ecs/animator.h"
 
+#include "camera_controller_script.h"
+
 mapeditor::mapeditor(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -32,6 +34,8 @@ void mapeditor::main_loop(void)
 
 		Services::get<AssetManager>()->set_asset_directory_path("../../../assets/");
 
+		_initialise();
+
 		_setup_default_scene();
 	}
 
@@ -46,6 +50,8 @@ void mapeditor::_setup_default_scene(void)
 	const Blueprint& bpr = Services::get<AssetManager>()->load_and_get_asset<Blueprint>("camera.bpr");
 	const Blueprint& archer_bpr = Services::get<AssetManager>()->load_and_get_asset<Blueprint>("archer.bpr");
 
+	Services::get().get_scene_manager()->create_terrain(32, 32);
+
 	Services::get<EntityManager>()->create_and_get_entity(&bpr);
 
 	Entity& archer = Services::get<EntityManager>()->create_and_get_entity(&archer_bpr);
@@ -55,4 +61,11 @@ void mapeditor::_setup_default_scene(void)
 
 	Animator* anim = archer.get_component<Animator>();
 	anim->current_animation = "Run";
+}
+
+void mapeditor::_initialise(void)
+{
+	SystemManager* sysman = Services::get().get_system_manager();
+
+	sysman->create<CameraControllerScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 }

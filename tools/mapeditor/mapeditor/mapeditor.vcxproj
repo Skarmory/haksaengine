@@ -115,6 +115,7 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="camera_controller_script.cpp" />
     <ClCompile Include="customopenglwidget.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapeditor.cpp" />
@@ -138,6 +139,7 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="camera_controller_script.h" />
     <ClInclude Include="qt_input_handler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
