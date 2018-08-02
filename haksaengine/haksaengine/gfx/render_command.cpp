@@ -8,6 +8,10 @@ BindMeshCommand::BindMeshCommand(const Mesh& mesh) : _mesh(mesh), RenderCommand(
 {
 }
 
+BindTerrainMeshCommand::BindTerrainMeshCommand(const TerrainMesh& mesh) : RenderCommand(RenderCommandType::BindTerrainMesh), _mesh(mesh)
+{
+}
+
 MakeTextureHandlesResidentCommand::MakeTextureHandlesResidentCommand(void) : RenderCommand(RenderCommandType::MakeTextureHandlesResident)
 {
 }
@@ -20,10 +24,6 @@ void MakeTextureHandlesResidentCommand::add_texture_handle(BindlessTextureHandle
 UseShaderCommand::UseShaderCommand(const Shader& shader) : _shader(shader), RenderCommand(RenderCommandType::UseShader)
 {
 }
-
-//UpdateUniformCommand::UpdateUniformCommand(const std::vector<const BaseUniform*> uniforms) : _uniforms(uniforms), RenderCommand(RenderCommandType::UpdateUniforms)
-//{
-//}
 
 UpdateUniformsCommand::UpdateUniformsCommand(void) : RenderCommand(RenderCommandType::UpdateUniforms)
 {

@@ -65,6 +65,13 @@ void Renderer::render(void)
 				break;
 			}
 
+			case RenderCommandType::BindTerrainMesh:
+			{
+				const BindTerrainMeshCommand* btm_cmd = static_cast<const BindTerrainMeshCommand*>(command);
+				btm_cmd->_mesh._bind();
+				break;
+			}
+
 			case RenderCommandType::MakeTextureHandlesResident:
 			{
 				const MakeTextureHandlesResidentCommand* mthr_cmd = static_cast<const MakeTextureHandlesResidentCommand*>(command);
@@ -104,7 +111,12 @@ void Renderer::render(void)
 				int primitive_type = dii_cmd->_primitive_type == PrimitiveType::Triangles ? GL_TRIANGLES : dii_cmd->_primitive_type == PrimitiveType::Lines ? GL_LINES : GL_POINTS;
 
 				glDrawElementsInstanced(primitive_type, dii_cmd->_index_count, GL_UNSIGNED_INT, (const void*)(dii_cmd->_offset * sizeof(GLuint)), dii_cmd->_instance_count);
+				
+				break;
 			}
+
+			default:
+				throw std::runtime_error("Unknown render command specified");
 		}
 
 		delete command;

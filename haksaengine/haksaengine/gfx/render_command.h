@@ -4,6 +4,7 @@
 
 #include "gfx/uniform.h"
 #include "gfx/mesh.h"
+#include "gfx/terrain_mesh.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
 
@@ -12,11 +13,12 @@ class Renderer;
 enum RenderCommandType
 {
 	BindMesh = 0,
-	MakeTextureHandlesResident = 1,
-	UseShader = 2,
-	UpdateUniforms = 3,
-	DrawIndexed = 4,
-	DrawIndexedInstanced = 5
+	BindTerrainMesh = 1,
+	MakeTextureHandlesResident = 2,
+	UseShader = 3,
+	UpdateUniforms = 4,
+	DrawIndexed = 5,
+	DrawIndexedInstanced = 6
 };
 
 enum PrimitiveType
@@ -29,60 +31,84 @@ enum PrimitiveType
 // Base class all render commands must inherit from
 class RenderCommand
 {
+	friend class Renderer;
+
 public:
+
 	RenderCommand(RenderCommandType type);
 	virtual ~RenderCommand(void) = default;
 
 private:
-	RenderCommandType _type;
 
-	friend class Renderer;
+	RenderCommandType _type;
 };
 
 // Contains mesh data for the Renderer to bind
 class BindMeshCommand : public RenderCommand
 {
+	friend class Renderer;
+
 public:
+
 	explicit BindMeshCommand(const Mesh& mesh);
 
 private:
-	const Mesh& _mesh;
 
-	friend class Renderer;
+	const Mesh& _mesh;
 };
+
+// Contains terrain mesh data for the Renderer to bind
+class BindTerrainMeshCommand : public RenderCommand
+{
+	friend class Renderer;
+
+public:
+
+	explicit BindTerrainMeshCommand(const TerrainMesh& mesh);
+
+private:
+
+	const TerrainMesh& _mesh;
+};
+
 
 // Contains a vector of bindless texture handle that will need to be used this draw
 class MakeTextureHandlesResidentCommand : public RenderCommand
 {
+	friend class Renderer;
+
 public:
+
 	MakeTextureHandlesResidentCommand(void);
 
 	void add_texture_handle(BindlessTextureHandle handle);
 
 private:
-	std::vector<BindlessTextureHandle> _handles;
 
-	friend class Renderer;
+	std::vector<BindlessTextureHandle> _handles;
 };
 
 // Contains a shader program for the Renderer to use
 class UseShaderCommand : public RenderCommand
 {
+	friend class Renderer;
+
 public:
+
 	explicit UseShaderCommand(const Shader& shader);
 
 private:
-	const Shader& _shader;
 
-	friend class Renderer;
+	const Shader& _shader;
 };
 
 // Contains uniform data for the Renderer update a uniform buffer
 // Uniform pointers given to this are considered owned by this command now
 class UpdateUniformsCommand : public RenderCommand
 {
+	friend class Renderer;
+
 public:
-	//explicit UpdateUniformCommand(const std::vector<const BaseUniform*> uniforms);
 
 	UpdateUniformsCommand(void);
 	~UpdateUniformsCommand(void);
@@ -90,24 +116,24 @@ public:
 	void add_uniform(const BaseUniform* uniform);
 
 private:
-	/*const BaseUniform* _uniform;*/
-	std::vector<const BaseUniform*> _uniforms;
 
-	friend class Renderer;
+	std::vector<const BaseUniform*> _uniforms;
 };
 
 // Contains indexed draw call arguments
 class DrawIndexedCommand : public RenderCommand
 {
+	friend class Renderer;
+
 public:
+
 	explicit DrawIndexedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset);
 
 private:
+
 	PrimitiveType _primitive_type;
 	unsigned int _index_count;
 	unsigned int _offset;
-
-	friend class Renderer;
 };
 
 class DrawIndexedInstancedCommand : public RenderCommand
@@ -115,9 +141,11 @@ class DrawIndexedInstancedCommand : public RenderCommand
 	friend class Renderer;
 
 public:
+
 	explicit DrawIndexedInstancedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count);
 
 private:
+
 	PrimitiveType _primitive_type;
 	unsigned int _index_count;
 	unsigned int _offset;
