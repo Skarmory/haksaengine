@@ -132,10 +132,14 @@ void Engine::one_frame(void)
 
 	sceneman->cull_entities();
 
+	sysman->update_systems(delta, UpdatePriority::GAMEPLAY);
+
 	sysman->update_systems(delta, UpdatePriority::PRERENDER);
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	sceneman->draw_terrain();
 
 	sysman->update_systems(delta, UpdatePriority::RENDER);
 
