@@ -40,7 +40,7 @@ void CustomOpenGLWidget::mousePressEvent(QMouseEvent* event)
 
 void CustomOpenGLWidget::mouseReleaseEvent(QMouseEvent* event)
 {
-	_input_handler->process_mouse_pressed(event);
+	_input_handler->process_mouse_released(event);
 }
 
 void CustomOpenGLWidget::mouseMoveEvent(QMouseEvent* event)
