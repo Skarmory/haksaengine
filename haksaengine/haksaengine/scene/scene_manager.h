@@ -6,6 +6,7 @@
 #include "event/event_handler.h"
 
 #include "ecs/entity.h"
+#include "scene/terrain.h"
 
 /* This class will deal with the managing scenes and certain aspects of them, such as spatial partitioning and camera management */
 class SceneManager : public Service, public EventHandler
@@ -36,8 +37,12 @@ public:
 	// Create the scene terrain geometry
 	HAKSAENGINE_API void create_terrain(unsigned int width, unsigned int height);
 
+	// Draw terrain
+	void draw_terrain(void);
+
 private:
 	Entity* main_camera;
+	Terrain* _terrain;
 
 	std::vector<unsigned int> _transformable_entities;
 	std::vector<unsigned int> _culled_entities;

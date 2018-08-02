@@ -4,6 +4,10 @@
 #include "ecs/camera.h"
 #include "ecs/transform.h"
 
+#include "terrain_gen.h"
+#include "gfx/uniform_data.h"
+#include "gfx/render_command.h"
+
 SceneManager::SceneManager(void)
 {
 	Services::get<EventManager>()->subscribe("EntityCreatedEvent", this);
@@ -11,7 +15,8 @@ SceneManager::SceneManager(void)
 
 SceneManager::~SceneManager(void)
 {
-
+	if (_terrain)
+		delete _terrain;
 }
 
 void SceneManager::on_event(Event ev)
@@ -81,4 +86,37 @@ std::vector<unsigned int> SceneManager::cull_by_camera(const std::vector<unsigne
 	}
 
 	return ret;
+}
+
+void SceneManager::create_terrain(unsigned int width, unsigned int height)
+{
+	if (_terrain)
+		return;
+
+	_terrain = TerrainGenerator::generate(width, height);
+}
+
+void SceneManager::draw_terrain(void)
+{
+	if (!_terrain)
+		return;
+
+	Camera* camera = main_camera->get_component<Camera>();
+	Transform* camera_transform = main_camera->get_component<Transform>();
+
+	// Update camera UBO
+	CameraData camera_data;
+	camera_data.view = camera->view_matrix;
+	camera_data.projection = camera->projection_matrix;
+	camera_data.position = camera_transform->get_position();
+
+	UpdateUniformsCommand* update_uniforms = new UpdateUniformsCommand;
+	update_uniforms->add_uniform(new Uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, &camera_data));
+
+	std::vector<const RenderCommand*> cmd;
+	cmd.push_back(update_uniforms);
+
+	Services::get().get_renderer()->submit_render_commands(cmd);
+
+	_terrain->draw();
 }
