@@ -1,12 +1,13 @@
 #pragma once
 
-#include <glm/glm.hpp>
+#include "globals.h"
 
-#include "terrain.h"
+#include "scene/terrain.h"
 
 class TerrainGenerator
 {
 public:
 
-	static Terrain* generate(unsigned int width, unsigned int height, glm::vec3 centre);
+	// Create a default terrain of [width * height] tiles
+	HAKSAENGINE_API static Terrain* generate(unsigned int width, unsigned int height);
 };
