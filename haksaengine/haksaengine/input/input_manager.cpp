@@ -59,6 +59,7 @@ void InputManager::reset_states(void)
 
 	_mouse._button_1.released = false;
 	_mouse._button_2.released = false;
+	_mouse._scroll = 0.0f;
 }
 
 const Key& InputManager::get_key(const char* name) const
