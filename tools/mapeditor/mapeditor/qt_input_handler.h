@@ -10,6 +10,8 @@ class QtInputHandler : public InputManager
 {
 public:
 
+	QtInputHandler(void);
+
 	void update(void) override;
 
 	void process_key(void);
@@ -22,4 +24,5 @@ private:
 
 	MouseButtonType _qt_mouse_button_convert(Qt::MouseButton button);
 
+	float _scroll;
 };

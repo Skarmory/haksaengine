@@ -1,8 +1,16 @@
 #include "qt_input_handler.h"
 
+QtInputHandler::QtInputHandler(void) : _scroll(0.0f)
+{
+}
+
 void QtInputHandler::update(void)
 {
-
+	if (_scroll != 0.0f)
+	{
+		set_mouse_scroll(_scroll);
+		_scroll = 0.0f;
+	}
 }
 
 void QtInputHandler::process_key(void)
@@ -43,7 +51,8 @@ void QtInputHandler::process_mouse_scroll(QWheelEvent* event)
 	auto delta = event->pixelDelta();
 	auto adelta = event->angleDelta();
 
-	set_mouse_scroll(delta.y());
+	//set_mouse_scroll(adelta.y());
+	_scroll = adelta.y();
 }
 
 MouseButtonType QtInputHandler::_qt_mouse_button_convert(Qt::MouseButton button)
