@@ -1,5 +1,7 @@
 #pragma once
 
+#include "globals.h"
+
 enum MouseButtonType
 {
 	Button_1 = 0,
@@ -28,25 +30,25 @@ public:
 	Mouse(void);
 
 	// Returns true if the given mouse button is pressed
-	bool pressed(MouseButtonType button) const;
+	HAKSAENGINE_API bool pressed(MouseButtonType button) const;
 
 	// Returns true if the given mouse button was just released
-	bool released(MouseButtonType button) const;
+	HAKSAENGINE_API bool released(MouseButtonType button) const;
 
 	// Returns the screen x position of the mouse cursor
-	float x(void) const;
+	HAKSAENGINE_API float x(void) const;
 
 	// Returns the screen y position of the mouse cursor
-	float y(void) const;
+	HAKSAENGINE_API float y(void) const;
 
 	// Returns the offset of the mouse x position from the previous x position
-	float x_offset(void) const;
+	HAKSAENGINE_API float x_offset(void) const;
 
 	// Returns the offset of the mouse y position from the previous y position
-	float y_offset(void) const;
+	HAKSAENGINE_API float y_offset(void) const;
 
 	// Returns the amount scrolled since last update
-	float scroll(void) const;
+	HAKSAENGINE_API float scroll(void) const;
 
 private:
 

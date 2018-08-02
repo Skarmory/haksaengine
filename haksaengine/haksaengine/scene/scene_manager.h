@@ -28,10 +28,13 @@ public:
 	void cull_entities(void);
 
 	// Do frustum cull of given entities by comparison to culled entities vector
-	std::vector<unsigned int> cull_by_main_camera(const std::vector<unsigned int>& entities);
+	HAKSAENGINE_API std::vector<unsigned int> cull_by_main_camera(const std::vector<unsigned int>& entities);
 
 	// Do frustum cull of given entities by given camera
-	std::vector<unsigned int> cull_by_camera(const std::vector<unsigned int>& entities, Entity* camera);
+	HAKSAENGINE_API std::vector<unsigned int> cull_by_camera(const std::vector<unsigned int>& entities, Entity* camera);
+
+	// Create the scene terrain geometry
+	HAKSAENGINE_API void create_terrain(unsigned int width, unsigned int height);
 
 private:
 	Entity* main_camera;

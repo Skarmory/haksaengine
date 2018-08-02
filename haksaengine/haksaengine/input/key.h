@@ -1,5 +1,6 @@
 #pragma once
 
+#include "globals.h"
 #include <string>
 
 enum class KeyState
@@ -19,8 +20,8 @@ public:
 
 	const char* get_name(void) const;
 
-	bool pressed(void) const;
-	bool released(void) const;
+	HAKSAENGINE_API bool pressed(void) const;
+	HAKSAENGINE_API bool released(void) const;
 
 private:
 

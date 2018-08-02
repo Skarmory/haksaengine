@@ -4,6 +4,7 @@
 #include <vector>
 #include <algorithm>
 
+#include "globals.h"
 #include "service.h"
 #include "ecs/system.h"
 
@@ -39,5 +40,5 @@ private:
 	unsigned int _next_id;
 	std::unordered_map<UpdatePriority, std::vector<System*>> _systems;
 
-	static bool _sort_systems(const System* left, const System* right);
+	HAKSAENGINE_API static bool _sort_systems(const System* left, const System* right);
 };
