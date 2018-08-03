@@ -239,6 +239,9 @@
     <ClInclude Include="scene\terrain.h">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\tileset.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -363,6 +366,9 @@
     </ClCompile>
     <ClCompile Include="scene\terrain.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\tileset.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
