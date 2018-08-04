@@ -19,6 +19,8 @@ public:
 
 private:
 
+	const GlfwWindow* _window;
+
 	// Convert GLFW key code to string
 	std::string _key_to_string(int key);
 

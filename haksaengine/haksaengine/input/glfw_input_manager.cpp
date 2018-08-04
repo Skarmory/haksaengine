@@ -4,10 +4,10 @@
 
 #include "services.h"
 
-GlfwInputManager::GlfwInputManager(const GlfwWindow& window)
+GlfwInputManager::GlfwInputManager(const GlfwWindow& window) : _window(&window)
 {
 	glfwSetKeyCallback(window.window, (GLFWkeyfun)key_callback);
-	glfwSetCursorPosCallback(window.window, (GLFWcursorposfun)mouse_move_callback);
+	//glfwSetCursorPosCallback(window.window, (GLFWcursorposfun)mouse_move_callback);
 	glfwSetMouseButtonCallback(window.window, (GLFWmousebuttonfun)mouse_button_callback);
 	glfwSetScrollCallback(window.window, (GLFWscrollfun)mouse_scroll_callback);
 }
@@ -15,6 +15,11 @@ GlfwInputManager::GlfwInputManager(const GlfwWindow& window)
 void GlfwInputManager::update(void)
 {
 	glfwPollEvents();
+
+	double x, y;
+	glfwGetCursorPos(_window->window, &x, &y);
+
+	set_mouse_position(x, y);
 }
 
 std::string GlfwInputManager::_key_to_string(int key)

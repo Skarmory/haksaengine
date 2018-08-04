@@ -38,10 +38,14 @@ void Texture::initialise(void)
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
-		int filter_mode = _filter_mode == FilterMode::Nearest ? GL_NEAREST : GL_LINEAR;
+		int filter_mode = _filter_mode == FilterMode::Nearest ? GL_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
+
+		float anisotropy;
+		glGetTexParameterfv(GL_TEXTURE_2D, GL_MAX_TEXTURE_MAX_ANISOTROPY, &anisotropy);
 
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, filter_mode);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, filter_mode);
+		glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAX_ANISOTROPY, anisotropy);
 
 		int type = _format == TextureFormat::UnsignedByte ? GL_UNSIGNED_BYTE : GL_FLOAT;
 		int internal = _format == TextureFormat::UnsignedByte ? GL_RGBA : GL_RGBA32F_ARB;

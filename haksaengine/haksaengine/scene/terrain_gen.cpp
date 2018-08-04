@@ -35,7 +35,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 		vertex.position = terrain->_index_to_world(x, y) * 32.0f;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
 		vertex.uv = uvs[y % 2][x % 2];
-		vertex.texture_index = 0;
+		vertex.face_idx = 0;
 
 		vertices.push_back(vertex);
 

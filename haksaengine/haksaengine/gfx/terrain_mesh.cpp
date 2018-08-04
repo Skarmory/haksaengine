@@ -45,7 +45,7 @@ void TerrainMesh::initialise(void)
 		glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)offsetof(TerrainVertex, uv));
 		glEnableVertexAttribArray(2);
 
-		glVertexAttribPointer(3, 1, GL_UNSIGNED_INT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)offsetof(TerrainVertex, texture_index));
+		glVertexAttribPointer(3, 1, GL_UNSIGNED_INT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)offsetof(TerrainVertex, face_idx));
 		glEnableVertexAttribArray(3);
 
 	glBindVertexArray(0);
