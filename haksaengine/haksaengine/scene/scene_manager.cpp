@@ -110,8 +110,8 @@ void SceneManager::draw_terrain(void)
 	camera_data.projection = camera->projection_matrix;
 	camera_data.position = camera_transform->get_position();
 
-	UpdateUniformsCommand* update_uniforms = new UpdateUniformsCommand;
-	update_uniforms->add_uniform(new Uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, &camera_data));
+	UpdateBufferObjectCommand* update_uniforms = new UpdateBufferObjectCommand;
+	update_uniforms->add_uniform(new Buffer<CameraData>(CAMERA_UNIFORM_BIND_POINT, &camera_data));
 
 	std::vector<const RenderCommand*> cmd;
 	cmd.push_back(update_uniforms);

@@ -16,7 +16,7 @@ enum RenderCommandType
 	BindTerrainMesh = 1,
 	MakeTextureHandlesResident = 2,
 	UseShader = 3,
-	UpdateUniforms = 4,
+	UpdateBuffers = 4,
 	DrawIndexed = 5,
 	DrawIndexedInstanced = 6
 };
@@ -104,20 +104,22 @@ private:
 
 // Contains uniform data for the Renderer update a uniform buffer
 // Uniform pointers given to this are considered owned by this command now
-class UpdateUniformsCommand : public RenderCommand
+class UpdateBufferObjectCommand : public RenderCommand
 {
 	friend class Renderer;
 
 public:
 
-	UpdateUniformsCommand(void);
-	~UpdateUniformsCommand(void);
+	UpdateBufferObjectCommand(void);
+	~UpdateBufferObjectCommand(void);
 
-	void add_uniform(const BaseUniform* uniform);
+	void add_uniform(const BaseBuffer* uniform);
+	void add_ssbo(const BaseBuffer* uniform);
 
 private:
 
-	std::vector<const BaseUniform*> _uniforms;
+	std::vector<const BaseBuffer*> _uniforms;
+	std::vector<const BaseBuffer*> _ssbos;
 };
 
 // Contains indexed draw call arguments

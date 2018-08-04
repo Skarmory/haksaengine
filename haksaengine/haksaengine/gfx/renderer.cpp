@@ -10,6 +10,7 @@ Renderer::Renderer(void) : _command_count(0)
 	for (int i = 0; i < MAX_UBOS; i++)
 	{
 		_ubos[i]._location = i;
+		_ssbos[i]._location = i;
 	}
 }
 
@@ -45,9 +46,9 @@ void Renderer::render(void)
 	scene_data.sun_direction = glm::vec4(sun_dir, 1.0f);
 
 	// Scene uniform should only need to be updated once
-	UpdateUniformsCommand scene_uniform_cmd;
-	scene_uniform_cmd.add_uniform(new Uniform<SceneData>(SCENE_UNIFORM_BIND_POINT, &scene_data));
-	_update_uniform_buffers(&scene_uniform_cmd);
+	UpdateBufferObjectCommand scene_uniform_cmd;
+	scene_uniform_cmd.add_uniform(new Buffer<SceneData>(SCENE_UNIFORM_BIND_POINT, &scene_data));
+	_update_buffers(&scene_uniform_cmd);
 	// DEBUG
 
 	// Go through all the commands submitted this frame and process them
@@ -80,10 +81,10 @@ void Renderer::render(void)
 				break;
 			}
 
-			case RenderCommandType::UpdateUniforms:
+			case RenderCommandType::UpdateBuffers:
 			{
-				const UpdateUniformsCommand* uu_cmd = static_cast<const UpdateUniformsCommand*>(command);
-				_update_uniform_buffers(uu_cmd);
+				const UpdateBufferObjectCommand* uu_cmd = static_cast<const UpdateBufferObjectCommand*>(command);
+				_update_buffers(uu_cmd);
 				break;
 			}
 
@@ -125,7 +126,7 @@ void Renderer::render(void)
 	_command_count = 0;
 }
 
-void Renderer::_update_uniform_buffers(const UpdateUniformsCommand* command)
+void Renderer::_update_buffers(const UpdateBufferObjectCommand* command)
 {
 	for (auto uniform : command->_uniforms)
 	{
@@ -139,8 +140,25 @@ void Renderer::_update_uniform_buffers(const UpdateUniformsCommand* command)
 			_ubos[location].initialise();
 		}
 
-		_ubos[location].update(uniform);
+		_ubos[location].update(uniform->get_data(), uniform->get_size());
 
 		_ubos[location].bind();
+	}
+
+	for (auto ssbo : command->_ssbos)
+	{
+		unsigned int location = ssbo->get_location();
+
+		if (location > MAX_SSBOS)
+			throw std::runtime_error("SSBO location not in range");
+
+		if (!_ssbos[location]._initialised)
+		{
+			_ssbos[location].initialise();
+		}
+
+		_ssbos[location].update(ssbo->get_data(), ssbo->get_size());
+
+		_ssbos[location].bind();
 	}
 }

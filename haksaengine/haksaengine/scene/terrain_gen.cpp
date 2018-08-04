@@ -9,6 +9,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 	Terrain* terrain = new Terrain;
 	terrain->_width = width;
 	terrain->_height = height;
+	/*terrain->_tex_data.reserve(width*height);*/
 
 	std::vector<TerrainVertex> vertices;
 	std::vector<unsigned int> indices;
@@ -53,11 +54,28 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 			indices.push_back(terrain->_flatten_coord(x + 1, y + 1));
 			
 		}
+
+		unsigned int flatcoord = terrain->_flatten_coord(x, y);
+
+		terrain->_tex_data.textures[flatcoord] = { 0, 0, 0 };
 	}
+
+	unsigned int face = 0;
+	for (int i = 0; i < indices.size(); i+=3)
+	{
+		vertices[indices[i]].face_idx = face;
+		vertices[indices[i + 1]].face_idx = face;
+		vertices[indices[i + 2]].face_idx = face;
+
+		face++;
+	}
+
 
 	terrain->_mesh.set_data(std::move(vertices), std::move(indices));
 	terrain->_mesh.initialise();
 	terrain->_shader = &Services::get().get_asset_manager()->load_and_get_asset<Shader>("terrain.shader");
+	terrain->_tileset.load("tileset.png", 4, 1, 64);
+	terrain->_tex_data.tileset = terrain->_tileset.get_texture()->get_handle();
 
 	return terrain;
 }

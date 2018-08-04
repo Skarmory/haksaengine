@@ -242,6 +242,12 @@
     <ClInclude Include="gfx\tileset.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\shader_storage_buffer.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="gfx\storage_buffer.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

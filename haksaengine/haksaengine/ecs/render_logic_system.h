@@ -29,16 +29,17 @@ protected:
 	void update_uniform(unsigned int location, UniformData* data, unsigned int count = 1)
 	{
 		if (!_current_uniform_command)
-			_current_uniform_command = new UpdateUniformsCommand;
+			_current_uniform_command = new UpdateBufferObjectCommand;
 
-		_current_uniform_command->add_uniform(new Uniform<UniformData>(location, data, count));
+		_current_uniform_command->add_uniform(new Buffer<UniformData>(location, data, count));
 	}
 
 	void submit_commands(void);
 
 private:
 	std::vector<const RenderCommand*> _command_queue;
+	bool _has_drawn;
 
-	UpdateUniformsCommand* _current_uniform_command;
+	UpdateBufferObjectCommand* _current_uniform_command;
 	MakeTextureHandlesResidentCommand* _current_texture_command;
 };

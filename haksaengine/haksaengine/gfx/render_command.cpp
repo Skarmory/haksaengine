@@ -25,19 +25,27 @@ UseShaderCommand::UseShaderCommand(const Shader& shader) : _shader(shader), Rend
 {
 }
 
-UpdateUniformsCommand::UpdateUniformsCommand(void) : RenderCommand(RenderCommandType::UpdateUniforms)
+UpdateBufferObjectCommand::UpdateBufferObjectCommand(void) : RenderCommand(RenderCommandType::UpdateBuffers)
 {
 }
 
-UpdateUniformsCommand::~UpdateUniformsCommand(void)
+UpdateBufferObjectCommand::~UpdateBufferObjectCommand(void)
 {
 	for (auto uniform : _uniforms)
 		delete uniform;
+
+	for (auto ssbo : _ssbos)
+		delete ssbo;
 }
 
-void UpdateUniformsCommand::add_uniform(const BaseUniform* uniform)
+void UpdateBufferObjectCommand::add_uniform(const BaseBuffer* uniform)
 {
 	_uniforms.push_back(uniform);
+}
+
+void UpdateBufferObjectCommand::add_ssbo(const BaseBuffer* uniform)
+{
+	_ssbos.push_back(uniform);
 }
 
 DrawIndexedCommand::DrawIndexedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset)

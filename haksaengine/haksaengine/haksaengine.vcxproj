@@ -213,6 +213,8 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="event\event_manager.h" />
     <ClInclude Include="gfx\renderer.h" />
     <ClInclude Include="gfx\render_command.h" />
+    <ClInclude Include="gfx\shader_storage_buffer.h" />
+    <ClInclude Include="gfx\storage_buffer.h" />
     <ClInclude Include="gfx\terrain_mesh.h" />
     <ClInclude Include="gfx\tileset.h" />
     <ClInclude Include="gfx\uniform.h" />

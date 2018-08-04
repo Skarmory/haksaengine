@@ -4,13 +4,15 @@
 
 #include "service.h"
 #include "gfx/uniform_buffer_object.h"
+#include "gfx/shader_storage_buffer.h"
 
 #define MAX_COMMANDS (1024*1024)
 #define MAX_UBOS 16
+#define MAX_SSBOS 16
 
 class Service;
 class RenderCommand;
-class UpdateUniformsCommand;
+class UpdateBufferObjectCommand;
 class UniformBufferObject;
 
 // Encapsulates all OpenGL drawing logic.
@@ -41,7 +43,8 @@ private:
 	int _command_count;
 	const RenderCommand* _commands[MAX_COMMANDS];
 	UniformBufferObject _ubos[MAX_UBOS];
+	ShaderStorageBufferObject _ssbos[MAX_SSBOS];
 
 	// Updates all specified uniform buffers and binds them
-	void _update_uniform_buffers(const UpdateUniformsCommand* command);
+	void _update_buffers(const UpdateBufferObjectCommand* command);
 };

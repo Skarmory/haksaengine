@@ -3,8 +3,10 @@
 #include <glm/glm.hpp>
 
 #include "gfx/terrain_mesh.h"
+#include "gfx/tileset.h"
 #include "gfx/shader.h"
 #include "gfx/render_command.h"
+#include "gfx/uniform_data.h"
 
 class Terrain
 {
@@ -34,7 +36,9 @@ private:
 	unsigned int _width;
 	unsigned int _height;
 	TerrainMesh _mesh;
+	Tileset _tileset;
 	const Shader* _shader;
+	TerrainData _tex_data;
 
 	std::vector<const RenderCommand*> _render_cmds;
 };
