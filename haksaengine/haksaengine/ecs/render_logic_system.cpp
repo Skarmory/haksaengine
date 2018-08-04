@@ -2,7 +2,7 @@
 
 #include "services.h"
 
-RenderLogicSystem::RenderLogicSystem(SystemOrdering order) : System(order)
+RenderLogicSystem::RenderLogicSystem(SystemOrdering order) : System(order), _has_drawn(false)
 {
 }
 
@@ -44,6 +44,8 @@ void RenderLogicSystem::draw_indexed(PrimitiveType primitive_type, unsigned int 
 
 	_current_texture_command = nullptr;
 	_current_uniform_command = nullptr;
+
+	_has_drawn = true;
 }
 
 void RenderLogicSystem::draw_indexed_instanced(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset, unsigned int instance_count)
@@ -56,9 +58,29 @@ void RenderLogicSystem::draw_indexed_instanced(PrimitiveType primitive_type, uns
 
 	_current_texture_command = nullptr;
 	_current_uniform_command = nullptr;
+
+	_has_drawn = true;
 }
 
 void RenderLogicSystem::submit_commands(void)
 {
-	Services::get<Renderer>()->submit_render_commands(_command_queue);
+	if (_has_drawn)
+	{
+		Services::get<Renderer>()->submit_render_commands(_command_queue);
+		_has_drawn = false;
+	}
+	else
+	{
+		if (_current_uniform_command)
+		{
+			delete _current_uniform_command;
+			_current_uniform_command = nullptr;
+		}
+
+		if (_current_texture_command)
+		{
+			delete _current_texture_command;
+			_current_texture_command = nullptr;
+		}
+	}
 }

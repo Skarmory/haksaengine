@@ -70,7 +70,7 @@ Asset& AssetManager::get_asset(unsigned int asset_id) const
 
 unsigned int AssetManager::_load_asset(const std::string& asset_name, std::type_index type)
 {
-	unsigned int  id = std::hash<std::string>{}(std::string(asset_name));
+	unsigned int id = std::hash<std::string>{}(std::string(asset_name));
 
 	// Check if we've loaded this asset already
 	if (_assets.find(id) != _assets.end())

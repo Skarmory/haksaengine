@@ -32,6 +32,9 @@ SkinnedRenderer::~SkinnedRenderer(void)
 
 void SkinnedRenderer::update(float delta)
 {
+	if (_entities.size() == 0)
+		return;
+
 	AssetManager* asset_man = Services::get<AssetManager>();
 	
 	// Do frustum culling for efficiency

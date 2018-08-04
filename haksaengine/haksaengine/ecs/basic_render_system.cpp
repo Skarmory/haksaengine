@@ -25,6 +25,15 @@ BasicRenderSystem::BasicRenderSystem(SystemOrdering order) : RenderLogicSystem(o
 
 void BasicRenderSystem::update(float delta)
 {
+	if (_entities.size() == 0)
+		return;
+
+	// Do frustum culling for efficiency
+	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
+
+	if (culled_entities.size() == 0)
+		return;
+
 	AssetManager* asset_man = Services::get<AssetManager>();
 
 	const Entity& main_camera = Services::get<SceneManager>()->get_main_camera();
@@ -38,7 +47,7 @@ void BasicRenderSystem::update(float delta)
 
 	update_uniform<CameraData>(CAMERA_UNIFORM_BIND_POINT, &camera_data);
 
-	for (auto entity_id : _entities)
+	for (auto entity_id : culled_entities)
 	{
 		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
