@@ -2,9 +2,11 @@
 
 #include <string>
 
+#include "asset_manager.h"
+
 #include "gfx/texture.h"
 
-class Tileset
+class Tileset : public Asset
 {
 public:
 
