@@ -251,6 +251,9 @@
     <ClInclude Include="io\tileset_loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="gfx\array_texture.h">
+      <Filter>Header Files\gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -381,6 +384,9 @@
     </ClCompile>
     <ClCompile Include="io\tileset_loader.cpp">
       <Filter>Source Files\io</Filter>
+    </ClCompile>
+    <ClCompile Include="gfx\array_texture.cpp">
+      <Filter>Source Files\gfx</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

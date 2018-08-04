@@ -211,6 +211,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="event\event.h" />
     <ClInclude Include="event\event_handler.h" />
     <ClInclude Include="event\event_manager.h" />
+    <ClInclude Include="gfx\array_texture.h" />
     <ClInclude Include="gfx\renderer.h" />
     <ClInclude Include="gfx\render_command.h" />
     <ClInclude Include="gfx\shader_storage_buffer.h" />
@@ -265,6 +266,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="ecs\system_manager.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="event\event_manager.cpp" />
+    <ClCompile Include="gfx\array_texture.cpp" />
     <ClCompile Include="gfx\mesh.cpp" />
     <ClCompile Include="gfx\renderer.cpp" />
     <ClCompile Include="gfx\render_command.cpp" />
