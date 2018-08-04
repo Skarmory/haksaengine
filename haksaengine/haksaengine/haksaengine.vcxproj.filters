@@ -248,6 +248,9 @@
     <ClInclude Include="gfx\storage_buffer.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="io\tileset_loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -375,6 +378,9 @@
     </ClCompile>
     <ClCompile Include="gfx\tileset.cpp">
       <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="io\tileset_loader.cpp">
+      <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
