@@ -33,12 +33,17 @@ private:
 
 	glm::vec3 _index_to_world(unsigned int x, unsigned int y) const;
 
+	void _update_mesh(void);
+
 	unsigned int _width;
 	unsigned int _height;
 	TerrainMesh _mesh;
 	Tileset* _tileset;
 	const Shader* _shader;
 	TerrainData _tex_data;
+
+	std::vector<TerrainVertex> _vertices;
+	std::vector<unsigned int> _indices;
 
 	std::vector<const RenderCommand*> _render_cmds;
 };

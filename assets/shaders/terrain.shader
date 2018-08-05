@@ -18,11 +18,11 @@ layout (binding = 0) uniform CameraBlock
 	vec3 position;
 } camera;
 
-layout (binding = 4) buffer TextureDataBlock
+layout (binding = 4) buffer TerrainDataBlock
 {
 	sampler2DArray tileset;
 	TextureData data[];
-} tex_data;
+} terrain_data;
 
 #ifdef VERTEX
 
@@ -57,16 +57,16 @@ layout (location = 3) in flat uint face;
 
 layout (location = 0) out vec4 colour;
 
-vec4 get_colour_from_tileset(uint tile_id, vec2 uv)
+vec4 get_colour_from_tileset(uint tile_id, vec2 texcoord)
 {	
-	vec3 tileset_uv = vec3(uv, 1);
+	vec3 tileset_uv = vec3(texcoord, 1);
 	
-	return texture(tex_data.tileset, tileset_uv);
+	return texture(terrain_data.tileset, tileset_uv);
 }
 
 void main()
 {
-	vec4 col1 = get_colour_from_tileset(tex_data.data[face].textures[0], uv);
+	vec4 col1 = get_colour_from_tileset(terrain_data.data[face].textures[0], uv);
 	
 	colour = col1;
 }

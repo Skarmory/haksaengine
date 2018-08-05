@@ -9,14 +9,16 @@ void Terrain::update(unsigned int x, unsigned int y, const TerrainVertex& vertex
 
 	unsigned int flattened_index = _flatten_coord(x, y);
 
-	_mesh.update(flattened_index, vertex);
+	_vertices[flattened_index] = vertex;
+
+	_update_mesh();
 }
 
 const TerrainVertex& Terrain::get_vertex(unsigned int x, unsigned int y) const
 {
 	unsigned int flattened_index = _flatten_coord(x, y);
 
-	return _mesh.get_vertex(flattened_index);
+	return _vertices[flattened_index];
 }
 
 const TerrainVertex& Terrain::get_vertex(const glm::vec3 position) const
@@ -43,7 +45,7 @@ void Terrain::draw(void)
 	_render_cmds.push_back(ubo_cmd);
 	_render_cmds.push_back(new BindTerrainMeshCommand(_mesh));
 	_render_cmds.push_back(new UseShaderCommand(*_shader));
-	_render_cmds.push_back(new DrawIndexedCommand(PrimitiveType::Triangles, _mesh.index_count(), 0));
+	_render_cmds.push_back(new DrawCommand(PrimitiveType::Triangles, _indices.size(), 0));
 
 	Services::get().get_renderer()->submit_render_commands(_render_cmds);
 }
@@ -75,4 +77,40 @@ glm::vec3 Terrain::_index_to_world(unsigned int x, unsigned int y) const
 	val.z = y - half_height;
 	
 	return val;
+}
+
+void Terrain::_update_mesh(void)
+{
+	std::vector<TerrainVertex> verts_expanded;
+	verts_expanded.reserve(_indices.size());
+
+	unsigned int index;
+	for (int i = 0; i < _indices.size(); i += 6)
+	{
+		index = _indices[i];
+		_vertices[index].uv = glm::vec2(0.0f, 1.0f);
+		verts_expanded.push_back(_vertices[index]);
+
+		index = _indices[i + 1];
+		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
+		verts_expanded.push_back(_vertices[index]);
+
+		index = _indices[i + 2];
+		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
+		verts_expanded.push_back(_vertices[index]);
+
+		index = _indices[i + 3];
+		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
+		verts_expanded.push_back(_vertices[index]);
+
+		index = _indices[i + 4];
+		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
+		verts_expanded.push_back(_vertices[index]);
+
+		index = _indices[i + 5];
+		_vertices[index].uv = glm::vec2(1.0f, 0.0f);
+		verts_expanded.push_back(_vertices[index]);
+	}
+
+	_mesh.update(verts_expanded);
 }

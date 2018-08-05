@@ -33,7 +33,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 		// Create vertex
 		vertex.position = terrain->_index_to_world(x, y) * 50.0f;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
-		vertex.uv = uvs[y % 2][x % 2];
+		//vertex.uv = uvs[y % 2][x % 2];
 		vertex.face_idx = 0;
 
 		vertices.push_back(vertex);
@@ -69,10 +69,12 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	}
 
 
-	terrain->_mesh.set_data(std::move(vertices), std::move(indices));
+	/*terrain->_mesh.set_data(std::move(vertices), std::move(indices));*/
+	terrain->_vertices = vertices;
+	terrain->_indices = indices;
 	terrain->_mesh.initialise();
+	terrain->_update_mesh();
 	terrain->_shader = &Services::get().get_asset_manager()->load_and_get_asset<Shader>("terrain.shader");
-
 	terrain->_tileset = &Services::get().get_asset_manager()->load_and_get_asset<Tileset>(tileset);
 
 	return terrain;
