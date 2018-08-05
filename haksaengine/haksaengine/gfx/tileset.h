@@ -4,7 +4,7 @@
 
 #include "asset_manager.h"
 
-#include "gfx/texture.h"
+#include "gfx/array_texture.h"
 
 class Tileset : public Asset
 {
@@ -14,6 +14,7 @@ public:
 
 	Tileset(void);
 	Tileset(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_count, unsigned int tile_size);
+	~Tileset(void);
 
 	unsigned int width(void) const;
 	unsigned int height(void) const;
@@ -22,7 +23,7 @@ public:
 
 	void use(void);
 
-	const Texture* get_texture(void) const;
+	const ArrayTexture* get_texture(void) const;
 
 	void load(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_size);
 
@@ -33,5 +34,5 @@ private:
 	unsigned int _tile_count;
 	unsigned int _tile_size;
 
-	const Texture* _tileset_texture;
+	ArrayTexture* _tileset_texture;
 };

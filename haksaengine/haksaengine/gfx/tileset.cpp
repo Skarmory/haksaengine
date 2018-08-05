@@ -10,7 +10,12 @@ Tileset::Tileset(void) : _width(0), _height(0), _tile_size(0), _tileset_texture(
 Tileset::Tileset(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_count, unsigned int tile_size)
 	: _width(width), _height(height), _tile_count(tile_count), _tile_size(tile_size)
 {
-	_tileset_texture = &Services::get().get_asset_manager()->load_and_get_asset<Texture>(name.c_str());
+}
+
+Tileset::~Tileset(void)
+{
+	if (_tileset_texture)
+		delete _tileset_texture;
 }
 
 unsigned int Tileset::width(void) const
@@ -44,7 +49,7 @@ void Tileset::use(void)
 	Services::get().get_renderer()->submit_render_commands(cmds);
 }
 
-const Texture* Tileset::get_texture(void) const
+const ArrayTexture* Tileset::get_texture(void) const
 {
 	return _tileset_texture;
 }
@@ -54,5 +59,4 @@ void Tileset::load(const std::string& name, unsigned int width, unsigned int hei
 	_width = width;
 	_height = height;
 	_tile_size = tile_size;
-	_tileset_texture = &Services::get().get_asset_manager()->load_and_get_asset<Texture>(name.c_str());
 }
