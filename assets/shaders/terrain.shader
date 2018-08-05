@@ -40,7 +40,7 @@ void main()
 {
 	out_position = in_position;
 	out_normal = in_normal;
-	out_uv = in_uv;
+	out_uv = vec2(in_uv.r + 0.5, in_uv.g + 0.5);
 	out_face = in_face;
 
 	gl_Position = camera.projection * camera.view * vec4(in_position.xyz, 1.0);
@@ -59,7 +59,7 @@ layout (location = 0) out vec4 colour;
 
 vec4 get_colour_from_tileset(uint tile_id, vec2 texcoord)
 {	
-	vec3 tileset_uv = vec3(texcoord, 1);
+	vec3 tileset_uv = vec3(texcoord, tile_id);
 	
 	return texture(terrain_data.tileset, tileset_uv);
 }
