@@ -58,6 +58,12 @@ void UpdateBufferObjectCommand::add_ssbo(const BaseBuffer* uniform)
 	_ssbos.push_back(uniform);
 }
 
+DrawCommand::DrawCommand(PrimitiveType primitive_type, unsigned int count, unsigned int offset)
+	: _primitive_type(primitive_type), _count(count), _offset(offset),
+	RenderCommand(RenderCommandType::DrawArrays)
+{
+}
+
 DrawIndexedCommand::DrawIndexedCommand(PrimitiveType primitive_type, unsigned int index_count, unsigned int offset)
 	: _primitive_type(primitive_type), _index_count(index_count), _offset(offset),
 	RenderCommand(RenderCommandType::DrawIndexed)

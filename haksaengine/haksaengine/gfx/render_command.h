@@ -18,8 +18,9 @@ enum RenderCommandType
 	BindTextures = 2,
 	UseShader = 3,
 	UpdateBuffers = 4,
-	DrawIndexed = 5,
-	DrawIndexedInstanced = 6
+	DrawArrays = 5,
+	DrawIndexed = 6,
+	DrawIndexedInstanced = 7
 };
 
 enum PrimitiveType
@@ -125,6 +126,21 @@ private:
 
 	std::vector<const BaseBuffer*> _uniforms;
 	std::vector<const BaseBuffer*> _ssbos;
+};
+
+class DrawCommand : public RenderCommand
+{
+	friend class Renderer;
+
+public:
+
+	explicit DrawCommand(PrimitiveType primitive_type, unsigned int count, unsigned int offset);
+
+private:
+
+	PrimitiveType _primitive_type;
+	unsigned int _count;
+	unsigned int _offset;
 };
 
 // Contains indexed draw call arguments
