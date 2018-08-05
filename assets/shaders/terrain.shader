@@ -20,7 +20,7 @@ layout (binding = 0) uniform CameraBlock
 
 layout (binding = 4) buffer TextureDataBlock
 {
-	sampler2D tileset;
+	sampler2DArray tileset;
 	TextureData data[];
 } tex_data;
 
@@ -58,10 +58,8 @@ layout (location = 3) in flat uint face;
 layout (location = 0) out vec4 colour;
 
 vec4 get_colour_from_tileset(uint tile_id, vec2 uv)
-{
-	vec2 tileset_uv;
-	tileset_uv.r = (tile_id * TILE_U_INTERVAL) + (uv.r * TILE_U_INTERVAL);
-	tileset_uv.g = (uv.g * TILE_U_INTERVAL);
+{	
+	vec3 tileset_uv = vec3(uv, 1);
 	
 	return texture(tex_data.tileset, tileset_uv);
 }
@@ -69,10 +67,6 @@ vec4 get_colour_from_tileset(uint tile_id, vec2 uv)
 void main()
 {
 	vec4 col1 = get_colour_from_tileset(tex_data.data[face].textures[0], uv);
-	//vec4 col2 = get_colour_from_tileset(tex_data.data[face].textures[1], uv);
-	//vec4 col3 = get_colour_from_tileset(tex_data.data[face].textures[2], uv);
-	
-	//colour = (col1 + col2 + col2) / 3.0;
 	
 	colour = col1;
 }
