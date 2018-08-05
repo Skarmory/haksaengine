@@ -1,6 +1,6 @@
 #include "gfx/terrain_mesh.h"
 
-TerrainMesh::TerrainMesh(void) : _initialised(false), _vertex_array(0), _vertex_buffer(0), _index_buffer(0)
+TerrainMesh::TerrainMesh(void) : _initialised(false), _size(0), _vertex_array(0), _vertex_buffer(0)
 {
 }
 
@@ -10,31 +10,17 @@ TerrainMesh::~TerrainMesh(void)
 		uninitialise();
 }
 
-std::size_t TerrainMesh::vertex_count(void) const
-{
-	return _vertices.size();
-}
-
-std::size_t TerrainMesh::index_count(void) const
-{
-	return _indices.size();
-}
-
 void TerrainMesh::initialise(void)
 {
 	if (_initialised)
 		return;
 
 	glCreateVertexArrays(1, &_vertex_array);
-	glCreateBuffers(2, &_vertex_buffer);
+	glCreateBuffers(1, &_vertex_buffer);
 
 	glBindVertexArray(_vertex_array);
 
 		glBindBuffer(GL_ARRAY_BUFFER, _vertex_buffer);
-		glBufferData(GL_ARRAY_BUFFER, _vertices.size() * sizeof(TerrainVertex), _vertices.data(), GL_STATIC_DRAW);
-
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, _indices.size() * sizeof(unsigned int), _indices.data(), GL_STATIC_DRAW);
 
 		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(TerrainVertex), (GLvoid*)offsetof(TerrainVertex, position));
 		glEnableVertexAttribArray(0);
@@ -73,7 +59,6 @@ void TerrainMesh::_bind(void) const
 		return;
 
 	glBindVertexArray(_vertex_array);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, _index_buffer);
 }
 
 void TerrainMesh::_unbind(void) const
@@ -81,24 +66,20 @@ void TerrainMesh::_unbind(void) const
 	if (!_initialised)
 		return;
 
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 	glBindVertexArray(0);
 }
 
-void TerrainMesh::set_data(std::vector<TerrainVertex>&& vertices, std::vector<unsigned int>&& indices)
+void TerrainMesh::update(const std::vector<TerrainVertex>& data)
 {
-	_vertices = vertices;
-	_indices = indices;
-}
+	std::size_t size_bytes = data.size() * sizeof(TerrainVertex);
 
-void TerrainMesh::update(unsigned int index, const TerrainVertex& vertex)
-{
-	_vertices[index] = vertex;
-
-	glBufferSubData(GL_ARRAY_BUFFER, index * sizeof(TerrainVertex), sizeof(TerrainVertex), &vertex);
-}
-
-const TerrainVertex& TerrainMesh::get_vertex(unsigned int index) const
-{
-	return _vertices[index];
+	if (size_bytes > _size)
+	{
+		glBufferData(GL_ARRAY_BUFFER, size_bytes, data.data(), GL_STATIC_DRAW);
+		_size = size_bytes;
+	}
+	else
+	{
+		glBufferSubData(GL_ARRAY_BUFFER, 0, size_bytes, data.data());
+	}
 }
