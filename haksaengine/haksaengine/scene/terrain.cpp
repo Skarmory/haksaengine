@@ -84,32 +84,51 @@ void Terrain::_update_mesh(void)
 	std::vector<TerrainVertex> verts_expanded;
 	verts_expanded.reserve(_indices.size());
 
+	unsigned int face = 0;
+	unsigned int tile;
+	unsigned int t1, t2, t3, t4;
 	unsigned int index;
 	for (int i = 0; i < _indices.size(); i += 6)
 	{
 		index = _indices[i];
+		t1 = _vertex_texture[index];
 		_vertices[index].uv = glm::vec2(0.0f, 1.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
 
 		index = _indices[i + 1];
+		t2 = _vertex_texture[index];
 		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
 
 		index = _indices[i + 2];
+		t3 = _vertex_texture[index];
 		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
+
+		face++;
 
 		index = _indices[i + 3];
 		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
 
 		index = _indices[i + 4];
 		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
 
 		index = _indices[i + 5];
+		t4 = _vertex_texture[index];
 		_vertices[index].uv = glm::vec2(1.0f, 0.0f);
+		_vertices[index].face_idx = face;
 		verts_expanded.push_back(_vertices[index]);
+
+		_tex_data.textures[face / 2] = { t1,t2,t3,t4 };
+
+		face++;
 	}
 
 	_mesh.update(verts_expanded);

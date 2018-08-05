@@ -64,7 +64,7 @@ struct SceneData
 
 struct TerrainFaceTextures
 {
-	unsigned int tex_id[3];
+	unsigned int tex_id[4];
 };
 
 struct TerrainData

@@ -10,6 +10,8 @@
 #include "gfx/texture.h"
 #include "io/blueprint_loader.h"
 #include "io/blueprint.h"
+#include "io/tileset_loader.h"
+#include "gfx/tileset.h"
 
 AssetManager::AssetManager(void) : AssetManager(DEFAULT_ASSET_DIRECTORY)
 {
@@ -24,6 +26,7 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 	add_loader<Shader>(new ShaderLoader("shaders\\"));
 	add_loader<Blueprint>(new BlueprintLoader("blueprints\\"));
 	add_loader<Texture>(new TextureLoader("textures\\"));
+	add_loader<Tileset>(new TilesetLoader("tilesets/"));
 
 	// Setup Events so they can be quickly retrieved and dispatched and not have to constantly rebuild them.
 	Variant v;
@@ -42,6 +45,9 @@ AssetManager::AssetManager(const std::string& asset_directory) : _asset_director
 
 	evt.event_type = "AssetBlueprintLoaded";
 	_load_event_map[typeid(Blueprint)] = evt;
+
+	evt.event_type = "AssetTilesetLoaded";
+	_load_event_map[typeid(Tileset)] = evt;
 }
 
 AssetManager::~AssetManager(void)
@@ -61,6 +67,11 @@ void AssetManager::set_asset_directory_path(const char* path)
 
 	for (auto pair : _loaders)
 		pair.second->_asset_path = _asset_directory;
+}
+
+const char* AssetManager::get_asset_directory_path(void) const
+{
+	return _asset_directory.c_str();
 }
 
 Asset& AssetManager::get_asset(unsigned int asset_id) const

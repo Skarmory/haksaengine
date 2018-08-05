@@ -33,8 +33,6 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 		// Create vertex
 		vertex.position = terrain->_index_to_world(x, y) * 50.0f;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
-		//vertex.uv = uvs[y % 2][x % 2];
-		vertex.face_idx = 0;
 
 		vertices.push_back(vertex);
 
@@ -53,23 +51,9 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 			indices.push_back(terrain->_flatten_coord(x + 1, y + 1));
 		}
 
-		unsigned int flatcoord = terrain->_flatten_coord(x, y);
-
-		terrain->_tex_data.textures[flatcoord] = { 0, 0, 0 };
+		terrain->_vertex_texture.push_back(x % 4);
 	}
 
-	unsigned int face = 0;
-	for (int i = 0; i < indices.size(); i+=3)
-	{
-		vertices[indices[i]].face_idx = face;
-		vertices[indices[i + 1]].face_idx = face;
-		vertices[indices[i + 2]].face_idx = face;
-
-		face++;
-	}
-
-
-	/*terrain->_mesh.set_data(std::move(vertices), std::move(indices));*/
 	terrain->_vertices = vertices;
 	terrain->_indices = indices;
 	terrain->_mesh.initialise();

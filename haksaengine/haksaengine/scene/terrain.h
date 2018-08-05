@@ -44,6 +44,7 @@ private:
 
 	std::vector<TerrainVertex> _vertices;
 	std::vector<unsigned int> _indices;
+	std::vector<unsigned int> _vertex_texture;
 
 	std::vector<const RenderCommand*> _render_cmds;
 };

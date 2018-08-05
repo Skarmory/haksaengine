@@ -8,7 +8,7 @@
 
 struct TextureData
 {
-	uint textures[3];
+	uint textures[4];
 };
 
 layout (binding = 0) uniform CameraBlock
@@ -40,7 +40,7 @@ void main()
 {
 	out_position = in_position;
 	out_normal = in_normal;
-	out_uv = vec2(in_uv.r + 0.5, in_uv.g + 0.5);
+	out_uv = vec2(in_uv.r, in_uv.g);
 	out_face = in_face;
 
 	gl_Position = camera.projection * camera.view * vec4(in_position.xyz, 1.0);
@@ -66,9 +66,23 @@ vec4 get_colour_from_tileset(uint tile_id, vec2 texcoord)
 
 void main()
 {
-	vec4 col1 = get_colour_from_tileset(terrain_data.data[face].textures[0], uv);
+	uint tile = face / 2;
+	vec4 col1 = get_colour_from_tileset(terrain_data.data[tile].textures[0], uv);
+	vec4 col2 = get_colour_from_tileset(terrain_data.data[tile].textures[1], uv);
+	vec4 col3 = get_colour_from_tileset(terrain_data.data[tile].textures[2], uv);
+	vec4 col4 = get_colour_from_tileset(terrain_data.data[tile].textures[3], uv);
 	
-	colour = col1;
+	col1.a = max(1.0 - length(uv - vec2(0.0, 1.0)), 0.0);
+	col2.a = max(1.0 - length(uv - vec2(0.0, 0.0)), 0.0);
+	col3.a = max(1.0 - length(uv - vec2(1.0, 1.0)), 0.0);
+	col4.a = max(1.0 - length(uv - vec2(1.0, 0.0)), 0.0);
+	
+	col1.rgb *= col1.a;
+	col2.rgb *= col2.a;
+	col3.rgb *= col3.a;
+	col4.rgb *= col4.a;
+	
+	colour = vec4(col1.rgb + col2.rgb + col3.rgb + col4.rgb, 1.0);
 }
 
 #endif
