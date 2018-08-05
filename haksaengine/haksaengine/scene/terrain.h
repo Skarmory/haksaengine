@@ -36,7 +36,7 @@ private:
 	unsigned int _width;
 	unsigned int _height;
 	TerrainMesh _mesh;
-	Tileset _tileset;
+	Tileset* _tileset;
 	const Shader* _shader;
 	TerrainData _tex_data;
 

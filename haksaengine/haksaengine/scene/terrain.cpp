@@ -35,9 +35,10 @@ const TerrainVertex& Terrain::get_vertex(const glm::vec3 position) const
 void Terrain::draw(void)
 {
 	UpdateBufferObjectCommand* ubo_cmd = new UpdateBufferObjectCommand;
+	_tex_data.tileset = _tileset->get_texture()->get_handle();
 	ubo_cmd->add_ssbo(new Buffer<TerrainData>(TERRAIN_SSBO_BIND_POINT, &_tex_data, 1));
 
-	_tileset.use();
+	_tileset->use();
 
 	_render_cmds.push_back(ubo_cmd);
 	_render_cmds.push_back(new BindTerrainMeshCommand(_mesh));
