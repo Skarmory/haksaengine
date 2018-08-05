@@ -51,7 +51,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 			indices.push_back(terrain->_flatten_coord(x + 1, y + 1));
 		}
 
-		terrain->_vertex_texture.push_back(x % 4);
+		terrain->_vertex_texture.push_back(0);
 	}
 
 	terrain->_vertices = vertices;
