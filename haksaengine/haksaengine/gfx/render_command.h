@@ -7,6 +7,7 @@
 #include "gfx/terrain_mesh.h"
 #include "gfx/shader.h"
 #include "gfx/texture.h"
+#include "gfx/array_texture.h"
 
 class Renderer;
 
@@ -14,7 +15,7 @@ enum RenderCommandType
 {
 	BindMesh = 0,
 	BindTerrainMesh = 1,
-	MakeTextureHandlesResident = 2,
+	BindTextures = 2,
 	UseShader = 3,
 	UpdateBuffers = 4,
 	DrawIndexed = 5,
@@ -73,19 +74,23 @@ private:
 
 
 // Contains a vector of bindless texture handle that will need to be used this draw
-class MakeTextureHandlesResidentCommand : public RenderCommand
+class BindTexturesCommand : public RenderCommand
 {
 	friend class Renderer;
 
 public:
 
-	MakeTextureHandlesResidentCommand(void);
+	BindTexturesCommand(void);
 
 	void add_texture_handle(BindlessTextureHandle handle);
+	void bind_texture(unsigned int binding, const Texture& texture);
+	void bind_texture(unsigned int binding, const ArrayTexture& texture);
 
 private:
 
 	std::vector<BindlessTextureHandle> _handles;
+	std::vector<std::pair<unsigned int, const Texture&>> _textures;
+	std::vector<std::pair<unsigned int, const ArrayTexture&>> _array_textures;
 };
 
 // Contains a shader program for the Renderer to use

@@ -9,6 +9,7 @@
 // Wraps a texture image and OpenGL objects
 class ArrayTexture : public Asset
 {
+	friend class Renderer;
 
 public:
 	ArrayTexture(void* data, unsigned int data_size, unsigned int width, unsigned int height, unsigned int layers, FilterMode filter_mode, TextureFormat format, bool gen_mip_maps);

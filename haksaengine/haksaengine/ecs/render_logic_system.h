@@ -41,5 +41,5 @@ private:
 	bool _has_drawn;
 
 	UpdateBufferObjectCommand* _current_uniform_command;
-	MakeTextureHandlesResidentCommand* _current_texture_command;
+	BindTexturesCommand* _current_texture_command;
 };

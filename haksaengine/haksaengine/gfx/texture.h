@@ -22,6 +22,7 @@ enum class TextureFormat
 class Texture : public Asset
 {
 	friend class TextureLoader;
+	friend class Renderer;
 
 public:
 	Texture(void* data, unsigned int data_size, unsigned int width, unsigned int height, FilterMode filter_mode, TextureFormat format, bool gen_mip_maps);

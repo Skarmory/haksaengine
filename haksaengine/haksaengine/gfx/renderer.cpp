@@ -73,11 +73,18 @@ void Renderer::render(void)
 				break;
 			}
 
-			case RenderCommandType::MakeTextureHandlesResident:
+			case RenderCommandType::BindTextures:
 			{
-				const MakeTextureHandlesResidentCommand* mthr_cmd = static_cast<const MakeTextureHandlesResidentCommand*>(command);
+				const BindTexturesCommand* mthr_cmd = static_cast<const BindTexturesCommand*>(command);
 				for (auto handle : mthr_cmd->_handles)
 					glMakeTextureHandleResidentARB(handle);
+
+				for (auto& pair : mthr_cmd->_textures)
+					pair.second.bind(pair.first);
+
+				for (auto& pair : mthr_cmd->_array_textures)
+					pair.second.bind(pair.first);
+
 				break;
 			}
 

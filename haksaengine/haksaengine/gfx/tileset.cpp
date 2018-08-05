@@ -35,7 +35,7 @@ unsigned int Tileset::tile_size(void) const
 
 void Tileset::use(void)
 {
-	MakeTextureHandlesResidentCommand* cmd = new MakeTextureHandlesResidentCommand;
+	BindTexturesCommand* cmd = new BindTexturesCommand;
 	cmd->add_texture_handle(_tileset_texture->get_handle());
 
 	std::vector<const RenderCommand*> cmds;

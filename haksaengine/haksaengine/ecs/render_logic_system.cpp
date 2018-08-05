@@ -22,7 +22,7 @@ void RenderLogicSystem::bind_mesh(const Mesh& mesh)
 void RenderLogicSystem::bind_texture(const Texture& texture)
 {
 	if (!_current_texture_command)
-		_current_texture_command = new MakeTextureHandlesResidentCommand;
+		_current_texture_command = new BindTexturesCommand;
 
 	_current_texture_command->add_texture_handle(texture.get_handle());
 }

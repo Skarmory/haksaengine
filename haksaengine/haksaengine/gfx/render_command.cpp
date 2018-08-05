@@ -12,13 +12,23 @@ BindTerrainMeshCommand::BindTerrainMeshCommand(const TerrainMesh& mesh) : Render
 {
 }
 
-MakeTextureHandlesResidentCommand::MakeTextureHandlesResidentCommand(void) : RenderCommand(RenderCommandType::MakeTextureHandlesResident)
+BindTexturesCommand::BindTexturesCommand(void) : RenderCommand(RenderCommandType::BindTextures)
 {
 }
 
-void MakeTextureHandlesResidentCommand::add_texture_handle(BindlessTextureHandle handle)
+void BindTexturesCommand::add_texture_handle(BindlessTextureHandle handle)
 {
 	_handles.push_back(handle);
+}
+
+void BindTexturesCommand::bind_texture(unsigned int binding, const Texture& texture)
+{
+	_textures.push_back({ binding, texture });
+}
+
+void BindTexturesCommand::bind_texture(unsigned int binding, const ArrayTexture& texture)
+{
+	_array_textures.push_back({ binding, texture });
 }
 
 UseShaderCommand::UseShaderCommand(const Shader& shader) : _shader(shader), RenderCommand(RenderCommandType::UseShader)
