@@ -4,12 +4,11 @@
 
 #include "services.h"
 
-Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
+Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, const char* tileset)
 {
 	Terrain* terrain = new Terrain;
 	terrain->_width = width;
 	terrain->_height = height;
-	/*terrain->_tex_data.reserve(width*height);*/
 
 	std::vector<TerrainVertex> vertices;
 	std::vector<unsigned int> indices;
@@ -32,7 +31,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 	for (unsigned int x = 0; x <= width; x++)
 	{
 		// Create vertex
-		vertex.position = terrain->_index_to_world(x, y) * 32.0f;
+		vertex.position = terrain->_index_to_world(x, y) * 50.0f;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
 		vertex.uv = uvs[y % 2][x % 2];
 		vertex.face_idx = 0;
@@ -52,7 +51,6 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 			indices.push_back(terrain->_flatten_coord(x + 1, y));
 			indices.push_back(terrain->_flatten_coord(x, y + 1));
 			indices.push_back(terrain->_flatten_coord(x + 1, y + 1));
-			
 		}
 
 		unsigned int flatcoord = terrain->_flatten_coord(x, y);
@@ -74,8 +72,8 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height)
 	terrain->_mesh.set_data(std::move(vertices), std::move(indices));
 	terrain->_mesh.initialise();
 	terrain->_shader = &Services::get().get_asset_manager()->load_and_get_asset<Shader>("terrain.shader");
-	terrain->_tileset.load("tileset.png", 4, 1, 64);
-	terrain->_tex_data.tileset = terrain->_tileset.get_texture()->get_handle();
+
+	terrain->_tileset = &Services::get().get_asset_manager()->load_and_get_asset<Tileset>(tileset);
 
 	return terrain;
 }

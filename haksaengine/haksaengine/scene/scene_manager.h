@@ -35,7 +35,7 @@ public:
 	HAKSAENGINE_API std::vector<unsigned int> cull_by_camera(const std::vector<unsigned int>& entities, Entity* camera);
 
 	// Create the scene terrain geometry
-	HAKSAENGINE_API void create_terrain(unsigned int width, unsigned int height);
+	HAKSAENGINE_API void create_terrain(unsigned int width, unsigned int height, const char* tileset);
 
 	// Draw terrain
 	void draw_terrain(void);

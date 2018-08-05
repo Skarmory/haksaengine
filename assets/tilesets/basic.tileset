@@ -1,0 +1,12 @@
+Info {
+	Width 1024
+	Height 1024
+	Count 4
+}
+
+Tiles {
+	Path grass.png
+	Path darkgrass.png
+	Path dirt.png
+	Path sand.png
+}

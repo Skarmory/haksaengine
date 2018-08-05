@@ -88,12 +88,12 @@ std::vector<unsigned int> SceneManager::cull_by_camera(const std::vector<unsigne
 	return ret;
 }
 
-void SceneManager::create_terrain(unsigned int width, unsigned int height)
+void SceneManager::create_terrain(unsigned int width, unsigned int height, const char* tileset)
 {
 	if (_terrain)
 		return;
 
-	_terrain = TerrainGenerator::generate(width, height);
+	_terrain = TerrainGenerator::generate(width, height, tileset);
 }
 
 void SceneManager::draw_terrain(void)
