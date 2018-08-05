@@ -8,7 +8,7 @@ ArrayTexture::ArrayTexture(void* data, unsigned int data_size, unsigned int widt
 	else
 		_type_size = sizeof(float);
 
-	_data = malloc(width * height * _type_size * 4);
+	_data = malloc(width * height * layers * _type_size * 4);
 
 	if(data)
 		memcpy(_data, data, data_size);
@@ -39,21 +39,17 @@ void ArrayTexture::initialise(void)
 
 		int filter_mode = _filter_mode == FilterMode::Nearest ? GL_NEAREST : GL_LINEAR_MIPMAP_LINEAR;
 
-		float anisotropy;
-		glGetTexParameterfv(GL_TEXTURE_2D_ARRAY, GL_MAX_TEXTURE_MAX_ANISOTROPY, &anisotropy);
-
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, filter_mode);
 		glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, filter_mode);
-		glTexParameterf(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAX_ANISOTROPY, anisotropy);
 
 		int type = _format == TextureFormat::UnsignedByte ? GL_UNSIGNED_BYTE : GL_FLOAT;
 		int internal = _format == TextureFormat::UnsignedByte ? GL_RGBA : GL_RGBA32F_ARB;
 		int format = GL_RGBA;
 
-		glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, 0, _width, _height, _layers, format, type, _data);
+		glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, internal, _width, _height, _layers, 0, format, type, _data);
 
-		/*if (_gen_mip_maps)
-			glGenerateMipmap(GL_TEXTURE_2D);*/
+		if (_gen_mip_maps)
+			glGenerateMipmap(GL_TEXTURE_2D_ARRAY);
 
 		glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
