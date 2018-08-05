@@ -102,6 +102,17 @@ void Renderer::render(void)
 				break;
 			}
 
+			case RenderCommandType::DrawArrays:
+			{
+				const DrawCommand* d_cmd = static_cast<const DrawCommand*>(command);
+
+				int primitive_type = d_cmd->_primitive_type == PrimitiveType::Triangles ? GL_TRIANGLES : d_cmd->_primitive_type == PrimitiveType::Lines ? GL_LINES : GL_POINTS;
+
+				glDrawArrays(primitive_type, d_cmd->_offset, d_cmd->_count);
+
+				break;
+			}
+
 			case RenderCommandType::DrawIndexed:
 			{
 				const DrawIndexedCommand* di_cmd = static_cast<const DrawIndexedCommand*>(command);
