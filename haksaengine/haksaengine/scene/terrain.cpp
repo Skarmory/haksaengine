@@ -1,5 +1,9 @@
 #include "scene/terrain.h"
 
+#define GLM_ENABLE_EXPERIMENTAL
+
+#include <glm/gtx/norm.hpp>
+
 #include "services.h"
 
 void Terrain::update(unsigned int x, unsigned int y, const TerrainVertex& vertex)
@@ -127,4 +131,44 @@ void Terrain::_update_mesh(void)
 	}
 
 	_mesh.update(verts_expanded);
+}
+
+TerrainVertex* Terrain::intersect(const Ray& ray)
+{
+	TerrainVertex *v1, *v2, *v3;
+
+	glm::vec3 closest;
+	glm::vec3 xsect;
+	float closest_length = std::numeric_limits<float>::max();
+
+	unsigned int index1, index2, index3;
+
+	// Go through triangles and try intersect
+	for (unsigned int i = 0; i < _indices.size(); i += 3)
+	{
+		index1 = _indices[i];
+		index2 = _indices[i + 1];
+		index3 = _indices[i + 2];
+
+		v1 = &_vertices[index1];
+		v2 = &_vertices[index2];
+		v3 = &_vertices[index3];
+
+		if (intersect_triangle(ray, v1->position, v2->position, v3->position, xsect))
+		{
+			// We intersect here, now check if it's closer
+			if (glm::length2(xsect) < closest_length)
+			{
+				closest_length = glm::length2(xsect - ray.position);
+				closest = xsect;
+			}
+		}
+	}
+
+	// No intersection at all
+	if (closest_length == std::numeric_limits<float>::max())
+		return nullptr;
+
+	// Clamp xsection to closest vertex
+	return &get_vertex(xsect);
 }

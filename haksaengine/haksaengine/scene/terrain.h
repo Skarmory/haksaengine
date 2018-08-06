@@ -8,6 +8,8 @@
 #include "gfx/render_command.h"
 #include "gfx/uniform_data.h"
 
+#include "scene/ray.h"
+
 class Terrain
 {
 	friend class TerrainGenerator;
@@ -25,6 +27,8 @@ public:
 
 	// Generate draw commands for this piece of terrain
 	void draw(void);
+
+	TerrainVertex* intersect(const Ray& ray);
 
 private:
 
