@@ -7,6 +7,7 @@
 
 #include "ecs/entity.h"
 #include "scene/terrain.h"
+#include "scene/ray.h"
 
 /* This class will deal with the managing scenes and certain aspects of them, such as spatial partitioning and camera management */
 class SceneManager : public Service, public EventHandler
@@ -36,6 +37,12 @@ public:
 
 	// Create the scene terrain geometry
 	HAKSAENGINE_API void create_terrain(unsigned int width, unsigned int height, const char* tileset);
+
+	// Intersect a ray
+	HAKSAENGINE_API Entity* intersect_entity(const Ray& ray);
+
+	// Intersect a ray
+	HAKSAENGINE_API TerrainVertex* intersect_terrain(const Ray& ray);
 
 	// Draw terrain
 	void draw_terrain(void);

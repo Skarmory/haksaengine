@@ -96,6 +96,16 @@ void SceneManager::create_terrain(unsigned int width, unsigned int height, const
 	_terrain = TerrainGenerator::generate(width, height, tileset);
 }
 
+Entity* SceneManager::intersect_entity(const Ray& ray)
+{
+	return nullptr;
+}
+
+TerrainVertex* SceneManager::intersect_terrain(const Ray& ray)
+{
+	return _terrain->intersect(ray);
+}
+
 void SceneManager::draw_terrain(void)
 {
 	if (!_terrain)

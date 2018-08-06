@@ -39,12 +39,15 @@ private:
 
 	void _update_mesh(void);
 
+	unsigned int _tile_size;
 	unsigned int _width;
 	unsigned int _height;
+
 	TerrainMesh _mesh;
+	TerrainData _tex_data;
+
 	Tileset* _tileset;
 	const Shader* _shader;
-	TerrainData _tex_data;
 
 	std::vector<TerrainVertex> _vertices;
 	std::vector<unsigned int> _indices;

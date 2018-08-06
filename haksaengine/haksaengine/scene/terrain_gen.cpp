@@ -9,6 +9,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	Terrain* terrain = new Terrain;
 	terrain->_width = width;
 	terrain->_height = height;
+	terrain->_tile_size = 50;
 
 	std::vector<TerrainVertex> vertices;
 	std::vector<unsigned int> indices;
@@ -31,7 +32,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	for (unsigned int x = 0; x <= width; x++)
 	{
 		// Create vertex
-		vertex.position = terrain->_index_to_world(x, y) * 50.0f;
+		vertex.position = terrain->_index_to_world(x, y) * (float)terrain->_tile_size;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
 
 		vertices.push_back(vertex);
