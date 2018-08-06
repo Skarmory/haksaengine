@@ -254,6 +254,9 @@
     <ClInclude Include="gfx\array_texture.h">
       <Filter>Header Files\gfx</Filter>
     </ClInclude>
+    <ClInclude Include="scene\ray.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -387,6 +390,9 @@
     </ClCompile>
     <ClCompile Include="gfx\array_texture.cpp">
       <Filter>Source Files\gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\ray.cpp">
+      <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

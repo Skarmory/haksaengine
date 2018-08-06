@@ -240,6 +240,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="io\texture_loader.h" />
     <ClInclude Include="io\tileset_loader.h" />
     <ClInclude Include="scene\frustum.h" />
+    <ClInclude Include="scene\ray.h" />
     <ClInclude Include="scene\scene_manager.h" />
     <ClInclude Include="scene\terrain.h" />
     <ClInclude Include="scene\terrain_gen.h" />
@@ -288,6 +289,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="io\texture_loader.cpp" />
     <ClCompile Include="io\tileset_loader.cpp" />
     <ClCompile Include="scene\frustum.cpp" />
+    <ClCompile Include="scene\ray.cpp" />
     <ClCompile Include="scene\scene_manager.cpp" />
     <ClCompile Include="scene\terrain.cpp" />
     <ClCompile Include="scene\terrain_gen.cpp" />
