@@ -18,10 +18,10 @@ public:
 	void update(unsigned int x, unsigned int y, const TerrainVertex& vertex);
 
 	// Get a terrain vertex at given x, y index
-	const TerrainVertex& get_vertex(unsigned int x, unsigned int y) const;
+	TerrainVertex& get_vertex(unsigned int x, unsigned int y);
 
 	// Get a terrain vertex by clamping a world position to closest vertex
-	const TerrainVertex& get_vertex(const glm::vec3 position) const;
+	TerrainVertex& get_vertex(const glm::vec3 position);
 
 	// Generate draw commands for this piece of terrain
 	void draw(void);

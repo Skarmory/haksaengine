@@ -14,24 +14,19 @@ void Terrain::update(unsigned int x, unsigned int y, const TerrainVertex& vertex
 	_update_mesh();
 }
 
-const TerrainVertex& Terrain::get_vertex(unsigned int x, unsigned int y) const
+TerrainVertex& Terrain::get_vertex(unsigned int x, unsigned int y)
 {
 	unsigned int flattened_index = _flatten_coord(x, y);
 
 	return _vertices[flattened_index];
 }
 
-const TerrainVertex& Terrain::get_vertex(const glm::vec3 position) const
+TerrainVertex& Terrain::get_vertex(const glm::vec3 position)
 {
-	// Convert world space position to indices
-	float half_width = (float)_width * 0.5f;
-	float half_height = (float)_height * 0.5f;
+	unsigned int x = std::roundf((position.x / (float)_tile_size) + 0.5f);
+	unsigned int y = std::roundf((position.z / (float)_tile_size) + 0.5f);
 
-	glm::vec2 tmp;
-	tmp.x = position.x + half_width + 0.5f;
-	tmp.y = position.y + half_height + 0.5f;
-
-	return get_vertex(tmp.x, tmp.y);
+	return get_vertex(x, y);
 }
 
 void Terrain::draw(void)
