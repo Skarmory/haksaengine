@@ -11,12 +11,12 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	terrain->_height = height;
 	terrain->_tile_size = 50;
 
-	std::vector<TerrainVertex> vertices;
+	std::vector<TerrainVertexData> vertices;
 	std::vector<unsigned int> indices;
 	vertices.reserve(width * height);
 	indices.reserve(width * height * 6);
 
-	TerrainVertex vertex;
+	TerrainVertexData vertex;
 
 	// UV coordinates tile in x and y, and thus tessellate together nicely
 	// This allows us to use an index buffer and not split any vertices
@@ -32,8 +32,11 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	for (unsigned int x = 0; x <= width; x++)
 	{
 		// Create vertex
+		vertex.x = x;
+		vertex.y = y;
 		vertex.position = terrain->_index_to_world(x, y) * (float)terrain->_tile_size;
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
+		vertex.texture = x % 4;
 
 		vertices.push_back(vertex);
 
@@ -52,7 +55,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 			indices.push_back(terrain->_flatten_coord(x + 1, y + 1));
 		}
 
-		terrain->_vertex_texture.push_back(0);
+		//terrain->_vertex_texture.push_back(0);
 	}
 
 	terrain->_vertices = vertices;

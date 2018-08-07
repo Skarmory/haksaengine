@@ -10,6 +10,15 @@
 
 #include "scene/ray.h"
 
+struct TerrainVertexData
+{
+	unsigned int x;
+	unsigned int y;
+	glm::vec3 position;
+	glm::vec3 normal;
+	unsigned int texture;
+};
+
 class Terrain
 {
 	friend class TerrainGenerator;
@@ -17,18 +26,19 @@ class Terrain
 public:
 
 	// Update data of a terrain mesh vertex
-	void update(unsigned int x, unsigned int y, const TerrainVertex& vertex);
+	HAKSAENGINE_API void update(TerrainVertexData* data);
 
 	// Get a terrain vertex at given x, y index
-	TerrainVertex& get_vertex(unsigned int x, unsigned int y);
+	HAKSAENGINE_API TerrainVertexData& get_vertex(unsigned int x, unsigned int y);
 
 	// Get a terrain vertex by clamping a world position to closest vertex
-	TerrainVertex& get_vertex(const glm::vec3 position);
+	HAKSAENGINE_API TerrainVertexData& get_vertex(const glm::vec3 position);
 
 	// Generate draw commands for this piece of terrain
 	void draw(void);
 
-	TerrainVertex* intersect(const Ray& ray);
+	// Get the vertex that we intersect
+	HAKSAENGINE_API TerrainVertexData* intersect(const Ray& ray);
 
 private:
 
@@ -44,14 +54,12 @@ private:
 	unsigned int _height;
 
 	TerrainMesh _mesh;
-	TerrainData _tex_data;
 
 	Tileset* _tileset;
 	const Shader* _shader;
 
-	std::vector<TerrainVertex> _vertices;
+	std::vector<TerrainVertexData> _vertices;
 	std::vector<unsigned int> _indices;
-	std::vector<unsigned int> _vertex_texture;
 
 	std::vector<const RenderCommand*> _render_cmds;
 };

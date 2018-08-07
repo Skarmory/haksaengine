@@ -70,5 +70,5 @@ struct TerrainFaceTextures
 struct TerrainData
 {
 	BindlessTextureHandle tileset;
-	TerrainFaceTextures textures[MAP_SIZE_MAX];
+	//TerrainFaceTextures textures[MAP_SIZE_MAX];
 };

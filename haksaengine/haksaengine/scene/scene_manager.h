@@ -42,7 +42,7 @@ public:
 	HAKSAENGINE_API Entity* intersect_entity(const Ray& ray);
 
 	// Intersect a ray
-	HAKSAENGINE_API TerrainVertex* intersect_terrain(const Ray& ray);
+	HAKSAENGINE_API TerrainVertexData* intersect_terrain(const Ray& ray);
 
 	// Draw terrain
 	void draw_terrain(void);

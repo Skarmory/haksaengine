@@ -6,29 +6,32 @@
 
 #include "services.h"
 
-void Terrain::update(unsigned int x, unsigned int y, const TerrainVertex& vertex)
+void Terrain::update(TerrainVertexData* data)
 {
-	if (x > _width || y > _height)
-		return;
+	unsigned int flattened_index = _flatten_coord(data->x, data->y);
 
-	unsigned int flattened_index = _flatten_coord(x, y);
-
-	_vertices[flattened_index] = vertex;
+	_vertices[flattened_index] = *data;
 
 	_update_mesh();
 }
 
-TerrainVertex& Terrain::get_vertex(unsigned int x, unsigned int y)
+TerrainVertexData& Terrain::get_vertex(unsigned int x, unsigned int y)
 {
 	unsigned int flattened_index = _flatten_coord(x, y);
 
 	return _vertices[flattened_index];
 }
 
-TerrainVertex& Terrain::get_vertex(const glm::vec3 position)
+TerrainVertexData& Terrain::get_vertex(const glm::vec3 position)
 {
-	unsigned int x = std::roundf((position.x / (float)_tile_size) + 0.5f);
-	unsigned int y = std::roundf((position.z / (float)_tile_size) + 0.5f);
+	float half_width = (float)_width * 0.5f;
+	float half_height = (float)_height * 0.5f;
+
+	//unsigned int x = std::roundf((position.x / (float)_tile_size) + 0.5f);
+	//unsigned int y = std::roundf((position.z / (float)_tile_size) + 0.5f);
+
+	float x = std::roundf((position.x + (half_width * (float)_tile_size)) / (float)_tile_size);
+	float y = std::roundf((position.z + (half_height * (float)_tile_size)) / (float)_tile_size);
 
 	return get_vertex(x, y);
 }
@@ -36,8 +39,11 @@ TerrainVertex& Terrain::get_vertex(const glm::vec3 position)
 void Terrain::draw(void)
 {
 	UpdateBufferObjectCommand* ubo_cmd = new UpdateBufferObjectCommand;
-	_tex_data.tileset = _tileset->get_texture()->get_handle();
-	ubo_cmd->add_ssbo(new Buffer<TerrainData>(TERRAIN_SSBO_BIND_POINT, &_tex_data, 1));
+	TerrainData data;
+
+	data.tileset = _tileset->get_texture()->get_handle();
+
+	ubo_cmd->add_uniform(new Buffer<TerrainData>(TERRAIN_SSBO_BIND_POINT, &data, 1));
 
 	_tileset->use();
 
@@ -86,56 +92,60 @@ void Terrain::_update_mesh(void)
 	unsigned int face = 0;
 	unsigned int tile;
 	unsigned int t1, t2, t3, t4;
-	unsigned int index;
+	unsigned int idx1, idx2, idx3, idx4, idx5, idx6;
+
+	TerrainVertex tmp;
 	for (int i = 0; i < _indices.size(); i += 6)
 	{
-		index = _indices[i];
-		t1 = _vertex_texture[index];
-		_vertices[index].uv = glm::vec2(0.0f, 1.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		idx1 = _indices[i];
+		idx2 = _indices[i + 1];
+		idx3 = _indices[i + 2];
+		idx4 = _indices[i + 3];
+		idx5 = _indices[i + 4];
+		idx6 = _indices[i + 5];
 
-		index = _indices[i + 1];
-		t2 = _vertex_texture[index];
-		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		tmp.tex[0] = _vertices[idx1].texture;
+		tmp.tex[1] = _vertices[idx2].texture;
+		tmp.tex[2] = _vertices[idx3].texture;
+		tmp.tex[3] = _vertices[idx6].texture;
 
-		index = _indices[i + 2];
-		t3 = _vertex_texture[index];
-		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		tmp.position = _vertices[idx1].position;
+		tmp.normal = _vertices[idx1].normal;
+		tmp.uv = glm::vec2(0.0f, 1.0f);
+		verts_expanded.push_back(tmp);
 
-		face++;
+		tmp.position = _vertices[idx2].position;
+		tmp.normal = _vertices[idx2].normal;
+		tmp.uv = glm::vec2(0.0f, 0.0f);
+		verts_expanded.push_back(tmp);
 
-		index = _indices[i + 3];
-		_vertices[index].uv = glm::vec2(1.0f, 1.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		tmp.position = _vertices[idx3].position;
+		tmp.normal = _vertices[idx3].normal;
+		tmp.uv = glm::vec2(1.0f, 1.0f);
+		verts_expanded.push_back(tmp);
 
-		index = _indices[i + 4];
-		_vertices[index].uv = glm::vec2(0.0f, 0.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		tmp.position = _vertices[idx4].position;
+		tmp.normal = _vertices[idx4].normal;
+		tmp.uv = glm::vec2(1.0f, 1.0f);
+		verts_expanded.push_back(tmp);
 
-		index = _indices[i + 5];
-		t4 = _vertex_texture[index];
-		_vertices[index].uv = glm::vec2(1.0f, 0.0f);
-		_vertices[index].face_idx = face;
-		verts_expanded.push_back(_vertices[index]);
+		tmp.position = _vertices[idx5].position;
+		tmp.normal = _vertices[idx5].normal;
+		tmp.uv = glm::vec2(0.0f, 0.0f);
+		verts_expanded.push_back(tmp);
 
-		_tex_data.textures[face / 2] = { t1,t2,t3,t4 };
-
-		face++;
+		tmp.position = _vertices[idx6].position;
+		tmp.normal = _vertices[idx6].normal;
+		tmp.uv = glm::vec2(1.0f, 0.0f);
+		verts_expanded.push_back(tmp);
 	}
 
 	_mesh.update(verts_expanded);
 }
 
-TerrainVertex* Terrain::intersect(const Ray& ray)
+TerrainVertexData* Terrain::intersect(const Ray& ray)
 {
-	TerrainVertex *v1, *v2, *v3;
+	TerrainVertexData *v1, *v2, *v3;
 
 	glm::vec3 closest;
 	glm::vec3 xsect;
