@@ -54,9 +54,10 @@ const ArrayTexture* Tileset::get_texture(void) const
 	return _tileset_texture;
 }
 
-void Tileset::load(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_size)
+ std::string Tileset::texture_path(unsigned int id) const
 {
-	_width = width;
-	_height = height;
-	_tile_size = tile_size;
+	 if (id < _texture_paths.size())
+		 return _texture_paths[id];
+
+	 return "";
 }

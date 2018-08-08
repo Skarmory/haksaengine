@@ -127,6 +127,8 @@ void TilesetLoader::_parse_tiles(std::ifstream& stream, Tileset* tileset)
 
 			std::string path = dir + value;
 
+			tileset->_texture_paths.push_back(path);
+
 			lodepng::decode(data, width, height, path);
 
 			tileset->_tileset_texture->update(data.data(), data.size(), tile_idx);

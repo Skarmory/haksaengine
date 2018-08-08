@@ -16,16 +16,16 @@ public:
 	Tileset(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_count, unsigned int tile_size);
 	~Tileset(void);
 
-	unsigned int width(void) const;
-	unsigned int height(void) const;
-	unsigned int tile_count(void) const;
-	unsigned int tile_size(void) const;
+	HAKSAENGINE_API unsigned int width(void) const;
+	HAKSAENGINE_API unsigned int height(void) const;
+	HAKSAENGINE_API unsigned int tile_count(void) const;
+	HAKSAENGINE_API unsigned int tile_size(void) const;
 
 	void use(void);
 
-	const ArrayTexture* get_texture(void) const;
+	HAKSAENGINE_API const ArrayTexture* get_texture(void) const;
 
-	void load(const std::string& name, unsigned int width, unsigned int height, unsigned int tile_size);
+	HAKSAENGINE_API std::string texture_path(unsigned int id) const;
 
 private:
 
@@ -33,6 +33,8 @@ private:
 	unsigned int _height;
 	unsigned int _tile_count;
 	unsigned int _tile_size;
+
+	std::vector<std::string> _texture_paths;
 
 	ArrayTexture* _tileset_texture;
 };
