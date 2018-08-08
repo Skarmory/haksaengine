@@ -5,6 +5,7 @@
 #include <QtWidgets/QMainWindow>
 #include <QtCore/QTimer>
 #include "ui_mapeditor.h"
+#include "palettewindow.h"
 
 class mapeditor : public QMainWindow
 {
@@ -20,6 +21,8 @@ private slots:
 
 private:
 	Ui::mapeditorClass ui;
+
+	PaletteWindow palette;
 
 	QTimer* _main_loop_timer;
 	Engine* _engine;

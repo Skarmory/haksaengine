@@ -115,17 +115,23 @@
     </QtRcc>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="editor_state.cpp" />
     <ClCompile Include="camera_controller_script.cpp" />
     <ClCompile Include="customopenglwidget.cpp" />
+    <ClCompile Include="input_signal_processor.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="mapeditor.cpp" />
+    <ClCompile Include="palettewindow.cpp" />
     <ClCompile Include="qt_input_handler.cpp" />
+    <ClCompile Include="terrainpalettewidget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mapeditor.h" />
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mapeditor.ui" />
+    <QtUic Include="palettewindow.ui" />
+    <QtUic Include="terrainpalettewidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mapeditor.qrc" />
@@ -139,7 +145,21 @@
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="editor_state.h" />
     <ClInclude Include="camera_controller_script.h" />
+    <QtMoc Include="terrainpalettewidget.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtOpenGLExtensions;$(QTDIR)\include\QtWidgets;$(SolutionDir)..\..\haksaengine\haksaengine;$(SolutionDir)..\..\lib\glew-2.1.0\include;$(SolutionDir)..\..\lib\glm;$(SolutionDir)..\..\lib\glfw-3.2.1.bin.WIN32\include</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_OPENGLEXTENSIONS_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtOpenGLExtensions;$(QTDIR)\include\QtWidgets;$(SolutionDir)..\..\haksaengine\haksaengine;$(SolutionDir)..\..\lib\glew-2.1.0\include;$(SolutionDir)..\..\lib\glm;$(SolutionDir)..\..\lib\glfw-3.2.1.bin.WIN32\include</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_OPENGLEXTENSIONS_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
+    <QtMoc Include="palettewindow.h">
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtOpenGLExtensions;$(QTDIR)\include\QtWidgets;$(SolutionDir)..\..\haksaengine\haksaengine;$(SolutionDir)..\..\lib\glew-2.1.0\include;$(SolutionDir)..\..\lib\glm;$(SolutionDir)..\..\lib\glfw-3.2.1.bin.WIN32\include</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_OPENGLEXTENSIONS_LIB;QT_WIDGETS_LIB</Define>
+      <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtOpenGLExtensions;$(QTDIR)\include\QtWidgets;$(SolutionDir)..\..\haksaengine\haksaengine;$(SolutionDir)..\..\lib\glew-2.1.0\include;$(SolutionDir)..\..\lib\glm;$(SolutionDir)..\..\lib\glfw-3.2.1.bin.WIN32\include</IncludePath>
+      <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_OPENGLEXTENSIONS_LIB;QT_WIDGETS_LIB</Define>
+    </QtMoc>
+    <ClInclude Include="input_signal_processor.h" />
     <ClInclude Include="qt_input_handler.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

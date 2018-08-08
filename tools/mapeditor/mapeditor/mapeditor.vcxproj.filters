@@ -28,6 +28,18 @@
       <Extensions>moc;h;cpp</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="Header Files\Widgets">
+      <UniqueIdentifier>{7f5bd331-f186-43e4-bac4-e93f0fa5fde5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Widgets">
+      <UniqueIdentifier>{5c444a55-f2fa-4936-8a2b-bef4d80539df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Systems">
+      <UniqueIdentifier>{c299a720-696c-46d6-a396-ec8f37a2f50f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Systems">
+      <UniqueIdentifier>{a0e19999-4d1f-4de4-b596-3e19d2cc75f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -36,26 +48,50 @@
     <ClCompile Include="mapeditor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="customopenglwidget.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="qt_input_handler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="camera_controller_script.cpp">
+    <ClCompile Include="terrainpalettewidget.cpp">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="palettewindow.cpp">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="customopenglwidget.cpp">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
+    <ClCompile Include="editor_state.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="camera_controller_script.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
+    <ClCompile Include="input_signal_processor.cpp">
+      <Filter>Source Files\Systems</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mapeditor.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="terrainpalettewidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </QtMoc>
+    <QtMoc Include="palettewindow.h">
+      <Filter>Header Files\Widgets</Filter>
+    </QtMoc>
     <QtMoc Include="customopenglwidget.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Widgets</Filter>
     </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mapeditor.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="palettewindow.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="terrainpalettewidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
@@ -68,8 +104,14 @@
     <ClInclude Include="qt_input_handler.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="camera_controller_script.h">
+    <ClInclude Include="editor_state.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="camera_controller_script.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="input_signal_processor.h">
+      <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
