@@ -17,9 +17,15 @@
     <ClCompile Include="src\camera_controller_script.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\input_script.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\camera_controller_script.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\input_script.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

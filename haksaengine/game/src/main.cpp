@@ -21,6 +21,7 @@
 #include "scene/terrain_gen.h"
 
 #include "camera_controller_script.h"
+#include "input_script.h"
 
 int main(int argc, char** argv)
 {
@@ -69,9 +70,10 @@ int main(int argc, char** argv)
 		entity->add_component(player);
 	}*/
 
-	Services::get().get_scene_manager()->create_terrain(3u, 3u, "basic.tileset");
+	Services::get().get_scene_manager()->create_terrain(4u, 4u, "basic.tileset");
 
 	Services::get().get_system_manager()->create<CameraControllerScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
+	Services::get().get_system_manager()->create<InputScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 1));
 
 	e.run();
 
