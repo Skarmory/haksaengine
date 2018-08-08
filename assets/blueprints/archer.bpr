@@ -16,7 +16,16 @@ Components:
 		external model archer.mdl;
 		external shader basic_skeletal_instanced.shader;
 	]
-	Animator
+	Animator:
 	[
 		string default_animation Run;
+	]
+	Collider:
+	[
+		float min_x -0.25;
+		float min_y -1.125;
+		float min_z -0.25;
+		float max_x 0.25;
+		float max_y 1.125;
+		float max_z 0.25;
 	]
