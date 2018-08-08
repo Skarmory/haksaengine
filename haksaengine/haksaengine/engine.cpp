@@ -13,6 +13,7 @@
 #include "ecs/skinned_renderable.h"
 #include "ecs/camera.h"
 #include "ecs/animator.h"
+#include "ecs/collider.h"
 #include "ecs/system_ordering.h"
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
@@ -91,6 +92,7 @@ void Engine::initialise(void)
 	compman->register_component<SkinnedRenderable>("SkinnedRenderable");
 	compman->register_component<Camera>("Camera");
 	compman->register_component<Animator>("Animator");
+	compman->register_component<Collider>("Collider");
 
 	_state = EngineState::Ready;
 }
