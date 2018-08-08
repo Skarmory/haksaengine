@@ -90,8 +90,6 @@ void Terrain::_update_mesh(void)
 	verts_expanded.reserve(_indices.size());
 
 	unsigned int face = 0;
-	unsigned int tile;
-	unsigned int t1, t2, t3, t4;
 	unsigned int idx1, idx2, idx3, idx4, idx5, idx6;
 
 	TerrainVertex tmp;
@@ -181,4 +179,9 @@ TerrainVertexData* Terrain::intersect(const Ray& ray)
 
 	// Clamp xsection to closest vertex
 	return &get_vertex(xsect);
+}
+
+const Tileset& Terrain::get_tileset(void)
+{
+	return *_tileset;
 }

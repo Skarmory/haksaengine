@@ -101,7 +101,7 @@ Entity* SceneManager::intersect_entity(const Ray& ray)
 	return nullptr;
 }
 
-TerrainVertex* SceneManager::intersect_terrain(const Ray& ray)
+TerrainVertexData* SceneManager::intersect_terrain(const Ray& ray)
 {
 	return _terrain->intersect(ray);
 }
@@ -129,4 +129,35 @@ void SceneManager::draw_terrain(void)
 	Services::get().get_renderer()->submit_render_commands(cmd);
 
 	_terrain->draw();
+}
+
+Terrain* SceneManager::get_terrain(void)
+{
+	return _terrain;
+}
+
+Ray SceneManager::screen_to_world_ray(float x, float y)
+{
+	Camera* camera = main_camera->get_component<Camera>();
+	Transform* transform = main_camera->get_component<Transform>();
+
+	glm::mat4 projection = camera->projection_matrix;
+	glm::mat4 view = camera->view_matrix;
+
+	// Convert from screen coordinates back into NDC
+	float px = ((2.0f * x) / camera->width) - 1.0f;
+	float py = 1.0f - (2.0f * y) / camera->height;
+
+	// Convert back into clip space
+	glm::vec4 ray_eye = glm::inverse(projection) * glm::vec4(px, py, -1.0f, 1.0f);
+	ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0f, 0.0);
+
+	// Convert from clip to world space and normalise
+	glm::vec3 ray_world = glm::normalize(glm::inverse(view) * ray_eye);
+
+	Ray ray;
+	ray.position = transform->get_position();
+	ray.direction = ray_world;
+
+	return ray;
 }

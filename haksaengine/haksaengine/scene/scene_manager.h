@@ -44,6 +44,11 @@ public:
 	// Intersect a ray
 	HAKSAENGINE_API TerrainVertexData* intersect_terrain(const Ray& ray);
 
+	HAKSAENGINE_API Terrain* get_terrain(void);
+
+	// Construct a ray from screen coordinates
+	HAKSAENGINE_API Ray screen_to_world_ray(float x, float y);
+
 	// Draw terrain
 	void draw_terrain(void);
 

@@ -40,6 +40,9 @@ public:
 	// Get the vertex that we intersect
 	HAKSAENGINE_API TerrainVertexData* intersect(const Ray& ray);
 
+	// Gets const reference to the tileset the terrain uses
+	HAKSAENGINE_API const Tileset& get_tileset(void);
+
 private:
 
 	unsigned int _flatten_coord(unsigned int x, unsigned int y) const;
