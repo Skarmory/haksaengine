@@ -5,6 +5,7 @@
 #define PALETTE_WIDTH (4 * TILE_SIZE)
 #define PALETTE_HEIGHT 1
 #define TILE_U_INTERVAL (float(TILE_SIZE) / float(PALETTE_WIDTH))
+#define ROOT2 1.41421356
 
 struct TextureData
 {
@@ -65,16 +66,19 @@ vec4 get_colour_from_tileset(uint tile_id, vec2 texcoord)
 
 void main()
 {
-	//uint tile = face / 2;
 	vec4 col1 = get_colour_from_tileset(tex[0], uv);
 	vec4 col2 = get_colour_from_tileset(tex[1], uv);
 	vec4 col3 = get_colour_from_tileset(tex[2], uv);
 	vec4 col4 = get_colour_from_tileset(tex[3], uv);
 	
-	col1.a = max(1.0 - length(uv - vec2(0.0, 1.0)), 0.0);
-	col2.a = max(1.0 - length(uv - vec2(0.0, 0.0)), 0.0);
-	col3.a = max(1.0 - length(uv - vec2(1.0, 1.0)), 0.0);
-	col4.a = max(1.0 - length(uv - vec2(1.0, 0.0)), 0.0);
+	float alpha = 1.0 - uv.r;
+	float beta  = 1.0 - uv.g;
+
+	// Bilinear interpolation to get vertex coefficients
+	col1.a = alpha * uv.g;
+	col2.a = alpha * beta;
+	col3.a = uv.r * uv.g;
+	col4.a = beta * uv.r;
 	
 	col1.rgb *= col1.a;
 	col2.rgb *= col2.a;
