@@ -13,8 +13,8 @@
   <property name="windowTitle">
    <string>TerrainPaletteWidget</string>
   </property>
-  <layout class="QFormLayout" name="formLayout">
-   <item row="0" column="0" colspan="2">
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
     <widget class="QGroupBox" name="textures_group_box">
      <property name="maximumSize">
       <size>
@@ -28,7 +28,7 @@
      <layout class="QGridLayout" name="gridLayout"/>
     </widget>
    </item>
-   <item row="2" column="0" colspan="2">
+   <item>
     <widget class="QGroupBox" name="deform_group_box">
      <property name="maximumSize">
       <size>
