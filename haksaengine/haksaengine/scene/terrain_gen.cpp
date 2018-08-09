@@ -58,8 +58,16 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 		//terrain->_vertex_texture.push_back(0);
 	}
 
+	glm::vec3 min = terrain->_index_to_world(0, 0);
+	glm::vec3 max = terrain->_index_to_world(width, height);
+
+	min.y = -25.0f;
+	max.y = 25.0f;
+
 	terrain->_vertices = vertices;
 	terrain->_indices = indices;
+	terrain->_quadtree = new TerrainQuadTree(AABB(min, max));
+	terrain->_update_quadtree();
 	terrain->_mesh.initialise();
 	terrain->_update_mesh();
 	terrain->_shader = &Services::get().get_asset_manager()->load_and_get_asset<Shader>("terrain.shader");

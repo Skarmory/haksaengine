@@ -141,6 +141,16 @@ void Terrain::_update_mesh(void)
 	_mesh.update(verts_expanded);
 }
 
+void Terrain::_update_quadtree(void)
+{
+	for (unsigned int i = 0; i < _indices.size(); i += 3)
+	{
+		TerrainTriangle t(&_vertices[_indices[i]], &_vertices[_indices[i + 1]], &_vertices[_indices[i + 2]]);
+
+		_quadtree->add(t);
+	}
+}
+
 TerrainVertexData* Terrain::intersect(const Ray& ray)
 {
 	TerrainVertexData *v1, *v2, *v3;

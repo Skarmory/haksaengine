@@ -9,6 +9,9 @@
 #include "gfx/uniform_data.h"
 
 #include "scene/ray.h"
+#include "scene/quadtree.h"
+
+class TerrainQuadTree;
 
 struct TerrainVertexData
 {
@@ -51,12 +54,14 @@ private:
 	glm::vec3 _index_to_world(unsigned int x, unsigned int y) const;
 
 	void _update_mesh(void);
+	void _update_quadtree(void);
 
 	unsigned int _tile_size;
 	unsigned int _width;
 	unsigned int _height;
 
 	TerrainMesh _mesh;
+	TerrainQuadTree* _quadtree;
 
 	Tileset* _tileset;
 	const Shader* _shader;
