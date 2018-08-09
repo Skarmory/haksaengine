@@ -81,7 +81,7 @@ glm::vec3 Terrain::_index_to_world(unsigned int x, unsigned int y) const
 	/*val.y = y - half_height;*/
 	val.z = y - half_height;
 	
-	return val;
+	return val * (float)_tile_size;
 }
 
 void Terrain::_update_mesh(void)

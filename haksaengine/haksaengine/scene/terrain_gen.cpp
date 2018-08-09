@@ -34,7 +34,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 		// Create vertex
 		vertex.x = x;
 		vertex.y = y;
-		vertex.position = terrain->_index_to_world(x, y) * (float)terrain->_tile_size;
+		vertex.position = terrain->_index_to_world(x, y);
 		vertex.normal = glm::vec3(0.0f, 1.0f, 0.0f);
 		vertex.texture = x % 4;
 
