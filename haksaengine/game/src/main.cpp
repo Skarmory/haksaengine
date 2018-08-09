@@ -23,8 +23,23 @@
 #include "camera_controller_script.h"
 #include "input_script.h"
 
+#include "scene/shapes.h"
+
 int main(int argc, char** argv)
 {
+	Triangle triangle(
+		glm::vec3(100.0f, 0.0f, 0.0f),
+		glm::vec3(200.0f, 0.0f, 0.0f),
+		glm::vec3(100.0f, 1.0f, 0.0f)
+	);
+
+	AABB aabb(
+		glm::vec3(-10.0f, -10.0f, -10.0f),
+		glm::vec3(10.0f, 10.0f, 10.0f)
+	);
+
+	bool xsect = aabb.intersect(triangle);
+
 	std::mt19937 generator(999);
 	std::uniform_real_distribution<float> dis(0.0f, 1.0f);
 
@@ -51,7 +66,7 @@ int main(int argc, char** argv)
 	Animator* anim;
 	Player* player;
 
-	/*for (int i = -1; i < 1; i++)
+	for (int i = -1; i < 1; i++)
 	for( int j = -1; j < 1; j++)
 	{
 		entity_id = Services::get().get_entity_manager()->create_entity(&test_blueprint);
@@ -68,9 +83,9 @@ int main(int argc, char** argv)
 		player = new Player;
 		player->colour = (PlayerColour)std::abs(j % 3);
 		entity->add_component(player);
-	}*/
+	}
 
-	Services::get().get_scene_manager()->create_terrain(4u, 4u, "basic.tileset");
+	Services::get().get_scene_manager()->create_terrain(6u, 6u, "basic.tileset");
 
 	Services::get().get_system_manager()->create<CameraControllerScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 	Services::get().get_system_manager()->create<InputScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 1));
