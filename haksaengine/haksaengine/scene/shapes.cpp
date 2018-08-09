@@ -63,7 +63,7 @@
 	if (x2 > max) max = x2;
 
 
-Triangle::Triangle(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) : v1(v1), v2(v2), v3(v3)
+Triangle::Triangle(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) : v1(v1), v2(v2), v3(v3), normal(glm::normalize(glm::cross(v2-v1, v3-v1)))
 {
 }
 
