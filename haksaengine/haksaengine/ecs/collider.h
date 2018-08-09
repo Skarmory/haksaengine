@@ -3,7 +3,7 @@
 #include "ecs/component.h"
 #include "scene/shapes.h"
 
-class Collider : public Component<Collider>
+struct Collider : public Component<Collider>
 {
 	void load(NamedVariantPack* datapack)
 	{
