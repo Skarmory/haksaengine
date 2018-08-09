@@ -35,6 +35,7 @@ struct AABB
 
 	HAKSAENGINE_API bool intersect(Triangle tri);
 	HAKSAENGINE_API bool intersect(Plane plane);
+	HAKSAENGINE_API bool intersect(AABB aabb);
 
 	glm::vec3 min;
 	glm::vec3 max;

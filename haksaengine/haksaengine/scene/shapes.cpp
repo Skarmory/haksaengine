@@ -170,3 +170,14 @@ bool AABB::intersect(Plane plane)
 
 	return false;
 }
+
+bool AABB::intersect(AABB aabb)
+{
+	for (int i = 0; i < 3; i++)
+	{
+		if (min[i] > aabb.max[i] || aabb.min[i] > max[i])
+			return false;
+	}
+
+	return true;
+}
