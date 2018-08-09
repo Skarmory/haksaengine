@@ -243,6 +243,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="scene\frustum.h" />
     <ClInclude Include="scene\ray.h" />
     <ClInclude Include="scene\scene_manager.h" />
+    <ClInclude Include="scene\shapes.h" />
     <ClInclude Include="scene\terrain.h" />
     <ClInclude Include="scene\terrain_gen.h" />
     <ClInclude Include="service.h" />
@@ -292,6 +293,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="scene\frustum.cpp" />
     <ClCompile Include="scene\ray.cpp" />
     <ClCompile Include="scene\scene_manager.cpp" />
+    <ClCompile Include="scene\shapes.cpp" />
     <ClCompile Include="scene\terrain.cpp" />
     <ClCompile Include="scene\terrain_gen.cpp" />
     <ClCompile Include="services.cpp" />

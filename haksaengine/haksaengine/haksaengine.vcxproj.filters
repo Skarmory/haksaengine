@@ -257,6 +257,9 @@
     <ClInclude Include="scene\ray.h">
       <Filter>Header Files\scene</Filter>
     </ClInclude>
+    <ClInclude Include="scene\shapes.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
     <ClInclude Include="ecs\collider.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
@@ -395,6 +398,9 @@
       <Filter>Source Files\gfx</Filter>
     </ClCompile>
     <ClCompile Include="scene\ray.cpp">
+      <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="scene\shapes.cpp">
       <Filter>Source Files\scene</Filter>
     </ClCompile>
   </ItemGroup>
