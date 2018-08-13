@@ -9,7 +9,7 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	Terrain* terrain = new Terrain;
 	terrain->_width = width;
 	terrain->_height = height;
-	terrain->_tile_size = 50;
+	terrain->_tile_size = 128;
 
 	std::vector<TerrainVertexData> vertices;
 	std::vector<unsigned int> indices;
