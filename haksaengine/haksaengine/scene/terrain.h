@@ -1,5 +1,7 @@
 #pragma once
 
+#include <unordered_set>
+
 #include <glm/glm.hpp>
 
 #include "gfx/terrain_mesh.h"
@@ -11,7 +13,10 @@
 #include "scene/ray.h"
 #include "scene/quadtree.h"
 
+#include "ecs/entity.h"
+
 class TerrainQuadTree;
+struct TerrainTriangle;
 
 struct TerrainVertexData
 {
@@ -42,6 +47,9 @@ public:
 
 	// Get the vertex that we intersect
 	HAKSAENGINE_API TerrainVertexData* intersect(const Ray& ray);
+
+	// Check for entity intersection with the terrain and return which traingles it intersects
+	HAKSAENGINE_API std::unordered_set<TerrainTriangle*> intersect(Entity* entity);
 
 	// Gets const reference to the tileset the terrain uses
 	HAKSAENGINE_API const Tileset& get_tileset(void);

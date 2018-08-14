@@ -27,9 +27,6 @@ TerrainVertexData& Terrain::get_vertex(const glm::vec3 position)
 	float half_width = (float)_width * 0.5f;
 	float half_height = (float)_height * 0.5f;
 
-	//unsigned int x = std::roundf((position.x / (float)_tile_size) + 0.5f);
-	//unsigned int y = std::roundf((position.z / (float)_tile_size) + 0.5f);
-
 	float x = std::roundf((position.x + (half_width * (float)_tile_size)) / (float)_tile_size);
 	float y = std::roundf((position.z + (half_height * (float)_tile_size)) / (float)_tile_size);
 
@@ -145,9 +142,7 @@ void Terrain::_update_quadtree(void)
 {
 	for (unsigned int i = 0; i < _indices.size(); i += 3)
 	{
-		TerrainTriangle t(&_vertices[_indices[i]], &_vertices[_indices[i + 1]], &_vertices[_indices[i + 2]]);
-
-		_quadtree->add(t);
+		_quadtree->add(new TerrainTriangle(&_vertices[_indices[i]], &_vertices[_indices[i + 1]], &_vertices[_indices[i + 2]]));
 	}
 }
 
@@ -189,6 +184,11 @@ TerrainVertexData* Terrain::intersect(const Ray& ray)
 
 	// Clamp xsection to closest vertex
 	return &get_vertex(xsect);
+}
+
+std::unordered_set<TerrainTriangle*> Terrain::intersect(Entity* entity)
+{
+	return _quadtree->get_intersections(entity);
 }
 
 const Tileset& Terrain::get_tileset(void)

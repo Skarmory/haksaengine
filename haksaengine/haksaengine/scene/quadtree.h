@@ -27,10 +27,10 @@ public:
 	TerrainQuadTree(AABB aabb);
 	~TerrainQuadTree(void);
 
-	void add(TerrainTriangle triangle);
+	void add(TerrainTriangle* triangle);
 
 
-	std::vector<TerrainTriangle*> get_intersections(Entity* entity);
+	std::unordered_set<TerrainTriangle*> get_intersections(Entity* entity);
 
 private:
 	
@@ -41,9 +41,9 @@ private:
 		TerrainQuadTreeNode(AABB aabb);
 		~TerrainQuadTreeNode(void);
 
-		void add(TerrainTriangle triangle);
+		void add(TerrainTriangle* triangle);
 
-		void gather_intersections(std::vector<TerrainTriangle*>& intersects, Collider* collider);
+		void gather_intersections(std::unordered_set<TerrainTriangle*>& intersects, const AABB& aabb);
 
 	private:
 		static const int _objects_per_node = 30;
@@ -54,7 +54,7 @@ private:
 
 		TerrainQuadTreeNode *_tl, *_tr, *_bl, *_br;
 
-		std::vector<TerrainTriangle> _objects;
+		std::vector<TerrainTriangle*> _objects;
 	};
 
 	TerrainQuadTreeNode* _origin;

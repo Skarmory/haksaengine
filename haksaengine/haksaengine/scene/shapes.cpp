@@ -87,7 +87,7 @@ AABB::AABB(void) : AABB(glm::vec3(-1.0f, -1.0f, -1.0f), glm::vec3(1.0f, 1.0f, 1.
 {
 }
 
-bool AABB::intersect(Triangle tri)
+bool AABB::intersect(const Triangle& tri) const
 {
 	float min, max, p0, p1, p2, rad, fex, fey, fez;
 	glm::vec3 normal, e0, e1, e2, v0, v1, v2;
@@ -141,7 +141,7 @@ bool AABB::intersect(Triangle tri)
 	return true;
 }
 
-bool AABB::intersect(Plane plane)
+bool AABB::intersect(const Plane& plane) const
 {
 	glm::vec3 minv, maxv;
 	float v;
@@ -171,7 +171,7 @@ bool AABB::intersect(Plane plane)
 	return false;
 }
 
-bool AABB::intersect(AABB aabb)
+bool AABB::intersect(const AABB& aabb) const
 {
 	for (int i = 0; i < 3; i++)
 	{
@@ -180,4 +180,12 @@ bool AABB::intersect(AABB aabb)
 	}
 
 	return true;
+}
+
+bool AABB::intersect(glm::vec3 point) const
+{
+	if (point.x > min.x && point.x < max.x && point.y > min.y && point.y < max.y && point.z > min.z && point.z < max.z)
+		return true;
+
+	return false;
 }

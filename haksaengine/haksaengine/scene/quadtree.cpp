@@ -1,5 +1,7 @@
 #include "quadtree.h"
 
+#include "ecs/transform.h"
+
 TerrainTriangle::TerrainTriangle(TerrainVertexData* v1, TerrainVertexData* v2, TerrainVertexData* v3)
 	: tv1(v1), tv2(v2), tv3(v3), Triangle(v1->position, v2->position, v3->position)
 {
@@ -15,7 +17,7 @@ TerrainQuadTree::~TerrainQuadTree(void)
 	delete _origin;
 }
 
-void TerrainQuadTree::add(TerrainTriangle triangle)
+void TerrainQuadTree::add(TerrainTriangle* triangle)
 {
 	_origin->add(triangle);
 }
@@ -27,6 +29,9 @@ TerrainQuadTree::TerrainQuadTreeNode::TerrainQuadTreeNode(AABB aabb)
 
 TerrainQuadTree::TerrainQuadTreeNode::~TerrainQuadTreeNode(void)
 {
+	for (auto object : _objects)
+		delete object;
+
 	if (_tl)
 	{
 		delete _tl;
@@ -36,32 +41,42 @@ TerrainQuadTree::TerrainQuadTreeNode::~TerrainQuadTreeNode(void)
 	}
 }
 
-std::vector<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
+std::unordered_set<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
 {
-	std::vector<TerrainTriangle*> ret;
+	std::unordered_set<TerrainTriangle*> ret;
 
+	Transform* transform = entity->get_component<Transform>();
 	Collider* collider = entity->get_component<Collider>();
+	
+	glm::mat4 locscale = glm::mat4(1.0f);
+	locscale = glm::scale(locscale, transform->get_scale());
+	locscale = glm::translate(locscale, transform->get_position());
 
-	_origin->gather_intersections(ret, collider);
+	glm::vec3 min = locscale * glm::vec4(collider->aabb.min, 1.0f);
+	glm::vec3 max = locscale * glm::vec4(collider->aabb.max, 1.0f);
+
+	AABB tmp(min, max);
+
+	_origin->gather_intersections(ret, tmp);
 
 	return ret;
 }
 
-void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle triangle)
+void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle* triangle)
 {
 	// If has subnodes
 	if (_tl)
 	{
-		if (_tl->_aabb.intersect(triangle))
+		if (_tl->_aabb.intersect(*triangle))
 			_tl->add(triangle);
 
-		if (_tr->_aabb.intersect(triangle))
+		if (_tr->_aabb.intersect(*triangle))
 			_tr->add(triangle);
 
-		if (_bl->_aabb.intersect(triangle))
+		if (_bl->_aabb.intersect(*triangle))
 			_bl->add(triangle);
 
-		if (_br->_aabb.intersect(triangle))
+		if (_br->_aabb.intersect(*triangle))
 			_br->add(triangle);
 	}
 	else
@@ -97,18 +112,20 @@ void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle triangle)
 			_bl = new TerrainQuadTreeNode(bl);
 			_br = new TerrainQuadTreeNode(br);
 
+			_objects.push_back(triangle);
+
 			for (auto& object : _objects)
 			{
-				if (_tl->_aabb.intersect(object))
+				if (_tl->_aabb.intersect(*object))
 					_tl->add(object);
 
-				if (_bl->_aabb.intersect(object))
+				if (_bl->_aabb.intersect(*object))
 					_bl->add(object);
 
-				if (_tr->_aabb.intersect(object))
+				if (_tr->_aabb.intersect(*object))
 					_tr->add(object);
 
-				if (_br->_aabb.intersect(object))
+				if (_br->_aabb.intersect(*object))
 					_br->add(object);
 			}
 
@@ -119,29 +136,30 @@ void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle triangle)
 	}
 }
 
-void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::vector<TerrainTriangle*>& intersects, Collider* collider)
+void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::unordered_set<TerrainTriangle*>& intersects, const AABB& aabb)
 {
 	if (_tl)
 	{
-		if (collider->aabb.intersect(_tl->_aabb))
-			_tl->gather_intersections(intersects, collider);
+		if (aabb.intersect(_tl->_aabb))
+			_tl->gather_intersections(intersects, aabb);
 
-		if (collider->aabb.intersect(_tr->_aabb))
-			_tr->gather_intersections(intersects, collider);
+		if (aabb.intersect(_tr->_aabb))
+			_tr->gather_intersections(intersects, aabb);
 
-		if (collider->aabb.intersect(_bl->_aabb))
-			_bl->gather_intersections(intersects, collider);
+		if (aabb.intersect(_bl->_aabb))
+			_bl->gather_intersections(intersects, aabb);
 
-		if (collider->aabb.intersect(_br->_aabb))
-			_br->gather_intersections(intersects, collider);
+		if (aabb.intersect(_br->_aabb))
+			_br->gather_intersections(intersects, aabb);
 	}
 	else
 	{
 		for (auto& object : _objects)
 		{
-			if (collider->aabb.intersect(object))
+			if (aabb.intersect(*object))
 			{
-				intersects.push_back(&object);
+				intersects.insert(object);
+				/*intersects.push_back(&object);*/
 			}
 		}
 	}
