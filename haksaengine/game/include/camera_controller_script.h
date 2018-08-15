@@ -9,4 +9,7 @@ public:
 
 	void update(float delta) override;
 	void on_event(Event e) override;
+
+private:
+	const float scroll_speed = 20.0f;
 };

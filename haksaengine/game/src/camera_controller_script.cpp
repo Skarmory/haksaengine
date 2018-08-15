@@ -24,15 +24,15 @@ void CameraControllerScript::update(float delta)
 
 		std::cout << xoff << ", " << yoff << std::endl;
 
-		glm::vec3 cam_left = -glm::normalize(glm::cross(transform->get_forward(), WORLD_UP)) * 0.1f;
-		glm::vec3 cam_forw = glm::normalize(glm::cross(cam_left, WORLD_UP)) * 0.1f;
+		glm::vec3 cam_left = -glm::normalize(glm::cross(transform->get_forward(), WORLD_UP));
+		glm::vec3 cam_forw = glm::normalize(glm::cross(cam_left, WORLD_UP));
 
 		transform->translate_by(cam_left * xoff + cam_forw * yoff);
 	}
 
 	if (input_man->get_mouse().scroll() != 0.0f)
 	{
-		glm::vec3 scroll = transform->get_forward() * input_man->get_mouse().scroll();
+		glm::vec3 scroll = transform->get_forward() * input_man->get_mouse().scroll() * scroll_speed;
 		transform->translate_by(scroll);
 	}
 }
