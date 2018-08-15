@@ -148,9 +148,19 @@ void Terrain::_update_quadtree(void)
 
 TerrainVertexData* Terrain::intersect(const Ray& ray)
 {
+	glm::vec3 world_pos;
+
+	// Clamp xsection to closest vertex if intersects
+	if (intersect(ray, world_pos))
+		return &get_vertex(world_pos);
+
+	return nullptr;
+}
+
+bool Terrain::intersect(const Ray& ray, glm::vec3& closest)
+{
 	TerrainVertexData *v1, *v2, *v3;
 
-	glm::vec3 closest;
 	glm::vec3 xsect;
 	float closest_length = std::numeric_limits<float>::max();
 

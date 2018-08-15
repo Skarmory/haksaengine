@@ -48,6 +48,9 @@ public:
 	// Get the vertex that we intersect
 	HAKSAENGINE_API TerrainVertexData* intersect(const Ray& ray);
 
+	// Get world position of intersection, if true
+	HAKSAENGINE_API bool intersect(const Ray& ray, glm::vec3& xsect);
+
 	// Check for entity intersection with the terrain and return which traingles it intersects
 	HAKSAENGINE_API std::set<TerrainTriangle*> intersect(Entity* entity);
 
@@ -63,6 +66,8 @@ private:
 
 	void _update_mesh(void);
 	void _update_quadtree(void);
+
+private:
 
 	unsigned int _tile_size;
 	unsigned int _width;
