@@ -14,6 +14,7 @@
 #include "ecs/camera.h"
 #include "ecs/animator.h"
 #include "ecs/collider.h"
+#include "ecs/movement.h"
 #include "ecs/system_ordering.h"
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
@@ -93,6 +94,7 @@ void Engine::initialise(void)
 	compman->register_component<Camera>("Camera");
 	compman->register_component<Animator>("Animator");
 	compman->register_component<Collider>("Collider");
+	compman->register_component<Movement>("Movement");
 
 	_state = EngineState::Ready;
 }
