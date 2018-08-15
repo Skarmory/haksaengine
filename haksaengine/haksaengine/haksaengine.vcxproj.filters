@@ -266,6 +266,9 @@
     <ClInclude Include="service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\collision_response.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
     <ClInclude Include="ecs\movement.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
@@ -411,6 +414,9 @@
     </ClCompile>
     <ClCompile Include="scene\shapes.cpp">
       <Filter>Source Files\scene</Filter>
+    </ClCompile>
+    <ClCompile Include="ecs\collision_response.cpp">
+      <Filter>Source Files\ecs</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
