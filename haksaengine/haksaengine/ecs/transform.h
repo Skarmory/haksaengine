@@ -101,6 +101,16 @@ struct Transform : public Component<Transform>
 		return transform;
 	}
 
+	// Get the transform matrix with only scale and translation applied
+	glm::mat4 get_transform_scale_translate(void) const
+	{
+		glm::mat4 transform(1.0f);
+		transform = glm::scale(transform, _scale);
+		transform = glm::translate(transform, _position);
+
+		return transform;
+	}
+
 	// Get local forward
 	glm::vec3 get_forward(void) const
 	{
