@@ -41,9 +41,9 @@ TerrainQuadTree::TerrainQuadTreeNode::~TerrainQuadTreeNode(void)
 	}
 }
 
-std::unordered_set<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
+std::set<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
 {
-	std::unordered_set<TerrainTriangle*> ret;
+	std::set<TerrainTriangle*> ret;
 
 	Transform* transform = entity->get_component<Transform>();
 	Collider* collider = entity->get_component<Collider>();
@@ -136,7 +136,7 @@ void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle* triangle)
 	}
 }
 
-void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::unordered_set<TerrainTriangle*>& intersects, const AABB& aabb)
+void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::set<TerrainTriangle*>& intersects, const AABB& aabb)
 {
 	if (_tl)
 	{

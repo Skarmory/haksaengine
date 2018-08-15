@@ -180,13 +180,13 @@ TerrainVertexData* Terrain::intersect(const Ray& ray)
 
 	// No intersection at all
 	if (closest_length == std::numeric_limits<float>::max())
-		return nullptr;
+		return false;
 
 	// Clamp xsection to closest vertex
-	return &get_vertex(xsect);
+	return true;
 }
 
-std::unordered_set<TerrainTriangle*> Terrain::intersect(Entity* entity)
+std::set<TerrainTriangle*> Terrain::intersect(Entity* entity)
 {
 	return _quadtree->get_intersections(entity);
 }

@@ -1,7 +1,7 @@
 #pragma once
 
 #include <vector>
-#include <array>
+#include <set>
 
 #include <glm/glm.hpp>
 
@@ -30,7 +30,7 @@ public:
 	void add(TerrainTriangle* triangle);
 
 
-	std::unordered_set<TerrainTriangle*> get_intersections(Entity* entity);
+	std::set<TerrainTriangle*> get_intersections(Entity* entity);
 
 private:
 	
@@ -43,7 +43,7 @@ private:
 
 		void add(TerrainTriangle* triangle);
 
-		void gather_intersections(std::unordered_set<TerrainTriangle*>& intersects, const AABB& aabb);
+		void gather_intersections(std::set<TerrainTriangle*>& intersects, const AABB& aabb);
 
 	private:
 		static const int _objects_per_node = 30;
