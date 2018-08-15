@@ -18,6 +18,7 @@
 #include "ecs/system_ordering.h"
 #include "ecs/system_manager.h"
 #include "ecs/camera_controller.h"
+#include "ecs/collision_response.h"
 #include "input/glfw_input_manager.h"
 
 #include "ecs/animation_lod_system.h"
@@ -81,12 +82,13 @@ void Engine::initialise(void)
 	services.set_game_time(game_time);
 
 	// Create engine defined systems
-	sysman->create<AnimationLodSystem>(SystemOrdering(60, UpdatePriority::PRERENDER, 99));
-	sysman->create<SkinnedRenderer>(SystemOrdering(0, UpdatePriority::RENDER, 1));
-	sysman->create<BasicRenderSystem>(SystemOrdering(0, UpdatePriority::RENDER, 0));
-	sysman->create<AnimationSystem>(SystemOrdering(0, UpdatePriority::PRERENDER, 100));
+	sysman->create<CollisionResponse>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 	sysman->create<CameraController>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
-
+	sysman->create<AnimationLodSystem>(SystemOrdering(60, UpdatePriority::PRERENDER, 99));
+	sysman->create<AnimationSystem>(SystemOrdering(0, UpdatePriority::PRERENDER, 100));
+	sysman->create<BasicRenderSystem>(SystemOrdering(0, UpdatePriority::RENDER, 0));
+	sysman->create<SkinnedRenderer>(SystemOrdering(0, UpdatePriority::RENDER, 1));
+	
 	// Register engine defined components
 	compman->register_component<Transform>("Transform");
 	compman->register_component<Renderable>("Renderable");
@@ -119,6 +121,8 @@ void Engine::one_frame(void)
 	delta = time->delta();
 	accumulator += delta;
 
+	std::cout << time->delta() << std::endl;
+
 	while (accumulator >= FIXED_TIME_STEP)
 	{
 		if (inputman)
@@ -127,18 +131,16 @@ void Engine::one_frame(void)
 			inputman->update();
 		}
 
+		sysman->update_systems(FIXED_TIME_STEP, UpdatePriority::POSTINPUT);
+
+		sceneman->cull_entities();
+
+		sysman->update_systems(FIXED_TIME_STEP, UpdatePriority::GAMEPLAY);
+
 		accumulator -= FIXED_TIME_STEP;
 	}
-
-	std::cout << time->delta() << std::endl;
-
-	sysman->update_systems(delta, UpdatePriority::POSTINPUT);
-
-	sceneman->cull_entities();
-
-	sysman->update_systems(delta, UpdatePriority::GAMEPLAY);
-
 	sysman->update_systems(delta, UpdatePriority::PRERENDER);
+
 
 	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -148,8 +150,6 @@ void Engine::one_frame(void)
 	sysman->update_systems(delta, UpdatePriority::RENDER);
 
 	renderer->render();
-
-	sysman->update_systems(delta, UpdatePriority::POSTRENDER);
 
 	if (_mode == EngineMode::Game)
 	{
