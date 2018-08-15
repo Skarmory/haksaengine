@@ -266,6 +266,9 @@
     <ClInclude Include="service.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="ecs\movement.h">
+      <Filter>Header Files\ecs</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
