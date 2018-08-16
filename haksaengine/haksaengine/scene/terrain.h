@@ -64,6 +64,8 @@ private:
 
 	glm::vec3 _index_to_world(unsigned int x, unsigned int y) const;
 
+	void _update_normals(TerrainVertexData* data);
+	void _update_normal(TerrainVertexData& data);
 	void _update_mesh(void);
 	void _update_quadtree(void);
 

@@ -12,6 +12,8 @@ void Terrain::update(TerrainVertexData* data)
 
 	_vertices[flattened_index] = *data;
 
+	_update_normals(data);
+
 	_update_mesh();
 }
 
@@ -79,6 +81,54 @@ glm::vec3 Terrain::_index_to_world(unsigned int x, unsigned int y) const
 	val.z = y - half_height;
 	
 	return val * (float)_tile_size;
+}
+
+void Terrain::_update_normals(TerrainVertexData* data)
+{
+	if (data->y >= 1)
+		_update_normal(get_vertex(data->x, data->y - 1));
+
+	if (data->x >= 1)
+		_update_normal(get_vertex(data->x - 1, data->y));
+
+	if (data->x < _width)
+		_update_normal(get_vertex(data->x + 1, data->y));
+
+	if (data->y < _height)
+		_update_normal(get_vertex(data->x, data->y + 1));
+}
+
+void Terrain::_update_normal(TerrainVertexData& data)
+{
+	float x_diff, z_diff;
+
+	if (data.x >= 1 && data.x < _width)
+	{
+		x_diff = _vertices[_flatten_coord(data.x - 1, data.y)].position.y - _vertices[_flatten_coord(data.x + 1, data.y)].position.y;
+	}
+	else if (data.x == 0)
+	{
+		x_diff = _vertices[_flatten_coord(data.x, data.y)].position.y - _vertices[_flatten_coord(data.x + 1, data.y)].position.y;
+	}
+	else
+	{
+		x_diff = _vertices[_flatten_coord(data.x - 1, data.y)].position.y - _vertices[_flatten_coord(data.x, data.y)].position.y;
+	}
+
+	if (data.y >= 1 && data.y < _height)
+	{
+		z_diff = _vertices[_flatten_coord(data.x, data.y - 1)].position.y - _vertices[_flatten_coord(data.x, data.y + 1)].position.y;
+	}
+	else if (data.y == 0)
+	{
+		z_diff = _vertices[_flatten_coord(data.x, data.y)].position.y - _vertices[_flatten_coord(data.x, data.y + 1)].position.y;
+	}
+	else
+	{
+		z_diff = _vertices[_flatten_coord(data.x, data.y - 1)].position.y - _vertices[_flatten_coord(data.x, data.y)].position.y;
+	}
+
+	data.normal = glm::normalize(glm::vec3(x_diff / (float)_tile_size, 2.0f, z_diff / (float)_tile_size));
 }
 
 void Terrain::_update_mesh(void)

@@ -19,6 +19,12 @@ layout (binding = 0) uniform CameraBlock
 	vec3 position;
 } camera;
 
+layout (binding = 2) uniform SceneBlock
+{
+	vec4 sun_direction;
+	vec3 sun_colour;
+} scene;
+
 layout (binding = 4) uniform TerrainDataBlock
 {
 	sampler2DArray tileset;
@@ -85,7 +91,9 @@ void main()
 	col3.rgb *= col3.a;
 	col4.rgb *= col4.a;
 	
-	colour = vec4(col1.rgb + col2.rgb + col3.rgb + col4.rgb, 1.0);
+	col1 = vec4(col1.rgb + col2.rgb + col3.rgb + col4.rgb, 1.0);
+	
+	colour = vec4(max(dot(normal, -scene.sun_direction.xyz), 0.1) * col1.xyz, 1.0);
 }
 
 #endif
