@@ -1,5 +1,7 @@
 #include "palettewindow.h"
 
+#include "editor_state.h"
+
 PaletteWindow::PaletteWindow(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -13,6 +15,8 @@ PaletteWindow::PaletteWindow(QWidget *parent)
 	current_widget->show();
 
 	connect(ui.palette_combo_box, SIGNAL(currentIndexChanged(int)), this, SLOT(_palette_swapped(int)));
+
+	EditorState::swap_state(new TexturePaintState);
 }
 
 PaletteWindow::~PaletteWindow()
@@ -28,9 +32,11 @@ void PaletteWindow::_palette_swapped(int palette)
 
 	switch (palette_type)
 	{
+	default:
 	case PaletteType::Terrain:
 	{
 		current_widget = terrain_widget;
+		EditorState::swap_state(new TexturePaintState);
 		break;
 	}
 
@@ -38,10 +44,6 @@ void PaletteWindow::_palette_swapped(int palette)
 	{
 		break;
 	}
-
-	default:
-		current_widget = terrain_widget;
-		break;
 	}
 
 	current_widget->show();

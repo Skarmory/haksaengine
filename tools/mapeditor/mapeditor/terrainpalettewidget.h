@@ -18,9 +18,20 @@ public:
 	void update_textures(void);
 	void on_event(Event e) override;
 
+private slots:
+	void swap_to_texture_paint(void);
+	void swap_to_height_deform(void);
+
 private:
 	Ui::TerrainPaletteWidget ui;
 
-	QButtonGroup* _textures_button_group;
+	QButtonGroup _textures_button_group;
+	QButtonGroup _height_deform_button_group;
 	std::vector<QPushButton*> _texture_buttons;
+
+	enum HeightDeform
+	{
+		Lower = 0,
+		Upper = 1
+	};
 };

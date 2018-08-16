@@ -28,3 +28,9 @@ class TexturePaintState : public EditorState
 public:
 	void execute(void) override;
 };
+
+class HeightDeformState : public EditorState
+{
+public:
+	void execute(void) override;
+};
