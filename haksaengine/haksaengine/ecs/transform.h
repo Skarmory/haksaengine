@@ -105,8 +105,7 @@ struct Transform : public Component<Transform>
 	glm::mat4 get_transform_scale_translate(void) const
 	{
 		glm::mat4 transform(1.0f);
-		transform = glm::scale(transform, _scale);
-		transform = glm::translate(transform, _position);
+		transform = glm::translate(glm::mat4(1.0f), _position) *  glm::scale(glm::mat4(1.0f), _scale);
 
 		return transform;
 	}
