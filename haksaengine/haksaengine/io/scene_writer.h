@@ -19,7 +19,7 @@ public:
 	void on_event(Event e) override;
 
 	// Write to given scene filename
-	HAKSAENGINE_API void write(const std::string& filename);
+	HAKSAENGINE_API void write(const std::string& filename, bool should_complete_path = true);
 
 private:
 

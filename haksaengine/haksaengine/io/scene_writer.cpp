@@ -33,11 +33,20 @@ void SceneWriter::on_event(Event e)
 	}
 }
 
-void SceneWriter::write(const std::string& filename)
+void SceneWriter::write(const std::string& filename, bool should_complete_path)
 {
-	std::string full_path = Services::get().get_asset_manager()->get_asset_directory_path();
+	std::string full_path;
 
-	full_path += "scenes/" + (!filename.empty() ? filename : _default_scene_name) + ".scene";
+	if (should_complete_path)
+	{
+		full_path = Services::get().get_asset_manager()->get_asset_directory_path();
+
+		full_path += "scenes/" + (!filename.empty() ? filename : _default_scene_name) + ".scene";
+	}
+	else
+	{
+		full_path = filename;
+	}
 
 	std::ofstream os(full_path);
 
