@@ -516,6 +516,14 @@ void MDLLoader::parse_animation(std::ifstream& stream, Animation* anim)
 
 			anim->duration = std::stof(value);
 		}
+		else if (value == "Frames")
+		{
+			idx1 = line.find_first_not_of(' ', idx2);
+
+			value = line.substr(idx1, line.size() - idx1);
+
+			anim->frame_count= std::stoul(value);
+		}
 		else if (value == "BonePose")
 		{
 			parse_bone_pose(stream, anim);
@@ -595,9 +603,6 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 			int count = std::stoi(value);
 			pose.positions.reserve(count);
 
-			if (anim->frame_count < count)
-				anim->frame_count = count;
-
 			// Loop through adding all positions to the pose
 			while (std::getline(stream, line))
 			{
@@ -642,9 +647,6 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 
 			int count = std::stoi(value);
 			pose.rotations.reserve(count);
-
-			if (anim->frame_count < count)
-				anim->frame_count = count;
 
 			// Loop through adding all rotations to the pose
 			while (std::getline(stream, line))
@@ -696,9 +698,6 @@ void MDLLoader::parse_bone_pose(std::ifstream& stream, Animation* anim)
 
 			int count = std::stoi(value);
 			pose.scales.reserve(count);
-
-			if (anim->frame_count < count)
-				anim->frame_count = count;
 
 			// Loop through adding all scales to the pose
 			while (std::getline(stream, line))

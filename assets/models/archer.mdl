@@ -16087,6 +16087,7 @@ Bones 37 {
 Animations 4 {
 	Animation Run {
 		Duration 0.800000
+		Frames 49
 		GeosetAnim {
 			GeosetId 3
 			Alpha 1 {
@@ -19184,6 +19185,7 @@ Animations 4 {
 	}
 	Animation Attack {
 		Duration 1.050000
+		Frames 64
 		GeosetAnim {
 			GeosetId 3
 			Alpha 3 {
@@ -22175,6 +22177,7 @@ Animations 4 {
 	}
 	Animation Death {
 		Duration 0.816667
+		Frames 50
 		GeosetAnim {
 			GeosetId 3
 			Alpha 1 {
@@ -24952,6 +24955,7 @@ Animations 4 {
 	}
 	Animation Idle {
 		Duration 1.600000
+		Frames 97
 		GeosetAnim {
 			GeosetId 3
 			Alpha 1 {

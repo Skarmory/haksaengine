@@ -29,7 +29,8 @@ void MDLFile::create_animation_texture(void)
 	// Store this into a data vector which will be used to create a GPU texture
 	for (auto& animation : _animations)
 	{
-		for (float time = 0.0f; time <= animation.duration; time += (1.0f / 60.0f))
+		int frames = 0;
+		for (float time = 0.0f; frames < animation.frame_count; time += (1.0f / 60.0f), frames++)
 		{
 			final_transforms.clear();
 			final_transforms.resize(_bones.size());
