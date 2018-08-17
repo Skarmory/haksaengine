@@ -19,11 +19,15 @@ void CollisionResponse::update(float delta)
 
 		Transform* transform = entity->get_component<Transform>();
 		Collider* collider = entity->get_component<Collider>();
-		Movement* movement = entity->get_component<Movement>();
 
-		movement->velocity = (_gravity * delta);
+		if (entity->has_component<Movement>())
+		{
+			Movement* movement = entity->get_component<Movement>();
 
-		transform->translate_by(movement->velocity);
+			movement->velocity = (_gravity * delta);
+
+			transform->translate_by(movement->velocity);
+		}
 
 		Ray to_ground;
 		to_ground.direction = glm::vec3(0.0f, -1.0f, 0.0f);
