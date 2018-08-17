@@ -124,6 +124,7 @@
     <ClCompile Include="palettewindow.cpp" />
     <ClCompile Include="qt_input_handler.cpp" />
     <ClCompile Include="terrainpalettewidget.cpp" />
+    <ClCompile Include="unitpalettewidget.cpp" />
     <ClCompile Include="unit_placer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +134,7 @@
     <QtUic Include="mapeditor.ui" />
     <QtUic Include="palettewindow.ui" />
     <QtUic Include="terrainpalettewidget.ui" />
+    <QtUic Include="unitpalettewidget.ui" />
   </ItemGroup>
   <ItemGroup>
     <QtRcc Include="mapeditor.qrc" />

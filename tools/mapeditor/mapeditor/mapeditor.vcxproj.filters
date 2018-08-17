@@ -69,6 +69,9 @@
     <ClCompile Include="input_signal_processor.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="unitpalettewidget.cpp">
+      <Filter>Source Files\Widgets</Filter>
+    </ClCompile>
     <ClCompile Include="unit_placer.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
@@ -86,6 +89,9 @@
     <QtMoc Include="customopenglwidget.h">
       <Filter>Header Files\Widgets</Filter>
     </QtMoc>
+    <QtMoc Include="unitpalettewidget.h">
+      <Filter>Header Files\Widgets</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <QtUic Include="mapeditor.ui">
@@ -95,6 +101,9 @@
       <Filter>Form Files</Filter>
     </QtUic>
     <QtUic Include="terrainpalettewidget.ui">
+      <Filter>Form Files</Filter>
+    </QtUic>
+    <QtUic Include="unitpalettewidget.ui">
       <Filter>Form Files</Filter>
     </QtUic>
   </ItemGroup>
