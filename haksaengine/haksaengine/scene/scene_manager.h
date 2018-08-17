@@ -9,6 +9,8 @@
 #include "scene/terrain.h"
 #include "scene/ray.h"
 
+#include "io/scene_loader.h"
+
 /* This class will deal with the managing scenes and certain aspects of them, such as spatial partitioning and camera management */
 class SceneManager : public Service, public EventHandler
 {
@@ -52,10 +54,17 @@ public:
 	// Draw terrain
 	void draw_terrain(void);
 
+	// Load a scene
+	HAKSAENGINE_API void load_scene(const std::string& filename);
+
+	void load_terrain(std::ifstream& fs);
+
 private:
 	Entity* main_camera;
 	Terrain* _terrain;
 
 	std::vector<unsigned int> _transformable_entities;
 	std::vector<unsigned int> _culled_entities;
+
+	SceneLoader loader;
 };

@@ -161,3 +161,13 @@ Ray SceneManager::screen_to_world_ray(float x, float y)
 
 	return ray;
 }
+
+void SceneManager::load_scene(const std::string& filename)
+{
+	loader.load(filename);
+}
+
+void SceneManager::load_terrain(std::ifstream& fs)
+{
+	_terrain = TerrainGenerator::generate(fs);
+}
