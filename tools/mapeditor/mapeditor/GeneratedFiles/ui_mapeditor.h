@@ -36,7 +36,7 @@ public:
     {
         if (mapeditorClass->objectName().isEmpty())
             mapeditorClass->setObjectName(QStringLiteral("mapeditorClass"));
-        mapeditorClass->resize(967, 657);
+        mapeditorClass->resize(821, 657);
         centralWidget = new QWidget(mapeditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         openGLWidget = new CustomOpenGLWidget(centralWidget);
@@ -45,7 +45,7 @@ public:
         mapeditorClass->setCentralWidget(centralWidget);
         menuBar = new QMenuBar(mapeditorClass);
         menuBar->setObjectName(QStringLiteral("menuBar"));
-        menuBar->setGeometry(QRect(0, 0, 967, 21));
+        menuBar->setGeometry(QRect(0, 0, 821, 21));
         mapeditorClass->setMenuBar(menuBar);
         mainToolBar = new QToolBar(mapeditorClass);
         mainToolBar->setObjectName(QStringLiteral("mainToolBar"));
