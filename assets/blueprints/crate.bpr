@@ -16,3 +16,12 @@ Components:
 		external model crate.mdl;
 		external shader basic.shader;
 	]
+	Collider:
+	[
+		float min_x -100;
+		float min_y -100;
+		float min_z -100;
+		float max_x 100;
+		float max_y 100;
+		float max_z 100;
+	]

@@ -18,15 +18,15 @@ Components:
 	]
 	Animator:
 	[
-		string default_animation Run;
+		string default_animation Idle;
 	]
 	Collider:
 	[
 		float min_x -5;
-		float min_y -30;
+		float min_y -110;
 		float min_z -5;
 		float max_x 5;
-		float max_y 30;
+		float max_y 110;
 		float max_z 5;
 	]
 	Movement:
