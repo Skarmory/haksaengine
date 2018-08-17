@@ -57,22 +57,32 @@ const vec3 PLAYER_COLOURS[3] = vec3[3](
 	vec3(0.0, 0.0, 1.0)
 );
 
-vec3 add_player_colour(vec4 src, uint player_id)
+vec4 add_player_colour(vec4 src, uint player_id)
 {
 	vec4 dst = vec4(PLAYER_COLOURS[player_id].xyz, 1.0);
 	
-	return (src.a * src.rgb) + ((1.0 - src.a) * dst.rgb);
+	return vec4((src.a * src.rgb) + ((1.0 - src.a) * dst.rgb), 1.0);
 }
 
 void main()
 {	
-	vec3 diffuse_albedo = add_player_colour(texture(per_draw.diffuse, uv), per_draw.player_colour);
-	
 	vec3 to_cam = normalize(camera.position - position);
+
+	vec4 diffuse_albedo;
+	vec4 diffuse;
 	
-	vec3 diffuse = max(dot(normal, -scene.sun_direction.xyz), 0.0) * diffuse_albedo;
-	
-	colour = vec4(diffuse, per_draw.alpha);
+	if(per_draw.player_colour <= 3)
+	{
+		diffuse_albedo = add_player_colour(texture(per_draw.diffuse, uv), per_draw.player_colour);
+		diffuse = max(dot(normal, -scene.sun_direction.xyz), 0.0) * diffuse_albedo;
+		colour = vec4(diffuse.xyz, per_draw.alpha);
+	}
+	else
+	{
+		diffuse_albedo = texture(per_draw.diffuse, uv);
+		diffuse = vec4(max(dot(normal, -scene.sun_direction.xyz), 0.0) * diffuse_albedo.xyz, diffuse_albedo.a);
+		colour = diffuse;
+	}
 }
 
 #endif
