@@ -100,7 +100,7 @@ void mapeditor::save_scene(void)
 	QString filter = "Scene (*.scene)";
 	auto filename = save_dialog.getSaveFileName(this, tr("Save scene"), "", filter, &filter);
 
-	_writer->write(filename.toStdString() + ".scene", false);
+	_writer->write(filename.toStdString(), false);
 }
 
 void mapeditor::_load_assets(void)
@@ -108,10 +108,13 @@ void mapeditor::_load_assets(void)
 	AssetManager* assetman = Services::get().get_asset_manager();
 
 	std::string unit_blueprint_dir = std::string(assetman->get_asset_directory_path()) + "blueprints/units";
+	std::string object_blueprint_dir = std::string(assetman->get_asset_directory_path()) + "blueprints/objects";
 
 	std::string unit_dir = "units/";
+	std::string object_dir = "objects/";
 
 	std::vector<const Blueprint*> unit_ids;
+	std::vector<const Blueprint*> object_ids;
 
 	for (auto& path : std::experimental::filesystem::directory_iterator(unit_blueprint_dir))
 	{
@@ -122,6 +125,17 @@ void mapeditor::_load_assets(void)
 	}
 
 	static_cast<UnitPaletteWidget*>(palette.get_palette(PaletteType::Unit))->set_units(unit_ids);
+
+	for (auto& path : std::experimental::filesystem::directory_iterator(object_blueprint_dir))
+	{
+		std::string filename = path.path().filename().string();
+		const Blueprint* blueprint = &assetman->load_and_get_asset<Blueprint>((object_dir + filename).c_str());
+
+		object_ids.push_back(blueprint);
+	}
+
+	static_cast<UnitPaletteWidget*>(palette.get_palette(PaletteType::Unit))->set_objects(object_ids);
+
 }
 
 void mapeditor::_setup_default_scene(void)
