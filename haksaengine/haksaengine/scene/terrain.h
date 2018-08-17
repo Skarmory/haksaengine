@@ -1,6 +1,7 @@
 #pragma once
 
 #include <set>
+#include <fstream>
 
 #include <glm/glm.hpp>
 
@@ -56,6 +57,9 @@ public:
 
 	// Gets const reference to the tileset the terrain uses
 	HAKSAENGINE_API const Tileset& get_tileset(void);
+
+	// Save terrain data to given scene file
+	void save(std::ofstream& os);
 
 private:
 

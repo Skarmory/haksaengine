@@ -255,3 +255,45 @@ const Tileset& Terrain::get_tileset(void)
 {
 	return *_tileset;
 }
+
+void Terrain::save(std::ofstream& os)
+{
+	os << "Terrain:" << std::endl;
+	os << "[" << std::endl;
+
+	os << "\tInfo:" << std::endl;
+	os << "\t[" << std::endl;
+	os << "\t\tWidth " << _width << std::endl;
+	os << "\t\tHeight " << _height << std::endl;
+	os << "\t\tTileSize " << _tile_size << std::endl;
+	os << "\t\tTileset " << _tileset->get_name() << std::endl;
+	os << "\t]" << std::endl;
+
+	os << "\tVertices:" << std::endl;
+	os << "\t[" << std::endl;
+	for (auto vertex : _vertices)
+	{
+		os << "\t\t" << vertex.x << " " << vertex.y <<
+		      " " << vertex.position.x << "," << vertex.position.y << "," << vertex.position.z <<
+			  " " << vertex.normal.x << "," << vertex.normal.y << "," << vertex.normal.z <<
+			  " " << vertex.texture << std::endl;
+	}
+	os << "\t]" << std::endl;
+
+	os << "\tIndices:" << std::endl;
+	os << "\t[" << std::endl;
+	os << "\t\t";
+	int i = 1;
+	for (auto index : _indices)
+	{
+		os << index << " ";
+		
+		if (i % 32 == 0)
+			os << std::endl << "\t\t";
+
+		i++;
+	}
+	os << "\t]" << std::endl;
+
+	os << "]" << std::endl;
+}
