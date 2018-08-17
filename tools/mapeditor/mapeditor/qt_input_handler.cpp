@@ -6,6 +6,40 @@ QtInputHandler::QtInputHandler(void) : _scroll(0.0f)
 
 void QtInputHandler::update(void)
 {
+	while (!events.empty())
+	{
+		QtInputEvent* e = &events.front();
+
+		switch (e->type)
+		{
+		case QtInputEvent::MOUSE_MOVE:
+		{
+			set_mouse_position(e->data[0].as_int, e->data[1].as_int);
+			break;
+		}
+
+		case QtInputEvent::MOUSE_PRESS:
+		{
+			set_mouse_button_state(static_cast<MouseButtonType>(e->data[0].as_int), MouseButtonState::Pressed);
+			break;
+		}
+
+		case QtInputEvent::MOUSE_RELEASE:
+		{
+			set_mouse_button_state(static_cast<MouseButtonType>(e->data[0].as_int), MouseButtonState::Released);
+			break;
+		}
+
+		case QtInputEvent::MOUSE_SCROLL:
+		{
+			_scroll = e->data[0].as_int;
+			break;
+		}
+		}
+
+		events.pop();
+	}
+
 	if (_scroll != 0.0f)
 	{
 		set_mouse_scroll(_scroll);
@@ -29,30 +63,75 @@ void QtInputHandler::process_key(void)
 
 void QtInputHandler::process_mouse_move(QMouseEvent* event)
 {
-	set_mouse_position(event->x(), event->y());
+	QtInputEvent e;
+	e.type = QtInputEvent::MOUSE_MOVE;
+	e.data.reserve(2);
+
+	Variant v;
+	v.type = Variant::INTEGER;
+	v.as_int = event->x();
+
+	e.data.push_back(v);
+
+	v.as_int = event->y();
+	e.data.push_back(v);
+
+	std::lock_guard<std::mutex> lg(mu);
+	events.push(e);
 }
 
 void QtInputHandler::process_mouse_pressed(QMouseEvent* event)
 {
 	MouseButtonType type = _qt_mouse_button_convert(event->button());
 
-	set_mouse_button_state(type, MouseButtonState::Pressed);
+	QtInputEvent e;
+	e.type = QtInputEvent::MOUSE_PRESS;
+	e.data.reserve(1);
+
+	Variant v;
+	v.type = Variant::INTEGER;
+	v.as_int = static_cast<int>(type);
+
+	e.data.push_back(v);
+
+	std::lock_guard<std::mutex> lg(mu);
+	events.push(e);
 }
 
 void QtInputHandler::process_mouse_released(QMouseEvent* event)
 {
 	MouseButtonType type = _qt_mouse_button_convert(event->button());
 
-	set_mouse_button_state(type, MouseButtonState::Released);
+	QtInputEvent e;
+	e.type = QtInputEvent::MOUSE_RELEASE;
+	e.data.reserve(1);
+
+	Variant v;
+	v.type = Variant::INTEGER;
+	v.as_int = static_cast<int>(type);
+
+	e.data.push_back(v);
+
+	std::lock_guard<std::mutex> lg(mu);
+	events.push(e);
 }
 
 void QtInputHandler::process_mouse_scroll(QWheelEvent* event)
 {
-	auto delta = event->pixelDelta();
 	auto adelta = event->angleDelta();
 
-	//set_mouse_scroll(adelta.y());
-	_scroll = adelta.y();
+	QtInputEvent e;
+	e.type = QtInputEvent::MOUSE_SCROLL;
+	e.data.reserve(1);
+
+	Variant v;
+	v.type = Variant::INTEGER;
+	v.as_int = static_cast<int>(adelta.y());
+
+	e.data.push_back(v);
+
+	std::lock_guard<std::mutex> lg(mu);
+	events.push(e);
 }
 
 MouseButtonType QtInputHandler::_qt_mouse_button_convert(Qt::MouseButton button)
