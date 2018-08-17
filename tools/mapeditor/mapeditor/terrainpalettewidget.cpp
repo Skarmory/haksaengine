@@ -88,7 +88,7 @@ void TerrainPaletteWidget::on_event(Event e)
 		{
 			int tid = _textures_button_group.checkedId();
 
-			if (tid > -1)
+			if (tid > -1 && vertex->texture != tid)
 			{
 				vertex->texture = _textures_button_group.checkedId();
 
