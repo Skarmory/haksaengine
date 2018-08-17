@@ -17,7 +17,28 @@ const glm::vec3 WROLD_FOWARD = glm::vec3(0.0f, 0.0f, 1.0f);
 struct Transform : public Component<Transform>
 {
 	Transform(void) : _position(glm::vec3()), _rotation(glm::vec3()), _scale(glm::vec3(1.0))
-	{}
+	{
+		_transient = true;
+	}
+
+	// Save this component's data in a structured text format
+	void save(std::ofstream& os) const override
+	{
+		os << "\t" << "Transform:" << std::endl;
+		os << "\t[" << std::endl;
+		os << "\t\t" << "float " << "px " << _position.x << ";" << std::endl;
+		os << "\t\t" << "float " << "py " << _position.y << ";" << std::endl;
+		os << "\t\t" << "float " << "pz " << _position.z << ";" << std::endl;
+
+		os << "\t\t" << "float " << "rx " << _rotation.x << ";" << std::endl;
+		os << "\t\t" << "float " << "ry " << _rotation.y << ";" << std::endl;
+		os << "\t\t" << "float " << "rz " << _rotation.z << ";" << std::endl;
+
+		os << "\t\t" << "float " << "sx " <<_scale.x << ";" << std::endl;
+		os << "\t\t" << "float " << "sy " <<_scale.y << ";" << std::endl;
+		os << "\t\t" << "float " << "sz " <<_scale.z << ";" << std::endl;
+		os << "\t]" << std::endl;
+	}
 
 	// Load in transform data from NamedVariantPack
 	void load(NamedVariantPack* data) override
