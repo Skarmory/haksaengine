@@ -24,6 +24,11 @@ public:
 		return id;
 	}
 
+	const char* get_name(void) const
+	{
+		return name.c_str();
+	}
+
 private:
 	unsigned int id;
 	std::string name;
