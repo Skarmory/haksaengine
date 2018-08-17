@@ -19,6 +19,14 @@ mapeditor::mapeditor(QWidget *parent) : QMainWindow(parent)
 
 	palette.show();
 
+	save_action = new  QAction("Save scene", this);
+	auto menu = menuBar()->addMenu("File");
+	menu->addAction(save_action);
+
+	connect(save_action, SIGNAL(triggered()), this, SLOT(save_scene()));
+
+	save_dialog.setDefaultSuffix("scene");
+
 	_main_loop_timer = new QTimer(this);
 	connect(_main_loop_timer, SIGNAL(timeout()), this, SLOT(main_loop()));
 
@@ -32,10 +40,20 @@ mapeditor::mapeditor(QWidget *parent) : QMainWindow(parent)
 
 mapeditor::~mapeditor(void)
 {
+	delete _writer;
 	delete _main_loop_timer;
 	delete _engine;
 
 	EditorState::swap_state(nullptr);
+
+	delete save_action;
+}
+
+void mapeditor::closeEvent(QCloseEvent* event)
+{
+	palette.close();
+
+	QMainWindow::closeEvent(event);
 }
 
 void mapeditor::initialise(void)
@@ -49,6 +67,8 @@ void mapeditor::initialise(void)
 	ui.openGLWidget->set_engine(_engine);
 
 	Services::get<AssetManager>()->set_asset_directory_path("../../../assets/");
+
+	_writer = new SceneWriter;
 
 	_load_assets();
 
@@ -73,6 +93,14 @@ void mapeditor::main_loop(void)
 
 		working = false;
 	}
+}
+
+void mapeditor::save_scene(void)
+{
+	QString filter = "Scene (*.scene)";
+	auto filename = save_dialog.getSaveFileName(this, tr("Save scene"), "", filter, &filter);
+
+	_writer->write(filename.toStdString() + ".scene", false);
 }
 
 void mapeditor::_load_assets(void)

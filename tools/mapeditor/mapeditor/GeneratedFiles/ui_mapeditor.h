@@ -26,6 +26,7 @@ QT_BEGIN_NAMESPACE
 class Ui_mapeditorClass
 {
 public:
+    QAction *save_scene_action;
     QWidget *centralWidget;
     CustomOpenGLWidget *openGLWidget;
     QMenuBar *menuBar;
@@ -36,7 +37,9 @@ public:
     {
         if (mapeditorClass->objectName().isEmpty())
             mapeditorClass->setObjectName(QStringLiteral("mapeditorClass"));
-        mapeditorClass->resize(821, 657);
+        mapeditorClass->resize(821, 670);
+        save_scene_action = new QAction(mapeditorClass);
+        save_scene_action->setObjectName(QStringLiteral("save_scene_action"));
         centralWidget = new QWidget(mapeditorClass);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         openGLWidget = new CustomOpenGLWidget(centralWidget);
@@ -62,6 +65,7 @@ public:
     void retranslateUi(QMainWindow *mapeditorClass)
     {
         mapeditorClass->setWindowTitle(QApplication::translate("mapeditorClass", "mapeditor", nullptr));
+        save_scene_action->setText(QApplication::translate("mapeditorClass", "Save scene", nullptr));
     } // retranslateUi
 
 };
