@@ -3,6 +3,7 @@
 #include <unordered_map>
 #include <typeindex>
 #include <algorithm>
+#include <fstream>
 
 #include "globals.h"
 #include "component.h"
@@ -13,7 +14,7 @@ class Entity
 {
 public:
 	HAKSAENGINE_API Entity(void);
-	HAKSAENGINE_API Entity(unsigned int id);
+	HAKSAENGINE_API Entity(unsigned int id, unsigned int blueprint);
 	HAKSAENGINE_API ~Entity(void);
 
 	// Adds a component to the entity
@@ -52,7 +53,25 @@ public:
 		return _id;
 	}
 
+	// Get blueprint this entity was made from
+	unsigned int get_blueprint_id(void) const
+	{
+		return _blueprint;
+	}
+
+	// Iterate through this entity's components and save the transient components
+	void save_transient_components(std::ofstream& os) const
+	{
+		for (auto kpv : _components)
+		{
+			if (kpv.second->is_transient())
+				kpv.second->save(os);
+		}
+	}
+
 private:
 	unsigned int _id;
+	unsigned int _blueprint;
+	bool _from_blueprint;
 	std::unordered_map<std::type_index, BaseComponent*> _components;
 };

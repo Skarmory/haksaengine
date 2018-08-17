@@ -16,7 +16,7 @@ EntityManager::~EntityManager(void)
 
 unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const components)
 {
-	_entities[next_id] = Entity(next_id);
+	_entities[next_id] = Entity(next_id, 0);
 
 	if (components)
 	{
@@ -41,7 +41,7 @@ unsigned int EntityManager::create_entity(std::vector<BaseComponent*>* const com
 
 unsigned int EntityManager::create_entity(const Blueprint* blueprint)
 {
-	_entities[next_id] = Entity(next_id);
+	_entities[next_id] = Entity(next_id, blueprint->get_id());
 
 	for (auto component : blueprint->_components)
 	{
