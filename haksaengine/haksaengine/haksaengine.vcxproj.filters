@@ -272,6 +272,9 @@
     <ClInclude Include="ecs\movement.h">
       <Filter>Header Files\ecs</Filter>
     </ClInclude>
+    <ClInclude Include="io\scene_loader.h">
+      <Filter>Header Files\io</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">
@@ -417,6 +420,9 @@
     </ClCompile>
     <ClCompile Include="ecs\collision_response.cpp">
       <Filter>Source Files\ecs</Filter>
+    </ClCompile>
+    <ClCompile Include="io\scene_loader.cpp">
+      <Filter>Source Files\io</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
