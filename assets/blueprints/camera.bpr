@@ -7,6 +7,9 @@ Components:
 		float rx 45.0f;
 		float ry -135.0f;
 		float rz 0.0f;
+		float sx 1.0f;
+		float sy 1.0f;
+		float sz 1.0f;
 	]
 	Camera:
 	[
