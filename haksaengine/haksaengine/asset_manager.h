@@ -48,7 +48,7 @@ public:
 	HAKSAENGINE_API void set_asset_directory_path(const char* path);
 
 	// Gets asset directory
-	const char* get_asset_directory_path(void) const;
+	HAKSAENGINE_API const char* get_asset_directory_path(void) const;
 
 	// Get an asset by its id
 	HAKSAENGINE_API Asset& get_asset(unsigned int asset_id) const;
