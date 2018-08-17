@@ -40,3 +40,9 @@ class UnitPlaceState : public EditorState
 public:
 	void execute(void) override;
 };
+
+class ObjectPlaceState : public EditorState
+{
+public:
+	void execute(void) override;
+};
