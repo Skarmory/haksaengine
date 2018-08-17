@@ -14,6 +14,7 @@ struct Variant
 		FLOAT,
 		BOOL,
 		POINTER,
+		CONST_POINTER,
 		COUNT
 	};
 
@@ -26,6 +27,7 @@ struct Variant
 		float        as_float;
 		bool         as_bool;
 		void*	     as_ptr;
+		const void*  as_const_ptr;
 	};
 };
 

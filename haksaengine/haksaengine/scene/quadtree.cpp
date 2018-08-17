@@ -48,9 +48,7 @@ std::set<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
 	Transform* transform = entity->get_component<Transform>();
 	Collider* collider = entity->get_component<Collider>();
 	
-	glm::mat4 locscale = glm::mat4(1.0f);
-	locscale = glm::scale(locscale, transform->get_scale());
-	locscale = glm::translate(locscale, transform->get_position());
+	glm::mat4 locscale = transform->get_transform_scale_translate();
 
 	glm::vec3 min = locscale * glm::vec4(collider->aabb.min, 1.0f);
 	glm::vec3 max = locscale * glm::vec4(collider->aabb.max, 1.0f);
