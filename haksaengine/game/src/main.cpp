@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 
 	Services::get().get_asset_manager()->set_asset_directory_path("../../../assets/");
 
-	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
+	/*unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
 	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("units/archer.bpr");
 	unsigned int crate_bpr_id = Services::get<AssetManager>()->load_asset<Blueprint>("crate.bpr");
 
@@ -70,9 +70,9 @@ int main(int argc, char** argv)
 		player = new Player;
 		player->colour = (PlayerColour)std::abs(j % 3);
 		entity->add_component(player);
-	}
+	}*/
 
-	Services::get().get_scene_manager()->create_terrain(6u, 6u, "basic.tileset");
+	Services::get().get_scene_manager()->load_scene("myscene.scene");
 
 	Services::get().get_system_manager()->create<CameraControllerScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 	Services::get().get_system_manager()->create<InputScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 1));
