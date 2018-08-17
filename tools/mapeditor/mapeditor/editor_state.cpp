@@ -43,3 +43,23 @@ void HeightDeformState::execute(void)
 		Services::get().get_event_manager()->dispatch(move_camera);
 	}
 }
+
+void UnitPlaceState::execute(void)
+{
+	const Mouse& mouse = Services::get().get_input_manager()->get_mouse();
+
+	if (mouse.released(MouseButtonType::Button_1))
+	{
+		Event unit_place_request;
+		unit_place_request.event_type = "UnitPlaceRequestEvent";
+
+		Services::get().get_event_manager()->dispatch(unit_place_request);
+	}
+	else if (mouse.pressed(MouseButtonType::Button_2) || mouse.scroll() != 0.0f)
+	{
+		Event move_camera;
+		move_camera.event_type = "MoveCameraEvent";
+
+		Services::get().get_event_manager()->dispatch(move_camera);
+	}
+}

@@ -34,3 +34,9 @@ class HeightDeformState : public EditorState
 public:
 	void execute(void) override;
 };
+
+class UnitPlaceState : public EditorState
+{
+public:
+	void execute(void) override;
+};
