@@ -240,6 +240,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="io\mdl.h" />
     <ClInclude Include="io\mdl_loader.h" />
     <ClInclude Include="io\scene_loader.h" />
+    <ClInclude Include="io\scene_writer.h" />
     <ClInclude Include="io\shader_loader.h" />
     <ClInclude Include="io\texture_loader.h" />
     <ClInclude Include="io\tileset_loader.h" />
@@ -293,6 +294,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClCompile Include="io\mdl.cpp" />
     <ClCompile Include="io\mdl_loader.cpp" />
     <ClCompile Include="io\scene_loader.cpp" />
+    <ClCompile Include="io\scene_writer.cpp" />
     <ClCompile Include="io\shader_loader.cpp" />
     <ClCompile Include="io\texture_loader.cpp" />
     <ClCompile Include="io\tileset_loader.cpp" />
