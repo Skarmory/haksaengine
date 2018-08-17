@@ -1,0 +1,27 @@
+Components:
+	Transform:
+	[
+		float px 0.0f;
+		float py 0.0f;
+		float pz 0.0f;
+		float rx -90.0f;
+		float ry 0.0f;
+		float rz 0.0f;
+		float sx 10.0f;
+		float sy 10.0f;
+		float sz 10.0f;
+	]
+	Renderable:
+	[
+		external model tree.mdl;
+		external shader basic.shader;
+	]
+	Collider:
+	[
+		float min_x -10;
+		float min_y -8;
+		float min_z -10;
+		float max_x 10;
+		float max_y 8;
+		float max_z 10;
+	]
