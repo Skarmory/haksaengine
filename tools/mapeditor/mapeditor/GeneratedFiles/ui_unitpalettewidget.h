@@ -27,6 +27,8 @@ public:
     QVBoxLayout *verticalLayout;
     QGroupBox *units_group_box;
     QGridLayout *gridLayout;
+    QGroupBox *objects_group_box;
+    QGridLayout *gridLayout_2;
 
     void setupUi(QWidget *UnitPaletteWidget)
     {
@@ -46,6 +48,15 @@ public:
 
         verticalLayout->addWidget(units_group_box);
 
+        objects_group_box = new QGroupBox(UnitPaletteWidget);
+        objects_group_box->setObjectName(QStringLiteral("objects_group_box"));
+        gridLayout_2 = new QGridLayout(objects_group_box);
+        gridLayout_2->setSpacing(6);
+        gridLayout_2->setContentsMargins(11, 11, 11, 11);
+        gridLayout_2->setObjectName(QStringLiteral("gridLayout_2"));
+
+        verticalLayout->addWidget(objects_group_box);
+
 
         retranslateUi(UnitPaletteWidget);
 
@@ -56,6 +67,7 @@ public:
     {
         UnitPaletteWidget->setWindowTitle(QApplication::translate("UnitPaletteWidget", "UnitPaletteWidget", nullptr));
         units_group_box->setTitle(QApplication::translate("UnitPaletteWidget", "Units", nullptr));
+        objects_group_box->setTitle(QApplication::translate("UnitPaletteWidget", "Objects", nullptr));
     } // retranslateUi
 
 };

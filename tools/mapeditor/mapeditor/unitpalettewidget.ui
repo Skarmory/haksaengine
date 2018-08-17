@@ -22,6 +22,14 @@
      <layout class="QGridLayout" name="gridLayout"/>
     </widget>
    </item>
+   <item>
+    <widget class="QGroupBox" name="objects_group_box">
+     <property name="title">
+      <string>Objects</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_2"/>
+    </widget>
+   </item>
   </layout>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
