@@ -69,6 +69,9 @@
     <ClCompile Include="input_signal_processor.cpp">
       <Filter>Source Files\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="unit_placer.cpp">
+      <Filter>Source Files\Systems</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="mapeditor.h">
@@ -111,6 +114,9 @@
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
     <ClInclude Include="input_signal_processor.h">
+      <Filter>Header Files\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="unit_placer.h">
       <Filter>Header Files\Systems</Filter>
     </ClInclude>
   </ItemGroup>
