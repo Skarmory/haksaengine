@@ -34,12 +34,19 @@ public:
 	HAKSAENGINE_API Entity& create_and_get_entity(const Blueprint* blueprint);
 
 	// Destroy an entity by id. Sends an EntityDestroyedEvent
-	HAKSAENGINE_API void destroy_entity(unsigned int id);
+	HAKSAENGINE_API void destroy_entity(unsigned int id, bool immediate=false);
 
 	// Get entity by id
 	HAKSAENGINE_API Entity* get_entity(unsigned int id);
 
+	void update(void);
+
+private:
+
+	void _destroy_entity(unsigned int id);
+
 private:
 	unsigned int next_id;
 	std::unordered_map<unsigned int, Entity> _entities;
+	std::vector<unsigned int> _obsolete;
 };
