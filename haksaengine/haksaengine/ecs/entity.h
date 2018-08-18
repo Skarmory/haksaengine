@@ -12,6 +12,8 @@
 /* In essence, it represents any object or behaviour in a game, from a character to a spawn system. What is represents is determined by what components are attached to it. */
 class Entity
 {
+	friend class EntityManager;
+
 public:
 	HAKSAENGINE_API Entity(void);
 	HAKSAENGINE_API Entity(unsigned int id, unsigned int blueprint);
@@ -69,9 +71,16 @@ public:
 		}
 	}
 
+	// Is this entity obsolete
+	bool is_obsolete(void) const
+	{
+		return _obsolete;
+	}
+
 private:
 	unsigned int _id;
 	unsigned int _blueprint;
 	bool _from_blueprint;
+	bool _obsolete;
 	std::unordered_map<std::type_index, BaseComponent*> _components;
 };
