@@ -112,6 +112,7 @@ void Engine::one_frame(void)
 	SystemManager* sysman = services.get_system_manager();
 	SceneManager* sceneman = services.get_scene_manager();
 	InputManager* inputman = services.get_input_manager();
+	EntityManager* entityman = services.get_entity_manager();
 	Renderer* renderer = services.get_renderer();
 	GameTime* time = services.get_game_time();
 
@@ -130,6 +131,8 @@ void Engine::one_frame(void)
 			inputman->reset_states();
 			inputman->update();
 		}
+
+		entityman->update();
 
 		sysman->update_systems(FIXED_TIME_STEP, UpdatePriority::POSTINPUT);
 
