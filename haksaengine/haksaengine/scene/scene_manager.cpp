@@ -11,6 +11,7 @@
 SceneManager::SceneManager(void)
 {
 	Services::get<EventManager>()->subscribe("EntityCreatedEvent", this);
+	Services::get<EventManager>()->subscribe("EntityDestroyedEvent", this);
 }
 
 SceneManager::~SceneManager(void)
@@ -36,10 +37,14 @@ void SceneManager::on_event(Event ev)
 	}
 	else if (ev.event_type == "EntityDestroyedEvent")
 	{
-		auto it = std::lower_bound(_transformable_entities.begin(), _transformable_entities.end(), ev.arguments[0].as_uint);
+		auto it = std::find(_transformable_entities.begin(), _transformable_entities.end(), ev.arguments[0].as_uint);
 		
 		if (it != _transformable_entities.end())
-			_transformable_entities.erase(it);
+		{
+			std::iter_swap(it, _transformable_entities.end() - 1);
+
+			_transformable_entities.pop_back();
+		}
 	}
 }
 
