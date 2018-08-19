@@ -10,6 +10,8 @@
 
 AnimationLodSystem::AnimationLodSystem(SystemOrdering order) : System(order)
 {
+	// Set up some default LoD data
+	// TODO: External data should define this information
 	_lod_intervals.resize(5);
 	_lod_distances.resize(5);
 
@@ -23,6 +25,7 @@ AnimationLodSystem::AnimationLodSystem(SystemOrdering order) : System(order)
 
 void AnimationLodSystem::update(float delta)
 {
+	// Only update entities that are actually visible
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
 	const Entity& camera = Services::get<SceneManager>()->get_main_camera();

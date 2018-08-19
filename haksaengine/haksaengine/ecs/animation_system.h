@@ -20,9 +20,8 @@ public:
 
 private:
 
-	// Threaded update
-	void _do_animator_update(int start, int count, float delta);
-	void _do_animation_update(int start, int count, const std::vector<unsigned int>& culled_entities, float delta);
+	void _do_animator_update(float delta);
+	void _do_animation_update(const std::vector<unsigned int>& culled_entities, float delta);
 
 	// Descend the animation pose node tree and set the final transform for each bone
 	void _process_bone_hierarchy(const BonePoseNode* node, float time, const std::vector<BonePoseNode>& nodes, const std::vector<Bone>& bones, std::vector<glm::mat4>& final_transforms, glm::mat4 parent_transform);

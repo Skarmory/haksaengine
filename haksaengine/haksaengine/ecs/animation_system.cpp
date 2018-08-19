@@ -20,8 +20,8 @@ void AnimationSystem::update(float delta)
 {
 	std::vector<unsigned int> culled_entities = Services::get<SceneManager>()->cull_by_main_camera(_entities);
 
-	_do_animator_update(0, _entities.size(), delta);
-	_do_animation_update(0, culled_entities.size(), culled_entities, delta);
+	_do_animator_update(delta);
+	_do_animation_update(culled_entities, delta);
 }
 
 void AnimationSystem::on_event(Event ev)
@@ -48,15 +48,18 @@ void AnimationSystem::on_event(Event ev)
 		unsigned int entity_id = ev.arguments[0].as_uint;
 		std::vector<unsigned int>::iterator it;
 		if ((it = std::find(_entities.begin(), _entities.end(), entity_id)) != _entities.end())
-			_entities.erase(it);
+		{
+			std::iter_swap(it, _entities.end() - 1);
+			_entities.pop_back();
+		}
 	}
 }
 
-void AnimationSystem::_do_animator_update(int start, int count, float delta)
+void AnimationSystem::_do_animator_update(float delta)
 {
-	for(int i = start; i < (start + count); i++)
+	for(auto eid : _entities)
 	{
-		Entity* entity = Services::get<EntityManager>()->get_entity(_entities[i]);
+		Entity* entity = Services::get<EntityManager>()->get_entity(eid);
 
 		Animator* animator = entity->get_component<Animator>();
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();
@@ -75,11 +78,11 @@ void AnimationSystem::_do_animator_update(int start, int count, float delta)
 	}
 }
 
-void AnimationSystem::_do_animation_update(int start, int count, const std::vector<unsigned int>& culled_entities, float delta)
+void AnimationSystem::_do_animation_update(const std::vector<unsigned int>& culled_entities, float delta)
 {
-	for(int i = start; i < (start + count); i++)
+	for(auto eid : culled_entities)
 	{
-		Entity* entity = Services::get<EntityManager>()->get_entity(culled_entities[i]);
+		Entity* entity = Services::get<EntityManager>()->get_entity(eid);
 
 		Animator* animator = entity->get_component<Animator>();
 		SkinnedRenderable* renderable = entity->get_component<SkinnedRenderable>();

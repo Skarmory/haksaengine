@@ -3,6 +3,7 @@
 #include "ecs/system.h"
 #include "system_ordering.h"
 
+// Class to set the LoD level of animated characters
 class AnimationLodSystem : public System
 {
 public:
@@ -16,5 +17,4 @@ private:
 
 	std::vector<float> _lod_intervals;
 	std::vector<float> _lod_distances;
-
 };
