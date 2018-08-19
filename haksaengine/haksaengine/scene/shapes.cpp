@@ -63,12 +63,51 @@
 	if (x2 > max) max = x2;
 
 
+#define RIGHT  0
+#define LEFT   1
+#define MIDDLE 2
+
 Triangle::Triangle(glm::vec3 v1, glm::vec3 v2, glm::vec3 v3) : v1(v1), v2(v2), v3(v3), normal(glm::normalize(glm::cross(v2-v1, v3-v1)))
 {
 }
 
 Triangle::Triangle(void) : Triangle(glm::vec3(0.0, 1.0f, 0.0f), glm::vec3(-0.5, 0.0f, 0.0f), glm::vec3(0.5f, 0.0f, 0.0f))
 {
+}
+
+bool Triangle::intersect(const Ray& ray, glm::vec3& xsect)
+{
+	glm::vec3 e1 = v2 - v1;
+	glm::vec3 e2 = v3 - v1;
+
+	glm::vec3 q = glm::cross(ray.direction, e2);
+
+	float a = glm::dot(e1, q);
+
+	if (a > -0.00001f && a < 0.00001)
+		return false;
+
+	float f = 1.0f / a;
+
+	glm::vec3 s = ray.position - v1;
+
+	float u = f * glm::dot(s, q);
+
+	if (u < 0.0f)
+		return false;
+
+	glm::vec3 r = glm::cross(s, e1);
+
+	float v = f * glm::dot(ray.direction, r);
+
+	if (v < 0.0f || u + v > 1.0f)
+		return false;
+
+	float t = f * glm::dot(e2, r);
+
+	xsect = (1.0f - u - v) * v1 + u * v2 + v * v3;
+
+	return true;
 }
 
 Plane::Plane(glm::vec3 normal, glm::vec3 position) : normal(normal), position(position)
@@ -188,4 +227,73 @@ bool AABB::intersect(glm::vec3 point) const
 		return true;
 
 	return false;
+}
+
+bool AABB::intersect(const Ray& ray, glm::vec3& xsect) const
+{
+	bool inside = true;
+	char quadrant[3];
+	float max_T[3];
+	float candidate_plane[3];
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (ray.position[i] < min[i])
+		{
+			quadrant[i] = LEFT;
+			candidate_plane[i] = min[i];
+			inside = false;
+		}
+		else if(ray.position[i] > max[i])
+		{
+			quadrant[i] = RIGHT;
+			candidate_plane[i] = max[i];
+			inside = false;
+		}
+		else
+		{
+			quadrant[i] = MIDDLE;
+		}
+	}
+
+	if (inside)
+		return true;
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (quadrant[i] != MIDDLE && ray.direction[i] != 0.0f)
+		{
+			max_T[i] = (candidate_plane[i] - ray.position[i]) / ray.direction[i];
+		}
+		else
+		{
+			max_T[i] = -1.0f;
+		}
+	}
+
+	char which_plane = 0;
+	for (int i = 1; i < 3; i++)
+	{
+		if (max_T[which_plane] < max_T[i])
+			which_plane = i;
+	}
+
+	if (max_T[which_plane] < 0.0f)
+		return false;
+
+	for (int i = 0; i < 3; i++)
+	{
+		if (which_plane != i)
+		{
+			xsect[i] = ray.position[i] + max_T[which_plane] * ray.direction[i];
+			if (xsect[i] < min[i] || xsect[i] > max[i])
+				return false;
+		}
+		else
+		{
+			xsect[i] = candidate_plane[i];
+		}
+	}
+
+	return true;
 }
