@@ -209,25 +209,15 @@ TerrainVertexData* Terrain::intersect(const Ray& ray)
 
 bool Terrain::intersect(const Ray& ray, glm::vec3& closest)
 {
-	TerrainVertexData *v1, *v2, *v3;
+	std::set<TerrainTriangle*> xsects = _quadtree->get_intersections(ray);
 
 	glm::vec3 xsect;
 	float closest_length = std::numeric_limits<float>::max();
 
-	unsigned int index1, index2, index3;
-
 	// Go through triangles and try intersect
-	for (unsigned int i = 0; i < _indices.size(); i += 3)
+	for(auto tri_ptr : xsects)
 	{
-		index1 = _indices[i];
-		index2 = _indices[i + 1];
-		index3 = _indices[i + 2];
-
-		v1 = &_vertices[index1];
-		v2 = &_vertices[index2];
-		v3 = &_vertices[index3];
-
-		if (intersect_triangle(ray, v1->position, v2->position, v3->position, xsect))
+		if(tri_ptr->intersect(ray, xsect))
 		{
 			// We intersect here, now check if it's closer
 			if (glm::length2(xsect) < closest_length)
