@@ -60,6 +60,15 @@ std::set<TerrainTriangle*> TerrainQuadTree::get_intersections(Entity* entity)
 	return ret;
 }
 
+std::set<TerrainTriangle*> TerrainQuadTree::get_intersections(const Ray& ray)
+{
+	std::set<TerrainTriangle*> ret;
+
+	_origin->gather_intersections(ret, ray);
+
+	return ret;
+}
+
 void TerrainQuadTree::TerrainQuadTreeNode::add(TerrainTriangle* triangle)
 {
 	// If has subnodes
@@ -157,7 +166,35 @@ void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::set<Terrain
 			if (aabb.intersect(*object))
 			{
 				intersects.insert(object);
-				/*intersects.push_back(&object);*/
+			}
+		}
+	}
+}
+
+void TerrainQuadTree::TerrainQuadTreeNode::gather_intersections(std::set<TerrainTriangle*>& intersects, const Ray& ray)
+{
+	if (_tl)
+	{
+		glm::vec3 xsect;
+		if (_tl->_aabb.intersect(ray, xsect))
+			_tl->gather_intersections(intersects, ray);
+
+		if (_tr->_aabb.intersect(ray, xsect))
+			_tr->gather_intersections(intersects, ray);
+
+		if (_bl->_aabb.intersect(ray, xsect))
+			_bl->gather_intersections(intersects, ray);
+
+		if (_br->_aabb.intersect(ray, xsect))
+			_br->gather_intersections(intersects, ray);
+	}
+	else
+	{
+		for (auto& object : _objects)
+		{
+			if (_aabb.intersect(*object))
+			{
+				intersects.insert(object);
 			}
 		}
 	}

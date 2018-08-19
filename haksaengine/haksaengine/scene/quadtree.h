@@ -31,6 +31,7 @@ public:
 
 
 	std::set<TerrainTriangle*> get_intersections(Entity* entity);
+	std::set<TerrainTriangle*> get_intersections(const Ray& ray);
 
 private:
 	
@@ -44,6 +45,7 @@ private:
 		void add(TerrainTriangle* triangle);
 
 		void gather_intersections(std::set<TerrainTriangle*>& intersects, const AABB& aabb);
+		void gather_intersections(std::set<TerrainTriangle*>& intersects, const Ray& ray);
 
 	private:
 		static const int _objects_per_node = 30;
