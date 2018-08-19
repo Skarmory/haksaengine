@@ -1,6 +1,6 @@
-# Haksaengine 
+﻿# Haksaengine 
 
-Haksaengine (portmanteau of the Korean word "haksaeng" and "engine") is an open source game engine written from scratch using C++. It is being developed as the final project for my MSc.
+Haksaengine (portmanteau of the Korean word "학생" and "engine") is an open source game engine written from scratch using C++. It is being developed as the final project for my MSc.
 
 The engine is being designed with RTS games in mind for the most part, however it is still being kept as modular as I can make it.
 
