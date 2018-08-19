@@ -51,6 +51,9 @@ void Renderer::render(void)
 	_update_buffers(&scene_uniform_cmd);
 	// DEBUG
 
+	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
 	// Go through all the commands submitted this frame and process them
 	const RenderCommand* command;
 	for (int i = 0; i < _command_count; i++)

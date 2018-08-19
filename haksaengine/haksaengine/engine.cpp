@@ -67,7 +67,6 @@ void Engine::initialise(void)
 	glEnable(GL_CULL_FACE);
 
 	Renderer* renderer = new Renderer;
-	GameTime* game_time = new GameTime;
 	ComponentManager* compman = new ComponentManager;
 	SystemManager* sysman = new SystemManager;
 
@@ -79,7 +78,6 @@ void Engine::initialise(void)
 	services.set_scene_manager(new SceneManager);
 	services.set_renderer(renderer);
 	services.set_system_manager(sysman);
-	services.set_game_time(game_time);
 
 	// Create engine defined systems
 	sysman->create<CollisionResponse>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
@@ -97,6 +95,10 @@ void Engine::initialise(void)
 	compman->register_component<Animator>("Animator");
 	compman->register_component<Collider>("Collider");
 	compman->register_component<Movement>("Movement");
+
+	// Initialise game time last because it starts ticking immediately
+	GameTime* game_time = new GameTime;
+	services.set_game_time(game_time);
 
 	_state = EngineState::Ready;
 }
@@ -142,11 +144,8 @@ void Engine::one_frame(void)
 
 		accumulator -= FIXED_TIME_STEP;
 	}
+
 	sysman->update_systems(delta, UpdatePriority::PRERENDER);
-
-
-	glClearColor(0.5f, 0.5f, 0.5f, 1.0f);
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	sceneman->draw_terrain();
 
