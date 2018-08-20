@@ -15,6 +15,7 @@ The project uses the following 3rd party libraries:
 - GLFW 3
 - OpenGL 4.5
 - GLEW
+- Assimp (fbx2mdl only)
 
 These aren't included in this repository and will need to be sourced manually.
 
