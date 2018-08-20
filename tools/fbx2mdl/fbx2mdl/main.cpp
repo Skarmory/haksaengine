@@ -72,6 +72,7 @@ std::unordered_map<std::string, Bone> bone_map;
 std::vector<aiNodeAnim*> animation_nodes;
 std::vector<BonePose*> pose_nodes;
 Animation animation;
+std::string file_name;
 
 // Find animation node by name
 aiNodeAnim* find_anim_node(const std::string& node_name)
@@ -165,7 +166,7 @@ void flatten_node_hierarchy(aiNode* node, BonePose* parent)
 
 void write_mdl(void)
 {
-	std::string out_file_name = "tree.mdl";
+	std::string out_file_name = file_name.replace(file_name.end() - 3, file_name.end(), "mdl");
 
 	std::ofstream stream(out_file_name, std::ofstream::out);
 
@@ -342,7 +343,7 @@ void write_mdl(void)
 
 int main(int argc, char** argv)
 {
-	std::string file_name = argv[1];
+	file_name = argv[1];
 
 	Assimp::Importer importer;
 
