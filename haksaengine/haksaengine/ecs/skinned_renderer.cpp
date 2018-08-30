@@ -165,7 +165,10 @@ void SkinnedRenderer::on_event(Event ev)
 		unsigned int entity_id = ev.arguments[0].as_uint;
 		std::vector<unsigned int>::iterator it;
 		if ((it = std::find(_entities.begin(), _entities.end(), entity_id)) != _entities.end())
-			_entities.erase(it);
+		{
+			std::iter_swap(it, _entities.end() - 1);
+			_entities.pop_back();
+		}
 	}
 }
 
