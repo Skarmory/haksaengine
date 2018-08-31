@@ -138,12 +138,12 @@ void Engine::one_frame(void)
 
 		sysman->update_systems(FIXED_TIME_STEP, UpdatePriority::POSTINPUT);
 
-		sceneman->cull_entities();
-
 		sysman->update_systems(FIXED_TIME_STEP, UpdatePriority::GAMEPLAY);
 
 		accumulator -= FIXED_TIME_STEP;
 	}
+
+	sceneman->cull_entities();
 
 	sysman->update_systems(delta, UpdatePriority::PRERENDER);
 
