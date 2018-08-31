@@ -16,7 +16,7 @@
 
 #include "asset_manager.h"
 
-SkinnedRenderer::SkinnedRenderer(SystemOrdering order) : RenderLogicSystem(order)
+SkinnedRenderer::SkinnedRenderer(SystemOrdering order) : RenderLogicSystem(order), _need_sort(false)
 {
 	glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, (GLint*)&_instances_max);
 
@@ -42,6 +42,12 @@ void SkinnedRenderer::update(float delta)
 
 	if (culled_entities.size() == 0)
 		return;
+
+	if (_need_sort)
+	{
+		std::sort(_entities.begin(), _entities.end(), _order_for_render);
+		_need_sort = false;
+	}
 
 	// Get camera info
 	const Entity& main_camera = Services::get<SceneManager>()->get_main_camera();
@@ -158,7 +164,10 @@ void SkinnedRenderer::on_event(Event ev)
 		Entity* entity = Services::get<EntityManager>()->get_entity(entity_id);
 
 		if (entity->has_component<SkinnedRenderable>())
+		{
+			_need_sort = true;
 			_entities.push_back(entity_id);
+		}
 	}
 	else if (ev.event_type == "EntityDestroyedEvent")
 	{
@@ -235,4 +244,20 @@ void SkinnedRenderer::_draw(const MDLFile& mdl, const SkinnedRenderable* rendera
 		update_uniform<PerDrawDataSkinned>(PER_DRAW_UNIFORM_BIND_POINT, per_draw);
 		draw_indexed(PrimitiveType::Triangles, submesh->index_count(), 0);
 	}
+}
+
+bool SkinnedRenderer::_order_for_render(unsigned int& left, unsigned int& right)
+{
+	EntityManager* entityman = Services::get().get_entity_manager();
+
+	SkinnedRenderable* left_renderable = entityman->get_entity(left)->get_component<SkinnedRenderable>();
+	SkinnedRenderable* right_renderable = entityman->get_entity(right)->get_component<SkinnedRenderable>();
+
+	if (left_renderable->shader < right_renderable->shader)
+		return true;
+
+	if (left_renderable->model < right_renderable->model)
+		return true;
+
+	return false;
 }

@@ -22,8 +22,12 @@ private:
 	void _draw_instanced(const MDLFile& mdl, const SkinnedRenderable* renderable, unsigned int instances);
 	void _draw(const MDLFile& mdl, const SkinnedRenderable* renderable, PerDrawDataSkinned* per_draw);
 
+	// Sorting function that sorts entities by their shader ID first and then by their MDL ID
+	static bool _order_for_render(unsigned int& left, unsigned int& right);
+
 private:
 	
+	bool _need_sort;
 	unsigned int _instances_max;
 	PerInstanceData* _per_instance_data;
 };
