@@ -14,11 +14,15 @@ TerrainQuadTree::TerrainQuadTree(AABB aabb)
 
 TerrainQuadTree::~TerrainQuadTree(void)
 {
+	for (auto object : _all_objects)
+		delete object;
+
 	delete _origin;
 }
 
 void TerrainQuadTree::add(TerrainTriangle* triangle)
 {
+	_all_objects.push_back(triangle);
 	_origin->add(triangle);
 }
 
@@ -29,9 +33,6 @@ TerrainQuadTree::TerrainQuadTreeNode::TerrainQuadTreeNode(AABB aabb)
 
 TerrainQuadTree::TerrainQuadTreeNode::~TerrainQuadTreeNode(void)
 {
-	for (auto object : _objects)
-		delete object;
-
 	if (_tl)
 	{
 		delete _tl;

@@ -35,7 +35,6 @@ public:
 
 	void add(TerrainTriangle* triangle);
 
-
 	std::set<TerrainTriangle*> get_intersections(Entity* entity);
 	std::set<TerrainTriangle*> get_intersections(const Ray& ray);
 
@@ -65,5 +64,6 @@ private:
 		std::vector<TerrainTriangle*> _objects;
 	};
 
+	std::vector<TerrainTriangle*> _all_objects;
 	TerrainQuadTreeNode* _origin;
 };

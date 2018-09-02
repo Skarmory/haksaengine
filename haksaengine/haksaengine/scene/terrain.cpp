@@ -10,7 +10,9 @@ void Terrain::update(TerrainVertexData* data)
 {
 	unsigned int flattened_index = _flatten_coord(data->x, data->y);
 
-	_vertices[flattened_index] = *data;
+	_vertices[flattened_index].position = data->position;
+	_vertices[flattened_index].normal = data->normal;
+	_vertices[flattened_index].texture = data->texture;
 
 	_update_normals(data);
 
