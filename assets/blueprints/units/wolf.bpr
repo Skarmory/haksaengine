@@ -1,0 +1,27 @@
+Components:
+	Transform:
+	[
+		float px 0.0f;
+		float py 0.0f;
+		float pz 0.0f;
+		float rx 0.0f;
+		float ry 0.0f;
+		float rz 0.0f;
+		float sx 0.1f;
+		float sy 0.1f;
+		float sz 0.1f;
+	]
+	Renderable:
+	[
+		external model wolf.mdl;
+		external shader basic.shader;
+	]
+	Collider:
+	[
+		float min_x -5;
+		float min_y -5;
+		float min_z -5;
+		float max_x 5;
+		float max_y 5;
+		float max_z 5;
+	]
