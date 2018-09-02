@@ -25,3 +25,7 @@ Components:
 		float max_y 5;
 		float max_z 5;
 	]
+	Movement:
+	[
+		float speed 10.0f;
+	]

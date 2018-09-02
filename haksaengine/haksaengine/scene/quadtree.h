@@ -7,16 +7,22 @@
 
 #include "scene/terrain.h"
 #include "scene/shapes.h"
+#include "scene/terrain_vertex_data.h"
 #include "ecs/entity.h"
 #include "ecs/collider.h"
 
-
 struct TerrainVertexData;
-
 
 struct TerrainTriangle : public Triangle
 {
 	TerrainTriangle(TerrainVertexData* v1, TerrainVertexData* v2, TerrainVertexData* v3);
+
+	void _sync(void)
+	{
+		this->v1 = tv1->position;
+		this->v2 = tv2->position;
+		this->v3 = tv3->position;
+	}
 
 	TerrainVertexData *tv1, *tv2, *tv3;
 };

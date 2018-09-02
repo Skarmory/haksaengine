@@ -217,6 +217,8 @@ bool Terrain::intersect(const Ray& ray, glm::vec3& closest)
 	// Go through triangles and try intersect
 	for(auto tri_ptr : xsects)
 	{
+		tri_ptr->_sync();
+
 		if(tri_ptr->intersect(ray, xsect))
 		{
 			// We intersect here, now check if it's closer

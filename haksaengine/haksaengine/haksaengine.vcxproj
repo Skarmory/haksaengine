@@ -251,6 +251,7 @@ xcopy "$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\$(Platform)\lib-vc2015\glfw3.dl
     <ClInclude Include="scene\shapes.h" />
     <ClInclude Include="scene\terrain.h" />
     <ClInclude Include="scene\terrain_gen.h" />
+    <ClInclude Include="scene\terrain_vertex_data.h" />
     <ClInclude Include="service.h" />
     <ClInclude Include="services.h" />
     <ClInclude Include="stdafx.h" />

@@ -61,8 +61,8 @@ Terrain* TerrainGenerator::generate(unsigned int width, unsigned int height, con
 	glm::vec3 min = terrain->_index_to_world(0, 0);
 	glm::vec3 max = terrain->_index_to_world(width, height);
 
-	min.y = -25.0f;
-	max.y = 25.0f;
+	min.y = -100.0f;
+	max.y = 100.0f;
 
 	terrain->_vertices = vertices;
 	terrain->_indices = indices;

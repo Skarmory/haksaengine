@@ -278,6 +278,9 @@
     <ClInclude Include="io\scene_loader.h">
       <Filter>Header Files\io</Filter>
     </ClInclude>
+    <ClInclude Include="scene\terrain_vertex_data.h">
+      <Filter>Header Files\scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ecs\entity.cpp">

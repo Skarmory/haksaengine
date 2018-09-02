@@ -13,20 +13,12 @@
 
 #include "scene/ray.h"
 #include "scene/quadtree.h"
+#include "scene/terrain_vertex_data.h"
 
 #include "ecs/entity.h"
 
 class TerrainQuadTree;
 struct TerrainTriangle;
-
-struct TerrainVertexData
-{
-	unsigned int x;
-	unsigned int y;
-	glm::vec3 position;
-	glm::vec3 normal;
-	unsigned int texture;
-};
 
 class Terrain
 {
