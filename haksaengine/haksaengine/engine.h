@@ -24,7 +24,8 @@ enum class EngineState
 {
 	Uninitialised   = 0,
 	Ready           = 1,
-	ProcessingFrame = 2
+	ProcessingFrame = 2,
+	Quit		    = 3
 };
 
 /* Entrypoint into the engine itself. Binds everything together. */

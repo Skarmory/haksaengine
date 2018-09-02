@@ -158,7 +158,10 @@ void Engine::one_frame(void)
 		game_window->swap_buffers();
 	}
 
-	_state = EngineState::Ready;
+	if (_mode == EngineMode::Game && game_window->window_close())
+		_state = EngineState::Quit;
+	else
+		_state = EngineState::Ready;
 }
 
 void Engine::run(void)
@@ -167,6 +170,8 @@ void Engine::run(void)
 	{
 		one_frame();
 	}
+
+	_state = EngineState::Quit;
 }
 
 EngineState Engine::get_state(void) const

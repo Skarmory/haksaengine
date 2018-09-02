@@ -20,5 +20,5 @@ public:
 
 private:
 
-	const glm::vec3 _gravity = glm::vec3(0.0f, -9.8f, 0.0f);
+	const glm::vec3 _gravity = glm::vec3(0.0f, -128.0f, 0.0f);
 };
