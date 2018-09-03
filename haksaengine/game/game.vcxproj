@@ -104,7 +104,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)game\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -116,7 +116,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)game\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>haksaengine.lib;%(AdditionalDependencies)</AdditionalDependencies>
@@ -130,7 +130,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)game\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -146,7 +146,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)game\include;$(ProjectDir)include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
       <OmitFramePointers>true</OmitFramePointers>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>

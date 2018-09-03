@@ -35,7 +35,7 @@ namespace haksaengine_test
 		{
 			BaseComponent* c = new TestComponentA;
 			BaseComponent* d = new TestComponentB;
-			Entity e(0);
+			Entity e(0, 0);
 
 			e.add_component(c);
 			e.add_component(d);
@@ -49,7 +49,7 @@ namespace haksaengine_test
 			TestComponentA* c = new TestComponentA;
 			c->data = 7.77f;
 
-			Entity e(0);
+			Entity e(0, 0);
 
 			e.add_component(c);
 
@@ -65,7 +65,7 @@ namespace haksaengine_test
 		{
 			TestComponentA* c = new TestComponentA;
 
-			Entity e(0);
+			Entity e(0, 0);
 
 			e.add_component(c);
 
@@ -83,7 +83,7 @@ namespace haksaengine_test
 		TEST_METHOD(Entity_get_id_test)
 		{
 			unsigned int id = 7777;
-			Entity e(id);
+			Entity e(id, 0);
 
 			Assert::AreEqual(id, e.get_id());
 		}
@@ -144,7 +144,7 @@ namespace haksaengine_test
 		};
 
 		Services* services;
-		SystemOrdering order = SystemOrdering(UpdatePriority::GAMEPLAY, 0);
+		SystemOrdering order = SystemOrdering(0, UpdatePriority::GAMEPLAY, 0);
 
 		TEST_METHOD_INITIALIZE(setup)
 		{
@@ -218,7 +218,7 @@ namespace haksaengine_test
 
 			Assert::AreEqual((unsigned int)0, e1_id);
 
-			entity_man->destroy_entity(e1_id);
+			entity_man->destroy_entity(e1_id, true);
 
 			Assert::IsNull(entity_man->get_entity(e1_id));
 		}

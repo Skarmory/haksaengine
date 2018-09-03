@@ -41,7 +41,7 @@ namespace haksaengine_test
 		};
 
 		Services* services;
-		SystemOrdering order = SystemOrdering(UpdatePriority::GAMEPLAY, 0);
+		SystemOrdering order = SystemOrdering(SystemOrdering(0, UpdatePriority::GAMEPLAY, 0));
 
 		TEST_METHOD_INITIALIZE(setup)
 		{

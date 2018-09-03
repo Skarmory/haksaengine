@@ -104,14 +104,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)game\include;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNITTESTPRJ="$(ProjectDir).";_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;animation_lod_system.obj;animation_system.obj;array_texture.obj;asset_manager.obj;basic_render_system.obj;blueprint.obj;blueprint_loader.obj;camera_controller.obj;collision_response.obj;dllmain.obj;engine.obj;entity.obj;entity_manager.obj;event_manager.obj;frustum.obj;game_time.obj;glfw_input_manager.obj;glfw_window.obj;haksaengine.obj;input_manager.obj;key.obj;lodepng.obj;mdl.obj;mdl_loader.obj;mesh.obj;mouse.obj;quadtree.obj;ray.obj;render_command.obj;render_logic_system.obj;renderer.obj;scene_loader.obj;scene_manager.obj;scene_writer.obj;services.obj;shader.obj;shader_loader.obj;shapes.obj;skinned_renderer.obj;stdafx.obj;system.obj;system_manager.obj;terrain.obj;terrain_gen.obj;terrain_mesh.obj;texture.obj;texture_loader.obj;tileset.obj;tileset_loader.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -119,14 +119,14 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)game\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;animation_lod_system.obj;animation_system.obj;array_texture.obj;asset_manager.obj;basic_render_system.obj;blueprint.obj;blueprint_loader.obj;camera_controller.obj;collision_response.obj;dllmain.obj;engine.obj;entity.obj;entity_manager.obj;event_manager.obj;frustum.obj;game_time.obj;glfw_input_manager.obj;glfw_window.obj;haksaengine.obj;input_manager.obj;key.obj;lodepng.obj;mdl.obj;mdl_loader.obj;mesh.obj;mouse.obj;quadtree.obj;ray.obj;render_command.obj;render_logic_system.obj;renderer.obj;scene_loader.obj;scene_manager.obj;scene_writer.obj;services.obj;shader.obj;shader_loader.obj;shapes.obj;skinned_renderer.obj;stdafx.obj;system.obj;system_manager.obj;terrain.obj;terrain_gen.obj;terrain_mesh.obj;texture.obj;texture_loader.obj;tileset.obj;tileset_loader.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -136,7 +136,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)game\include;$(SolutionDir)haksaengine;$(SolutionDir)..\lib\glm;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;UNITTESTPRJ="$(ProjectDir).";NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -145,7 +145,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;animation_lod_system.obj;animation_system.obj;array_texture.obj;asset_manager.obj;basic_render_system.obj;blueprint.obj;blueprint_loader.obj;camera_controller.obj;collision_response.obj;dllmain.obj;engine.obj;entity.obj;entity_manager.obj;event_manager.obj;frustum.obj;game_time.obj;glfw_input_manager.obj;glfw_window.obj;haksaengine.obj;input_manager.obj;key.obj;lodepng.obj;mdl.obj;mdl_loader.obj;mesh.obj;mouse.obj;quadtree.obj;ray.obj;render_command.obj;render_logic_system.obj;renderer.obj;scene_loader.obj;scene_manager.obj;scene_writer.obj;services.obj;shader.obj;shader_loader.obj;shapes.obj;skinned_renderer.obj;stdafx.obj;system.obj;system_manager.obj;terrain.obj;terrain_gen.obj;terrain_mesh.obj;texture.obj;texture_loader.obj;tileset.obj;tileset_loader.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -155,7 +155,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(VCInstallDir)UnitTest\include;$(SolutionDir)\haksaengine;$(SolutionDir)..\lib\glew-2.1.0\include;$(SolutionDir)..\lib\glfw-3.2.1.bin.WIN32\include;$(SolutionDir)..\lib\glm;$(SolutionDir)game\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <UseFullPaths>true</UseFullPaths>
     </ClCompile>
@@ -164,7 +164,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalLibraryDirectories>$(VCInstallDir)UnitTest\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;engine.obj;services.obj;window.obj;asset_manager.obj;render_command.obj;lodepng.obj;event_manager.obj;entity_manager.obj;entity.obj;system.obj;renderer.obj;mdl_loader.obj;mesh.obj;shader_loader.obj;shader.obj;blueprint_loader.obj;blueprint.obj;variant.obj;game_time.obj;camera_controller.obj;mdl.obj;skinned_renderer.obj;basic_render_system.obj;animation_system.obj;scene_manager.obj;system_manager.obj;frustum.obj;texture.obj;render_logic_system.obj;texture_loader.obj;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>opengl32.lib;glfw3.lib;glew32.lib;animation_lod_system.obj;animation_system.obj;array_texture.obj;asset_manager.obj;basic_render_system.obj;blueprint.obj;blueprint_loader.obj;camera_controller.obj;collision_response.obj;dllmain.obj;engine.obj;entity.obj;entity_manager.obj;event_manager.obj;frustum.obj;game_time.obj;glfw_input_manager.obj;glfw_window.obj;haksaengine.obj;input_manager.obj;key.obj;lodepng.obj;mdl.obj;mdl_loader.obj;mesh.obj;mouse.obj;quadtree.obj;ray.obj;render_command.obj;render_logic_system.obj;renderer.obj;scene_loader.obj;scene_manager.obj;scene_writer.obj;services.obj;shader.obj;shader_loader.obj;shapes.obj;skinned_renderer.obj;stdafx.obj;system.obj;system_manager.obj;terrain.obj;terrain_gen.obj;terrain_mesh.obj;texture.obj;texture_loader.obj;tileset.obj;tileset_loader.obj;variant.obj;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>

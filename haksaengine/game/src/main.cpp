@@ -35,7 +35,7 @@ int main(int argc, char** argv)
 
 	Services::get().get_asset_manager()->set_asset_directory_path("../../../assets/");
 
-	/*unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
+	unsigned int camera_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("camera.bpr");
 	unsigned int test_blueprint_id = Services::get().get_asset_manager()->load_asset<Blueprint>("units/archer.bpr");
 	unsigned int crate_bpr_id = Services::get<AssetManager>()->load_asset<Blueprint>("crate.bpr");
 
@@ -53,8 +53,9 @@ int main(int argc, char** argv)
 	Animator* anim;
 	Player* player;
 
-	for (int i = -1; i < 1; i++)
-	for( int j = -1; j < 1; j++)
+	int entities = 0;
+	for (int i = -20; i < 20; i++)
+	for (int j = -20; j < 20; j++)
 	{
 		entity_id = Services::get().get_entity_manager()->create_entity(&test_blueprint);
 
@@ -70,14 +71,19 @@ int main(int argc, char** argv)
 		player = new Player;
 		player->colour = (PlayerColour)std::abs(j % 3);
 		entity->add_component(player);
-	}*/
 
-	Services::get().get_scene_manager()->load_scene("myscene.scene");
+		entities++;
+	}
+
+	Services::get().get_scene_manager()->create_terrain(32u, 32u, "basic.tileset");
 
 	Services::get().get_system_manager()->create<CameraControllerScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 0));
 	Services::get().get_system_manager()->create<InputScript>(SystemOrdering(0, UpdatePriority::POSTINPUT, 1));
 
-	e.run();
+	while (e.get_state() != EngineState::Quit)
+	{
+		e.one_frame();
+	}
 
-	return 0;
+ 	return 0;
 }
