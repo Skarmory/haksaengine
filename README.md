@@ -33,6 +33,4 @@ However, the engine is designed to be modular so you can create custom loaders a
 
 # Future
 
-As stated previously, as far as game engines are concerned, this project is pretty trivial. The aim of the project has so far to rapidly implement a bunch of engine systems, and just get them working.
-Once I actually have free time and no time constraints I plan to overhaul a lot of what's been implemented and bring it in line with what's expected of contemporary game engines.
-This will include things like memory management, proper file parsing, an editor, binary .mdl format, etc..
+Project currently on hold pending the completion of a proper renderer as a standalone project (which will replace the very rushed   terrible renderer this engine currently has)
