@@ -1,4 +1,7 @@
-﻿# Haksaengine 
+**THIS IS NOT A COMPLETE GAME ENGINE - FAR FROM IT. IT IS NOT INTENDED TO BE USED BY ANYONE.**
+IT IS VERY VERY VERY UNFINISHED AND WILL LIKELY NEVER BE UPDATED AGAIN.
+
+# Haksaengine 
 
 Haksaengine (portmanteau of the Korean word "학생" and "engine") is an open source game engine written from scratch using C++. It is being developed as the final project for my MSc.
 
